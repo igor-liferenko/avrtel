@@ -1,0 +1,18 @@
+Synchronous serial link (useful for audio transmission from PC):
+http://masteringarduino.blogspot.ru/2013/11/USART.html
+Set serial on atmega328p this way:
+UCSRC = (1 << UMSEL); //setting the UMSEL bit to 1 for synchronous mode
+//XCK pin (PD.4, pin#6 of ATmega328)
+//do not set the U2X bit of UCSRA register?
+??? |= (1 << DDR_XCK); // search DDR_XCK in manual - link to manual on above blogspot page
+
+HINT: if things will not work properly,
+try to put led on some digital output and turn it on where base_station_was_powered_on
+is checked to be 1 during transition to on-line and turn it off when base_station_was_powered_on
+is checeked to be 0 during transition to off-line; and try to enable pullup mode on PD2
+
+https://electronics.stackexchange.com/questions/43498/
+
+See "The PC audio driver writes playback data to USB as chunks..." at http://imi.aau.dk/~sd/phd/index.php?title=AudioArduino
+
+http://interface.khm.de/index.php/lab/interfaces-advanced/arduino-realtime-audio-processing/
