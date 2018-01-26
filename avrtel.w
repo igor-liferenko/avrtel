@@ -34,7 +34,7 @@ void main(void)
   int on_line = 0; /* we cannot use PORTB state of the led in order to avoid false indications,
     due to reasons described in previous section */
 
-  PORTD |= 1 << PD0; /* set PD0 to pullup mode */
+  @<Set |PD0| to pullup mode@>@;
 
   DDRB |= 1 << PB5;
 
@@ -117,7 +117,7 @@ program on PC to initial state.
 For off-line indication we send `\.{\%}' character to PC---to disable
 power reset on base station after timeout.
 
-See \.{test-AOT127A.w} to recall how it was tested.
+TODO: insert PC817C.png
 
 @<Indicate line state change to the PC@>=
 if (PIND & 1 << PD0) { /* off-line or base station is not powered
@@ -144,3 +144,22 @@ else { /* on-line */
   }
   on_line = 1;
 }
+
+@ The pull-up resistor is connected to the high voltage (this is usually 3.3V or 5V and is
+often refereed to as VCC).
+
+Pull-ups are often used with buttons and switches.
+
+With a pull-up resistor, the input pin will read a high state when the photo-transistor
+is not opened. In other words, a small amount of current is flowing between VCC and the input
+pin (not to ground), thus the input pin reads close to VCC. When the photo-transistor is
+opened, it connects the input pin directly to ground. The current flows through the resistor
+to ground, thus the input pin reads a low state.
+
+Since pull-up resistors are so commonly needed, many MCUs, like the ATmega328 microcontroller
+on the Arduino platform, have internal pull-ups that can be enabled and disabled.
+
+TODO: insert pullup.svg
+
+@<Set |PD0| to pullup mode@>=
+PORTD |= 1 << PD0;
