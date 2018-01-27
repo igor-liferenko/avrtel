@@ -1,25 +1,10 @@
 @ This program is for MT8870.
-TODO: move base_station_was_powered_on + on_line stuff to change-file
 
 @d F_CPU 16000000UL
 
 @c
 #include <avr/io.h>
 #include <avr/interrupt.h>
-
-@ The matter is that\footnote*{For some base station models.} on poweron, the phone turns its
-led on and keeps it on for about a second,
-then turns it off,
-which makes parasitic `\.{\%}'/`\.{@@}' pair to be sent to PC. So detect if DTR went low
-(i.e., base station was powered on) and ignore first two |PD0| transitions.
-
-@c
-volatile int base_station_was_powered_on = 0;
-
-ISR(INT0_vect)
-{
-  base_station_was_powered_on = 1;
-}
 
 @ @c
 volatile int keydetect = 0;
@@ -31,17 +16,12 @@ ISR(INT1_vect)
 
 void main(void)
 {
-  int on_line = 0; /* we cannot use PORTB state of the led in order to avoid false indications,
-    due to reasons described in previous section */
-
   @<Set |PD0| to pullup mode@>@;
 
   DDRB |= 1 << PB5;
 
   @<Initialize UART@>@;
 
-  EICRA |= 1 << ISC01; /* set INT0 to trigger on falling edge */
-  EIMSK |= 1 << INT0; /* turn on INT0 */
   EICRA |= 1 << ISC11 | 1 << ISC10; /* set INT1 to trigger on rising edge */
   EIMSK |= 1 << INT1; /* turn on INT1 */
 
@@ -122,27 +102,20 @@ TODO: insert PC817C.png
 @<Indicate line state change to the PC@>=
 if (PIND & 1 << PD0) { /* off-line or base station is not powered
                           (automatically causes off-line) */
-  if (on_line) { /* transition happened */
-    if (base_station_was_powered_on) base_station_was_powered_on = 0;
-    else {
-      while (!(UCSR0A & 1 << UDRE0)) ; /* loop while the transmit buffer is not ready to receive
-                                          new data */
-      UDR0 = '%';
-      PORTB &= (unsigned char) ~ (unsigned char) (1 << PB5);
-    }
+  if (PORTB & 1 << PB5) {
+    while (!(UCSR0A & 1 << UDRE0)) ; /* loop while the transmit buffer is not ready to receive
+                                        new data */
+    UDR0 = '%';
   }
-  on_line = 0;
+  PORTB &= (unsigned char) ~ (unsigned char) (1 << PB5);
 }
 else { /* on-line */
-  if (!on_line) { /* transition happened */
-    if (base_station_was_powered_on) ; else {
-      while (!(UCSR0A & 1 << UDRE0)) ; /* loop while the transmit buffer is not ready to receive
-                                          new data */
-      UDR0 = '@@';
-      PORTB |= 1 << PB5;
-    }
+  if ((PORTB & 1 << PB5) == 0) {
+    while (!(UCSR0A & 1 << UDRE0)) ; /* loop while the transmit buffer is not ready to receive
+                                        new data */
+    UDR0 = '@@';
   }
-  on_line = 1;
+  PORTB |= 1 << PB5;
 }
 
 @ The pull-up resistor is connected to the high voltage (this is usually 3.3V or 5V and is
