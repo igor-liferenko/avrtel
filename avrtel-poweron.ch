@@ -1,3 +1,8 @@
+HINT: if things will not work properly, for debugging
+try to put led on some digital output and turn it on where base_station_was_powered_on
+is checked to be 1 during transition to on-line and turn it off when base_station_was_powered_on
+is checeked to be 0 during transition to off-line
+
 @x
 #include <avr/interrupt.h>
 @y
