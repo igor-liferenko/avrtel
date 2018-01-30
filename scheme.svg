@@ -15,7 +15,7 @@
    version="1.1"
    id="svg63"
    inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
-   sodipodi:docname="scheme8.svg">
+   sodipodi:docname="scheme.svg">
   <defs
      id="defs57" />
   <sodipodi:namedview
@@ -25,14 +25,14 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="273.1975"
-     inkscape:cy="300.55223"
+     inkscape:zoom="5.6"
+     inkscape:cx="321.71052"
+     inkscape:cy="404.01393"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1280"
-     inkscape:window-height="960"
+     inkscape:window-width="1920"
+     inkscape:window-height="1016"
      inkscape:window-x="0"
      inkscape:window-y="27"
      inkscape:window-maximized="1" />
@@ -400,13 +400,13 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:1.41111112px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="98.415543"
-       y="193.8125"
+       x="89.934708"
+       y="193.907"
        id="text80"><tspan
          sodipodi:role="line"
          id="tspan78"
-         x="98.415543"
-         y="193.8125"
+         x="89.934708"
+         y="193.907"
          style="stroke-width:0.26458332">6</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -470,13 +470,13 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:1.41111112px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="90.005585"
-       y="193.95422"
+       x="98.864403"
+       y="193.76523"
        id="text106"><tspan
          sodipodi:role="line"
          id="tspan104"
-         x="90.005585"
-         y="193.95422"
+         x="98.864403"
+         y="193.76523"
          style="stroke-width:0.26458332">4</tspan></text>
     <text
        xml:space="preserve"
@@ -665,7 +665,12 @@
          id="tspan149"
          x="88.497032"
          y="186.94882"
-         style="stroke-width:0.26458332">POWER SUPPLY</tspan></text>
+         style="stroke-width:0.26458332">Base Station's</tspan><tspan
+         sodipodi:role="line"
+         x="88.497032"
+         y="188.71271"
+         style="stroke-width:0.26458332"
+         id="tspan136">POWER SUPPLY</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:1.41111112px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
@@ -702,16 +707,21 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:2.11666656px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="34.206841"
-       y="157.43228"
+       x="40.754944"
+       y="153.55687"
        id="text171"><tspan
          sodipodi:role="line"
          id="tspan169"
-         x="34.206841"
-         y="157.43228"
+         x="40.754944"
+         y="153.55687"
          style="font-size:2.11666656px;stroke-width:0.26458332"><tspan
    style="font-size:4.93888903px"
-   id="tspan127">*</tspan> - for some models of base stations (where led is on/off on poweron)</tspan></text>
+   id="tspan127">*</tspan> - for base station where led is on/off on poweron</tspan><tspan
+         sodipodi:role="line"
+         x="40.754944"
+         y="157.23347"
+         style="font-size:2.11666656px;stroke-width:0.26458332"
+         id="tspan134">(use avrtel-poweron.ch)</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.20568681px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 71.706115,160.25547 -0.454155,3.3502"
@@ -745,5 +755,15 @@
          x="59.601105"
          y="237.3989"
          style="stroke-width:0.26458332;font-size:3.52777778px;">?</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 98.041864,204.15908 6.515796,-2.73981 1.74814,-7.84301 -0.66146,-6.56733 -2.59858,-6.04762 -4.252234,-4.44122"
+       id="path138"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 95.277293,204.24103 2.193317,-0.88463 5.10268,-2.31511 1.32291,-2.83482 0.8977,-5.05543 -0.42523,-4.8192 -0.89769,-4.25223 -1.55915,-3.02381 -3.260046,-3.40178"
+       id="path140"
+       inkscape:connector-curvature="0" />
   </g>
 </svg>
