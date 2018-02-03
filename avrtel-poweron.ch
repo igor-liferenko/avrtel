@@ -3,6 +3,8 @@ try to put led on some digital output and turn it on where base_station_was_powe
 is checked to be 1 during transition to on-line and turn it off when base_station_was_powered_on
 is checeked to be 0 during transition to off-line
 
+ATTENTION: do not forget to connect DTR to PD2 when you use this change-file
+
 @x
 #include <avr/interrupt.h>
 @y
@@ -17,12 +19,10 @@ which makes parasitic `\.{\%}'/`\.{@@}' pair to be sent to PC. So detect if DTR 
 You know that this problem is present if you see the following lines appear
 when you start \.{tel} in foreground:
 
-INF: connected terminal
 BUT: @
 ACT: go to beginning
 BUT: %
 ACT: disable timeout
-FIXME: check on device from gorod
 
 @c
 volatile int base_station_was_powered_on = 0;
