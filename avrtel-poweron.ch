@@ -22,6 +22,7 @@ BUT: @
 ACT: go to beginning
 BUT: %
 ACT: disable timeout
+FIXME: check on device from gorod
 
 @c
 volatile int base_station_was_powered_on = 0;
