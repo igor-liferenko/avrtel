@@ -2,7 +2,7 @@
 
 @c
 #include <avr/io.h>
-int main (void)
+int main(void)
 {
   DDRB |= 1 << PB5; /* set pin B5 to be used for output */
   PORTD |= 1 << PD3; /* enable pullup */
