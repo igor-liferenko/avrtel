@@ -56,7 +56,7 @@ void main(void)
   PORTB &= (unsigned char) ~ (unsigned char) (1 << PB5);
 }
 else { /* on-line */
-  if ((PORTB & 1 << PB5) == 0) {
+  if (!(PORTB & 1 << PB5)) {
     while (!(UCSR0A & 1 << UDRE0)) ; /* loop while the transmit buffer is not ready to receive
                                         new data */
     UDR0 = '@@';
