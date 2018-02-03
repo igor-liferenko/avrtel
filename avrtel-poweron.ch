@@ -14,8 +14,14 @@ then turns it off,
 which makes parasitic `\.{\%}'/`\.{@@}' pair to be sent to PC. So detect if DTR went low
 (i.e., base station was powered on) and ignore first two |PD0| transitions.
 
-You know that this problem is present if you see \.{BUT @...BUT %...} lines appear
-when you start \.{tel} in foreground. FIXME: check it
+You know that this problem is present if you see the following lines appear
+when you start \.{tel} in foreground:
+
+INF: connected terminal
+BUT: @
+ACT: go to beginning
+BUT: %
+ACT: disable timeout
 
 @c
 volatile int base_station_was_powered_on = 0;
