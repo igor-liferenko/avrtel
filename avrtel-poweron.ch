@@ -54,7 +54,6 @@ else { /* on-line */
     UDR0 = '@@';
   }
   PORTB |= 1 << PB5;
-}
 @y
   if (on_line) { /* transition happened */
     if (base_station_was_powered_on) base_station_was_powered_on = 0;
@@ -77,5 +76,4 @@ else { /* on-line */
     }
   }
   on_line = 1;
-}
 @z
