@@ -1,4 +1,5 @@
-ATTENTION: do not forget to connect DTR to PD2 when you use this change-file
+ATTENTION: do not forget to connect DTR (which governs base station's power) to PD2 (aka INT0)
+when you use this change-file
 
 @x
 #include <avr/interrupt.h>
