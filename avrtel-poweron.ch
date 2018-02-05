@@ -7,17 +7,17 @@ ATTENTION: do not forget to connect DTR to PD2 when you use this change-file
 
 @ The matter is that\footnote*{For some base station models.} on poweron, the phone turns its
 led on for a short time,
-then turns it off,
-which makes parasitic `\.{\%}'/`\.{@@}' pair to be sent to PC. So detect if DTR went low
+then turns it off. So detect if DTR went low
 (i.e., base station was powered on) and ignore first two |PD0| transitions.
 
 You know that this problem is present if you see the following lines appear
 just after you start \.{tel} in foreground:
-
-BUT: @
-ACT: go to beginning
-BUT: %
-ACT: disable timeout
+\smallskip
+\indent\.{BUT: @@}\hfil\break
+\indent\.{ACT: go to beginning}\hfil\break
+\indent\.{BUT: \%}\hfil\break
+\indent\.{ACT: disable timeout}
+\medskip
 
 @c
 volatile int base_station_was_powered_on = 0;
