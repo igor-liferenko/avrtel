@@ -1,5 +1,9 @@
 @ This program is for MT8870.
 
+Signal which governs base station's power must be inverted in
+hardware\footnote{TLP281 inverts the signal after optocoupler by default.} (before
+or after optocoupler), because it comes from DTR.
+
 @d F_CPU 16000000UL
 
 @c
