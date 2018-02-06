@@ -3,6 +3,19 @@
 Signal which governs base station's power must be inverted in
 hardware\footnote{TLP281 inverts the signal after optocoupler by default.} (before
 or after optocoupler), because it comes from DTR.
+This feature is used in order that base station is powered off before \.{tel}
+is started (more exactly, before \.{tel} opens serial device causing DTR to go low,
+and thus power on base station).
+Base station is guaranteed to be powered off when serial device is opened,
+because serial device can be opened only
+{\sl after\/} usb2ttl was inserted into PC (at which time DTR goes high and base
+station is powered off).
+
+Note, that if we are using 220v relay, base station is powered off when microcontroller
+is disconnected from PC (so the phone keeps searching it (and thus discharges
+battery more quickly?)), and if we use
+TLP281, base station is powered on when microcontroller is disconnected from
+PC (so the phone stays connected).
 
 @d F_CPU 16000000UL
 
