@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.6"
-     inkscape:cx="321.71052"
-     inkscape:cy="404.01393"
+     inkscape:zoom="3.959798"
+     inkscape:cx="201.0805"
+     inkscape:cy="202.63378"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -765,5 +765,16 @@
        d="m 95.277293,204.24103 2.193317,-0.88463 5.10268,-2.31511 1.32291,-2.83482 0.8977,-5.05543 -0.42523,-4.8192 -0.89769,-4.25223 -1.55915,-3.02381 -3.260046,-3.40178"
        id="path140"
        inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.11666656px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="43.56493"
+       y="248.15649"
+       id="text140"><tspan
+         sodipodi:role="line"
+         id="tspan138"
+         x="43.56493"
+         y="248.15649"
+         style="stroke-width:0.26458332">in gorod power is 9v, not 12v, and &quot;?&quot; is 620R </tspan></text>
   </g>
 </svg>
