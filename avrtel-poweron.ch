@@ -1,26 +1,24 @@
 ATTENTION: do not forget to connect DTR (which governs base station's power) to PD2 (aka INT0)
 when you use this change-file
 
+The matter is that (for KX-TG7331; TODO: check for KX-TCD245) on poweron, the phone turns its
+led on for a short time,
+then turns it off. So in this change-file we detect if DTR went low
+(i.e., base station was powered on) and ignore first two PD0 transitions.
+
+You know that this problem is present if you see the following lines appear
+just after you start "tel" in foreground:
+
+BUT: @
+ACT: go to beginning
+BUT: %
+ACT: disable timeout
+
 @x
 #include <avr/interrupt.h>
 @y
 #include <avr/interrupt.h>
 
-@ The matter is that\footnote*{For some base station models.} on poweron, the phone turns its
-led on for a short time,
-then turns it off. So detect if DTR went low
-(i.e., base station was powered on) and ignore first two |PD0| transitions.
-
-You know that this problem is present if you see the following lines appear
-just after you start \.{tel} in foreground:
-\smallskip
-\indent\.{BUT: @@}\hfil\break
-\indent\.{ACT: go to beginning}\hfil\break
-\indent\.{BUT: \%}\hfil\break
-\indent\.{ACT: disable timeout}
-\medskip
-
-@c
 volatile int base_station_was_powered_on = 0;
 
 ISR(INT0_vect)
