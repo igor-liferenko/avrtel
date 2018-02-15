@@ -17,6 +17,10 @@ battery more quickly?)), and if we use
 TLP281, base station is powered on when microcontroller is disconnected from
 PC (so the phone stays connected).
 
+The following phone models are used: Panasonic KX-TCD245, Panasonic KX-TG7331.
+The main requirement is that power supply for base station must be DC, and it
+must have led indicator for on-hook / off-hook on base station.
+
 @d F_CPU 16000000UL
 
 @c
