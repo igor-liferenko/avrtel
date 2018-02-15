@@ -1,10 +1,10 @@
-ATTENTION: do not forget to connect DTR (which governs base station's power) to PD2 (aka INT0)
+ATTENTION: do not forget to connect DTR (which controls base station's power) to INT0 pin
 when you use this change-file
 
 The matter is that (for KX-TG7331; TODO: check for KX-TCD245) on poweron, the phone turns its
 led on for a short time,
 then turns it off. So in this change-file we detect if DTR went low
-(i.e., base station was powered on) and ignore first two PD0 transitions.
+(i.e., base station was powered on) and ignore first two PD0 state changes.
 
 You know that this problem is present if you see the following lines appear
 just after you start "tel" in foreground:
