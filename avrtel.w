@@ -1,6 +1,4 @@
-@ This program is for MT8870.
-
-Signal which governs base station's power must be inverted in
+@ Signal which governs base station's power must be inverted in
 hardware\footnote{TLP281 inverts the signal after optocoupler by default.} (before
 or after optocoupler), because it comes from DTR.
 This feature is used in order that base station is powered off before \.{tel}
