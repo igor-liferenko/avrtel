@@ -1,7 +1,7 @@
-@ Signal which governs base station's power must be inverted in
-hardware\footnote{TLP281 inverts the signal after optocoupler by default.} (before
-or after optocoupler), because it comes from DTR.
-This feature is used in order that base station is powered off before \.{tel}
+@ It is good that TLP281 inverts the signal, because it corresponds to the
+signal from DTR.
+Except resetting base station to put the phone on-hook, this feature is used in
+order that base station is powered off before \.{tel}
 is started (more exactly, before \.{tel} opens serial device causing DTR to go low,
 and thus power on base station).
 Base station is guaranteed to be powered off when serial device is opened,
@@ -9,15 +9,16 @@ because serial device can be opened only
 {\sl after\/} usb2ttl was inserted into PC (at which time DTR goes high and base
 station is powered off).
 
-Note, that if we are using 220v relay, base station is powered off when microcontroller
-is disconnected from PC (so the phone keeps searching it (and thus discharges
-battery more quickly?)), and if we use
-TLP281, base station is powered on when microcontroller is disconnected from
-PC (so the phone stays connected).
+Note, that base station is powered when usb2ttl is not connected to
+PC.
 
 The following phone models are used: Panasonic KX-TCD245, Panasonic KX-TG7331.
 The main requirement is that power supply for base station must be DC, and it
 must have led indicator for on-hook / off-hook on base station.
+
+Note, that we can not use simple cordless phone---a DECT phone is needed, because
+resetting base station to put the phone on-hook will not work
+(FIXME: check if it is really so).
 
 @d F_CPU 16000000UL
 
