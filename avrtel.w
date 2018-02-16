@@ -1,5 +1,5 @@
-@ It is good that TLP281 inverts the signal, because it corresponds to the
-signal from DTR.
+@ It is good that TLP281 inverts the signal, because it combines well with {\sl DTR\/}
+signal.
 Except resetting base station to put the phone on-hook, this feature is used in
 order that base station is powered off before \.{tel}
 is started (more exactly, before \.{tel} opens serial device causing DTR to go low,
