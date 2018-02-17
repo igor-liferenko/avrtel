@@ -30,10 +30,13 @@ ISR(INT0_vect)
 @x
 void main(void)
 {
+  DDRB |= 1 << PB5; /* on-line/off-line indicator; also used to get current state to determine
+                       if transition happened */
 @y
 void main(void)
 {
-  int on_line = 0; /* use it instead of |PORTB| to determine transition */
+  DDRB |= 1 << PB5; /* on-line/off-line indicator */
+  int on_line = 0; /* used to get current state to determine if on-line/off-line transition happened */
   EICRA |= 1 << ISC01; /* set INT0 to trigger on falling edge */
   EIMSK |= 1 << INT0; /* turn on INT0 */
 @z

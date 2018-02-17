@@ -1,13 +1,16 @@
 @ It is good that TLP281 inverts the signal, because it combines well with {\sl DTR\/}
 signal.
-Except resetting base station to put the phone on-hook, this feature is used in
+Except resetting base station to put the phone on-hook, ``{\sl DTR\/} feature'' is used in
 order that base station is powered off before \.{tel}
 is started (more exactly, before \.{tel} opens serial device causing DTR to go low,
 and thus power on base station).
 Base station is guaranteed to be powered off when serial device is opened,
 because serial device can be opened only
 {\sl after\/} usb2ttl was inserted into PC (at which time DTR goes high and base
-station is powered off).
+station is powered off). Also, the fact that base station is not powered when
+microcontroller is started (when usb2ttl is inserted into PC, microcontroller is started),
+ensures that microcontroller firmware
+always starts to work from ``off'' state.
 
 Note, that base station is powered when usb2ttl is not connected to
 PC.
@@ -36,9 +39,10 @@ ISR(INT1_vect)
 
 void main(void)
 {
-  @<Set |PD0| to pullup mode@>@;
+  DDRB |= 1 << PB5; /* on-line/off-line indicator; also used to get current state to determine
+                       if transition happened */
 
-  DDRB |= 1 << PB5;
+  @<Set |PD0| to pullup mode@>@;
 
   @<Initialize UART@>@;
 
