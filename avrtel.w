@@ -12,8 +12,7 @@ microcontroller is started (when usb2ttl is inserted into PC, microcontroller is
 ensures that microcontroller firmware
 always starts to work from ``off'' state.
 
-Note, that base station is powered when usb2ttl is not connected to
-PC.
+Note, that base station is powered when PC is not powered.
 
 The following phone models are used: Panasonic KX-TCD245, Panasonic KX-TG7331.
 The main requirement is that power supply for base station must be DC, and it
