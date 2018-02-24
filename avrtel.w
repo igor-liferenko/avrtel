@@ -1,4 +1,4 @@
-@ It is good that TLP281 inverts the signal, because it combines well with {\sl DTR\/}
+@ It is good that TLP281 inverts the signal, because it combines properly with {\sl DTR\/}
 signal.
 Except resetting base station to put the phone on-hook, ``{\sl DTR\/} feature'' is used in
 order that base station is powered off before \.{tel}
