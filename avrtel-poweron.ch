@@ -36,7 +36,8 @@ void main(void)
 void main(void)
 {
   DDRB |= 1 << PB5; /* on-line/off-line indicator */
-  int on_line = 0; /* used to get current state to determine if on-line/off-line transition happened */
+  int on_line = 0; /* used to get current state to determine if on-line/off-line transition
+    happened */
   EICRA |= 1 << ISC01; /* set INT0 to trigger on falling edge */
   EIMSK |= 1 << INT0; /* turn on INT0 */
 @z
@@ -47,7 +48,7 @@ void main(void)
                                         new data */
     UDR0 = '%';
   }
-  PORTB &= (unsigned char) ~ (unsigned char) (1 << PB5);
+  PORTB &= (uint8_t) ~ (uint8_t) (1 << PB5);
 }
 else { /* on-line */
   if (!(PORTB & 1 << PB5)) {
@@ -63,7 +64,7 @@ else { /* on-line */
       while (!(UCSR0A & 1 << UDRE0)) ; /* loop while the transmit buffer is not ready to receive
                                           new data */
       UDR0 = '%';
-      PORTB &= (unsigned char) ~ (unsigned char) (1 << PB5);
+      PORTB &= (uint8_t) ~ (uint8_t) (1 << PB5);
     }
   }
   on_line = 0;
