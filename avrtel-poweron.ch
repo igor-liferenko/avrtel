@@ -48,7 +48,7 @@ void main(void)
                                         new data */
     UDR0 = '%';
   }
-  PORTB &= (uint8_t) ~ (uint8_t) (1 << PB5);
+  PORTB &= ~(1 << PB5);
 }
 else { /* on-line */
   if (!(PORTB & 1 << PB5)) {
@@ -64,7 +64,7 @@ else { /* on-line */
       while (!(UCSR0A & 1 << UDRE0)) ; /* loop while the transmit buffer is not ready to receive
                                           new data */
       UDR0 = '%';
-      PORTB &= (uint8_t) ~ (uint8_t) (1 << PB5);
+      PORTB &= ~(1 << PB5);
     }
   }
   on_line = 0;

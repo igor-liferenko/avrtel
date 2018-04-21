@@ -50,7 +50,7 @@ void main(void)
 
   sei(); /* turn on interrupts */
 
-  uint8_t digit;
+  char digit;
   while(1) {
     @<Indicate...@>@;
     if (keydetect) {
@@ -130,7 +130,7 @@ if (PIND & 1 << PD0) { /* off-line or base station is not powered
                                         new data */
     UDR0 = '%';
   }
-  PORTB &= (uint8_t) ~ (uint8_t) (1 << PB5);
+  PORTB &= ~(1 << PB5);
 }
 else { /* on-line */
   if (!(PORTB & 1 << PB5)) {

@@ -8,7 +8,7 @@ int main(void)
   PORTD |= 1 << PD3; /* enable pullup */
   while (1)
     if (PIND & 1 << PD3)
-      PORTB &= (uint8_t) ~ (uint8_t) (1<<PB5);
+      PORTB &= ~(1<<PB5);
     else
       PORTB |= 1<<PB5;
 }
