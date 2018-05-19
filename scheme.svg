@@ -14,7 +14,7 @@
    viewBox="0 0 210 297"
    version="1.1"
    id="svg63"
-   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
    sodipodi:docname="scheme.svg">
   <defs
      id="defs57" />
@@ -26,13 +26,13 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="3.959798"
-     inkscape:cx="201.0805"
+     inkscape:cx="201.58558"
      inkscape:cy="202.63378"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1920"
-     inkscape:window-height="1016"
+     inkscape:window-width="1280"
+     inkscape:window-height="960"
      inkscape:window-x="0"
      inkscape:window-y="27"
      inkscape:window-maximized="1" />
@@ -776,5 +776,16 @@
          x="43.56493"
          y="248.15649"
          style="stroke-width:0.26458332">in gorod power is 9v, not 12v, and &quot;?&quot; is 620R </tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.11666656px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="43.56493"
+       y="252.36598"
+       id="text142"><tspan
+         sodipodi:role="line"
+         id="tspan140"
+         x="43.56493"
+         y="252.36598"
+         style="font-size:2.11666656px;stroke-width:0.26458332">in home &quot;?&quot; is 560R</tspan></text>
   </g>
 </svg>
