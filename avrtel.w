@@ -41,7 +41,7 @@ void main(void)
   DDRB |= 1 << PB5; /* on-line/off-line indicator; also used to get current state to determine
                        if transition happened */
 
-  @<Set |PD0| to pullup mode@>@;
+  @<Set |PB0| to pullup mode@>@;
 
   @<Initialize UART@>@;
 
@@ -123,7 +123,7 @@ power reset on base station after timeout.
 TODO: insert PC817C.png
 
 @<Indicate line state change to the PC@>=
-if (PIND & 1 << PD0) { /* off-line or base station is not powered
+if (PINB & 1 << PB0) { /* off-line or base station is not powered
                           (automatically causes off-line) */
   if (PORTB & 1 << PB5) {
     while (!(UCSR0A & 1 << UDRE0)) ; /* loop while the transmit buffer is not ready to receive
@@ -157,5 +157,5 @@ on the Arduino platform, have internal pull-ups that can be enabled and disabled
 
 TODO: insert pullup.svg
 
-@<Set |PD0| to pullup mode@>=
-PORTD |= 1 << PD0;
+@<Set |PB0| to pullup mode@>=
+PORTB |= 1 << PB0;
