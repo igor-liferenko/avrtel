@@ -2,6 +2,7 @@ label 7 on board is not PD7 - use label 6
 for ICSP do not solder VCC on both
 connect both arduinos via ground
 - do not solder border pin near ICSP (labeled "10") on micro and mini (because it is not convenient) - unless you use them to connect something
+- from KX-TCD245 output led wires via two small holes (afterwards glue with termoglue)
 =================================================
 usbasp rear view:
 +-- --+
