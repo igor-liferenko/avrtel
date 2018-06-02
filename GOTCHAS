@@ -16,4 +16,5 @@ glued rear view:
 |....3||...24|
 +-----++-----+
 
-current=60mA
+when wakeup/suspend is used:
+when tel.w is runnig current=50mA, on pressing a key on phone current=60mA, without running tel.w current=70mA
