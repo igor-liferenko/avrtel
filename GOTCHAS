@@ -7,11 +7,11 @@ connect both arduinos via ground
 usbasp rear view:
 +-- --+
 |123.4|
-|.....|
+|..5..|
 +-----+
 glued rear view:
 +-- --++-- --+
-|.....||....1|
+|....5||....1|
 |....3||...24|
 +-----++-----+
 
