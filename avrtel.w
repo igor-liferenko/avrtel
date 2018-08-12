@@ -1,5 +1,8 @@
 TODO: do here based on usb/cdc.w
-and don't do EP3, and in cdc.w and main.w make interface with EP3 number 1 and data interface number 0
+      and don't do EP3, and in cdc.w and main.w make interface
+      with EP3 number 1 and data interface number 0
+TODO: add debug via UART in change-file like in kbd-dbg.ch
+
 @ It is good that TLP281 inverts the signal, because it combines properly with {\sl DTR\/}
 signal.
 Except resetting base station to put the phone on-hook, ``{\sl DTR\/} feature'' is used in
