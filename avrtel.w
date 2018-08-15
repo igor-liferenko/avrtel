@@ -1,5 +1,4 @@
 TODO: do here based on usb/cdc.w
-      and don't do EP3
 TODO: add debug via UART in change-file like in kbd-dbg.ch
 
 @ It is good that TLP281 inverts the signal, because it combines properly with {\sl DTR\/}
