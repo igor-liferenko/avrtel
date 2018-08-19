@@ -1,4 +1,4 @@
-MCU=atmega328p
+MCU=atmega32u4
 avrtel:
 	avr-gcc -mmcu=$(MCU) -g -Os -c $@.c
 	avr-gcc -mmcu=$(MCU) -g -o $@.elf $@.o

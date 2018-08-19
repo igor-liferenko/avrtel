@@ -1,5 +1,5 @@
-ATTENTION: do not forget to connect DTR (which controls base station's power) to INT0 pin
-when you use this change-file
+TODO: do not use INT0, because line_status.DTR is already known before enabling PE6 in program
+TODO: change PB5 to PD5 and invert it
 
 The matter is that (for KX-TG7331; TODO: check for KX-TCD245) on poweron, the phone turns its
 led on for a short time,
