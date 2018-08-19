@@ -1,5 +1,3 @@
-% TODO: add debug via UART in change-file like in kbd-dbg.ch
-
 \let\lheader\rheader
 %\datethis
 \secpagedepth=2 % begin new page only on *
