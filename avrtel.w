@@ -165,7 +165,6 @@ U16 wLength;
 UEINTX &= ~(1 << RXOUTI); /* TODO: ??? - check if it is non-zero here */
 U8 nb_byte;
 U8 empty_packet;
-int from_program = 1;
 switch (UEDATX | UEDATX << 8) {
 case 0x0500: @/
   @<Handle {\caps set address}@>@;
@@ -201,6 +200,7 @@ case 0x2021: @/
 @ @<Global variables@>=
 U16 data_to_transfer;
 const void *pbuffer;
+U8 from_program = 1;
 
 @ When host is booting, BIOS asks 8 bytes in first request of device descriptor (8 bytes is
 sufficient for first request of device descriptor). OS asks
