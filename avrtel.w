@@ -1,3 +1,5 @@
+% TODO: add product string
+
 \let\lheader\rheader
 %\datethis
 \secpagedepth=2 % begin new page only on *
