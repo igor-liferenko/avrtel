@@ -6,21 +6,18 @@
 \font\caps=cmcsc10 at 9pt
 
 @* Program.
-It is good that TLP281 inverts the signal, because it combines properly with {\sl DTR\/}
-signal.
 Except resetting base station to put the phone on-hook, ``{\sl DTR\/} feature'' is used in
 order that base station is powered off before \.{tel}
-is started (more exactly, before \.{tel} opens serial device causing DTR to go low,
-and thus power on base station).
-Base station is guaranteed to be powered off when serial device is opened,
-because serial device can be opened only
-{\sl after\/} usb2ttl was inserted into PC (at which time DTR goes high and base
-station is powered off). Also, the fact that base station is not powered when
-microcontroller is started (when usb2ttl is inserted into PC, microcontroller is started),
-ensures that microcontroller firmware
-always starts to work from ``off'' state.
+is started (more exactly, before \.{tel} switches on DTR,
+and thus powers on base station).
+Base station is guaranteed to be powered off before DTR is set in \.{tel},
+because DTR can be set only after ttyACM* is opened, and it can be opened
+only after device was inserted into PC, and DTR is set to high during device
+initialization (at which time base station is powered off).
+Also, the fact that base station is powered off during MCU firmware
+initialization, ensures that main cycle starts to work from ``off'' state.
 
-Note, that base station is powered when PC is not powered.
+Note, that base station is powered when MCU is not powered.
 
 The following phone models are used: Panasonic KX-TCD245, Panasonic KX-TG7331.
 The main requirement is that power supply for base station must be DC, and it
@@ -95,7 +92,7 @@ void main(void)
     }
     UENUM = EP1;
     if (line_status.DTR) {
-      PORTE &= ~(1 << PE6); /* |DTR| pin low */
+      PORTE &= ~(1 << PE6); /* |DTR| pin low (TLP281 inverts the signal) */
       PORTB |= 1 << PB0; /* led off */
     }
     else {
