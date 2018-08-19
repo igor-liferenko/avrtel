@@ -82,7 +82,7 @@ void main(void)
   DDRB |= 1 << PB0; /* DTR indication */
   DDRE |= 1 << PE6;
   PORTE |= 1 << PE6; /* |DTR| pin high */
-  @<Set |PD0| to pullup mode@>@;
+  @<Set |PD2| to pullup mode@>@;
   EICRA |= 1 << ISC11 | 1 << ISC10; /* set INT1 to trigger on rising edge */
   EIMSK |= 1 << INT1; /* turn on INT1 */
 
@@ -105,7 +105,7 @@ void main(void)
     @<Indicate...@>@;
     if (keydetect) {
       keydetect = 0;
-      switch (PIND & 1 << PD4 | PINB & 1 << PB5 | PIND & (1 << PD6 | 1 << PD7)) {
+      switch (PINB & (1 << PB4 | 1 << PB5 | 1 << PB6) | PIND & 1 << PD7) {
       case (0x10):
         digit = '1';
         break;
@@ -429,7 +429,7 @@ power reset on base station after timeout.
 TODO: insert PC817C.png
 
 @<Indicate line state change to the PC@>=
-if (PIND & 1 << PD0) { /* off-line or base station is not powered
+if (PIND & 1 << PD2) { /* off-line or base station is not powered
                           (automatically causes off-line) */
   if (!(PORTD & 1 << PD5)) {
     while (!(UEINTX & 1 << TXINI)) ;
@@ -465,8 +465,8 @@ on the Arduino platform, have internal pull-ups that can be enabled and disabled
 
 TODO: insert pullup.svg
 
-@<Set |PD0| to pullup mode@>=
-PORTD |= 1 << PD0;
+@<Set |PD2| to pullup mode@>=
+PORTD |= 1 << PD2;
 
 @* USB stack.
 
