@@ -6,16 +6,12 @@
 \font\caps=cmcsc10 at 9pt
 
 @* Program.
-Except resetting base station to put the phone on-hook, ``{\sl DTR\/} feature'' is used in
-order that base station is powered off before \.{tel}
-is started (more exactly, before \.{tel} switches on DTR,
-and thus powers on base station).
-Base station is guaranteed to be powered off before DTR is set in \.{tel},
-because DTR can be set only after ttyACM* is opened, and it can be opened
-only after device was inserted into PC, and DTR is set to high during device
-initialization (at which time base station is powered off).
-Also, the fact that base station is powered off during MCU firmware
-initialization, ensures that main cycle starts to work from ``off'' state.
+DTR is used <take from demo/README.DTR>.
+Also, DTR is used by application to put phone on-hook by switching off
+base station for one second.
+
+On initialization power off base station (by setting DTR pin to high)
+to ensure that main cycle starts to work from `off' state.
 
 Note, that base station is powered when MCU is not powered.
 
