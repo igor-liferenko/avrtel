@@ -6,11 +6,11 @@
 \font\caps=cmcsc10 at 9pt
 
 @* Program.
-DTR is used <take from demo/README.DTR>.
-Also, DTR is used by application to put phone on-hook by switching off
-base station for one second.
+DTR is used by \.{tel} to switch off/on
+base station. It is also used by MCU to discard
+data which was detected right before switching off base station.
 
-On initialization power off base station (by setting DTR pin to high)
+On initialization MCU powers off base station (by setting DTR pin to high)
 to ensure that main cycle starts to work from `off' state.
 
 Note, that base station is powered when MCU is not powered.
@@ -101,7 +101,7 @@ void main(void)
       if (line_status.DTR) { /* in case key was detected right
                                 before DTR pin was set high (which means base station was
                                 switched off, which in turn means that nothing must
-                                come from it */
+                                come from it) */
         switch (PINB & (1 << PB4 | 1 << PB5 | 1 << PB6) | PIND & 1 << PD7) {
         case (0x10): digit = '1'; @+ break;
         case (0x20): digit = '2'; @+ break;
