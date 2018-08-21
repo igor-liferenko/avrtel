@@ -94,34 +94,33 @@ void main(void)
     else {
       PORTE |= 1 << PE6; /* |DTR| pin high */
       PORTB &= ~(1 << PB0); /* led on */
+      keydetect = 0; /* in case key was detected right
+                                before DTR pin was set high (which means base station was
+                                switched off, which in turn means that nothing must
+                                come from it) */
     }
     @<Indicate...@>@;
     if (keydetect) {
       keydetect = 0;
-      if (line_status.DTR) { /* in case key was detected right
-                                before DTR pin was set high (which means base station was
-                                switched off, which in turn means that nothing must
-                                come from it) */
-        switch (PINB & (1 << PB4 | 1 << PB5 | 1 << PB6) | PIND & 1 << PD7) {
-        case (0x10): digit = '1'; @+ break;
-        case (0x20): digit = '2'; @+ break;
-        case (0x30): digit = '3'; @+ break;
-        case (0x40): digit = '4'; @+ break;
-        case (0x50): digit = '5'; @+ break;
-        case (0x60): digit = '6'; @+ break;
-        case (0x70): digit = '7'; @+ break;
-        case (0x80): digit = '8'; @+ break;
-        case (0x90): digit = '9'; @+ break;
-        case (0xA0): digit = '0'; @+ break;
-        case (0xB0): digit = '*'; @+ break;
-        case (0xC0): digit = '#'; @+ break;
-        default: digit = '?';
-        }
-        while (!(UEINTX & 1 << TXINI)) ;
-        UEINTX &= ~(1 << TXINI);
-        UEDATX = digit;
-        UEINTX &= ~(1 << FIFOCON);
+      switch (PINB & (1 << PB4 | 1 << PB5 | 1 << PB6) | PIND & 1 << PD7) {
+      case (0x10): digit = '1'; @+ break;
+      case (0x20): digit = '2'; @+ break;
+      case (0x30): digit = '3'; @+ break;
+      case (0x40): digit = '4'; @+ break;
+      case (0x50): digit = '5'; @+ break;
+      case (0x60): digit = '6'; @+ break;
+      case (0x70): digit = '7'; @+ break;
+      case (0x80): digit = '8'; @+ break;
+      case (0x90): digit = '9'; @+ break;
+      case (0xA0): digit = '0'; @+ break;
+      case (0xB0): digit = '*'; @+ break;
+      case (0xC0): digit = '#'; @+ break;
+      default: digit = '?';
       }
+      while (!(UEINTX & 1 << TXINI)) ;
+      UEINTX &= ~(1 << TXINI);
+      UEDATX = digit;
+      UEINTX &= ~(1 << FIFOCON);
     }
   }
 }
