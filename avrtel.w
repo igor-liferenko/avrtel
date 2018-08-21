@@ -6,12 +6,14 @@
 \font\caps=cmcsc10 at 9pt
 
 @* Program.
-DTR is used by \.{tel} to switch off/on
-base station. It is also used by MCU to discard
-data which was detected right before switching off base station.
+DTR is used by \.{tel} to switch the phone off (on timeout and for
+special commands) by switching off/on
+base station for one second.
 
 On initialization MCU powers off base station (by setting DTR pin to high)
-to ensure that main cycle starts to work from `off' state.
+so that firmware is in `off-line' state when connection is done to PC.
+When \.{tel} opens the TTY, DTR is used to switch on base station;
+and when \.{tel} closes the TTY, DTR is used to switch off base station.
 
 Note, that base station is powered when MCU is not powered.
 
