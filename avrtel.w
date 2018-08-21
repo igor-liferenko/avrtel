@@ -199,7 +199,7 @@ case 0x2021: @/
 @ @<Global variables@>=
 U16 data_to_transfer;
 const void *pbuffer;
-U8 from_program = 1;
+U8 from_program = 1; /* serial number is transmitted last, so this can be set only once */
 U8 nb_byte;
 U8 empty_packet;
 
