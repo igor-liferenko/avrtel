@@ -68,6 +68,7 @@ void main(void)
       @<Process SETUP request@>@;
     }
   }
+  UENUM = EP1;
 
   PORTD |= 1 << PD5; /* led off (before enabling output, because this led is inverted) */
   DDRD |= 1 << PD5; /* on-line/off-line indicator; also used to get current state to determine
