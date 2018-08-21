@@ -1,4 +1,15 @@
 TODO: do not use INT0, because line_status.DTR is already known before enabling PE6 in program
+do something like this:
+uint8_t prev_DTR = 0;
+...
+if (line_status.DTR) {
+  if (prev_DTR != line_status.DTR) {
+    if (line_status.DTR == 1)
+      <event happened which is now on interrupt>
+    prev_DTR = line_status.DTR;
+  }
+...
+
 TODO: change PB5 to PD5 and invert it
 
 The matter is that (for KX-TG7331; TODO: check for KX-TCD245) on poweron, the phone turns its
