@@ -11,7 +11,7 @@ special commands) by switching off/on
 base station for one second.
 
 On initialization MCU powers off base station (by setting DTR pin to high)
-so that firmware is in `off-line' state when connection is done to PC.
+so that firmware is in `off-line' state when connection is done to USB host.
 When \.{tel} opens the TTY, DTR is used to switch on base station;
 and when \.{tel} closes the TTY, DTR is used to switch off base station.
 
@@ -398,9 +398,9 @@ for (uint8_t i = 0; i < SN_LENGTH; i++) {
   sn_desc.wString[i] = hex(c);
 }
 
-@ For on-line indication we send `\.{@@}' character to PC---to put
-program on PC to initial state.
-For off-line indication we send `\.{\%}' character to PC---to disable
+@ For on-line indication we send `\.{@@}' character to \.{tel}---to put
+it to initial state.
+For off-line indication we send `\.{\%}' character to \.{tel}---to disable
 power reset on base station after timeout.
 
 TODO: insert PC817C.png
