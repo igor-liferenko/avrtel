@@ -81,12 +81,7 @@ void main(void)
 
   char digit;
   while (1) {
-    UENUM = EP0;
-    if (UEINTX & 1 << RXSTPI) {
-      (void) UEDATX; @+ (void) UEDATX;
-      @<Handle {\caps set control line state}@>@;
-    }
-    UENUM = EP1;
+    @<Get |line_status|@>@;
     if (line_status.DTR) {
       PORTE &= ~(1 << PE6); /* |DTR| pin low (TLP281 inverts the signal) */
       PORTB |= 1 << PB0; /* led off */
@@ -99,7 +94,7 @@ void main(void)
                                 switched off, which in turn means that nothing must
                                 come from it) */
     }
-    @<Indicate...@>@;
+    @<Indicate line state change to \.{tel}@>@;
     if (keydetect) {
       keydetect = 0;
       switch (PINB & (1 << PB4 | 1 << PB5 | 1 << PB6) | PIND & 1 << PD7) {
@@ -124,6 +119,14 @@ void main(void)
     }
   }
 }
+
+@ @<Get |line_status|@>=
+UENUM = EP0;
+if (UEINTX & 1 << RXSTPI) {
+  (void) UEDATX; @+ (void) UEDATX;
+  @<Handle {\caps set control line state}@>@;
+}
+UENUM = EP1;
 
 @ @<Reset MCU@>=
 WDTCSR |= 1 << WDCE | 1 << WDE; /* allow to enable WDT */
@@ -399,7 +402,7 @@ power reset on base station after timeout.
 
 TODO: insert PC817C.png
 
-@<Indicate line state change to the PC@>=
+@<Indicate line state change to \.{tel}@>=
 if (PIND & 1 << PD2) { /* off-line or base station is not powered
                           (automatically causes off-line) */
   if (!(PORTD & 1 << PD5)) {
