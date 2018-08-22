@@ -221,6 +221,8 @@ pbuffer = &conf_desc;
 @<Send descriptor@>@;
 
 @ @<Handle {\caps get descriptor string} (language)@>=
+(void) UEDATX; @+ (void) UEDATX;
+wLength = UEDATX | UEDATX << 8;
 UEINTX &= ~(1 << RXSTPI);
 data_to_transfer = sizeof lang_desc;
 pbuffer = lang_desc;
@@ -230,6 +232,8 @@ pbuffer = lang_desc;
 not from program.
 
 @<Handle {\caps get descriptor string} (serial)@>=
+(void) UEDATX; @+ (void) UEDATX;
+wLength = UEDATX | UEDATX << 8;
 UEINTX &= ~(1 << RXSTPI);
 data_to_transfer = 1 + 1 + SN_LENGTH * 2; /* multiply because Unicode */
 @<Get serial number@>@;
