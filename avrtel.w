@@ -254,8 +254,6 @@ data must be sent. When data was sent, TXINI becomes `1'.
 After TXINI becomes `1', new data may be written to UEDATX.
 (For non-control endpoints clearing TXINI serves different purpose.)
 
-Datasheet\S22.12.2.
-
 @<Send descriptor@>=
 empty_packet = 0;
 if (size < wLength && size % EP0_SIZE == 0)
