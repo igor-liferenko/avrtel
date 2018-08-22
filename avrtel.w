@@ -200,7 +200,6 @@ case 0x2021: @/
 U16 data_to_transfer;
 const void *pbuffer;
 U8 from_program = 1; /* serial number is transmitted last, so this can be set only once */
-U8 nb_byte;
 U8 empty_packet;
 
 @ When host is booting, BIOS asks 8 bytes in first request of device descriptor (8 bytes is
@@ -256,7 +255,7 @@ from_program = 0;
         if (UEINTX & 1 << NAKOUTI)
           break;
       }
-      nb_byte = 0;
+      U8 nb_byte = 0;
       while (data_to_transfer != 0) {
         if (nb_byte++ == EP0_SIZE) {
           break;
