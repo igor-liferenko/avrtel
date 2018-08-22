@@ -207,7 +207,7 @@ transfer more, host does not send OUT packet to initiate STATUS stage.
 wLength = UEDATX | UEDATX << 8;
 UEINTX &= ~(1 << RXSTPI);
 size = sizeof dev_desc;
-pbuffer = &dev_desc;
+buf = &dev_desc;
 @<Send descriptor@>@;
 
 @ First request is 9 bytes, second is according to length given in response to first request.
@@ -217,7 +217,7 @@ pbuffer = &dev_desc;
 wLength = UEDATX | UEDATX << 8;
 UEINTX &= ~(1 << RXSTPI);
 size = sizeof conf_desc;
-pbuffer = &conf_desc;
+buf = &conf_desc;
 @<Send descriptor@>@;
 
 @ @<Handle {\caps get descriptor string} (language)@>=
@@ -225,7 +225,7 @@ pbuffer = &conf_desc;
 wLength = UEDATX | UEDATX << 8;
 UEINTX &= ~(1 << RXSTPI);
 size = sizeof lang_desc;
-pbuffer = lang_desc;
+buf = lang_desc;
 @<Send descriptor@>@;
 
 @ Here we handle one case when data (serial number) needs to be transmitted from memory,
@@ -237,7 +237,7 @@ wLength = UEDATX | UEDATX << 8;
 UEINTX &= ~(1 << RXSTPI);
 size = 1 + 1 + SN_LENGTH * 2; /* multiply because Unicode */
 @<Get serial number@>@;
-pbuffer = &sn_desc;
+buf = &sn_desc;
 from_program = 0;
 @<Send descriptor@>@;
 
@@ -264,7 +264,7 @@ while (size != 0 && !(UEINTX & 1 << NAKOUTI)) {
     if (nb_byte++ == EP0_SIZE) {
       break;
     }
-    UEDATX = from_program ? pgm_read_byte(pbuffer++) : *(U8 *) pbuffer++;
+    UEDATX = from_program ? pgm_read_byte(buf++) : *(U8 *) buf++;
     size--;
   }
   if (UEINTX & 1 << NAKOUTI)
