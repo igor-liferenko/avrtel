@@ -247,7 +247,7 @@ const void *buf;
 U8 from_program = 1; /* serial number is transmitted last, so this can be set only once */
 U8 empty_packet;
 
-@ Just transmit data and empty packet (if necessary) and wait for STATUS stage.
+@ Transmit data and empty packet (if necessary) and wait for STATUS stage.
 
 For control endpoints, by clearing TXINI we say that when next IN token arrives,
 data must be sent. When data was sent, TXINI becomes `1'.
