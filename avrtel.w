@@ -244,37 +244,37 @@ from_program = 0;
 @<Send descriptor@>@;
 
 @ @<Send descriptor@>=
-    empty_packet = 0;
-    if (data_to_transfer < wLength && data_to_transfer % EP0_SIZE == 0)
-      empty_packet = 1; /* indicate to the host that no more data will follow (USB\S5.5.3) */
-    if (data_to_transfer > wLength)
-      data_to_transfer = wLength; /* never send more than requested */
-    UEINTX &= ~(1 << NAKOUTI); /* TODO: ??? - check if it is non-zero here */
-    while (data_to_transfer != 0 && !(UEINTX & 1 << NAKOUTI)) {
-      while (!(UEINTX & 1 << TXINI)) {
-        if (UEINTX & 1 << NAKOUTI)
-          break;
-      }
-      U8 nb_byte = 0;
-      while (data_to_transfer != 0) {
-        if (nb_byte++ == EP0_SIZE) {
-          break;
-        }
-        UEDATX = from_program ? pgm_read_byte(pbuffer++) : *(U8 *) pbuffer++;
-        data_to_transfer--;
-      }
-      if (UEINTX & 1 << NAKOUTI)
-        break;
-      else
-        UEINTX &= ~(1 << TXINI);
+empty_packet = 0;
+if (data_to_transfer < wLength && data_to_transfer % EP0_SIZE == 0)
+  empty_packet = 1; /* indicate to the host that no more data will follow (USB\S5.5.3) */
+if (data_to_transfer > wLength)
+  data_to_transfer = wLength; /* never send more than requested */
+UEINTX &= ~(1 << NAKOUTI); /* TODO: ??? - check if it is non-zero here */
+while (data_to_transfer != 0 && !(UEINTX & 1 << NAKOUTI)) {
+  while (!(UEINTX & 1 << TXINI)) {
+    if (UEINTX & 1 << NAKOUTI)
+      break;
+  }
+  U8 nb_byte = 0;
+  while (data_to_transfer != 0) {
+    if (nb_byte++ == EP0_SIZE) {
+      break;
     }
-    if (empty_packet && !(UEINTX & 1 << NAKOUTI)) {
-      while (!(UEINTX & 1 << TXINI)) ;
-      UEINTX &= ~(1 << TXINI);
-    }
-    while (!(UEINTX & 1 << NAKOUTI)) ;
-    UEINTX &= ~(1 << NAKOUTI);
-    UEINTX &= ~(1 << RXOUTI);
+    UEDATX = from_program ? pgm_read_byte(pbuffer++) : *(U8 *) pbuffer++;
+    data_to_transfer--;
+  }
+  if (UEINTX & 1 << NAKOUTI)
+    break;
+  else
+    UEINTX &= ~(1 << TXINI);
+}
+if (empty_packet && !(UEINTX & 1 << NAKOUTI)) {
+  while (!(UEINTX & 1 << TXINI)) ;
+  UEINTX &= ~(1 << TXINI);
+}
+while (!(UEINTX & 1 << NAKOUTI)) ;
+UEINTX &= ~(1 << NAKOUTI);
+UEINTX &= ~(1 << RXOUTI);
 
 @ @<Handle {\caps set address}@>=
   wValue = UEDATX | UEDATX << 8;
