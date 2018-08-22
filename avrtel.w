@@ -90,12 +90,14 @@ void main(void)
       PORTB |= 1 << PB0; /* led off */
     }
     else {
-      PORTE |= 1 << PE6; /* |DTR| pin high */
-      PORTB &= ~(1 << PB0); /* led on */
-      keydetect = 0; /* in case key was detected right
+      if (PORTB & 1 << PB0) { /* transition happened */
+        PORTE |= 1 << PE6; /* |DTR| pin high */
+        keydetect = 0; /* in case key was detected right
                                 before DTR pin was set high (which means base station was
                                 switched off, which in turn means that nothing must
                                 come from it) */
+      }
+      PORTB &= ~(1 << PB0); /* led on */
     }
     @<Indicate line state change to \.{tel}@>@;
     if (keydetect) {
