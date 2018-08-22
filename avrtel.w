@@ -206,7 +206,7 @@ transfer more, host does not send OUT packet to initiate STATUS stage.
 (void) UEDATX; @+ (void) UEDATX;
 wLength = UEDATX | UEDATX << 8;
 UEINTX &= ~(1 << RXSTPI);
-data_to_transfer = sizeof dev_desc;
+size = sizeof dev_desc;
 pbuffer = &dev_desc;
 @<Send descriptor@>@;
 
@@ -216,7 +216,7 @@ pbuffer = &dev_desc;
 (void) UEDATX; @+ (void) UEDATX;
 wLength = UEDATX | UEDATX << 8;
 UEINTX &= ~(1 << RXSTPI);
-data_to_transfer = sizeof conf_desc;
+size = sizeof conf_desc;
 pbuffer = &conf_desc;
 @<Send descriptor@>@;
 
@@ -224,7 +224,7 @@ pbuffer = &conf_desc;
 (void) UEDATX; @+ (void) UEDATX;
 wLength = UEDATX | UEDATX << 8;
 UEINTX &= ~(1 << RXSTPI);
-data_to_transfer = sizeof lang_desc;
+size = sizeof lang_desc;
 pbuffer = lang_desc;
 @<Send descriptor@>@;
 
@@ -235,7 +235,7 @@ not from program.
 (void) UEDATX; @+ (void) UEDATX;
 wLength = UEDATX | UEDATX << 8;
 UEINTX &= ~(1 << RXSTPI);
-data_to_transfer = 1 + 1 + SN_LENGTH * 2; /* multiply because Unicode */
+size = 1 + 1 + SN_LENGTH * 2; /* multiply because Unicode */
 @<Get serial number@>@;
 pbuffer = &sn_desc;
 from_program = 0;
@@ -249,23 +249,23 @@ U8 empty_packet;
 
 @ @<Send descriptor@>=
 empty_packet = 0;
-if (data_to_transfer < wLength && data_to_transfer % EP0_SIZE == 0)
+if (size < wLength && size % EP0_SIZE == 0)
   empty_packet = 1; /* indicate to the host that no more data will follow (USB\S5.5.3) */
-if (data_to_transfer > wLength)
-  data_to_transfer = wLength; /* never send more than requested */
+if (size > wLength)
+  size = wLength; /* never send more than requested */
 UEINTX &= ~(1 << NAKOUTI); /* TODO: ??? - check if it is non-zero here */
-while (data_to_transfer != 0 && !(UEINTX & 1 << NAKOUTI)) {
+while (size != 0 && !(UEINTX & 1 << NAKOUTI)) {
   while (!(UEINTX & 1 << TXINI)) {
     if (UEINTX & 1 << NAKOUTI)
       break;
   }
   U8 nb_byte = 0;
-  while (data_to_transfer != 0) {
+  while (size != 0) {
     if (nb_byte++ == EP0_SIZE) {
       break;
     }
     UEDATX = from_program ? pgm_read_byte(pbuffer++) : *(U8 *) pbuffer++;
-    data_to_transfer--;
+    size--;
   }
   if (UEINTX & 1 << NAKOUTI)
     break;
