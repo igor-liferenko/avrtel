@@ -1,18 +1,3 @@
-TODO: do not use INT0, because line_status.DTR is already known before enabling PE6 in program
-do something like this:
-
-if (line_status.DTR) {
-  if (!(PORTB & 1 << PB0)) { /* transition happened */
-    PORTE &= ~(1 << PE6); /* |DTR| pin low */
-    base_station_was_powered_on = 1;
-  }
-  PORTB |= 1 << PB0; /* led off */
-}
-else {
-...
-
-TODO: change PB5 to PD5 and invert it
-
 The matter is that (for KX-TG7331; TODO: check for KX-TCD245) on poweron, the phone turns its
 led on for a short time,
 then turns it off. So in this change-file we detect if DTR went low
@@ -27,56 +12,56 @@ BUT: %
 ACT: disable timeout
 
 @x
-#include <avr/interrupt.h>
-@y
-#include <avr/interrupt.h>
-
-volatile int base_station_was_powered_on = 0;
-
-ISR(INT0_vect)
-{
-  base_station_was_powered_on = 1;
-}
-@z
-
-@x
-void main(void)
-{
-  DDRB |= 1 << PB5; /* on-line/off-line indicator; also used to get current state to determine
+  DDRD |= 1 << PD5; /* on-line/off-line indicator; also used to get current state to determine
                        if transition happened */
 @y
-void main(void)
-{
-  DDRB |= 1 << PB5; /* on-line/off-line indicator */
+  DDRD |= 1 << PD5; /* on-line/off-line indicator */
   int on_line = 0; /* used to get current state to determine if on-line/off-line transition
     happened */
-  EICRA |= 1 << ISC01; /* set INT0 to trigger on falling edge */
-  EIMSK |= 1 << INT0; /* turn on INT0 */
+  int base_station_was_powered_on = 0;
 @z
 
 @x
-  if (PORTB & 1 << PB5) {
-    while (!(UCSR0A & 1 << UDRE0)) ; /* loop while the transmit buffer is not ready to receive
-                                        new data */
-    UDR0 = '%';
+    if (line_status.DTR) {
+      PORTE &= ~(1 << PE6); /* |DTR| pin low (TLP281 inverts the signal) */
+      PORTB |= 1 << PB0; /* led off */
+    }
+@y
+    if (line_status.DTR) {
+      if (!(PORTB & 1 << PB0)) { /* transition happened */
+        PORTE &= ~(1 << PE6); /* |DTR| pin low (TLP281 inverts the signal) */
+        base_station_was_powered_on = 1;
+      }
+      PORTB |= 1 << PB0; /* led off */
+    }
+@z
+
+@x
+  if (!(PORTD & 1 << PD5)) {
+    while (!(UEINTX & 1 << TXINI)) ;
+    UEINTX &= ~(1 << TXINI);
+    UEDATX = '%';
+    UEINTX &= ~(1 << FIFOCON);
   }
-  PORTB &= ~(1 << PB5);
+  PORTD |= 1 << PD5;
 }
 else { /* on-line */
-  if (!(PORTB & 1 << PB5)) {
-    while (!(UCSR0A & 1 << UDRE0)) ; /* loop while the transmit buffer is not ready to receive
-                                        new data */
-    UDR0 = '@@';
+  if (PORTD & 1 << PD5) {
+    while (!(UEINTX & 1 << TXINI)) ;
+    UEINTX &= ~(1 << TXINI);
+    UEDATX = '@@';
+    UEINTX &= ~(1 << FIFOCON);
   }
-  PORTB |= 1 << PB5;
+  PORTD &= ~(1 << PD5);
 @y
   if (on_line) { /* transition happened */
     if (base_station_was_powered_on) base_station_was_powered_on = 0;
     else {
-      while (!(UCSR0A & 1 << UDRE0)) ; /* loop while the transmit buffer is not ready to receive
-                                          new data */
-      UDR0 = '%';
-      PORTB &= ~(1 << PB5);
+      while (!(UEINTX & 1 << TXINI)) ;
+      UEINTX &= ~(1 << TXINI);
+      UEDATX = '%';
+      UEINTX &= ~(1 << FIFOCON);
+      PORTD |= 1 << PD5;
     }
   }
   on_line = 0;
@@ -84,10 +69,11 @@ else { /* on-line */
 else { /* on-line */
   if (!on_line) { /* transition happened */
     if (base_station_was_powered_on) ; else {
-      while (!(UCSR0A & 1 << UDRE0)) ; /* loop while the transmit buffer is not ready to receive
-                                          new data */
-      UDR0 = '@@';
-      PORTB |= 1 << PB5;
+      while (!(UEINTX & 1 << TXINI)) ;
+      UEINTX &= ~(1 << TXINI);
+      UEDATX = '@@';
+      UEINTX &= ~(1 << FIFOCON);
+      PORTD &= ~(1 << PD5);
     }
   }
   on_line = 1;
