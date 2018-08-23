@@ -299,8 +299,8 @@ UEINTX &= ~(1 << RXOUTI);
   UDADDR |= 1 << ADDEN;
 
 @ @<Handle {\caps get descriptor device qualifier}@>=
-UEINTX &= ~(1 << RXSTPI);
 UECONX |= 1 << STALLRQ;
+UEINTX &= ~(1 << RXSTPI);
 
 @ @<Handle {\caps set configuration}@>=
 UEINTX &= ~(1 << RXSTPI);
