@@ -125,8 +125,7 @@ void main(void)
 }
 
 @ No other requests except {\caps set control line state} come
-after connection is established. Just remember not to set speed
-in application (it is unnecessary anyway).
+after connection is established (speed is not set in \.{tel}).
 
 @<Get |line_status|@>=
 UENUM = EP0;
