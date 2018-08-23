@@ -98,7 +98,7 @@ void main(void)
       }
       PORTB &= ~(1 << PB0); /* led on */
     }
-    @<Indicate line state change to \.{tel}@>@;
+    @<Indicate phone line state and notify \.{tel} if state changed@>@;
     if (keydetect) {
       keydetect = 0;
       switch (PINB & (1 << PB4 | 1 << PB5 | 1 << PB6) | PIND & 1 << PD7) {
