@@ -411,10 +411,9 @@ power reset on base station after timeout.
 
 TODO: insert PC817C.png
 
-@<Indicate line state change to \.{tel}@>=
-if (PIND & 1 << PD2) { /* off-line or base station is not powered
-                          (automatically causes off-line) */
-  if (!(PORTD & 1 << PD5)) {
+@<Indicate phone line state and notify \.{tel} if state changed@>=
+if (PIND & 1 << PD2) { /* off-line */
+  if (!(PORTD & 1 << PD5)) { /* transition happened */
     while (!(UEINTX & 1 << TXINI)) ;
     UEINTX &= ~(1 << TXINI);
     UEDATX = '%';
@@ -423,7 +422,7 @@ if (PIND & 1 << PD2) { /* off-line or base station is not powered
   PORTD |= 1 << PD5;
 }
 else { /* on-line */
-  if (PORTD & 1 << PD5) {
+  if (PORTD & 1 << PD5) { /* transition happened */
     while (!(UEINTX & 1 << TXINI)) ;
     UEINTX &= ~(1 << TXINI);
     UEDATX = '@@';
