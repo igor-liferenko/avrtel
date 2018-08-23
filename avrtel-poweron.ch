@@ -12,8 +12,8 @@ BUT: %
 ACT: disable timeout
 
 @x
-  DDRD |= 1 << PD5; /* on-line/off-line indicator; also used to get current state to determine
-                       if transition happened */
+  DDRD |= 1 << PD5; /* on-line/off-line indicator; also |PORTD & 1 << PD5| is used to get current
+                       state to determine if transition happened (to save extra variable) */
 @y
   DDRD |= 1 << PD5; /* on-line/off-line indicator */
   int on_line = 0; /* used to get current state to determine if on-line/off-line transition
@@ -23,13 +23,13 @@ ACT: disable timeout
 
 @x
     if (line_status.DTR) {
-      PORTE &= ~(1 << PE6); /* |DTR| pin low (TLP281 inverts the signal) */
+      PORTE &= ~(1 << PE6); /* base station on */
       PORTB |= 1 << PB0; /* led off */
     }
 @y
     if (line_status.DTR) {
       if (!(PORTB & 1 << PB0)) { /* transition happened */
-        PORTE &= ~(1 << PE6); /* |DTR| pin low (TLP281 inverts the signal) */
+        PORTE &= ~(1 << PE6); /* base station on */
         base_station_was_powered_on = 1;
       }
       PORTB |= 1 << PB0; /* led off */
@@ -37,7 +37,7 @@ ACT: disable timeout
 @z
 
 @x
-  if (!(PORTD & 1 << PD5)) {
+  if (!(PORTD & 1 << PD5)) { /* transition happened */
     while (!(UEINTX & 1 << TXINI)) ;
     UEINTX &= ~(1 << TXINI);
     UEDATX = '%';
@@ -46,7 +46,7 @@ ACT: disable timeout
   PORTD |= 1 << PD5;
 }
 else { /* on-line */
-  if (PORTD & 1 << PD5) {
+  if (PORTD & 1 << PD5) { /* transition happened */
     while (!(UEINTX & 1 << TXINI)) ;
     UEINTX &= ~(1 << TXINI);
     UEDATX = '@@';
