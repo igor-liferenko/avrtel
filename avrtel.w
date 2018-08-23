@@ -52,7 +52,7 @@ volatile int connected = 0;
 void main(void)
 {
   @<Disable WDT@>@;
-  UHWCON = 1 << UVREGE;
+  UHWCON |= 1 << UVREGE;
   USBCON |= 1 << USBE;
   PLLCSR = 1 << PINDIV;
   PLLCSR |= 1 << PLLE;
