@@ -124,7 +124,11 @@ void main(void)
   }
 }
 
-@ @<Get |line_status|@>=
+@ No other requests except {\caps set control line state} come
+after connection is established. Just remember not to set speed
+in application (it is unnecessary anyway).
+
+@<Get |line_status|@>=
 UENUM = EP0;
 if (UEINTX & 1 << RXSTPI) {
   (void) UEDATX; @+ (void) UEDATX;
