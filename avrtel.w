@@ -73,11 +73,12 @@ void main(void)
   UENUM = EP1;
 
   PORTD |= 1 << PD5; /* led off (before enabling output, because this led is inverted) */
-  DDRD |= 1 << PD5; /* on-line/off-line indicator; also used to get current state to determine
-                       if transition happened */
-  DDRB |= 1 << PB0; /* DTR indication */
-  DDRE |= 1 << PE6;
-  PORTE |= 1 << PE6; /* |DTR| pin high */
+  DDRD |= 1 << PD5; /* on-line/off-line indicator; also |PORTD & 1 << PD5| is used to get current
+                       state to determine if transition happened (to save extra variable) */
+  DDRB |= 1 << PB0; /* DTR indicator; also |PORTB & 1 << PB0| is used to get current DTR state
+                       to determine if transition happened (to save extra variable) */
+  DDRE |= 1 << PE6; /* TLP281 */
+  PORTE |= 1 << PE6; /* base station off */
   @<Set |PD2| to pullup mode@>@;
   EICRA |= 1 << ISC11 | 1 << ISC10; /* set INT1 to trigger on rising edge */
   EIMSK |= 1 << INT1; /* turn on INT1 */
@@ -86,16 +87,14 @@ void main(void)
   while (1) {
     @<Get |line_status|@>@;
     if (line_status.DTR) {
-      PORTE &= ~(1 << PE6); /* |DTR| pin low (TLP281 inverts the signal) */
+      PORTE &= ~(1 << PE6); /* base station on */
       PORTB |= 1 << PB0; /* led off */
     }
     else {
       if (PORTB & 1 << PB0) { /* transition happened */
-        PORTE |= 1 << PE6; /* |DTR| pin high */
-        keydetect = 0; /* in case key was detected right
-                                before DTR pin was set high (which means base station was
-                                switched off, which in turn means that nothing must
-                                come from it) */
+        PORTE |= 1 << PE6; /* base station off */
+        keydetect = 0; /* in case key was detected right before base station was
+                          switched off, which means that nothing must come from it */
       }
       PORTB &= ~(1 << PB0); /* led on */
     }
