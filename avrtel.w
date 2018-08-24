@@ -321,10 +321,6 @@ UECFG0X = 1 << EPTYPE1; /* bulk\footnote\dag{FIXME: must correspond to where?}, 
 UECFG1X = 1 << EPSIZE1; /* 32 bytes\footnote\dag{FIXME: must correspond to where?} */
 UECFG1X |= 1 << ALLOC;
 
-UERST = 1 << EP3, UERST = 0; /* FIXME: is it necessary? */
-UERST = 1 << EP1, UERST = 0;
-UERST = 1 << EP2, UERST = 0;
-
 UENUM = EP0; /* restore for further setup requests */
 UEINTX &= ~(1 << TXINI); /* STATUS stage */
 
