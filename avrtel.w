@@ -516,9 +516,8 @@ typedef struct {
   @<Configuration header descriptor@> @,@,@! el1;
   S_interface_descriptor el2;
   @<Class-specific interface descriptor 1@> @,@,@! el3;
-  @<Class-specific interface descriptor 2@> @,@,@! el4;
-  @<Class-specific interface descriptor 3@> @,@,@! el5;
-  @<Class-specific interface descriptor 4@> @,@,@! el6;
+  @<Class-specific interface descriptor 2@> @,@,@! el5;
+  @<Class-specific interface descriptor 3@> @,@,@! el6;
   S_endpoint_descriptor el7;
   S_interface_descriptor el8;
   S_endpoint_descriptor el9;
@@ -536,8 +535,7 @@ const S_configuration_descriptor conf_desc
   @<Initialize element 6 ...@>, @/
   @<Initialize element 7 ...@>, @/
   @<Initialize element 8 ...@>, @/
-  @<Initialize element 9 ...@>, @/
-@t\2@> @<Initialize element \null 10 ...@> @/
+@t\2@> @<Initialize element 9 ...@> @/
 };
 
 @*2 Configuration header descriptor.
@@ -597,7 +595,7 @@ typedef struct {
 @t\2@> 0 /* not used */
 }
 
-@ @<Initialize element 8 in configuration descriptor@>= { @t\1@> @/
+@ @<Initialize element 7 in configuration descriptor@>= { @t\1@> @/
   9, /* size of this structure */
   0x04, /* interface descriptor */
   1, /* this corresponds to `1' in `if1' on picture */
@@ -625,7 +623,7 @@ typedef struct {
 
 @ @d IN (1 << 7)
 
-@<Initialize element 7 in configuration descriptor@>= { @t\1@> @/
+@<Initialize element 6 in configuration descriptor@>= { @t\1@> @/
   7, /* size of this structure */
   0x05, /* endpoint */
   IN | 3, /* this corresponds to `3' in `ep3' on picture */
@@ -635,7 +633,7 @@ typedef struct {
 @t\2@> 0xFF /* 256 */
 }
 
-@ @<Initialize element 9 in configuration descriptor@>= { @t\1@> @/
+@ @<Initialize element 8 in configuration descriptor@>= { @t\1@> @/
   7, /* size of this structure */
   0x05, /* endpoint */
   IN | 1, /* this corresponds to `1' in `ep1' on picture */
@@ -647,7 +645,7 @@ typedef struct {
 
 @ @d OUT (0 << 7)
 
-@<Initialize element \null 10 in configuration descriptor@>= { @t\1@> @/
+@<Initialize element 9 in configuration descriptor@>= { @t\1@> @/
   7, /* size of this structure */
   0x05, /* endpoint */
   OUT | 2, /* this corresponds to `2' in `ep2' on picture */
@@ -692,46 +690,6 @@ struct {
 @t\2@> 0x0110 /* CDC 1.1 */
 }
 
-@*3 Call management functional descriptor.
-
-FIXME: remove it?
-@^FIXME@>
-
-The Call Management functional descriptor describes
-the processing of calls for the Communication Class interface.
-
-\S5.2.3.2 in CDC spec.
-
-@<Class-specific interface descriptor 2@>=
-struct {
-  U8 bFunctionLength;
-  U8 bDescriptorType;
-  U8 bDescriptorSubtype;
-  U8 bmCapabilities;
-  U8 bDataInterface;
-}
-
-@ |bmCapabilities|:
-Only first two bits are used.
-If first bit is set, then this indicates the device handles call
-management itself. If clear, the device
-does not handle call management itself. If second bit is set,
-the device can send/receive call management information over a
-Data Class interface. If clear, the device sends/receives call
-management information only over the Communication Class
-interface. The previous bits, in combination, identify
-which call management scenario is used. If first bit
-is reset to 0, then the value of second bit is
-ignored. In this case, second bit is reset to zero.
-
-@<Initialize element 4 in configuration descriptor@>= { @t\1@> @/
-  5, /* size of this structure */
-  0x24, /* interface */
-  0x01, /* call management */
-  1 << 1 | 1, @/
-@t\2@> 1 /* number of CDC data interface */
-}
-
 @*3 Abstract control management functional descriptor.
 
 The Abstract Control Management functional descriptor
@@ -741,7 +699,7 @@ SubClass code of Abstract Control Model.
 
 \S5.2.3.3 in CDC spec.
 
-@<Class-specific interface descriptor 3@>=
+@<Class-specific interface descriptor 2@>=
 struct {
   U8 bFunctionLength;
   U8 bDescriptorType;
@@ -761,7 +719,7 @@ If the third bit is set, then the device supports the request
 supports the notification \.{Network\_Connection}.
 A bit value of zero means that the request is not supported.
 
-@<Initialize element 5 in configuration descriptor@>= { @t\1@> @/
+@<Initialize element 4 in configuration descriptor@>= { @t\1@> @/
   4, /* size of this structure */
   0x24, /* interface */
   0x02, /* ACM */
@@ -781,7 +739,7 @@ interface but apply to the entire group of interfaces.
 
 \S5.2.3.8 in CDC spec.
 
-@<Class-specific interface descriptor 4@>=
+@<Class-specific interface descriptor 3@>=
 struct {
   U8 bFunctionLength;
   U8 bDescriptorType;
@@ -792,7 +750,7 @@ struct {
 
 @ @d SLAVE_INTERFACE_NUM 1
 
-@<Initialize element 6 in configuration descriptor@>= { @t\1@> @/
+@<Initialize element 5 in configuration descriptor@>= { @t\1@> @/
   4 + SLAVE_INTERFACE_NUM, /* size of this structure */
   0x24, /* interface */
   0x06, /* union */
