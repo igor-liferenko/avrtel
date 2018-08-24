@@ -1,7 +1,8 @@
-The matter is that (for KX-TG7331; TODO: check for KX-TCD245) on poweron, the phone turns its
+The matter is that for KX-TG7331 on poweron, the phone turns its
 led on for a short time,
-then turns it off. So in this change-file we detect if DTR went low
-(i.e., base station was powered on) and ignore first two PD0 state changes.
+then turns it off. So in this change-file we detect if DTR changed to `1'
+and ignore first two PD2 state changes if DTR changed to `1' (i.e., when
+base station was powered on).
 
 You know that this problem is present if you see the following lines appear
 just after you start "tel" in foreground:

@@ -15,7 +15,7 @@ and when \.{tel} closes the TTY, DTR is used to switch off base station.
 
 Note, that base station is powered when MCU is not powered.
 
-The following phone models are used: Panasonic KX-TCD245, Panasonic KX-TG7331.
+The following phone model is used: Panasonic KX-TCD245.
 The main requirement is that power supply for base station must be DC, and it
 must have led indicator for on-hook / off-hook on base station.
 
