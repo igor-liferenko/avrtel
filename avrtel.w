@@ -163,7 +163,6 @@ ISR(USB_GEN_vect)
 U16 wValue;
 U16 wIndex;
 U16 wLength;
-UEINTX &= ~(1 << RXOUTI); /* TODO: ??? - check if it is non-zero here */
 switch (UEDATX | UEDATX << 8) {
 case 0x0500: @/
   @<Handle {\caps set address}@>@;
