@@ -225,6 +225,22 @@ size = sizeof lang_desc;
 buf = lang_desc;
 @<Send descriptor@>@;
 
+@ @<Handle {\caps get descriptor string} (manufacturer)@>=
+(void) UEDATX; @+ (void) UEDATX;
+wLength = UEDATX | UEDATX << 8;
+UEINTX &= ~(1 << RXSTPI);
+size = pgm_read_byte(&mfr_desc.bLength);
+buf = &mfr_desc;
+@<Send descriptor@>@;
+
+@ @<Handle {\caps get descriptor string} (product)@>=
+(void) UEDATX; @+ (void) UEDATX;
+wLength = UEDATX | UEDATX << 8;
+UEINTX &= ~(1 << RXSTPI);
+size = pgm_read_byte(&prod_desc.bLength);
+buf = &prod_desc;
+@<Send descriptor@>@;
+
 @ Here we handle one case when data (serial number) needs to be transmitted from memory,
 not from program.
 
