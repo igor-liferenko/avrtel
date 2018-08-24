@@ -176,6 +176,12 @@ case 0x0680: @/
   case 0x0300: @/
     @<Handle {\caps get descriptor string} (language)@>@;
     break;
+  case 0x03 << 8 | MANUFACTURER: @/
+    @<Handle {\caps get descriptor string} (manufacturer)@>@;
+    break;
+  case 0x03 << 8 | PRODUCT: @/
+    @<Handle {\caps get descriptor string} (product)@>@;
+    break;
   case 0x03 << 8 | SERIAL_NUMBER: @/
     @<Handle {\caps get descriptor string} (serial)@>@;
     break;
@@ -405,13 +411,13 @@ typedef struct {
 
 @*2 Manufacturer descriptor.
 
-@<Global \null variables@>=
+@<Global variables@>=
 const S_string_descriptor mfr_desc
 @t\hskip2.5pt@> @=PROGMEM@> = STR_DESC(L"ATMEL");
 
 @*2 Product descriptor.
 
-@<Global \null variables@>=
+@<Global variables@>=
 const S_string_descriptor prod_desc
 @t\hskip2.5pt@> @=PROGMEM@> = STR_DESC(L"TEL");
 
