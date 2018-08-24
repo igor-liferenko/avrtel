@@ -271,8 +271,7 @@ while (size != 0) {
   UEINTX &= ~(1 << TXINI);
   while (!(UEINTX & 1 << TXINI)) ;
 }
-if (empty_packet)
-  UEINTX &= ~(1 << TXINI);
+if (empty_packet) @+ UEINTX &= ~(1 << TXINI);
 while (!(UEINTX & 1 << RXOUTI)) ; /* wait for STATUS stage */
 UEINTX &= ~(1 << RXOUTI);
 
