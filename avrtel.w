@@ -299,22 +299,26 @@ UEINTX &= ~(1 << RXSTPI);
 
 UENUM = EP3;
 UECONX |= 1 << EPEN;
-UECFG0X = 1 << EPTYPE1 | 1 << EPTYPE0 | 1 << EPDIR; /* interrupt\footnote\dag{FIXME:
-  must correspond to where?}, IN */
-UECFG1X = 1 << EPSIZE1; /* 32 bytes\footnote\dag{FIXME: must correspond to where?} */
+UECFG0X = 1 << EPTYPE1 | 1 << EPTYPE0 | 1 << EPDIR; /* interrupt\footnote\dag{Must
+  correspond to |@<Initialize element 6 ...@>|.}, IN */
+UECFG1X = 1 << EPSIZE1; /* 32 bytes\footnote\ddag{Must
+  correspond to |@<Initialize element 6 ...@>|.} */
 UECFG1X |= 1 << ALLOC;
 
 UENUM = EP1;
 UECONX |= 1 << EPEN;
-UECFG0X = 1 << EPTYPE1 | 1 << EPDIR; /* bulk\footnote\dag{FIXME: must correspond to
-  where?}, IN */
-UECFG1X = 1 << EPSIZE1; /* 32 bytes\footnote\dag{FIXME: must correspond to where?} */
+UECFG0X = 1 << EPTYPE1 | 1 << EPDIR; /* bulk\footnote\dag{Must
+  correspond to |@<Initialize element 8 ...@>|.}, IN */
+UECFG1X = 1 << EPSIZE1; /* 32 bytes\footnote\ddag{Must
+  correspond to |@<Initialize element 8 ...@>|.} */
 UECFG1X |= 1 << ALLOC;
 
 UENUM = EP2;
 UECONX |= 1 << EPEN;
-UECFG0X = 1 << EPTYPE1; /* bulk\footnote\dag{FIXME: must correspond to where?}, OUT */
-UECFG1X = 1 << EPSIZE1; /* 32 bytes\footnote\dag{FIXME: must correspond to where?} */
+UECFG0X = 1 << EPTYPE1; /* bulk\footnote\dag{Must
+  correspond to |@<Initialize element 9 ...@>|.}, OUT */
+UECFG1X = 1 << EPSIZE1; /* 32 bytes\footnote\ddag{Must
+  correspond to |@<Initialize element 9 ...@>|.} */
 UECFG1X |= 1 << ALLOC;
 
 UENUM = EP0; /* restore for further setup requests */
@@ -621,7 +625,8 @@ typedef struct {
   IN | 3, /* this corresponds to `3' in `ep3' on picture */
   0x03, /* transfers via interrupts\footnote\dag{Must correspond to
     |UECFG0X| of |EP3|.} */
-  0x0020, /* 32 bytes */
+  0x0020, /* 32 bytes\footnote\ddag{Must correspond to
+    |UECFG1X| of |EP3|.} */
 @t\2@> 0xFF /* 256 */
 }
 
@@ -631,7 +636,8 @@ typedef struct {
   IN | 1, /* this corresponds to `1' in `ep1' on picture */
   0x02, /* bulk transfers\footnote\dag{Must correspond to
     |UECFG0X| of |EP1|.} */
-  0x0020, /* 32 bytes */
+  0x0020, /* 32 bytes\footnote\ddag{Must correspond to
+    |UECFG1X| of |EP1|.} */
 @t\2@> 0x00 /* not applicable */
 }
 
@@ -643,7 +649,8 @@ typedef struct {
   OUT | 2, /* this corresponds to `2' in `ep2' on picture */
   0x02, /* bulk transfers\footnote\dag{Must correspond to
     |UECFG0X| of |EP2|.} */
-  0x0020, /* 32 bytes */
+  0x0020, /* 32 bytes\footnote\ddag{Must correspond to
+    |UECFG1X| of |EP2|.} */
 @t\2@> 0x00 /* not applicable */
 }
 
