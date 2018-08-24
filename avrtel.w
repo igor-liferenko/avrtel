@@ -1,5 +1,3 @@
-% TODO: add product string
-
 \let\lheader\rheader
 %\datethis
 \secpagedepth=2 % begin new page only on *
@@ -362,6 +360,45 @@ const uint8_t lang_desc[]
 @t\2@> 0x09,0x04 /* id (English) */
 };
 
+@*1 String descriptors.
+
+The trick here is that when defining a variable of type |S_string_descriptor|,
+the string content follows the first two elements in program memory.
+The C standard says that a flexible array member in a struct does not increase the size of the
+struct (aside from possibly adding some padding at the end) but gcc lets you initialize it anyway.
+|sizeof| on the variable counts only first two elements.
+So, we read the size of the variable at
+execution time in |@<Handle {\caps get descriptor string} (manufacturer)@>|
+and |@<Handle {\caps get descriptor string} (product)@>| by using |pgm_read_byte|.
+
+TODO: put here explanation from \.{https://stackoverflow.com/questions/51470592/}
+@^TODO@>
+
+@^GCC-specific@>
+
+@s S_string_descriptor int
+
+@<Type \null definitions@>=
+typedef struct {
+  uint8_t bLength;
+  uint8_t bDescriptorType;
+  int16_t wString[];
+} S_string_descriptor;
+
+#define STR_DESC(str) @,@,@,@, {@, 1 + 1 + sizeof str - 2, 0x03, str @t\hskip1pt@>}
+
+@*2 Manufacturer descriptor.
+
+@<Global \null variables@>=
+const S_string_descriptor mfr_desc
+@t\hskip2.5pt@> @=PROGMEM@> = STR_DESC(L"ATMEL");
+
+@*2 Product descriptor.
+
+@<Global \null variables@>=
+const S_string_descriptor prod_desc
+@t\hskip2.5pt@> @=PROGMEM@> = STR_DESC(L"TEL");
+
 @*1 Serial number descriptor.
 
 This one is different in that its content cannot be prepared in compile time,
@@ -449,7 +486,8 @@ PORTD |= 1 << PD2;
 
 TODO: find what prefixes mean in names of variables (i.e., `b', `bcd', ...)
 
-@d NOT_USED 0x00
+@d MANUFACTURER 0x01
+@d PRODUCT 0x02
 @d SERIAL_NUMBER 0x03
 
 @<Global variables@>=
@@ -480,8 +518,8 @@ struct {
   0x03EB, /* VID (Atmel) */
   0x2018, /* PID (CDC ACM) */
   0x1000, /* device revision */
-  NOT_USED, @/
-  NOT_USED, @/
+  MANUFACTURER, @/
+  PRODUCT, @/
   SERIAL_NUMBER, @/
 @t\2@> 1 /* one configuration for this device */
 };
