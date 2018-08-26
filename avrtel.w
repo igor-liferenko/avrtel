@@ -57,7 +57,7 @@ void main(void)
   while (!(PLLCSR & 1 << PLOCK)) ;
   USBCON &= ~(1 << FRZCLK);
   USBCON |= 1 << OTGPADE;
-  UDIEN = 1 << EORSTE;
+  UDIEN |= 1 << EORSTE;
   sei();
   UDCON &= ~(1 << DETACH);
 
