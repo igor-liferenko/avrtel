@@ -310,7 +310,10 @@ UEINTX &= ~(1 << RXOUTI);
             stage is absent).} */
   UDADDR |= 1 << ADDEN;
 
-@ @<Handle {\caps get descriptor device qualifier}@>=
+@ TODO: put here explanation from kbd.w
+@^TODO@>
+
+@<Handle {\caps get descriptor device qualifier}@>=
 UECONX |= 1 << STALLRQ;
 UEINTX &= ~(1 << RXSTPI);
 
