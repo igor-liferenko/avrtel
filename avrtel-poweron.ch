@@ -1,16 +1,24 @@
-The matter is that for KX-TG7331 on poweron, the phone turns its
-led on for a short time,
-then turns it off. So in this change-file we detect if DTR changed to `1'
-and ignore first two PD2 state changes if DTR changed to `1' (i.e., when
-base station was powered on).
-
-You know that this problem is present if you see the following lines appear
+You know that this change-file is necessary if you see the following lines appear
 just after you start "tel" in foreground:
 
 BUT: @
 ACT: go to beginning
 BUT: %
 ACT: disable timeout
+
+@x
+The following phone model is used: Panasonic KX-TCD245.
+The main requirement is that power supply for base station must be DC, and it
+must have led indicator for on-hook / off-hook on base station.
+@y
+The following phone model is used: Panasonic KX-TG7331.
+The main requirement is that power supply for base station must be DC, and it
+must have led indicator for on-hook / off-hook on base station.
+For this phone model when base station is powered on, the indicator is turned
+on for a short time. To work around this harmful effect, we detect if DTR
+changed to `1' (i.e., when base station was powered on)
+and ignore first two led state changes in such case.
+@z
 
 @x
   DDRD |= 1 << PD5; /* on-line/off-line indicator; also |PORTD & 1 << PD5| is used to get current
