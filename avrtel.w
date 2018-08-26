@@ -268,10 +268,14 @@ U8 empty_packet;
 
 @ Transmit data and empty packet (if necessary) and wait for STATUS stage.
 
-For control endpoints, by clearing TXINI we say that when next IN token arrives,
-data must be sent. When data was sent, TXINI becomes `1'.
-After TXINI becomes `1', new data may be written to UEDATX.
-(For non-control endpoints clearing TXINI serves different purpose.)
+On control endpoint by clearing TXINI (in addition to making it possible to
+know when bank will be free again) we say that when next IN token arrives,
+data must be sent and endpoint bank cleared. When data was sent, TXINI becomes `1'.
+After TXINI becomes `1', new data may be written to UEDATX.\footnote*{The
+difference of clearing TXINI for control and non-control endpoint is that
+on control endpoint clearing TXINI also sends the packet and clears the endpoint bank.
+On non-control endpoints there is a possibility to have double bank, so another
+mechanism must be used.}
 
 @<Send descriptor@>=
 empty_packet = 0;
