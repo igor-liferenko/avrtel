@@ -380,7 +380,7 @@ This is necessary to transmit manufacturer, product and serial number.
 @<Global variables@>=
 const uint8_t lang_desc[]
 @t\hskip2.5pt@> @=PROGMEM@> = { @t\1@> @/
-  0x04, /* size */
+  0x04, /* size of this structure */
   0x03, /* type (string) */
 @t\2@> 0x09,0x04 /* id (English) */
 };
