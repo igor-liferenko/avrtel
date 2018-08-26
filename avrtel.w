@@ -19,9 +19,9 @@ The following phone model is used: Panasonic KX-TCD245.
 The main requirement is that power supply for base station must be DC, and it
 must have led indicator for on-hook / off-hook on base station.
 
-Note, that we can not use simple cordless phone---a DECT phone is needed, because
-resetting base station to put the phone on-hook will not work
-(FIXME: check if it is really so).
+%Note, that we can not use simple cordless phone---a DECT phone is needed, because
+%resetting base station to put the phone on-hook will not work
+%(FIXME: check if it is really so).
 
 @d EP0 0
 @d EP1 1
