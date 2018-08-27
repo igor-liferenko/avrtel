@@ -28,7 +28,8 @@ must have led indicator for on-hook / off-hook on base station.
 @d EP2 2
 @d EP3 3
 
-@d EP0_SIZE 32 /* 32 bytes\footnote\dag{Must correspond to |UECFG1X| of |EP0|.} */
+@d EP0_SIZE 32 /* 32 bytes\footnote\dag{Must correspond to |UECFG1X| of |EP0|.}
+                  (max for atmega32u4) */
 
 @c
 @<Header files@>@;
