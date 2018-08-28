@@ -17,3 +17,5 @@ glued rear view:
 +-----++-----+
 ==================================================
 solder TX and GND to stick to top (as for programmer) to connect UART for debugging DTR (there is a suspicion that DTR is not delivered guranteedly by cdc-acm driver)
+==================================================
+see cweb/SERIAL_TODO
