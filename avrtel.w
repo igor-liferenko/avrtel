@@ -463,7 +463,14 @@ UEINTX &= ~(1 << TXINI); /* STATUS stage */
 
 @*1 Device descriptor.
 
-TODO: find what prefixes mean in names of variables (i.e., `b', `bcd', ...)
+Placeholder prefixes such as `b', `bcd', and `w' are used to denote placeholder type:     
+
+\noindent\hskip40pt\hbox to0pt{\hskip-20pt\it b\hfil} bits or bytes; dependent on context \par
+\noindent\hskip40pt\hbox to0pt{\hskip-20pt\it bcd\hfil} binary-coded decimal \par
+\noindent\hskip40pt\hbox to0pt{\hskip-20pt\it bm\hfil} bitmap \par
+\noindent\hskip40pt\hbox to0pt{\hskip-20pt\it d\hfil} descriptor \par
+\noindent\hskip40pt\hbox to0pt{\hskip-20pt\it i\hfil} index \par
+\noindent\hskip40pt\hbox to0pt{\hskip-20pt\it w\hfil} word \par
 
 @d MANUFACTURER 0x01
 @d PRODUCT 0x02
