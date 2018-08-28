@@ -132,12 +132,45 @@ if (UEINTX & 1 << RXSTPI) {
 }
 UENUM = EP1; /* restore */
 
-@ @<Reset MCU@>=
+@ Used in \.{USB\_RESET} interrupt handler.
+
+@<Reset MCU@>=
 WDTCSR |= 1 << WDCE | 1 << WDE; /* allow to enable WDT */
 WDTCSR = 1 << WDE; /* enable WDT */
 while (1) ;
 
-@ @<Disable WDT@>=
+@ When reset is done via watchdog, WDRF (WatchDog Reset Flag) is set in MCUSR register.
+WDE (WatchDog system reset Enable) is always set in WDTCSR when WDRF is set. It
+is necessary to clear WDE to stop MCU from eternal resetting:
+on MCU start we always clear |WDRF| and WDE
+(nothing will change if they are not set).
+To avoid unintentional changes of WDE, a special write procedure must be followed
+to change the WDE bit. To clear WDE, WDRF must be cleared first.
+
+This should be done right at the beginning of |main|, in order to be in
+time before WDT is triggered.
+We don't call \\{wdt\_reset} because initialization code,
+that \.{avr-gcc} adds, has enough time to execute before watchdog
+timer (16ms in this program) expires:
+
+$$\vbox{\halign{\tt#\cr
+  eor r1, r1 \cr
+  out 0x3f, r1 \cr
+  ldi r28, 0xFF	\cr
+  ldi r29, 0x0A	\cr
+  out 0x3e, r29	\cr
+  out 0x3d, r28	\cr
+  call <main> \cr
+}}$$
+
+At 16MHz each cycle is 62.5 nanoseconds, so it is 7 instructions,
+taking FIXME cycles, multiplied by 62.5 is ????.
+
+(What the above code does: zero r1 register, clear SREG, initialize program stack
+(to the stack processor writes addresses for returning from subroutines and interrupt
+handlers). To the stack pointer is written address of last cell of RAM.)
+
+@<Disable WDT@>=
 MCUSR = 0x00; /* clear WDRF */
 WDTCSR |= 1 << WDCE | 1 << WDE; /* allow to disable WDT */
 WDTCSR = 0x00; /* disable WDT */
