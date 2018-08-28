@@ -460,92 +460,6 @@ while (!(UEINTX & 1 << RXOUTI)) ; /* wait for DATA stage */
 UEINTX &= ~(1 << RXOUTI);
 UEINTX &= ~(1 << TXINI); /* STATUS stage */
 
-@*1 Language descriptor.
-
-This is necessary to transmit manufacturer, product and serial number.
-
-@<Global variables@>=
-const uint8_t lang_desc[]
-@t\hskip2.5pt@> @=PROGMEM@> = { @t\1@> @/
-  0x04, /* size of this structure */
-  0x03, /* type (string) */
-@t\2@> 0x09,0x04 /* id (English) */
-};
-
-@*1 String descriptors.
-
-The trick here is that when defining a variable of type |S_string_descriptor|,
-the string content follows the first two elements in program memory.
-The C standard says that a flexible array member in a struct does not increase the size of the
-struct (aside from possibly adding some padding at the end) but gcc lets you initialize it anyway.
-|sizeof| on the variable counts only first two elements.
-So, we read the size of the variable at
-execution time in |@<Handle {\caps get descriptor string} (manufacturer)@>|
-and |@<Handle {\caps get descriptor string} (product)@>| by using |pgm_read_byte|.
-
-TODO: put here explanation from \.{https://stackoverflow.com/questions/51470592/}
-@^TODO@>
-
-@^GCC-specific@>
-
-@s S_string_descriptor int
-
-@<Type \null definitions@>=
-typedef struct {
-  uint8_t bLength;
-  uint8_t bDescriptorType;
-  int16_t wString[];
-} S_string_descriptor;
-
-#define STR_DESC(str) @,@,@,@, {@, 1 + 1 + sizeof str - 2, 0x03, str @t\hskip1pt@>}
-
-@*2 Manufacturer descriptor.
-
-@<Global variables@>=
-const S_string_descriptor mfr_desc
-@t\hskip2.5pt@> @=PROGMEM@> = STR_DESC(L"ATMEL");
-
-@*2 Product descriptor.
-
-@<Global variables@>=
-const S_string_descriptor prod_desc
-@t\hskip2.5pt@> @=PROGMEM@> = STR_DESC(L"TEL");
-
-@*1 Serial number descriptor.
-
-This one is different in that its content cannot be prepared in compile time,
-only in execution time. So, it cannot be stored in program memory.
-Therefore, a special trick is used in |send_descriptor| (to avoid cluttering it with
-arguments): we pass a null pointer if serial number is to be transmitted.
-In |send_descriptor| |sn_desc| is filled in.
-
-@d SN_LENGTH 20 /* length of device signature, multiplied by two (because each byte in hex) */
-
-@<Global variables@>=
-struct {
-  uint8_t bLength;
-  uint8_t bDescriptorType;
-  int16_t wString[SN_LENGTH];
-} sn_desc;
-
-@ @d SN_START_ADDRESS 0x0E
-@d hex(c) c<10 ? c+'0' : c-10+'A'
-
-@<Get serial number@>=
-sn_desc.bLength = 1 + 1 + SN_LENGTH * 2; /* multiply because Unicode */
-sn_desc.bDescriptorType = 0x03;
-uint8_t addr = SN_START_ADDRESS;
-for (uint8_t i = 0; i < SN_LENGTH; i++) {
-  uint8_t c = boot_signature_byte_get(addr);
-  if (i & 1) { /* we divide each byte of signature into halves, each of
-                  which is represented by a hex number */
-    c >>= 4;
-    addr++;
-  }
-  else c &= 0x0F;
-  sn_desc.wString[i] = hex(c);
-}
-
 @* USB stack.
 
 @*1 Device descriptor.
@@ -861,6 +775,92 @@ struct {
   { @t\1@> @/
 @t\2@> 1 /* number of CDC data interface */
 @t\2@> } @/
+}
+
+@*1 Language descriptor.
+
+This is necessary to transmit manufacturer, product and serial number.
+
+@<Global variables@>=
+const uint8_t lang_desc[]
+@t\hskip2.5pt@> @=PROGMEM@> = { @t\1@> @/
+  0x04, /* size of this structure */
+  0x03, /* type (string) */
+@t\2@> 0x09,0x04 /* id (English) */
+};
+
+@*1 String descriptors.
+
+The trick here is that when defining a variable of type |S_string_descriptor|,
+the string content follows the first two elements in program memory.
+The C standard says that a flexible array member in a struct does not increase the size of the
+struct (aside from possibly adding some padding at the end) but gcc lets you initialize it anyway.
+|sizeof| on the variable counts only first two elements.
+So, we read the size of the variable at
+execution time in |@<Handle {\caps get descriptor string} (manufacturer)@>|
+and |@<Handle {\caps get descriptor string} (product)@>| by using |pgm_read_byte|.
+
+TODO: put here explanation from \.{https://stackoverflow.com/questions/51470592/}
+@^TODO@>
+
+@^GCC-specific@>
+
+@s S_string_descriptor int
+
+@<Type \null definitions@>=
+typedef struct {
+  uint8_t bLength;
+  uint8_t bDescriptorType;
+  int16_t wString[];
+} S_string_descriptor;
+
+#define STR_DESC(str) @,@,@,@, {@, 1 + 1 + sizeof str - 2, 0x03, str @t\hskip1pt@>}
+
+@*2 Manufacturer descriptor.
+
+@<Global variables@>=
+const S_string_descriptor mfr_desc
+@t\hskip2.5pt@> @=PROGMEM@> = STR_DESC(L"ATMEL");
+
+@*2 Product descriptor.
+
+@<Global variables@>=
+const S_string_descriptor prod_desc
+@t\hskip2.5pt@> @=PROGMEM@> = STR_DESC(L"TEL");
+
+@*1 Serial number descriptor.
+
+This one is different in that its content cannot be prepared in compile time,
+only in execution time. So, it cannot be stored in program memory.
+Therefore, a special trick is used in |send_descriptor| (to avoid cluttering it with
+arguments): we pass a null pointer if serial number is to be transmitted.
+In |send_descriptor| |sn_desc| is filled in.
+
+@d SN_LENGTH 20 /* length of device signature, multiplied by two (because each byte in hex) */
+
+@<Global variables@>=
+struct {
+  uint8_t bLength;
+  uint8_t bDescriptorType;
+  int16_t wString[SN_LENGTH];
+} sn_desc;
+
+@ @d SN_START_ADDRESS 0x0E
+@d hex(c) c<10 ? c+'0' : c-10+'A'
+
+@<Get serial number@>=
+sn_desc.bLength = 1 + 1 + SN_LENGTH * 2; /* multiply because Unicode */
+sn_desc.bDescriptorType = 0x03;
+uint8_t addr = SN_START_ADDRESS;
+for (uint8_t i = 0; i < SN_LENGTH; i++) {
+  uint8_t c = boot_signature_byte_get(addr);
+  if (i & 1) { /* we divide each byte of signature into halves, each of
+                  which is represented by a hex number */
+    c >>= 4;
+    addr++;
+  }
+  else c &= 0x0F;
+  sn_desc.wString[i] = hex(c);
 }
 
 @* Headers.
