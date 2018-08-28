@@ -62,11 +62,10 @@ void main(void)
   sei();
   UDCON &= ~(1 << DETACH);
 
-  while (!connected) {
+  while (!connected)
     if (UEINTX & 1 << RXSTPI) {
       @<Process SETUP request@>@;
     }
-  }
   UENUM = EP1;
 
   PORTD |= 1 << PD5; /* led off (before enabling output, because this led is inverted) */
