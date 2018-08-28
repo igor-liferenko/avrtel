@@ -132,6 +132,52 @@ if (UEINTX & 1 << RXSTPI) {
 }
 UENUM = EP1; /* restore */
 
+@ For on-line indication we send `\.{@@}' character to \.{tel}---to put
+it to initial state.
+For off-line indication we send `\.{\%}' character to \.{tel}---to disable
+power reset on base station after timeout.
+
+TODO: insert PC817C.png
+
+@<Indicate phone line state and notify \.{tel} if state changed@>=
+if (PIND & 1 << PD2) { /* off-line */
+  if (!(PORTD & 1 << PD5)) { /* transition happened */
+    while (!(UEINTX & 1 << TXINI)) ;
+    UEINTX &= ~(1 << TXINI);
+    UEDATX = '%';
+    UEINTX &= ~(1 << FIFOCON);
+  }
+  PORTD |= 1 << PD5;
+}
+else { /* on-line */
+  if (PORTD & 1 << PD5) { /* transition happened */
+    while (!(UEINTX & 1 << TXINI)) ;
+    UEINTX &= ~(1 << TXINI);
+    UEDATX = '@@';
+    UEINTX &= ~(1 << FIFOCON);
+  }
+  PORTD &= ~(1 << PD5);
+}
+
+@ The pull-up resistor is connected to the high voltage (this is usually 3.3V or 5V and is
+often refereed to as VCC).
+
+Pull-ups are often used with buttons and switches.
+
+With a pull-up resistor, the input pin will read a high state when the photo-transistor
+is not opened. In other words, a small amount of current is flowing between VCC and the input
+pin (not to ground), thus the input pin reads close to VCC. When the photo-transistor is
+opened, it connects the input pin directly to ground. The current flows through the resistor
+to ground, thus the input pin reads a low state.
+
+Since pull-up resistors are so commonly needed, many MCUs, like the ATmega328 microcontroller
+on the Arduino platform, have internal pull-ups that can be enabled and disabled.
+
+TODO: insert pullup.svg
+
+@<Set |PD2| to pullup mode@>=
+PORTD |= 1 << PD2;
+
 @ Used in \.{USB\_RESET} interrupt handler.
 
 @<Reset MCU@>=
@@ -499,52 +545,6 @@ for (uint8_t i = 0; i < SN_LENGTH; i++) {
   else c &= 0x0F;
   sn_desc.wString[i] = hex(c);
 }
-
-@ For on-line indication we send `\.{@@}' character to \.{tel}---to put
-it to initial state.
-For off-line indication we send `\.{\%}' character to \.{tel}---to disable
-power reset on base station after timeout.
-
-TODO: insert PC817C.png
-
-@<Indicate phone line state and notify \.{tel} if state changed@>=
-if (PIND & 1 << PD2) { /* off-line */
-  if (!(PORTD & 1 << PD5)) { /* transition happened */
-    while (!(UEINTX & 1 << TXINI)) ;
-    UEINTX &= ~(1 << TXINI);
-    UEDATX = '%';
-    UEINTX &= ~(1 << FIFOCON);
-  }
-  PORTD |= 1 << PD5;
-}
-else { /* on-line */
-  if (PORTD & 1 << PD5) { /* transition happened */
-    while (!(UEINTX & 1 << TXINI)) ;
-    UEINTX &= ~(1 << TXINI);
-    UEDATX = '@@';
-    UEINTX &= ~(1 << FIFOCON);
-  }
-  PORTD &= ~(1 << PD5);
-}
-
-@ The pull-up resistor is connected to the high voltage (this is usually 3.3V or 5V and is
-often refereed to as VCC).
-
-Pull-ups are often used with buttons and switches.
-
-With a pull-up resistor, the input pin will read a high state when the photo-transistor
-is not opened. In other words, a small amount of current is flowing between VCC and the input
-pin (not to ground), thus the input pin reads close to VCC. When the photo-transistor is
-opened, it connects the input pin directly to ground. The current flows through the resistor
-to ground, thus the input pin reads a low state.
-
-Since pull-up resistors are so commonly needed, many MCUs, like the ATmega328 microcontroller
-on the Arduino platform, have internal pull-ups that can be enabled and disabled.
-
-TODO: insert pullup.svg
-
-@<Set |PD2| to pullup mode@>=
-PORTD |= 1 << PD2;
 
 @* USB stack.
 
