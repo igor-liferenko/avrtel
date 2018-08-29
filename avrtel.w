@@ -274,7 +274,6 @@ case 0x0900: @/
   break;
 case 0x2021: @/
   @<Handle {\caps set line coding}@>@;
-  connected = 1;
   break;
 }
 
@@ -471,13 +470,15 @@ line_status.all = UEDATX | UEDATX << 8;
 UEINTX &= ~(1 << RXSTPI);
 UEINTX &= ~(1 << TXINI); /* STATUS stage */
 
-@ This is a stub. Just discard the data.
+@ Just discard the data.
+This is the last request after attachment to host.
 
 @<Handle {\caps set line coding}@>=
 UEINTX &= ~(1 << RXSTPI);
 while (!(UEINTX & 1 << RXOUTI)) ; /* wait for DATA stage */
 UEINTX &= ~(1 << RXOUTI);
 UEINTX &= ~(1 << TXINI); /* STATUS stage */
+connected = 1;
 
 @* USB stack.
 
