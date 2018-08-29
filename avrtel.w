@@ -8,16 +8,30 @@ DTR is used by \.{tel} to switch the phone off (on timeout and for
 special commands) by switching off/on
 base station for one second.
 
-On initialization MCU powers off base station (by setting DTR pin to high)
-so that firmware is in `off-line' state when connection is done to USB host.
+Base station is powered when MCU is not powered.
+When MCU is powered and connection to host is established,
+host driver powers off base station (by disabling DTR --- due to the patch).
 When \.{tel} opens the TTY, DTR is used to switch on base station;
 and when \.{tel} closes the TTY, DTR is used to switch off base station.
-
-Note, that base station is powered when MCU is not powered.
+Note, that 1 second delay is used before enabling DTR in \.{tel} after
+opening the TTY in order to reset base station in order to guarantee that
+phone is switched off when \.{tel} starts, to make number of `\.{@@}'
+match number of `\.{\%}' in log output
+(otherwise just wait first RXSTPI after connection is establised and
+clear it immediately).
 
 The following phone model is used: Panasonic KX-TCD245.
-The main requirement is that power supply for base station must be DC, and it
-must have led indicator for on-hook / off-hook on base station.
+The main requirement is that power supply for base station must be DC (to
+be able to switch off power supply output via relay ---~because switching
+off on power supply input (which does not require output to be DC)
+could damage the power supply due to transition processes from 220v to
+voltage of the power supply output), and it
+must have led indicator for on-hook / off-hook on base station (to be able
+to reset to initial state in state machine in \.{tel}; note, that
+measuring voltage drop in phone line does not work reliably, because it
+falsely triggers when dtmf signal is produced ---~the dtmf signal is alternating
+below the trigger level and multiple on-hook/off-hook events occur in high
+succession).
 
 %Note, that we can not use simple cordless phone---a DECT phone is needed, because
 %resetting base station to put the phone on-hook will not work
@@ -71,15 +85,16 @@ void main(void)
   PORTD |= 1 << PD5; /* led off (before enabling output, because this led is inverted) */
   DDRD |= 1 << PD5; /* on-line/off-line indicator; also |PORTD & 1 << PD5| is used to get current
                        state to determine if transition happened (to save extra variable) */
-  DDRB |= 1 << PB0; /* DTR indicator; also |PORTB & 1 << PB0| is used to get current DTR state
-                       to determine if transition happened (to save extra variable) */
-  DDRE |= 1 << PE6; /* TLP281 */
-  PORTE |= 1 << PE6; /* base station off */
   @<Set |PD2| to pullup mode@>@;
   EICRA |= 1 << ISC11 | 1 << ISC10; /* set INT1 to trigger on rising edge */
   EIMSK |= 1 << INT1; /* turn on INT1 */
+  PORTB |= 1 << PB0; /* led off (before enabling output, because this led is inverted) */
+  DDRB |= 1 << PB0; /* DTR indicator; also |PORTB & 1 << PB0| is used to get current DTR state
+                       to determine if transition happened (to save extra variable) */
+  DDRE |= 1 << PE6;
 
   char digit;
+  while (!(UEINTX & 1 << RXSTPI)) ; /* wait until TTY is opened (i.e., until DTR is assigned) */
   while (1) {
     @<Get |line_status|@>@;
     if (line_status.DTR) {
