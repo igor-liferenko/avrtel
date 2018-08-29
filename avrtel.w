@@ -396,11 +396,31 @@ UEINTX &= ~(1 << RXOUTI);
             stage is absent).} */
   UDADDR |= 1 << ADDEN;
 
-@ TODO: put here explanation from kbd.w
-@^TODO@>
+@ A high-speed capable device that has different device information for full-speed and high-speed
+must have a Device Qualifier Descriptor. For example, if the device is currently operating at
+full-speed, the Device Qualifier returns information about how it would operate at high-speed and
+vice-versa. So as this device is full-speed, it tells the host not to request
+device information for high-speed by using ``protocol stall'' (such stall
+does not indicate an error with the device ---~it serves as a means of
+extending USB requests).
+
+The host sends an IN token to the control pipe to initiate the DATA stage.
+
+$$\hbox to10.93cm{\vbox to5.15055555555556cm{\vfil\special{%
+  psfile=stall-control-read-with-data-stage.eps
+  clip llx=0 lly=0 urx=310 ury=146 rwi=3100}}\hfil}$$
+
+Note, that next token comes after \.{RXSTPI} is cleared, so we set \.{STALLRQ} before
+clearing \.{RXSTPI}, to make sure that \.{STALLRQ} is already set when next token arrives.
+
+This STALL condition is automatically cleared on the receipt of the
+next SETUP token.
+
+USB\S8.5.3.4, datasheet\S22.11.
 
 @<Handle {\caps get descriptor device qualifier}@>=
-UECONX |= 1 << STALLRQ;
+UECONX |= 1 << STALLRQ; /* prepare to send STALL handshake in response to IN token of the DATA
+  stage */
 UEINTX &= ~(1 << RXSTPI);
 
 @ @<Handle {\caps set configuration}@>=
