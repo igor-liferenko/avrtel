@@ -106,7 +106,6 @@ void main(void)
   DDRE |= 1 << PE6;
 
   char digit;
-xxx
   while (1) {
     @<Get |line_status|@>@;
     if (line_status.DTR) {
