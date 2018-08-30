@@ -102,6 +102,7 @@ void main(void)
   DDRE |= 1 << PE6;
   PORTE |= 1 << PE6;
 
+  if (line_status.DTR != 0) return;
   char digit;
   while (1) {
     @<Get |line_status|@>@;
@@ -211,7 +212,7 @@ typedef union {
 } S_line_status;
 
 @ @<Global variables@>=
-S_line_status line_status = 0; /* when MCU starts, base station is powered off, so DTR is zero */
+S_line_status line_status;
 
 @ @<Handle {\caps set control line state}@>=
 line_status.all = UEDATX | UEDATX << 8;
