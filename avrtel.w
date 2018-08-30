@@ -64,15 +64,12 @@ typedef unsigned short U16;
 @<Type \null definitions@>@;
 @<Global variables@>@;
 
-@ @c
 volatile int keydetect = 0;
-
 ISR(INT1_vect)
 {
   keydetect = 1;
 }
 
-@ @c
 volatile int connected = 0;
 void main(void)
 {
