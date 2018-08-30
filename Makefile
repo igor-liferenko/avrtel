@@ -3,7 +3,7 @@ avrtel:
 	@avr-gcc -mmcu=atmega32u4 -g -Os -o fw.elf $@.c
 	@avr-objcopy -O ihex fw.elf fw.hex
 
-objdump:
+dump:
 	@avr-objdump -d fw.elf
 
 flash:
