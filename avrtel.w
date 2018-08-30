@@ -6,31 +6,11 @@
 @* Program.
 DTR is used by \.{tel} to switch the phone off (on timeout and for
 special commands) by switching off/on
-base station for one second.
+base station for one second (the phone looses connection to base
+station and automatically powers itself off).
 
-Base station is powered when MCU is not powered.
-When MCU is powered and connection to host is established,
-wait until DTR is set for the first time (which is zero)
-and set DTR to one if phone was off-hook, but this can
-create problems due to case in avrtel-poweron.ch,
-so to avoid need to determine hook state, just poweroff
-base station when TTY is opened in \.{tel} (for this add
-sleep 1 in two places in tel.w)
-
-host driver powers off base station (by disabling DTR --- due to the patch).
-When \.{tel} opens the TTY, DTR is used to switch on base station;
-and when \.{tel} closes the TTY, DTR is used to switch off base station.
-Note, that 1 second delay is used before enabling DTR in \.{tel} after
-opening the TTY in order to reset base station in order to guarantee that
-phone is switched off when \.{tel} starts, to make number of `\.{@@}'
-match number of `\.{\%}' in log output
-(otherwise just wait first RXSTPI after connection is establised and
-clear it immediately).
-
-TODO: when phone is off-hook, unplug arduino and ensure that it stays off-hook (and
-check that "terminal disappeared" is printed)
-TODO: when phone is off-hook, plug arduino and ensure that it stays off-hook
-and that "terminal appeared" or "terminal opened" is printed and digits appear
+\.{tel} uses DTR to switch on base station when it starts;
+and when TTY is closed, DTR switches off base station.
 
 The following phone model is used: Panasonic KX-TCD245.
 The main requirement is that power supply for base station must be DC (to
@@ -40,7 +20,8 @@ could damage the power supply due to transition processes from 220v to
 voltage of the power supply output), and it
 must have led indicator for on-hook / off-hook on base station (to be able
 to reset to initial state in state machine in \.{tel}; note, that
-measuring voltage drop in phone line does not work reliably, because it
+measuring voltage drop in phone line to determine hook state does not work
+reliably, because it
 falsely triggers when dtmf signal is produced ---~the dtmf signal is alternating
 below the trigger level and multiple on-hook/off-hook events occur in high
 succession).
