@@ -10,7 +10,7 @@ flash:
 	@avrdude -qq -c usbasp -p $(MCU) -U flash:w:fw.hex
 
 clean:
-	@git clean -X -d -f
+	@git clean -X -d -f -e '!*.eps'
 
 test:
 	avr-gcc -mmcu=$(MCU) -g -Os -c test-PC817C.c
