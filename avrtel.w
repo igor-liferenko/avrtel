@@ -211,7 +211,7 @@ typedef union {
 } S_line_status;
 
 @ @<Global variables@>=
-S_line_status line_status;
+S_line_status line_status = 0; /* when MCU starts, base station is powered off, so DTR is zero */
 
 @ @<Handle {\caps set control line state}@>=
 line_status.all = UEDATX | UEDATX << 8;
