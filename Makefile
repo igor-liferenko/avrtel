@@ -9,6 +9,9 @@ objdump:
 flash:
 	@avrdude -qq -c usbasp -p $(MCU) -U flash:w:fw.hex
 
+clean:
+	@git clean -X -d -f
+
 test:
 	avr-gcc -mmcu=$(MCU) -g -Os -c test-PC817C.c
 	avr-gcc -mmcu=$(MCU) -g -o test.elf test-PC817C.o
