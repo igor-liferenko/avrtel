@@ -359,7 +359,7 @@ extending USB requests).
 The host sends an IN token to the control pipe to initiate the DATA stage.
 
 $$\hbox to10.93cm{\vbox to5.15055555555556cm{\vfil\special{%
-  psfile=stall-control-read-with-data-stage.eps
+  psfile=../usb/stall-control-read-with-data-stage.eps
   clip llx=0 lly=0 urx=310 ury=146 rwi=3100}}\hfil}$$
 
 Note, that next token comes after \.{RXSTPI} is cleared, so we set \.{STALLRQ} before
@@ -571,7 +571,7 @@ channels over which to carry data.
 
 \S3.4 in CDC spec.
 
-$$\hbox to7.5cm{\vbox to7.88cm{\vfil\special{psfile=cdc-structure.eps
+$$\hbox to7.5cm{\vbox to7.88cm{\vfil\special{psfile=../demo/cdc-structure.eps
   clip llx=0 lly=0 urx=274 ury=288 rwi=2125}}\hfil}$$
 
 @<Type \null definitions@>=
