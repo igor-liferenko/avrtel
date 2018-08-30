@@ -102,7 +102,11 @@ void main(void)
   DDRE |= 1 << PE6;
   PORTE |= 1 << PE6;
 
-  if (line_status.DTR != 0) return;
+  if (line_status.DTR != 0) { /* are unions automatically zeroed? (may be removed if yes) */
+    PORTB &= ~(1 << PB0);
+    PORTD &= ~(1 << PD5);
+    return;
+  }
   char digit;
   while (1) {
     @<Get |line_status|@>@;
