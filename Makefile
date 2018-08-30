@@ -1,10 +1,11 @@
 MCU=atmega32u4
 avrtel:
 	avr-gcc -mmcu=atmega32u4 -g -Os -o $@.elf $@.c
-	avr-objcopy -O ihex $@.elf fw.hex
+	@echo avr-objdump -d $@.elf; avr-objdump -d $@.elf >x
+	@avr-objcopy -O ihex $@.elf fw.hex
 
 flash:
-	avrdude -c usbasp -p $(MCU) -U flash:w:fw.hex -qq
+	avrdude -qq -c usbasp -p $(MCU) -U flash:w:fw.hex
 
 test:
 	avr-gcc -mmcu=$(MCU) -g -Os -c test-PC817C.c
