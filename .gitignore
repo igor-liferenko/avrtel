@@ -1,6 +1,6 @@
-avrtel.c
-avrtel.elf
+fw.elf
 fw.hex
+avrtel.c
 avrtel.o
 avrtel.dvi
 avrtel.idx
