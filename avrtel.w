@@ -146,17 +146,6 @@ void main(void)
   }
 }
 
-@ No other requests except {\caps set control line state} come
-after connection is established (speed is not set in \.{tel}).
-
-@<Get |line_status|@>=
-UENUM = EP0;
-if (UEINTX & 1 << RXSTPI) {
-  (void) UEDATX; @+ (void) UEDATX;
-  @<Handle {\caps set control line state}@>@;
-}
-UENUM = EP1; /* restore */
-
 @ For on-line indication we send `\.{@@}' character to \.{tel}---to put
 it to initial state.
 For off-line indication we send `\.{\%}' character to \.{tel}---to disable
@@ -202,6 +191,35 @@ TODO: insert pullup.svg
 
 @<Set |PD2| to pullup mode@>=
 PORTD |= 1 << PD2;
+
+@ No other requests except {\caps set control line state} come
+after connection is established (speed is not set in \.{tel}).
+
+@<Get |line_status|@>=
+UENUM = EP0;
+if (UEINTX & 1 << RXSTPI) {
+  (void) UEDATX; @+ (void) UEDATX;
+  @<Handle {\caps set control line state}@>@;
+}
+UENUM = EP1; /* restore */
+
+@ @<Type \null definitions@>=
+typedef union {
+  U16 all;
+  struct {
+    U16 DTR:1;
+    U16 RTS:1;
+    U16 unused:14;
+  };
+} S_line_status;
+
+@ @<Global variables@>=
+S_line_status line_status;
+
+@ @<Handle {\caps set control line state}@>=
+line_status.all = UEDATX | UEDATX << 8;
+UEINTX &= ~(1 << RXSTPI);
+UEINTX &= ~(1 << TXINI); /* STATUS stage */
 
 @ Used in \.{USB\_RESET} interrupt handler.
 
@@ -303,6 +321,22 @@ case 0x2021: @/
   break;
 }
 
+@ @<Handle {\caps set address}@>=
+  wValue = UEDATX | UEDATX << 8;
+  UDADDR = wValue & 0x7F;
+  UEINTX &= ~(1 << RXSTPI);
+  UEINTX &= ~(1 << TXINI);
+  while (!(UEINTX & 1 << TXINI)) ; /* wait until ZLP, prepared by previous command, is
+            sent to host\footnote{$\sharp$}{According to \S22.7 of the datasheet,
+            firmware must send ZLP in the STATUS stage before enabling the new address.
+            The reason is that the request started by using zero address, and all the stages of the
+            request must use the same address.
+            Otherwise STATUS stage will not complete, and thus set address request will not
+            succeed. We can determine when ZLP is sent by receiving the ACK, which sets TXINI to 1.
+            See ``Control write (by host)'' in table of contents for the picture (note that DATA
+            stage is absent).} */
+  UDADDR |= 1 << ADDEN;
+
 @ When host is booting, BIOS asks 8 bytes in first request of device descriptor (8 bytes is
 sufficient for first request of device descriptor). OS asks
 64 bytes in first request of device descriptor.
@@ -316,6 +350,33 @@ UEINTX &= ~(1 << RXSTPI);
 size = sizeof dev_desc;
 buf = &dev_desc;
 @<Send descriptor@>@;
+
+@ A high-speed capable device that has different device information for full-speed and high-speed
+must have a Device Qualifier Descriptor. For example, if the device is currently operating at
+full-speed, the Device Qualifier returns information about how it would operate at high-speed and
+vice-versa. So as this device is full-speed, it tells the host not to request
+device information for high-speed by using ``protocol stall'' (such stall
+does not indicate an error with the device ---~it serves as a means of
+extending USB requests).
+
+The host sends an IN token to the control pipe to initiate the DATA stage.
+
+$$\hbox to10.93cm{\vbox to5.15055555555556cm{\vfil\special{%
+  psfile=stall-control-read-with-data-stage.eps
+  clip llx=0 lly=0 urx=310 ury=146 rwi=3100}}\hfil}$$
+
+Note, that next token comes after \.{RXSTPI} is cleared, so we set \.{STALLRQ} before
+clearing \.{RXSTPI}, to make sure that \.{STALLRQ} is already set when next token arrives.
+
+This STALL condition is automatically cleared on the receipt of the
+next SETUP token.
+
+USB\S8.5.3.4, datasheet\S22.11.
+
+@<Handle {\caps get descriptor device qualifier}@>=
+UECONX |= 1 << STALLRQ; /* prepare to send STALL handshake in response to IN token of the DATA
+  stage */
+UEINTX &= ~(1 << RXSTPI);
 
 @ First request is 9 bytes, second is according to length given in response to first request.
 
@@ -364,6 +425,46 @@ buf = &sn_desc;
 from_program = 0;
 @<Send descriptor@>@;
 
+@ @<Handle {\caps set configuration}@>=
+UEINTX &= ~(1 << RXSTPI);
+
+UENUM = EP3;
+UECONX |= 1 << EPEN;
+UECFG0X = 1 << EPTYPE1 | 1 << EPTYPE0 | 1 << EPDIR; /* interrupt\footnote\dag{Must
+  correspond to |@<Initialize element 6 ...@>|.}, IN */
+UECFG1X = 1 << EPSIZE1; /* 32 bytes\footnote\ddag{Must
+  correspond to |@<Initialize element 6 ...@>|.} */
+UECFG1X |= 1 << ALLOC;
+
+UENUM = EP1;
+UECONX |= 1 << EPEN;
+UECFG0X = 1 << EPTYPE1 | 1 << EPDIR; /* bulk\footnote\dag{Must
+  correspond to |@<Initialize element 8 ...@>|.}, IN */
+UECFG1X = 1 << EPSIZE1; /* 32 bytes\footnote\ddag{Must
+  correspond to |@<Initialize element 8 ...@>|.} */
+UECFG1X |= 1 << ALLOC;
+
+UENUM = EP2;
+UECONX |= 1 << EPEN;
+UECFG0X = 1 << EPTYPE1; /* bulk\footnote\dag{Must
+  correspond to |@<Initialize element 9 ...@>|.}, OUT */
+UECFG1X = 1 << EPSIZE1; /* 32 bytes\footnote\ddag{Must
+  correspond to |@<Initialize element 9 ...@>|.} */
+UECFG1X |= 1 << ALLOC;
+
+UENUM = EP0; /* restore for further setup requests */
+UEINTX &= ~(1 << TXINI); /* STATUS stage */
+
+@ Just discard the data.
+This is the last request after attachment to host.
+
+@<Handle {\caps set line coding}@>=
+UEINTX &= ~(1 << RXSTPI);
+while (!(UEINTX & 1 << RXOUTI)) ; /* wait for DATA stage */
+UEINTX &= ~(1 << RXOUTI);
+UEINTX &= ~(1 << TXINI); /* STATUS stage */
+connected = 1;
+
 @ @<Global variables@>=
 U16 size;
 const void *buf;
@@ -404,107 +505,6 @@ if (empty_packet) {
 }
 while (!(UEINTX & 1 << RXOUTI)) ; /* wait for STATUS stage */
 UEINTX &= ~(1 << RXOUTI);
-
-@ @<Handle {\caps set address}@>=
-  wValue = UEDATX | UEDATX << 8;
-  UDADDR = wValue & 0x7F;
-  UEINTX &= ~(1 << RXSTPI);
-  UEINTX &= ~(1 << TXINI);
-  while (!(UEINTX & 1 << TXINI)) ; /* wait until ZLP, prepared by previous command, is
-            sent to host\footnote{$\sharp$}{According to \S22.7 of the datasheet,
-            firmware must send ZLP in the STATUS stage before enabling the new address.
-            The reason is that the request started by using zero address, and all the stages of the
-            request must use the same address.
-            Otherwise STATUS stage will not complete, and thus set address request will not
-            succeed. We can determine when ZLP is sent by receiving the ACK, which sets TXINI to 1.
-            See ``Control write (by host)'' in table of contents for the picture (note that DATA
-            stage is absent).} */
-  UDADDR |= 1 << ADDEN;
-
-@ A high-speed capable device that has different device information for full-speed and high-speed
-must have a Device Qualifier Descriptor. For example, if the device is currently operating at
-full-speed, the Device Qualifier returns information about how it would operate at high-speed and
-vice-versa. So as this device is full-speed, it tells the host not to request
-device information for high-speed by using ``protocol stall'' (such stall
-does not indicate an error with the device ---~it serves as a means of
-extending USB requests).
-
-The host sends an IN token to the control pipe to initiate the DATA stage.
-
-$$\hbox to10.93cm{\vbox to5.15055555555556cm{\vfil\special{%
-  psfile=stall-control-read-with-data-stage.eps
-  clip llx=0 lly=0 urx=310 ury=146 rwi=3100}}\hfil}$$
-
-Note, that next token comes after \.{RXSTPI} is cleared, so we set \.{STALLRQ} before
-clearing \.{RXSTPI}, to make sure that \.{STALLRQ} is already set when next token arrives.
-
-This STALL condition is automatically cleared on the receipt of the
-next SETUP token.
-
-USB\S8.5.3.4, datasheet\S22.11.
-
-@<Handle {\caps get descriptor device qualifier}@>=
-UECONX |= 1 << STALLRQ; /* prepare to send STALL handshake in response to IN token of the DATA
-  stage */
-UEINTX &= ~(1 << RXSTPI);
-
-@ @<Handle {\caps set configuration}@>=
-UEINTX &= ~(1 << RXSTPI);
-
-UENUM = EP3;
-UECONX |= 1 << EPEN;
-UECFG0X = 1 << EPTYPE1 | 1 << EPTYPE0 | 1 << EPDIR; /* interrupt\footnote\dag{Must
-  correspond to |@<Initialize element 6 ...@>|.}, IN */
-UECFG1X = 1 << EPSIZE1; /* 32 bytes\footnote\ddag{Must
-  correspond to |@<Initialize element 6 ...@>|.} */
-UECFG1X |= 1 << ALLOC;
-
-UENUM = EP1;
-UECONX |= 1 << EPEN;
-UECFG0X = 1 << EPTYPE1 | 1 << EPDIR; /* bulk\footnote\dag{Must
-  correspond to |@<Initialize element 8 ...@>|.}, IN */
-UECFG1X = 1 << EPSIZE1; /* 32 bytes\footnote\ddag{Must
-  correspond to |@<Initialize element 8 ...@>|.} */
-UECFG1X |= 1 << ALLOC;
-
-UENUM = EP2;
-UECONX |= 1 << EPEN;
-UECFG0X = 1 << EPTYPE1; /* bulk\footnote\dag{Must
-  correspond to |@<Initialize element 9 ...@>|.}, OUT */
-UECFG1X = 1 << EPSIZE1; /* 32 bytes\footnote\ddag{Must
-  correspond to |@<Initialize element 9 ...@>|.} */
-UECFG1X |= 1 << ALLOC;
-
-UENUM = EP0; /* restore for further setup requests */
-UEINTX &= ~(1 << TXINI); /* STATUS stage */
-
-@ @<Type \null definitions@>=
-typedef union {
-  U16 all;
-  struct {
-    U16 DTR:1;
-    U16 RTS:1;
-    U16 unused:14;
-  };
-} S_line_status;
-
-@ @<Global variables@>=
-S_line_status line_status;
-
-@ @<Handle {\caps set control line state}@>=
-line_status.all = UEDATX | UEDATX << 8;
-UEINTX &= ~(1 << RXSTPI);
-UEINTX &= ~(1 << TXINI); /* STATUS stage */
-
-@ Just discard the data.
-This is the last request after attachment to host.
-
-@<Handle {\caps set line coding}@>=
-UEINTX &= ~(1 << RXSTPI);
-while (!(UEINTX & 1 << RXOUTI)) ; /* wait for DATA stage */
-UEINTX &= ~(1 << RXOUTI);
-UEINTX &= ~(1 << TXINI); /* STATUS stage */
-connected = 1;
 
 @* USB stack.
 
