@@ -8,26 +8,12 @@ ACT: disable timeout
 
 @x
 The following phone model is used: Panasonic KX-TCD245.
-The main requirement is that power supply for base station must be DC (to
-be able to switch off power supply output via relay ---~because switching
-off on power supply input (which does not require output to be DC)
-could damage the power supply due to transition processes from 220v to
-voltage of the power supply output), and it
-must have led indicator for on-hook / off-hook on base station (to be able
-to reset to initial state in state machine in \.{tel}; note, that
-measuring voltage drop in phone line does not work reliably, because it
-falsely triggers when dtmf signal is produced ---~the dtmf signal is alternating
-below the trigger level and multiple on-hook/off-hook events occur in high
-succession).
 @y
-TODO: sync with x-y after commit 0e8db0d3392288a9bfd7960f0d070f2523ac8316
-The following phone model is used: Panasonic KX-TG7331.
-The main requirement is that power supply for base station must be DC, and it
-must have led indicator for on-hook / off-hook on base station.
-For this phone model when base station is powered on, the indicator is turned
+The following phone model is used: Panasonic KX-TG7331\footnote*{For
+this phone model when base station is powered on, the indicator is turned
 on for a short time. To work around this harmful effect, we detect if DTR
 changed to `1' (i.e., when base station was powered on)
-and ignore first two led state changes in such case.
+and ignore first two led state changes in such case.}.
 @z
 
 @x
