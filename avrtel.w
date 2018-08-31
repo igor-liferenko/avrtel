@@ -29,7 +29,8 @@ is switched on/off multiple times.
 Also note that when device is not plugged in,
 base station must be powered off, and it must be powered on by \.{tel} (this
 is why non-inverted relay must be used (and from such kind of relay the
-only suitable I know of is mechanical relay)).
+only suitable I know of is mechanical relay; and such relay gives an advantage
+that power supply with AC and DC output may be used)).
 
 %Note, that we can not use simple cordless phone---a DECT phone is needed, because
 %resetting base station to put the phone on-hook will not work
