@@ -255,7 +255,7 @@ WDTCSR = 0x00; /* disable WDT */
 @ @c
 ISR(USB_GEN_vect)
 {
-  UDINT &= ~(1 << EORSTI);
+  UDINT &= ~(1 << EORSTI); /* for the interrupt handler to be called for next USB\_RESET */
   if (!connected) {
     UECONX |= 1 << EPEN;
     UECFG1X = 1 << EPSIZE1; /* 32 bytes\footnote\ddag{Must correspond to |EP0_SIZE|.} */
