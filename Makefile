@@ -13,7 +13,7 @@ clean:
 	@git clean -X -d -f
 
 imgs:
-	add from usb/
+	@perl -ne 'if (/^(.*\.eps): (.*)/) { system "convert $$2 $$1" }' Makefile
 
 test:
 	avr-gcc -mmcu=$(MCU) -g -Os -c test-PC817C.c
