@@ -42,13 +42,13 @@ and ignore first two led state changes in such case.
 
 @x
     if (line_status.DTR) {
-      PORTE &= ~(1 << PE6); /* base station on */
+      PORTE |= 1 << PE6; /* base station on */
       PORTB |= 1 << PB0; /* led off */
     }
 @y
     if (line_status.DTR) {
       if (!(PORTB & 1 << PB0)) { /* transition happened */
-        PORTE &= ~(1 << PE6); /* base station on */
+        PORTE |= 1 << PE6; /* base station on */
         base_station_was_powered_on = 1;
       }
       PORTB |= 1 << PB0; /* led off */

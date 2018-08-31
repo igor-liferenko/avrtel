@@ -87,7 +87,6 @@ void main(void)
   DDRB |= 1 << PB0; /* DTR indicator; also |PORTB & 1 << PB0| is used to get current DTR state
                        to determine if transition happened (to save extra variable) */
   DDRE |= 1 << PE6;
-  PORTE |= 1 << PE6;
 
   if (line_status.DTR != 0) { /* are unions automatically zeroed? (may be removed if yes) */
     PORTB &= ~(1 << PB0);
@@ -98,12 +97,12 @@ void main(void)
   while (1) {
     @<Get |line_status|@>@;
     if (line_status.DTR) {
-      PORTE &= ~(1 << PE6); /* base station on */
+      PORTE |= 1 << PE6; /* base station on */
       PORTB |= 1 << PB0; /* led off */
     }
     else {
       if (PORTB & 1 << PB0) { /* transition happened */
-        PORTE |= 1 << PE6; /* base station off */
+        PORTE &= ~(1 << PE6); /* base station off */
         keydetect = 0; /* in case key was detected right before base station was
                           switched off, which means that nothing must come from it */
       }
