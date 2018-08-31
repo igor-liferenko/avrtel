@@ -13,11 +13,7 @@ station and automatically powers itself off).
 and when TTY is closed, DTR switches off base station.
 
 The following phone model is used: Panasonic KX-TCD245.
-The main requirement is that power supply for base station must be DC (to
-be able to switch off power supply output via relay ---~because switching
-off on power supply input (which does not require output to be DC)
-could damage the power supply due to transition processes from 220v to
-voltage of the power supply output), and it
+The main requirement is that base station
 must have led indicator for on-hook / off-hook on base station (to be able
 to reset to initial state in state machine in \.{tel}; note, that
 measuring voltage drop in phone line to determine hook state does not work
@@ -25,6 +21,15 @@ reliably, because it
 falsely triggers when dtmf signal is produced ---~the dtmf signal is alternating
 below the trigger level and multiple on-hook/off-hook events occur in high
 succession).
+
+Note, that relay switches off output from base station's power supply, not input
+because transition processes from 220v could damage power supply because it
+is switched on/off multiple times.
+
+Also note that when device is not plugged in,
+base station must be powered off, and it must be powered on by \.{tel} (this
+is why non-inverted relay must be used (and from such kind of relay the
+only suitable I know of is mechanical relay)).
 
 %Note, that we can not use simple cordless phone---a DECT phone is needed, because
 %resetting base station to put the phone on-hook will not work
