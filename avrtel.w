@@ -309,12 +309,16 @@ case 0x2021: @/
   break;
 }
 
-@ @<Handle {\caps set address}@>=
-  wValue = UEDATX | UEDATX << 8;
-  UDADDR = wValue & 0x7F;
-  UEINTX &= ~(1 << RXSTPI);
-  UEINTX &= ~(1 << TXINI);
-  while (!(UEINTX & 1 << TXINI)) ; /* wait until ZLP, prepared by previous command, is
+@ No OUT packet arrives after SETUP packet, because there is no DATA stage
+in this request. IN packet arrives after SETUP packet, and we get ready to
+send a ZLP in advance.
+
+@<Handle {\caps set address}@>=
+wValue = UEDATX | UEDATX << 8;
+UDADDR = wValue & 0x7F;
+UEINTX &= ~(1 << RXSTPI);
+UEINTX &= ~(1 << TXINI); /* STATUS stage */
+while (!(UEINTX & 1 << TXINI)) ; /* wait until ZLP, prepared by previous command, is
             sent to host\footnote{$\sharp$}{According to \S22.7 of the datasheet,
             firmware must send ZLP in the STATUS stage before enabling the new address.
             The reason is that the request started by using zero address, and all the stages of the
@@ -323,13 +327,15 @@ case 0x2021: @/
             succeed. We can determine when ZLP is sent by receiving the ACK, which sets TXINI to 1.
             See ``Control write (by host)'' in table of contents for the picture (note that DATA
             stage is absent).} */
-  UDADDR |= 1 << ADDEN;
+UDADDR |= 1 << ADDEN;
 
-@ When host is booting, BIOS asks 8 bytes in first request of device descriptor (8 bytes is
-sufficient for first request of device descriptor). OS asks
-64 bytes in first request of device descriptor.
+@ When host is booting, BIOS asks 8 bytes in request of device descriptor (8 bytes is
+sufficient for first request of device descriptor). If host is operational,
+|wLength| is 64 bytes in first request of device descriptor.
 It is OK if we transfer less than the requested amount. But if we try to
-transfer more, host does not send OUT packet to initiate STATUS stage.
+transfer more, device will hang.
+
+If we send more than requested by host, it does not send OUT packet to initiate STATUS stage.
 
 @<Handle {\caps get descriptor device}\null@>=
 (void) UEDATX; @+ (void) UEDATX;
@@ -494,6 +500,10 @@ if (empty_packet) {
 while (!(UEINTX & 1 << RXOUTI)) ; /* wait for STATUS stage */
 UEINTX &= ~(1 << RXOUTI);
 
+@i CONTROL-endpoint-management.w
+
+@i IN-endpoint-management.w
+
 @* USB stack.
 
 @*1 Device descriptor.
@@ -539,9 +549,9 @@ struct {
   0x03EB, /* VID (Atmel) */
   0x2018, /* PID (CDC ACM) */
   0x1000, /* device revision */
-  MANUFACTURER, @/
-  PRODUCT, @/
-  SERIAL_NUMBER, @/
+  MANUFACTURER, /* (\.{Mfr} in \.{kern.log}) */
+  PRODUCT, /* (\.{Product} in \.{kern.log}) */
+  SERIAL_NUMBER, /* (\.{SerialNumber} in \.{kern.log}) */
 @t\2@> 1 /* one configuration for this device */
 };
 
