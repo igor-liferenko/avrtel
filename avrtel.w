@@ -468,7 +468,7 @@ After TXINI becomes `1', new data may be written to UEDATX.\footnote*{The
 difference of clearing TXINI for control and non-control endpoint is that
 on control endpoint clearing TXINI also sends the packet and clears the endpoint bank.
 On non-control endpoints there is a possibility to have double bank, so another
-mechanism must be used.}
+mechanism is used.}
 
 @<Send descriptor@>=
 empty_packet = 0;
