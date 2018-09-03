@@ -517,9 +517,9 @@ Placeholder prefixes such as `b', `bcd', and `w' are used to denote placeholder 
 \noindent\hskip40pt\hbox to0pt{\hskip-20pt\it i\hfil} index \par
 \noindent\hskip40pt\hbox to0pt{\hskip-20pt\it w\hfil} word \par
 
-@d MANUFACTURER 0x01
-@d PRODUCT 0x02
-@d SERIAL_NUMBER 0x03
+@d MANUFACTURER 1
+@d PRODUCT 2
+@d SERIAL_NUMBER 3
 
 @<Global variables@>=
 struct {
@@ -833,7 +833,7 @@ struct {
 This is necessary to transmit manufacturer, product and serial number.
 
 @<Global variables@>=
-const uint8_t lang_desc[]
+const U8 lang_desc[]
 @t\hskip2.5pt@> @=PROGMEM@> = { @t\1@> @/
   0x04, /* size of this structure */
   0x03, /* type (string) */
@@ -860,8 +860,8 @@ TODO: put here explanation from \.{https://stackoverflow.com/questions/51470592/
 
 @<Type \null definitions@>=
 typedef struct {
-  uint8_t bLength;
-  uint8_t bDescriptorType;
+  U8 bLength;
+  U8 bDescriptorType;
   int16_t wString[];
 } S_string_descriptor;
 
@@ -891,8 +891,8 @@ In |send_descriptor| |sn_desc| is filled in.
 
 @<Global variables@>=
 struct {
-  uint8_t bLength;
-  uint8_t bDescriptorType;
+  U8 bLength;
+  U8 bDescriptorType;
   int16_t wString[SN_LENGTH];
 } sn_desc;
 
@@ -902,9 +902,9 @@ struct {
 @<Get serial number@>=
 sn_desc.bLength = 1 + 1 + SN_LENGTH * 2; /* multiply because Unicode */
 sn_desc.bDescriptorType = 0x03;
-uint8_t addr = SN_START_ADDRESS;
-for (uint8_t i = 0; i < SN_LENGTH; i++) {
-  uint8_t c = boot_signature_byte_get(addr);
+U8 addr = SN_START_ADDRESS;
+for (U8 i = 0; i < SN_LENGTH; i++) {
+  U8 c = boot_signature_byte_get(addr);
   if (i & 1) { /* we divide each byte of signature into halves, each of
                   which is represented by a hex number */
     c >>= 4;
