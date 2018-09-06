@@ -20,3 +20,9 @@ test:
 	avr-gcc -mmcu=$(MCU) -g -o test.elf test-PC817C.o
 	avr-objcopy -O ihex test.elf test.hex
 	avrdude -c usbasp -p $(MCU) -U flash:w:test.hex -qq
+
+.PHONY: $(wildcard *.eps)
+
+cdc-structure.eps: cdc-structure.png
+	@convert $< $@
+	@imgsize $@ 7.5 -
