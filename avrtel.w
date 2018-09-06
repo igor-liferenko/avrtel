@@ -73,9 +73,8 @@ void main(void)
   UDCON &= ~(1 << DETACH);
 
   while (!connected)
-    if (UEINTX & 1 << RXSTPI) {
+    if (UEINTX & 1 << RXSTPI)
       @<Process SETUP request@>@;
-    }
   UENUM = EP1;
 
   PORTD |= 1 << PD5; /* led off (before enabling output, because this led is inverted) */
@@ -221,9 +220,10 @@ sure what it means)
 @^TODO@>
 
 @<Handle {\caps set control line state}@>=
-line_status.all = UEDATX | UEDATX << 8;
+wValue = UEDATX | UEDATX << 8;
 UEINTX &= ~(1 << RXSTPI);
 UEINTX &= ~(1 << TXINI); /* STATUS stage */
+line_status.all = wValue;
 
 @ Used in \.{USB\_RESET} interrupt handler.
 
@@ -282,12 +282,14 @@ ISR(USB_GEN_vect)
   }
 }
 
-@ The following big switch just dispatches SETUP request.
-
-@<Process SETUP request@>=
+@ @<Global variables@>=
 U16 wValue;
 U16 wIndex;
 U16 wLength;
+
+@ The following big switch just dispatches SETUP request.
+
+@<Process SETUP request@>=
 switch (UEDATX | UEDATX << 8) {
 case 0x0500: @/
   @<Handle {\caps set address}@>@;
