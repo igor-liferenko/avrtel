@@ -524,7 +524,7 @@ UEINTX &= ~(1 << RXOUTI);
 
 @*1 Device descriptor.
 
-Placeholder prefixes such as `b', `bcd', and `w' are used to denote placeholder type:     
+Placeholder prefixes such as `b', `bcd', and `w' are used to denote placeholder type:
 
 \noindent\hskip40pt\hbox to0pt{\hskip-20pt\it b\hfil} bits or bytes; dependent on context \par
 \noindent\hskip40pt\hbox to0pt{\hskip-20pt\it bcd\hfil} binary-coded decimal \par
