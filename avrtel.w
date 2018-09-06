@@ -337,14 +337,14 @@ UDADDR = wValue & 0x7F;
 UEINTX &= ~(1 << RXSTPI);
 UEINTX &= ~(1 << TXINI); /* STATUS stage */
 while (!(UEINTX & 1 << TXINI)) ; /* wait until ZLP, prepared by previous command, is
-            sent to host\footnote{$\sharp$}{According to \S22.7 of the datasheet,
-            firmware must send ZLP in the STATUS stage before enabling the new address.
-            The reason is that the request started by using zero address, and all the stages of the
-            request must use the same address.
-            Otherwise STATUS stage will not complete, and thus set address request will not
-            succeed. We can determine when ZLP is sent by receiving the ACK, which sets TXINI to 1.
-            See ``Control write (by host)'' in table of contents for the picture (note that DATA
-            stage is absent).} */
+  sent to host\footnote{$\sharp$}{According to \S22.7 of the datasheet,
+  firmware must send ZLP in the STATUS stage before enabling the new address.
+  The reason is that the request started by using zero address, and all the stages of the
+  request must use the same address.
+  Otherwise STATUS stage will not complete, and thus set address request will not
+  succeed. We can determine when ZLP is sent by receiving the ACK, which sets TXINI to 1.
+  See ``Control write (by host)'' in table of contents for the picture (note that DATA
+  stage is absent).} */
 UDADDR |= 1 << ADDEN;
 
 @ When host is booting, BIOS asks 8 bytes in request of device descriptor (8 bytes is
@@ -590,7 +590,7 @@ channels over which to carry data.
 
 \S3.4 in CDC spec.
 
-$$\hbox to7.5cm{\vbox to7.88cm{\vfil\special{psfile=../demo/cdc-structure.eps
+$$\hbox to7.5cm{\vbox to7.88cm{\vfil\special{psfile=../avrtel/cdc-structure.eps
   clip llx=0 lly=0 urx=274 ury=288 rwi=2125}}\hfil}$$
 
 @<Type \null definitions@>=
@@ -940,7 +940,5 @@ for (U8 i = 0; i < SN_LENGTH; i++) {
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h>
 #include <avr/boot.h> /* |boot_signature_byte_get| */
-#define F_CPU 16000000UL
-#include <util/delay.h>
 
 @* Index.
