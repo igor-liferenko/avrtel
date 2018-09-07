@@ -30,3 +30,7 @@ cdc-structure.eps: cdc-structure.png
 scheme.eps: scheme.svg
 	@inkscape $< -E $@ 2>/dev/null
 	@imgsize $@
+
+pullup.eps: pullup.svg
+	@inkscape $< -E $@ 2>/dev/null
+	@imgsize $@
