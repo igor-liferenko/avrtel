@@ -39,7 +39,7 @@ that power supply with AC and DC output may be used)).
 $$\hbox to12.27cm{\vbox to9.87777777777778cm{\vfil\special{psfile=scheme.eps
   clip llx=0 lly=0 urx=348 ury=280 rwi=3480}}\hfil}$$
 
-TODO:fix scheme to use non-inverted relay
+\centerline{TODO: fix scheme to use non-inverted relay}
 @^TODO@>
 
 @d EP0 0
