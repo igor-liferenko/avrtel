@@ -26,3 +26,7 @@ test:
 cdc-structure.eps: cdc-structure.png
 	@convert $< $@
 	@imgsize $@ 7.5 -
+
+scheme.eps: scheme.svg
+	@inkscape $< -E $@ 2>/dev/null
+	@imgsize $@

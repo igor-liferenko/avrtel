@@ -36,6 +36,9 @@ that power supply with AC and DC output may be used)).
 %resetting base station to put the phone on-hook will not work
 %(FIXME: check if it is really so).
 
+$$\hbox to12.27cm{\vbox to9.87777777777778cm{\vfil\special{psfile=scheme.eps
+  clip llx=0 lly=0 urx=348 ury=280 rwi=3480}}\hfil}$$
+
 @d EP0 0
 @d EP1 1
 @d EP2 2
