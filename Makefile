@@ -13,7 +13,7 @@ clean:
 	@git clean -X -d -f
 
 imgs:
-	@perl -ne 'if (/^(.*\.eps): (.*)/) { system "convert $$2 $$1" }' Makefile
+	@perl -ne 'if (/^(.*\.eps): (.*)/) { $$x = $$1; $$y = $$2; if ($$y=~/\.svg$$/) { system "inkscape $$y -E $$x 2>/dev/null" } else { system "convert $$y $$x" } }' Makefile
 
 test:
 	avr-gcc -mmcu=$(MCU) -g -Os -c test-PC817C.c
