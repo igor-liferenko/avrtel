@@ -141,7 +141,8 @@ it to initial state.
 For off-line indication we send `\.{\%}' character to \.{tel}---to disable
 power reset on base station after timeout.
 
-TODO: insert PC817C.png
+$$\hbox to9cm{\vbox to5.93cm{\vfil\special{psfile=PC817C.eps
+  clip llx=0 lly=0 urx=663 ury=437 rwi=2551}}\hfil}$$
 
 @<Indicate phone line state and notify \.{tel} if state changed@>=
 if (PIND & 1 << PD2) { /* off-line */
