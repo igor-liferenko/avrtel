@@ -7,7 +7,7 @@ BUT: %
 ACT: disable timeout
 
 @x
-The following phone model is used: Panasonic KX-TCD245.
+The following phone models are used: Panasonic KX-TCD245 and Voxtel.
 @y
 The following phone model is used: Panasonic KX-TG7331\footnote*{For
 this phone model when base station is powered on, the indicator is turned
