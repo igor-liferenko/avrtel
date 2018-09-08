@@ -885,6 +885,12 @@ and |@<Handle {\caps get descriptor string} (product)@>| by using |pgm_read_byte
 TODO: put here explanation from \.{https://stackoverflow.com/questions/51470592/}
 @^TODO@>
 
+Is USB each character is 2 bytes.
+Although `\&{wchar\_t}' could have been used here
+(because on atmega32u4 \&{wchar\_t} is 2 bytes), I do not use it because
+by `\&{wchar\_t}' I always mean 4 bytes (I never use `\&{wint\_t}').
+So I use `\&{int}'.
+
 @^GCC-specific@>
 
 @s S_string_descriptor int
