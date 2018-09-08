@@ -77,7 +77,11 @@ void main(void)
   USBCON |= 1 << OTGPADE;
   UDIEN |= 1 << EORSTE;
   sei();
-  UDCON &= ~(1 << DETACH);
+  UDCON &= ~(1 << DETACH); /* attach after we prepared interrupts, because
+    USB\_RESET will arrive only after attach, and before it arrives, all interrupts
+    must be already set up; also, there is no need to detect when VBUS becomes
+    high ---~USB\_RESET can arrive only after VBUS is operational anyway, and
+    USB\_RESET is detected via interrupt */
 
   while (!connected)
     if (UEINTX & 1 << RXSTPI)
