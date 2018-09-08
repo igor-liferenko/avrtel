@@ -889,7 +889,7 @@ TODO: put here explanation from \.{https://stackoverflow.com/questions/51470592/
 typedef struct {
   U8 bLength;
   U8 bDescriptorType;
-  int16_t wString[];
+  int wString[];
 } S_string_descriptor;
 
 #define STR_DESC(str) @,@,@,@, {@, 1 + 1 + sizeof str - 2, 0x03, str @t\hskip1pt@>}
@@ -920,7 +920,7 @@ In |send_descriptor| |sn_desc| is filled in.
 struct {
   U8 bLength;
   U8 bDescriptorType;
-  int16_t wString[SN_LENGTH];
+  int wString[SN_LENGTH];
 } sn_desc;
 
 @ @d SN_START_ADDRESS 0x0E
