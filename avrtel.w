@@ -588,7 +588,7 @@ Abstract Control Model consists of two interfaces: Data Class interface
 and Communication Class interface.
 
 The Communication Class interface uses two endpoints\footnote*{Although
-CDC spec says that notification endpoint is optional, but in Linux host
+CDC spec says that notification endpoint is optional, in Linux host
 driver refuses to work without it.}, one to implement
 a notification element and theh other to implement
 a management element. The management element uses the default endpoint
