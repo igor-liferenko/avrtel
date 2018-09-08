@@ -360,13 +360,11 @@ while (!(UEINTX & 1 << TXINI)) ; /* wait until ZLP, prepared by previous command
   stage is absent).} */
 UDADDR |= 1 << ADDEN;
 
-@ When host is booting, BIOS asks 8 bytes in request of device descriptor (8 bytes is
+@ When host is booting, BIOS asks 8 bytes in first request of device descriptor (8 bytes is
 sufficient for first request of device descriptor). If host is operational,
 |wLength| is 64 bytes in first request of device descriptor.
 It is OK if we transfer less than the requested amount. But if we try to
-transfer more, device will hang.
-
-If we send more than requested by host, it does not send OUT packet to initiate STATUS stage.
+transfer more, host does not send OUT packet to initiate STATUS stage.
 
 @<Handle {\caps get descriptor device}\null@>=
 (void) UEDATX; @+ (void) UEDATX;
