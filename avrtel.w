@@ -89,7 +89,7 @@ void main(void)
   DDRB |= 1 << PB0; /* DTR indicator; also |PORTB & 1 << PB0| is used to get current DTR state
                        to determine if transition happened (to save extra variable) */
   PORTB |= 1 << PB0;
-  DDRC |= 1 << PC6;
+  int on_line = 0;
 
   if (line_status.DTR != 0) { /* are unions automatically zeroed? (may be removed if yes) */
     PORTB |= 1 << PB0;
@@ -107,14 +107,14 @@ void main(void)
     }
     else {
       if (!(PORTB & 1 << PB0)) { /* transition happened */
-        PORTC &= ~(1 << PC6); /* base station off */
+        on_line = 0;
         btn = 0; /* in case key was detected right before base station was
                           switched off, which means that nothing must come from it */
       }
       PORTB |= 1 << PB0; /* led on */
     }
     @<Indicate phone line state and notify \.{tel} if state changed@>@;
-    if (btn != 0 && PORTC & 1 << PC6) {
+    if (btn != 0 && on_line) {
       while (!(UEINTX & 1 << TXINI)) ;
       UEINTX &= ~(1 << TXINI);
       UEDATX = btn;
@@ -133,8 +133,8 @@ void main(void)
 @i ../usb/matrix.w
 
 @ @<Get button@>=
-if (btn == 'A') btn = 0, PORTC |= 1 << PC6;
-if (btn == 'B') btn = 0, PORTC &= ~(1 << PC6);
+if (btn == 'A') btn = 0, on_line = 1;
+if (btn == 'B') btn = 0, on_line = 0;
 if (btn == 'C') btn = 0;
 if (btn == 'D') btn = 0;
 
@@ -147,7 +147,7 @@ $$\hbox to9cm{\vbox to5.93cm{\vfil\special{psfile=PC817C.eps
   clip llx=0 lly=0 urx=663 ury=437 rwi=2551}}\hfil}$$
 
 @<Indicate phone line state and notify \.{tel} if state changed@>=
-if (!(PORTC & 1 << PC6)) { /* off-line */
+if (!on_line) { /* off-line */
   if (PORTD & 1 << PD5) { /* transition happened */
     if (line_status.DTR) {
       while (!(UEINTX & 1 << TXINI)) ;
