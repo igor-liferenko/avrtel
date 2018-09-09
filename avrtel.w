@@ -58,12 +58,6 @@ typedef unsigned short U16;
 @<Type \null definitions@>@;
 @<Global variables@>@;
 
-volatile int keydetect = 0;
-ISR(INT1_vect)
-{
-  keydetect = 1;
-}
-
 volatile int connected = 0;
 void main(void)
 {
@@ -88,61 +82,59 @@ void main(void)
       @<Process SETUP request@>@;
   UENUM = EP1;
 
-  PORTD |= 1 << PD5; /* led off (before enabling output, because this led is inverted) */
   DDRD |= 1 << PD5; /* on-line/off-line indicator; also |PORTD & 1 << PD5| is used to get current
                        state to determine if transition happened (to save extra variable) */
-  @<Set |PD2| to pullup mode@>@;
-  EICRA |= 1 << ISC11 | 1 << ISC10; /* set INT1 to trigger on rising edge */
-  EIMSK |= 1 << INT1; /* turn on INT1 */
   DDRB |= 1 << PB0; /* DTR indicator; also |PORTB & 1 << PB0| is used to get current DTR state
                        to determine if transition happened (to save extra variable) */
-  DDRE |= 1 << PE6;
+  PORTB |= 1 << PB0;
+  DDRC |= 1 << PC6;
 
   if (line_status.DTR != 0) { /* are unions automatically zeroed? (may be removed if yes) */
-    PORTB &= ~(1 << PB0);
-    PORTD &= ~(1 << PD5);
+    PORTB |= 1 << PB0;
+    PORTD |= 1 << PD5;
     return;
   }
-  char digit;
+
+  @<Pullup input pins@>@;
+
   while (1) {
     @<Get |line_status|@>@;
     if (line_status.DTR) {
-      PORTE |= 1 << PE6; /* base station on */
-      PORTB |= 1 << PB0; /* led off */
+      PORTB &= ~(1 << PB0); /* led off */
+      @<Get button@>@;
     }
     else {
-      if (PORTB & 1 << PB0) { /* transition happened */
-        PORTE &= ~(1 << PE6); /* base station off */
-        keydetect = 0; /* in case key was detected right before base station was
+      if (!(PORTB & 1 << PB0)) { /* transition happened */
+        PORTC &= ~(1 << PC6); /* base station off */
+        btn = 0; /* in case key was detected right before base station was
                           switched off, which means that nothing must come from it */
       }
-      PORTB &= ~(1 << PB0); /* led on */
+      PORTB |= 1 << PB0; /* led on */
     }
     @<Indicate phone line state and notify \.{tel} if state changed@>@;
-    if (keydetect) {
-      keydetect = 0;
-      switch (PINB & (1 << PB4 | 1 << PB5 | 1 << PB6) | PIND & 1 << PD7) {
-      case (0x10): digit = '1'; @+ break;
-      case (0x20): digit = '2'; @+ break;
-      case (0x30): digit = '3'; @+ break;
-      case (0x40): digit = '4'; @+ break;
-      case (0x50): digit = '5'; @+ break;
-      case (0x60): digit = '6'; @+ break;
-      case (0x70): digit = '7'; @+ break;
-      case (0x80): digit = '8'; @+ break;
-      case (0x90): digit = '9'; @+ break;
-      case (0xA0): digit = '0'; @+ break;
-      case (0xB0): digit = '*'; @+ break;
-      case (0xC0): digit = '#'; @+ break;
-      default: digit = '?';
-      }
+    if (btn != 0 && PORTC & 1 << PC6) {
       while (!(UEINTX & 1 << TXINI)) ;
       UEINTX &= ~(1 << TXINI);
-      UEDATX = digit;
+      UEDATX = btn;
       UEINTX &= ~(1 << FIFOCON);
+      U8 prev_button = btn;
+      int timeout = 2000;
+      while (--timeout) {
+        @<Get button@>@;
+        if (btn != prev_button) break;
+        _delay_ms(1);
+      }
     }
   }
 }
+
+@i ../usb/matrix.w
+
+@ @<Get button@>=
+if (btn == 'A') btn = 0, PORTC |= 1 << PC6;
+if (btn == 'B') btn = 0, PORTC &= ~(1 << PC6);
+if (btn == 'C') btn = 0;
+if (btn == 'D') btn = 0;
 
 @ For on-line indication we send `\.{@@}' character to \.{tel}---to put
 it to initial state.
@@ -153,8 +145,8 @@ $$\hbox to9cm{\vbox to5.93cm{\vfil\special{psfile=PC817C.eps
   clip llx=0 lly=0 urx=663 ury=437 rwi=2551}}\hfil}$$
 
 @<Indicate phone line state and notify \.{tel} if state changed@>=
-if (PIND & 1 << PD2) { /* off-line */
-  if (!(PORTD & 1 << PD5)) { /* transition happened */
+if (!(PORTC & 1 << PC6)) { /* off-line */
+  if (PORTD & 1 << PD5) { /* transition happened */
     if (line_status.DTR) {
       while (!(UEINTX & 1 << TXINI)) ;
       UEINTX &= ~(1 << TXINI);
@@ -162,37 +154,17 @@ if (PIND & 1 << PD2) { /* off-line */
       UEINTX &= ~(1 << FIFOCON);
     }
   }
-  PORTD |= 1 << PD5;
+  PORTD &= ~(1 << PD5);
 }
 else { /* on-line */
-  if (PORTD & 1 << PD5) { /* transition happened */
+  if (!(PORTD & 1 << PD5)) { /* transition happened */
     while (!(UEINTX & 1 << TXINI)) ;
     UEINTX &= ~(1 << TXINI);
     UEDATX = '@@';
     UEINTX &= ~(1 << FIFOCON);
   }
-  PORTD &= ~(1 << PD5);
+  PORTD |= 1 << PD5;
 }
-
-@ The pull-up resistor is connected to the high voltage (this is usually 3.3V or 5V and is
-often refereed to as VCC).
-
-Pull-ups are often used with buttons and switches.
-
-With a pull-up resistor, the input pin will read a high state when the photo-transistor
-is not opened. In other words, a small amount of current is flowing between VCC and the input
-pin (not to ground), thus the input pin reads close to VCC. When the photo-transistor is
-opened, it connects the input pin directly to ground. The current flows through the resistor
-to ground, thus the input pin reads a low state.
-
-Since pull-up resistors are so commonly needed, many MCUs, like the ATmega328 microcontroller
-on the Arduino platform, have internal pull-ups that can be enabled and disabled.
-
-$$\hbox to7.54cm{\vbox to3.98638888888889cm{\vfil\special{psfile=pullup.eps
-  clip llx=0 lly=0 urx=214 ury=113 rwi=2140}}\hfil}$$
-
-@<Set |PD2| to pullup mode@>=
-PORTD |= 1 << PD2;
 
 @ No other requests except {\caps set control line state} come
 after connection is established (speed is not set in \.{tel}).
@@ -982,5 +954,7 @@ for (U8 i = 0; i < SN_LENGTH; i++) {
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h>
 #include <avr/boot.h> /* |boot_signature_byte_get| */
+#define F_CPU 16000000UL
+#include <util/delay.h>
 
 @* Index.
