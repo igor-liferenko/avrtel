@@ -234,7 +234,7 @@ UEINTX &= ~(1 << RXSTPI);
 UEINTX &= ~(1 << TXINI); /* STATUS stage */
 line_status.all = wValue;
 
-@ Used in \.{USB\_RESET} interrupt handler.
+@ Used in USB\_RESET interrupt handler.
 
 @<Reset MCU@>=
 WDTCSR |= 1 << WDCE | 1 << WDE; /* allow to enable WDT */
