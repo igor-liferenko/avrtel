@@ -235,6 +235,9 @@ UEINTX &= ~(1 << TXINI); /* STATUS stage */
 line_status.all = wValue;
 
 @ Used in USB\_RESET interrupt handler.
+Reset is used to go to beginning of connection loop (because we cannot
+use \&{goto} from interrput handler). Watchdog reset is used because
+in atmega32u4 there is no simpler way to reset MCU.
 
 @<Reset MCU@>=
 WDTCSR |= 1 << WDCE | 1 << WDE; /* allow to enable WDT */
@@ -256,21 +259,21 @@ that \.{avr-gcc} adds, has enough time to execute before watchdog
 timer (16ms in this program) expires:
 
 $$\vbox{\halign{\tt#\cr
-  eor r1, r1 \cr
-  out 0x3f, r1 \cr
-  ldi r28, 0xFF	\cr
-  ldi r29, 0x0A	\cr
-  out 0x3e, r29	\cr
-  out 0x3d, r28	\cr
-  call <main> \cr
+  eor r1, r1 (1 cycle)\cr
+  out 0x3f, r1 (1 cycle)\cr
+  ldi r28, 0xFF	(1 cycle)\cr
+  ldi r29, 0x0A	(1 cycle)\cr
+  out 0x3e, r29	(1 cycle)\cr
+  out 0x3d, r28	(1 cycle)\cr
+  call <main> (4 cycles)\cr
 }}$$
 
 At 16MHz each cycle is 62.5 nanoseconds, so it is 7 instructions,
-taking FIXME cycles, multiplied by 62.5 is ????.
+taking 10 cycles, multiplied by 62.5 is 625 nanoseconds.
 
-(What the above code does: zero r1 register, clear SREG, initialize program stack
+What the above code does: zero r1 register, clear SREG, initialize program stack
 (to the stack processor writes addresses for returning from subroutines and interrupt
-handlers). To the stack pointer is written address of last cell of RAM.)
+handlers). To the stack pointer is written address of last cell of RAM.
 
 @<Disable WDT@>=
 MCUSR = 0x00; /* clear WDRF */
