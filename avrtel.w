@@ -155,10 +155,12 @@ $$\hbox to9cm{\vbox to5.93cm{\vfil\special{psfile=PC817C.eps
 @<Indicate phone line state and notify \.{tel} if state changed@>=
 if (PIND & 1 << PD2) { /* off-line */
   if (!(PORTD & 1 << PD5)) { /* transition happened */
-    while (!(UEINTX & 1 << TXINI)) ;
-    UEINTX &= ~(1 << TXINI);
-    UEDATX = '%';
-    UEINTX &= ~(1 << FIFOCON);
+    if (line_status.DTR) {
+      while (!(UEINTX & 1 << TXINI)) ;
+      UEINTX &= ~(1 << TXINI);
+      UEDATX = '%';
+      UEINTX &= ~(1 << FIFOCON);
+    }
   }
   PORTD |= 1 << PD5;
 }
