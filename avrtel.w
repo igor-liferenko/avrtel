@@ -275,10 +275,26 @@ What the above code does: zero r1 register, clear SREG, initialize program stack
 (to the stack processor writes addresses for returning from subroutines and interrupt
 handlers). To the stack pointer is written address of last cell of RAM.
 
+Note, that ns is $10^{-9}$, $\mu s$ is $10^{-6}$ and ms is $10^{-3]$.
+
 @<Disable WDT@>=
-MCUSR = 0x00; /* clear WDRF */
-WDTCSR |= 1 << WDCE | 1 << WDE; /* allow to disable WDT */
-WDTCSR = 0x00; /* disable WDT */
+if (MCUSR & 1 << WDRF) { /* takes 2 instructions: \.{in} (1 cycle),
+  \.{sbrs} (2 cycles), which is 62.5*3 = 187.5 nanoseconds
+    more, but still within 16ms */
+  MCUSR &= ~(1 << WDRF); /* takes 3 instructions: \.{in} (1 cycle),
+    \.{andi} (1 cycle), \.{out} (1 cycle), which is 62.5*3 = 187.5 nanoseconds
+    more, but still within 16ms */
+  WDTCSR |= 1 << WDCE; /* allow to disable WDT (\.{lds} (2 cycles), \.{ori}
+    (1 cycle), \.{sts} (2 cycles)), which is 62.5*5 = 312.5 ns more, but
+    still within 16ms) */
+  WDTCSR = 0x00; /* disable WDT (\.{sts} (2 cycles), which is 62.5*2 = 125 ns more,
+    but still within 16ms)\footnote*{`\&=' must not be used here, because
+    the following instructions will be used: \.{lds} (2 cycles),
+    \.{andi} (1 cycle), \.{sts} (2 cycles), but according to datasheet \S8.2
+    this must not exceed 4 cycles, whereas with `=' at most the
+    following instructions are used: \.{ldi} (1 cycle) and \.{sts} (2 cycles),
+    which is within 4 cycles.} */
+}
 
 @ @c
 ISR(USB_GEN_vect)
