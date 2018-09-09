@@ -117,10 +117,18 @@ void main(void)
     if (btn != 0 && on_line) {
       while (!(UEINTX & 1 << TXINI)) ;
       UEINTX &= ~(1 << TXINI);
-      UEDATX = btn;
+      if (btn == 'C')
+        UEDATX = '9';
+      else if (btn == 'D')
+        UEDATX = '7';
+      else
+        UEDATX = btn;
       UEINTX &= ~(1 << FIFOCON);
       U8 prev_button = btn;
-      int timeout = 2000;
+      int timeout;
+      if (btn == 'C' || btn == 'D')
+        timeout = 300;
+      else timeout = 2000;
       while (--timeout) {
         @<Get button@>@;
         if (btn != prev_button) break;
@@ -135,8 +143,6 @@ void main(void)
 @ @<Get button@>=
 if (btn == 'A') btn = 0, on_line = 1;
 if (btn == 'B') btn = 0, on_line = 0;
-if (btn == 'C') btn = 0;
-if (btn == 'D') btn = 0;
 
 @ For on-line indication we send `\.{@@}' character to \.{tel}---to put
 it to initial state.
