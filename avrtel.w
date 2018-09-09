@@ -1,3 +1,5 @@
+%NOTE: this is for arduino, so PB0 and PD5 are not inverted
+
 \let\lheader\rheader
 %\datethis
 \secpagedepth=2 % begin new page only on *
