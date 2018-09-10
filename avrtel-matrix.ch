@@ -35,15 +35,15 @@ ISR(INT1_vect)
 @x
     if (line_status.DTR) {
       PORTE |= 1 << PE6; /* base station on */
-      PORTB |= 1 << PB0; /* led off */
+      PORTB &= ~(1 << PB0); /* led off */
     }
     else {
-      if (PORTB & 1 << PB0) { /* transition happened */
+      if (!(PORTB & 1 << PB0)) { /* transition happened */
         PORTE &= ~(1 << PE6); /* base station off */
         keydetect = 0; /* in case key was detected right before base station was
                           switched off, which means that nothing must come from it */
       }
-      PORTB &= ~(1 << PB0); /* led on */
+      PORTB |= 1 << PB0; /* led on */
     }
 @y
     if (line_status.DTR) {
@@ -79,6 +79,7 @@ ISR(INT1_vect)
       UEINTX &= ~(1 << TXINI);
       UEDATX = digit;
       UEINTX &= ~(1 << FIFOCON);
+    }
 @y
     if (btn != 0) {
       if (btn == 'A') { /* toggle hook state */
