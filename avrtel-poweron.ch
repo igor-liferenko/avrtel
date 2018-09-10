@@ -29,35 +29,35 @@ and ignore first two led state changes in such case.}.
 @x
     if (line_status.DTR) {
       PORTE |= 1 << PE6; /* base station on */
-      PORTB |= 1 << PB0; /* led off */
+      PORTB &= ~(1 << PB0); /* led off */
     }
 @y
     if (line_status.DTR) {
-      if (!(PORTB & 1 << PB0)) { /* transition happened */
+      if (PORTB & 1 << PB0) { /* transition happened */
         PORTE |= 1 << PE6; /* base station on */
         base_station_was_powered_on = 1;
       }
-      PORTB |= 1 << PB0; /* led off */
+      PORTB &= ~(1 << PB0); /* led off */
     }
 @z
 
 @x
-  if (!(PORTD & 1 << PD5)) { /* transition happened */
+  if (PORTD & 1 << PD5) { /* transition happened */
     while (!(UEINTX & 1 << TXINI)) ;
     UEINTX &= ~(1 << TXINI);
     UEDATX = '%';
     UEINTX &= ~(1 << FIFOCON);
   }
-  PORTD |= 1 << PD5;
+  PORTD &= ~(1 << PD5);
 }
 else { /* on-line */
-  if (PORTD & 1 << PD5) { /* transition happened */
+  if (!(PORTD & 1 << PD5)) { /* transition happened */
     while (!(UEINTX & 1 << TXINI)) ;
     UEINTX &= ~(1 << TXINI);
     UEDATX = '@@';
     UEINTX &= ~(1 << FIFOCON);
   }
-  PORTD &= ~(1 << PD5);
+  PORTD |= 1 << PD5;
 @y
   if (on_line) { /* transition happened */
     if (base_station_was_powered_on) base_station_was_powered_on = 0;
@@ -66,7 +66,7 @@ else { /* on-line */
       UEINTX &= ~(1 << TXINI);
       UEDATX = '%';
       UEINTX &= ~(1 << FIFOCON);
-      PORTD |= 1 << PD5;
+      PORTD &= ~(1 << PD5);
     }
   }
   on_line = 0;
@@ -78,7 +78,7 @@ else { /* on-line */
       UEINTX &= ~(1 << TXINI);
       UEDATX = '@@';
       UEINTX &= ~(1 << FIFOCON);
-      PORTD &= ~(1 << PD5);
+      PORTD |= 1 << PD5;
     }
   }
   on_line = 1;
