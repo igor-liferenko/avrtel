@@ -88,7 +88,6 @@ void main(void)
       @<Process SETUP request@>@;
   UENUM = EP1;
 
-  PORTD |= 1 << PD5; /* led off (before enabling output, because this led is inverted) */
   DDRD |= 1 << PD5; /* on-line/off-line indicator; also |PORTD & 1 << PD5| is used to get current
                        state to determine if transition happened (to save extra variable) */
   @<Set |PD2| to pullup mode@>@;
@@ -96,11 +95,12 @@ void main(void)
   EIMSK |= 1 << INT1; /* turn on INT1 */
   DDRB |= 1 << PB0; /* DTR indicator; also |PORTB & 1 << PB0| is used to get current DTR state
                        to determine if transition happened (to save extra variable) */
+  PORTB |= 1 << PB0; /* led on */
   DDRE |= 1 << PE6;
 
   if (line_status.DTR != 0) { /* are unions automatically zeroed? (may be removed if yes) */
-    PORTB &= ~(1 << PB0);
-    PORTD &= ~(1 << PD5);
+    PORTB |= 1 << PB0;
+    PORTD |= 1 << PD5;
     return;
   }
   char digit;
@@ -108,15 +108,15 @@ void main(void)
     @<Get |line_status|@>@;
     if (line_status.DTR) {
       PORTE |= 1 << PE6; /* base station on */
-      PORTB |= 1 << PB0; /* led off */
+      PORTB &= ~(1 << PB0); /* led off */
     }
     else {
-      if (PORTB & 1 << PB0) { /* transition happened */
+      if (!(PORTB & 1 << PB0)) { /* transition happened */
         PORTE &= ~(1 << PE6); /* base station off */
         keydetect = 0; /* in case key was detected right before base station was
                           switched off, which means that nothing must come from it */
       }
-      PORTB &= ~(1 << PB0); /* led on */
+      PORTB |= 1 << PB0; /* led on */
     }
     @<Indicate phone line state and notify \.{tel} if state changed@>@;
     if (keydetect) {
@@ -154,7 +154,7 @@ $$\hbox to9cm{\vbox to5.93cm{\vfil\special{psfile=PC817C.eps
 
 @<Indicate phone line state and notify \.{tel} if state changed@>=
 if (PIND & 1 << PD2) { /* off-line */
-  if (!(PORTD & 1 << PD5)) { /* transition happened */
+  if (PORTD & 1 << PD5) { /* transition happened */
     if (line_status.DTR) {
       while (!(UEINTX & 1 << TXINI)) ;
       UEINTX &= ~(1 << TXINI);
@@ -162,16 +162,16 @@ if (PIND & 1 << PD2) { /* off-line */
       UEINTX &= ~(1 << FIFOCON);
     }
   }
-  PORTD |= 1 << PD5;
+  PORTD &= ~(1 << PD5);
 }
 else { /* on-line */
-  if (PORTD & 1 << PD5) { /* transition happened */
+  if (!(PORTD & 1 << PD5)) { /* transition happened */
     while (!(UEINTX & 1 << TXINI)) ;
     UEINTX &= ~(1 << TXINI);
     UEDATX = '@@';
     UEINTX &= ~(1 << FIFOCON);
   }
-  PORTD &= ~(1 << PD5);
+  PORTD |= 1 << PD5;
 }
 
 @ The pull-up resistor is connected to the high voltage (this is usually 3.3V or 5V and is
