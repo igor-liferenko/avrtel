@@ -17,10 +17,12 @@ and ignore first two led state changes in such case.}.
 @z
 
 @x
-  DDRD |= 1 << PD5; /* on-line/off-line indicator; also |PORTD & 1 << PD5| is used to get current
-                       state to determine if transition happened (to save extra variable) */
+  DDRD |= 1 << PD5; /* on-line/off-line indicator
+                       (also |PORTD & 1 << PD5| is used to get current
+                       state to determine if transition happened ---~to save extra variable) */
 @y
-  DDRD |= 1 << PD5; /* on-line/off-line indicator */
+  DDRD |= 1 << PD5; /* on-line/off-line indicator
+                    */
   int on_line = 0; /* used to get current state to determine if on-line/off-line transition
     happened */
   int base_station_was_powered_on = 0;
@@ -43,10 +45,12 @@ and ignore first two led state changes in such case.}.
 
 @x
   if (PORTD & 1 << PD5) { /* transition happened */
-    while (!(UEINTX & 1 << TXINI)) ;
-    UEINTX &= ~(1 << TXINI);
-    UEDATX = '%';
-    UEINTX &= ~(1 << FIFOCON);
+    if (line_status.DTR) {
+      while (!(UEINTX & 1 << TXINI)) ;
+      UEINTX &= ~(1 << TXINI);
+      UEDATX = '%';
+      UEINTX &= ~(1 << FIFOCON);
+    }
   }
   PORTD &= ~(1 << PD5);
 }
