@@ -119,7 +119,7 @@ void main(void)
       }
       PORTB |= 1 << PB0; /* led on */
     }
-    @<Indicate phone line state and notify \.{tel} if state changed@>@;
+    @<Check phone line state@>@;
     if (keydetect) {
       keydetect = 0;
       switch (PINB & (1 << PB4 | 1 << PB5 | 1 << PB6) | PIND & 1 << PD7) {
@@ -153,7 +153,7 @@ power reset on base station after timeout.
 $$\hbox to9cm{\vbox to5.93cm{\vfil\special{psfile=PC817C.eps
   clip llx=0 lly=0 urx=663 ury=437 rwi=2551}}\hfil}$$
 
-@<Indicate phone line state and notify \.{tel} if state changed@>=
+@<Check phone line state@>=
 if (PIND & 1 << PD2) { /* off-line */
   if (PORTD & 1 << PD5) { /* transition happened */
     if (line_status.DTR) {
