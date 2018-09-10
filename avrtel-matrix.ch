@@ -61,6 +61,11 @@ ISR(INT1_vect)
       }
       PORTB |= 1 << PB0; /* led on */
     }
+    if (btn == 'A') { /* toggle hook state */
+      if (DDRD & 1 << PD1) DDRD &= ~(1 << PD1);
+      else DDRD |= 1 << PD1;
+      _delay_ms(1); /* eliminate capacitance */
+    }
 @z
 
 @x
@@ -88,10 +93,6 @@ ISR(INT1_vect)
     }
 @y
     if (btn != 0) {
-      if (btn == 'A') { /* toggle hook state */
-        if (DDRD & 1 << PD1) DDRD &= ~(1 << PD1);
-        else DDRD |= 1 << PD1;
-      }
       if (btn != 'A' && DDRD & 1 << PD1) { /* on-line */
         while (!(UEINTX & 1 << TXINI)) ;
         UEINTX &= ~(1 << TXINI);
