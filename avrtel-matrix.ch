@@ -46,11 +46,8 @@ ISR(INT1_vect)
       @<Get button@>@;
     }
     else {
-      if (!(PORTB & 1 << PB0)) { /* transition happened */
-        DDRD &= ~(1 << PD1); /* off-line */
-        btn = 0; /* in case key was detected right before base station was
-                          switched off, which means that nothing must come from it */
-      }
+      if (!(PORTB & 1 << PB0)) /* transition happened */
+        DDRD &= ~(1 << PD1); /* off-line (forced by DTR) */
       PORTB |= 1 << PB0; /* led on */
     }
 @z
@@ -103,6 +100,7 @@ ISR(INT1_vect)
           if (btn != prev_button) break;
           _delay_ms(1);
         }
+        btn = 0;
       }
     }
 @z
