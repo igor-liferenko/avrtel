@@ -90,18 +90,18 @@ ISR(INT1_vect)
         else
           UEDATX = btn;
         UEINTX &= ~(1 << FIFOCON);
-        U8 prev_button = btn;
-        int timeout;
-        if (btn == 'C' || btn == 'D')
-          timeout = 300;
-        else timeout = 2000;
-        while (--timeout) {
-          @<Get button@>@;
-          if (btn != prev_button) break;
-          _delay_ms(1);
-        }
-        btn = 0;
       }
+      U8 prev_button = btn;
+      int timeout;
+      if (btn == 'C' || btn == 'D')
+        timeout = 300;
+      else timeout = 2000;
+      while (--timeout) {
+        @<Get button@>@;
+        if (btn != prev_button) break;
+        _delay_ms(1);
+      }
+      btn = 0;
     }
 @z
 
