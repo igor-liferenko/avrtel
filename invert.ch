@@ -9,4 +9,64 @@ Apply it after other change-file was applied via
 "ctangle merged invert"
 "make merged"
 
-TODO: un-invert in avrtel.w
+@x
+  PORTD |= 1 << PD5; /* led off */
+  DDRD |= 1 << PD5; /* on-line/off-line indicator; also |PORTD & 1 << PD5| is used to get current
+@y
+  DDRD |= 1 << PD5; /* on-line/off-line indicator; also |PORTD & 1 << PD5| is used to get current 
+@z
+
+@x
+  PORTB |= 1 << PB0; /* led on */
+@y
+@z
+
+@x
+    PORTB |= 1 << PB0;
+    PORTD |= 1 << PD5;
+@y
+    PORTB &= ~(1 << PB0);
+    PORTD &= ~(1 << PD5);
+@z
+
+@x
+      PORTB &= ~(1 << PB0); /* led off */
+@y
+      PORTB |= 1 << PB0; /* led off */
+@z
+
+@x
+      if (!(PORTB & 1 << PB0)) { /* transition happened */
+@y
+      if (PORTB & 1 << PB0) { /* transition happened */
+@z
+
+@x
+      PORTB |= 1 << PB0; /* led on */
+@y
+      PORTB &= ~(1 << PB0); /* led on */
+@z
+
+@x
+  if (PORTD & 1 << PD5) { /* transition happened */
+@y
+  if (!(PORTD & 1 << PD5)) { /* transition happened */
+@z
+
+@x
+  PORTD &= ~(1 << PD5);
+@y
+  PORTD |= 1 << PD5;
+@z
+
+@x
+  if (!(PORTD & 1 << PD5)) { /* transition happened */
+@y
+  if (PORTD & 1 << PD5) { /* transition happened */
+@z
+
+@x
+  PORTD |= 1 << PD5;
+@y
+  PORTD &= ~(1 << PD5);
+@z
