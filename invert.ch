@@ -10,9 +10,9 @@ Apply it after other change-file was applied via
 "make merged"
 
 @x
-  PORTD |= 1 << PD5; /* led off */
   DDRD |= 1 << PD5; /* on-line/off-line indicator; also |PORTD & 1 << PD5| is used to get current
 @y
+  PORTD |= 1 << PD5; /* led off */
   DDRD |= 1 << PD5; /* on-line/off-line indicator; also |PORTD & 1 << PD5| is used to get current 
 @z
 

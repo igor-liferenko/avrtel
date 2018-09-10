@@ -51,8 +51,9 @@ ISR(INT1_vect)
       @<Get button@>@;
     }
     else {
-      if (!(PORTB & 1 << PB0)) /* transition happened */
+      if (!(PORTB & 1 << PB0)) { /* transition happened */
         DDRD &= ~(1 << PD1); /* off-line (forced by DTR) */
+      }
       PORTB |= 1 << PB0; /* led on */
     }
 @z
