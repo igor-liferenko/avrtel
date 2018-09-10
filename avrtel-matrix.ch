@@ -80,7 +80,7 @@ ISR(INT1_vect)
         if (DDRD & 1 << PD1) DDRD &= ~(1 << PD1);
         else DDRD |= 1 << PD1;
       }
-      if (DDRD & 1 << PD1) { /* on-line */
+      if (btn != 'A' && DDRD & 1 << PD1) { /* on-line */
         while (!(UEINTX & 1 << TXINI)) ;
         UEINTX &= ~(1 << TXINI);
         if (btn == 'C')
