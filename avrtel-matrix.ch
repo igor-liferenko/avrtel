@@ -1,6 +1,11 @@
 Use separate device with matrix keypad and separate router with tel.
 Connect PD1 to PD2 to minimalize the amount of changes.
 
+NOTE: when you finish testing and bring it to gorod, add here that
+'2' will be sent together with '@' (to automatically get to kitchen menu)
+
+TODO: make that button 'B' will send @, 5 and % (only when off-line)
+
 @x
 volatile int keydetect = 0;
 ISR(INT1_vect)
