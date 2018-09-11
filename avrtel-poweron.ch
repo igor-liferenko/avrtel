@@ -45,7 +45,7 @@ and ignore first two led state changes in such case.}.
 
 @x
   if (PORTD & 1 << PD5) { /* transition happened */
-    if (line_status.DTR) {
+    if (line_status.DTR) { /* off-line was not caused by un-powering base station */
       while (!(UEINTX & 1 << TXINI)) ;
       UEINTX &= ~(1 << TXINI);
       UEDATX = '%';
@@ -66,10 +66,12 @@ else { /* on-line */
   if (on_line) { /* transition happened */
     if (base_station_was_powered_on) base_station_was_powered_on = 0;
     else {
-      while (!(UEINTX & 1 << TXINI)) ;
-      UEINTX &= ~(1 << TXINI);
-      UEDATX = '%';
-      UEINTX &= ~(1 << FIFOCON);
+      if (line_status.DTR) { /* off-line was not caused by un-powering base station */
+        while (!(UEINTX & 1 << TXINI)) ;
+        UEINTX &= ~(1 << TXINI);
+        UEDATX = '%';
+        UEINTX &= ~(1 << FIFOCON);
+      }
       PORTD &= ~(1 << PD5);
     }
   }
