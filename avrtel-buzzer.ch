@@ -6,6 +6,8 @@
 @z
 
 @x
+@* Headers.
+@y
 @ @<Buzz if requested@>=
 UENUM = EP2;
 if (UEINTX & 1 << RXOUTI) {
@@ -15,7 +17,5 @@ if (UEINTX & 1 << RXOUTI) {
 }
 UENUM = EP1; /* restore */
 
-@* Headers.
-@y
 @* Headers.
 @z
