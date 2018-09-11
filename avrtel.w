@@ -268,10 +268,10 @@ timer (16ms in this program) expires:
 $$\vbox{\halign{\tt#\cr
   eor r1, r1 (1 cycle)\cr
   out 0x3f, r1 (1 cycle)\cr
-  ldi r28, 0xFF	(1 cycle)\cr
-  ldi r29, 0x0A	(1 cycle)\cr
-  out 0x3e, r29	(1 cycle)\cr
-  out 0x3d, r28	(1 cycle)\cr
+  ldi r28, 0xFF (1 cycle)\cr
+  ldi r29, 0x0A (1 cycle)\cr
+  out 0x3e, r29 (1 cycle)\cr
+  out 0x3d, r28 (1 cycle)\cr
   call <main> (4 cycles)\cr
 }}$$
 
