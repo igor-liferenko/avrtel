@@ -910,10 +910,9 @@ TODO: put here explanation from \.{https://stackoverflow.com/questions/51470592/
 @^TODO@>
 
 Is USB each character is 2 bytes. Wide-character string can be used here,
-because on atmega32u4 wide character is 2 bytes.
-Note, that I do not use `\&{wchar\_t}' because
-by `\&{wchar\_t}' I always mean 4 bytes (I never use `\&{wint\_t}').
-So I use `\&{int}' for wide character string.
+because on GCC for atmega32u4 wide character is 2 bytes.
+Note, that for wide-character string I use type `\&{int}', not `\&{wchar\_t}',
+because by `\&{wchar\_t}' I always mean 4 bytes (to avoid using `\&{wint\_t}').
 
 @^GCC-specific@>
 
