@@ -239,7 +239,7 @@ line_status.all = wValue;
 
 @ Used in USB\_RESET interrupt handler.
 Reset is used to go to beginning of connection loop (because we cannot
-use \&{goto} from interrput handler). Watchdog reset is used because
+use \&{goto} from within interrupt handler). Watchdog reset is used because
 in atmega32u4 there is no simpler way to reset MCU.
 
 @<Reset MCU@>=
