@@ -1,4 +1,4 @@
-Use separate device with matrix keypad and separate router with tel.
+Use separate device with matrix keypad and separate router with \.{tel}.
 Connect PD1 to PD2 to minimalize the amount of changes.
 
 NOTE: when you finish testing and bring it to gorod, add here that
