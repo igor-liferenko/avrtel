@@ -57,7 +57,8 @@ ISR(INT1_vect)
     }
     else {
       if (!(PORTB & 1 << PB0)) { /* transition happened */
-        DDRD &= ~(1 << PD1); /* off-line (forced by DTR) */
+        DDRD &= ~(1 << PD1); /* off-line (do the same as on base station,
+          where off-line automatically happens when base station is un-powered) */
       }
       PORTB |= 1 << PB0; /* led on */
     }
