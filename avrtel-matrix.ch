@@ -4,7 +4,7 @@ Connect PD1 to PD2 to minimalize the amount of changes.
 NOTE: when you finish testing and bring it to gorod, add here that
 '2' will be sent together with '@' (to automatically get to kitchen menu)
 
-TODO: make that button 'B' will send @, 5 and % (only when off-line)
+TODO: make that button 'B' will stop all (only when off-line)
 
 TODO: on LCD print digits when on-line and print current time when off-line
 
