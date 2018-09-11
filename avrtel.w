@@ -286,15 +286,17 @@ Note, that ns is $10^{-9}$, $\mu s$ is $10^{-6}$ and ms is $10^{-3}$.
 
 @<Disable WDT@>=
 if (MCUSR & 1 << WDRF) /* takes 2 instructions if |WDRF| is set to one:
-  \.{in} (1 cycle),
-  \.{sbrs} (2 cycles), which is 62.5*3 = 187.5 nanoseconds
+    \.{in} (1 cycle),
+    \.{sbrs} (2 cycles), which is 62.5*3 = 187.5 nanoseconds
     more, but still within 16ms; and it takes 5 instructions if |WDRF|
     is not set: \.{in} (1 cycle), \.{sbrs} (2 cycles), \.{rjmp} (2 cycles),
     which is 62.5*5 = 312.5 ns more, but still within 16ms */
   MCUSR &= ~(1 << WDRF); /* takes 3 instructions: \.{in} (1 cycle),
     \.{andi} (1 cycle), \.{out} (1 cycle), which is 62.5*3 = 187.5 nanoseconds
     more, but still within 16ms */
-if (WDTCSR & 1 << WDE) { /* takes <take from git lg of above if> */
+if (WDTCSR & 1 << WDE) { /* takes 2 instructions: \.{in} (1 cycle),
+    \.{sbrs} (2 cycles), which is 62.5*3 = 187.5 nanoseconds
+    more, but still within 16ms */
   WDTCSR |= 1 << WDCE; /* allow to disable WDT (\.{lds} (2 cycles), \.{ori}
     (1 cycle), \.{sts} (2 cycles)), which is 62.5*5 = 312.5 ns more, but
     still within 16ms) */
