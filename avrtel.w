@@ -256,7 +256,8 @@ To avoid unintentional changes of WDE, a special write procedure must be followe
 to change the WDE bit. To clear WDE, WDRF must be cleared first.
 
 Datasheet says that |WDE| is always set to one when |WDRF| is set to one,
-but it does not say if |WDE| is always set to zero when |WDRF| is not set.
+but it does not say if |WDE| is always set to zero when |WDRF| is not set
+(by default it is zero).
 So we must always clear |WDE| independent of |WDRF|.
 
 This should be done right at the beginning of |main|, in order to be in
