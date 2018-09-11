@@ -156,7 +156,8 @@ $$\hbox to9cm{\vbox to5.93cm{\vfil\special{psfile=PC817C.eps
 @<Check phone line state@>=
 if (PIND & 1 << PD2) { /* off-line */
   if (PORTD & 1 << PD5) { /* transition happened */
-    if (line_status.DTR) {
+    if (line_status.DTR) { /* off-line was not caused by
+        un-powering base station */
       while (!(UEINTX & 1 << TXINI)) ;
       UEINTX &= ~(1 << TXINI);
       UEDATX = '%';
