@@ -36,7 +36,7 @@ void main(void)
 @y
 @i ../usb/OUT-endpoint-management.w
 
-@ TODO: why echo 1 >/dev/avr is delayed if PLAYNOTE is used?
+@ TODO: why echo 1 >/dev/avr is delayed if delay is used inside "if"?
 @<Buzz if requested@>=
 UENUM = EP2;
 if (UEINTX & 1 << RXOUTI) {
