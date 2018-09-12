@@ -1,27 +1,13 @@
 @x
 void main(void)
 @y
-void PLAYNOTE(float duration, float frequency)
+void PLAYNOTE(float duration, int frequency)
 {
   long int i,cycles;
   float half_period;
   float wavelength;
 
-  switch (frequency) {
-  case 880: 
-  case 932:
-  case 988:
-  case 1047:
-  case 1109:
-  case 1175:
-  case 1244:
-  case 1319:
-  case 1397:
-  case 1480:
-  case 1568:
-  case 1660:
-
-  wavelength = 1 / frequency * 1000;
+  wavelength = 1 / (float) frequency * 1000;
   cycles = duration / wavelength;
   half_period = wavelength / 2;
 
