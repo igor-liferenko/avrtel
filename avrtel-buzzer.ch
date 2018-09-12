@@ -42,7 +42,7 @@ if (UEINTX & 1 << RXOUTI) {
   UEINTX &= ~(1 << RXOUTI);
   UEINTX &= ~(1 << FIFOCON);
   PLAYNOTE(400,880);
-  PLAYNOTE(400,932);
+/*  PLAYNOTE(400,932);
   PLAYNOTE(400,988);
   PLAYNOTE(400,1047);
   PLAYNOTE(400,1109);
@@ -52,24 +52,24 @@ if (UEINTX & 1 << RXOUTI) {
   PLAYNOTE(400,1397);
   PLAYNOTE(400,1480);
   PLAYNOTE(400,1568);
-  PLAYNOTE(400,1660);
+  PLAYNOTE(400,1660);*/
 }
 UENUM = EP1; /* restore */
 
 @ @<Delay half period@>=
     switch (frequency) {
-    case 880: _delay_ms(1 / 880 * 500); break;
-    case 932: _delay_ms(1 / 932 * 500); break;
-    case 988: _delay_ms(1 / 988 * 500); break;
-    case 1047: _delay_ms(1 / 1047 * 500); break;
-    case 1109: _delay_ms(1 / 1109 * 500); break;
-    case 1175: _delay_ms(1 / 1175 * 500); break;
-    case 1244: _delay_ms(1 / 1244 * 500); break;
-    case 1319: _delay_ms(1 / 1319 * 500); break;
-    case 1397: _delay_ms(1 / 1397 * 500); break;
-    case 1480: _delay_ms(1 / 1480 * 500); break;
-    case 1568: _delay_ms(1 / 1568 * 500); break;
-    case 1660: _delay_ms(1 / 1660 * 500); break;
+    case 880: _delay_ms(1); break;
+    case 932: _delay_ms(1); break;
+    case 988: _delay_ms(1); break;
+    case 1047: _delay_ms(1); break;
+    case 1109: _delay_ms(1); break;
+    case 1175: _delay_ms(1); break;
+    case 1244: _delay_ms(1); break;
+    case 1319: _delay_ms(1); break;
+    case 1397: _delay_ms(1); break;
+    case 1480: _delay_ms(1); break;
+    case 1568: _delay_ms(1); break;
+    case 1660: _delay_ms(1); break;
     }
 
 @* Headers.
