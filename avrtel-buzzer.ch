@@ -8,6 +8,8 @@
 @x
 @* Headers.
 @y
+@i ../usb/OUT-endpoint-management.w
+
 @ @<Buzz if requested@>=
 UENUM = EP2;
 if (UEINTX & 1 << RXOUTI) {
