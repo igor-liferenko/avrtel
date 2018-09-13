@@ -220,6 +220,7 @@ typedef union {
 S_line_status line_status;
 
 @ This request generates RS-232/V.24 style control signals.
+It allows to implement ``hardware flow control''.
 
 Only first two bits of the first byte are used. First bit indicates to DCE if DTE is
 present or not. This signal corresponds to V.24 signal 108/2 and RS-232 signal DTR.
