@@ -36,19 +36,11 @@ void main(void)
 @y
 @i ../usb/OUT-endpoint-management.w
 
-@ When `\.{echo -n 1 >/dev/ttyACMX}' terminates, TTY is closed and driver
-disables DTR, so we read and ignore this change so that DTR of \.{tel} will
-not be messed up.
-
-@<Buzz if requested@>=
+@ @<Buzz if requested@>=
 UENUM = EP2;
 if (UEINTX & 1 << RXOUTI) {
   UEINTX &= ~(1 << RXOUTI);
   UEINTX &= ~(1 << FIFOCON);
-  UENUM = EP0;
-  while (!(UEINTX & 1 << RXSTPI)) ;
-  UEINTX &= ~(1 << RXSTPI);
-  UEINTX &= ~(1 << TXINI);
   PLAYNOTE(400,880);
 /*  PLAYNOTE(400,932);
   PLAYNOTE(400,988);
