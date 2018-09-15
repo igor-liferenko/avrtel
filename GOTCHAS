@@ -19,3 +19,5 @@ glued rear view:
 solder TX and GND to stick to top (like for programmer) to connect UART for debugging
 ==================================================
 see cweb/SERIAL_TODO
+==================================================
+do not use PD0 and PD5 - use you own separate leds, and remove invert.ch? and then add check to 'D' in avrtel-matrix.ch
