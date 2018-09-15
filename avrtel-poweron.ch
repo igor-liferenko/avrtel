@@ -6,8 +6,6 @@ ACT: go to beginning
 BUT: %
 ACT: disable timeout
 
-FIXME: instead of using variable |led|, use PD2?
-
 @x
 The following phone models are used: Panasonic KX-TCD245 and Voxtel.
 @y
