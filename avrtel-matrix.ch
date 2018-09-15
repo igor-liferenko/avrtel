@@ -97,9 +97,9 @@ ISR(INT1_vect)
       if (btn != 'A' && DDRD & 1 << PD1) { /* on-line */
         while (!(UEINTX & 1 << TXINI)) ;
         UEINTX &= ~(1 << TXINI);
-        if (btn == 'C')
+        if (btn == 'B')
           UEDATX = '9';
-        else if (btn == 'D')
+        else if (btn == 'C')
           UEDATX = '7';
         else
           UEDATX = btn;
@@ -107,7 +107,7 @@ ISR(INT1_vect)
       }
       U8 prev_button = btn;
       int timeout;
-      if (btn == 'C' || btn == 'D')
+      if (btn == 'B' || btn == 'C')
         timeout = 300;
       else timeout = 2000;
       while (--timeout) {
