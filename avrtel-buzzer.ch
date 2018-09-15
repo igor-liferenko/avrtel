@@ -2,6 +2,9 @@ It's impossible to open the same TTY device more than once, otherwise we never
 know which process set the DTR. And DTR is essential for this application, so
 it must not be intervened to. So, use another means - for example HID.
 
+TODO: add HID interface directly in avrtel.w and add above explanation to avrtel.w
+and remove usb/cdc.ch and usb/kbd.ch and on router use program like hid-example.c
+
 @x
 void main(void)
 @y
