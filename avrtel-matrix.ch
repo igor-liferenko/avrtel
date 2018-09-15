@@ -106,6 +106,10 @@ ISR(INT1_vect)
           UEDATX = '#';
           UEDATX = '%';
         }
+        else if (btn == '@@') {
+          UEDATX = btn;
+          UEDATX = '2'; /* automatically select kitchen */
+        }
         else
           UEDATX = btn;
         UEINTX &= ~(1 << FIFOCON);
