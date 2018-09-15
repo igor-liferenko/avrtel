@@ -1,9 +1,6 @@
 Use separate device with matrix keypad and separate router with \.{tel}.
 Connect PD1 to PD2 to minimalize the amount of changes.
 
-TODO: play sound from USB via PWM and use relay to swith powen on/off on
-      speaker (use TX debug pin for relay)
-
 @x
 volatile int keydetect = 0;
 ISR(INT1_vect)
