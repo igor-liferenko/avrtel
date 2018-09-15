@@ -6,8 +6,6 @@ NOTE: when you finish testing and bring it to gorod, add here that
 
 TODO: make that button 'B' will stop all (only when off-line)
 
-TODO: on LCD print digits when on-line and print current time when off-line
-
 TODO: play sound from USB via PWM and use relay to swith powen on/off on
       speaker (use TX debug pin for relay)
 
