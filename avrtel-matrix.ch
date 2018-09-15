@@ -91,7 +91,9 @@ ISR(INT1_vect)
           UEDATX = '9';
         else if (btn == 'C')
           UEDATX = '7';
-        else if (btn == 'D') { //TODO: if on-line, ignore this
+        else if (btn == 'D') { /* NOTE: do not press this button when on-line; do not
+            add a check here because it will make invert.ch not to apply if change-files
+            are mixed */
           UEDATX = '@';
           UEDATX = '#';
           UEDATX = '%';
