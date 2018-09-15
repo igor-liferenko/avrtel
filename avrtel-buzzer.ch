@@ -1,3 +1,7 @@
+It's impossible to open the same TTY device more than once, otherwise we never
+know which process set the DTR. And DTR is essential for this application, so
+it must not be intervened to. So, use another means - for example HID.
+
 @x
 void main(void)
 @y
@@ -36,13 +40,8 @@ void main(void)
 @y
 @i ../usb/OUT-endpoint-management.w
 
-@ TODO: never change DTR automatically in cdc-acm driver and in tel.w disable it manually before
-exit or fix cdc-acm driver to set DTR only when opened as non-write, or use special program
-instead of echo and use some flag to open() and process it in cdc-acm driver - otherwise we never
-know which process set the DTR
-
-@<Buzz if requested@>=
-UENUM = EP2;
+@ @<Buzz if requested@>=
+UENUM = EP4; /* TODO: add HID */
 if (UEINTX & 1 << RXOUTI) {
   UEINTX &= ~(1 << RXOUTI);
   UEINTX &= ~(1 << FIFOCON);
