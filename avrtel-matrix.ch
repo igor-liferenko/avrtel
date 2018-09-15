@@ -1,9 +1,6 @@
 Use separate device with matrix keypad and separate router with \.{tel}.
 Connect PD1 to PD2 to minimalize the amount of changes.
 
-NOTE: when you finish testing and bring it to gorod, add here that
-'2' will be sent together with '@' (to automatically get to kitchen menu)
-
 TODO: make that button 'B' will stop all (only when off-line)
 
 TODO: play sound from USB via PWM and use relay to swith powen on/off on
