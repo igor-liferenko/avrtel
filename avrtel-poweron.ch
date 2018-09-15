@@ -24,7 +24,8 @@ and ignore first two led state changes in such case.}.
   DDRD |= 1 << PD5; /* on-line/off-line indicator
                     */
   int on_line = 0; /* used to get current state to determine if on-line/off-line transition
-    happened */
+    happened (because PD5 is not activated when the led on base station is enabled after
+    poweron) */
   int base_station_was_powered_on = 0;
 @z
 
