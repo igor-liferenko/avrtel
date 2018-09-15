@@ -101,6 +101,11 @@ ISR(INT1_vect)
           UEDATX = '9';
         else if (btn == 'C')
           UEDATX = '7';
+        else if (btn == 'D') { //TODO: if on-line, ignore this
+          UEDATX = '@';
+          UEDATX = '#';
+          UEDATX = '%';
+        }
         else
           UEDATX = btn;
         UEINTX &= ~(1 << FIFOCON);
