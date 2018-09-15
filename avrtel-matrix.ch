@@ -1,5 +1,8 @@
 Use separate device with matrix keypad and separate router with \.{tel}.
 Connect PD1 to PD2 to minimalize the amount of changes.
+Via PD1 we control led. Via PD2 we read led.
+
+TODO: automatically select kitchen when '@@' is sent
 
 @x
 volatile int keydetect = 0;
@@ -84,27 +87,25 @@ ISR(INT1_vect)
     }
 @y
     if (btn != 0) {
-      if (btn != 'A' && DDRD & 1 << PD1) { /* on-line */
+      if (!(PIND & 1 << PD2) /* on-line */
+          && btn != 'A' && btn != 'D') { /* if on-line, ignore \.D */
         while (!(UEINTX & 1 << TXINI)) ;
         UEINTX &= ~(1 << TXINI);
         if (btn == 'B')
           UEDATX = '9';
         else if (btn == 'C')
           UEDATX = '7';
-        else if (btn == 'D') { /* NOTE: do not press this button when on-line; do not
-            add a check here because it will make invert.ch not to apply if change-files
-            are mixed
-            TODO: check via tel.log if it makes any difference if led is burning
-            when this button is pressed or not */
-          UEDATX = '@';
-          UEDATX = '#';
-        }
-        else if (btn == '@@') {
-          UEDATX = btn;
-          UEDATX = '2'; /* automatically select kitchen */
-        }
         else
           UEDATX = btn;
+        UEINTX &= ~(1 << FIFOCON);
+      }
+      else if (PIND & 1 << PD2 /* off-line */
+               && btn == 'D') {
+        while (!(UEINTX & 1 << TXINI)) ;
+        UEINTX &= ~(1 << TXINI);
+        UEDATX = '@@';
+        UEDATX = '#';
+        UEDATX = '%';
         UEINTX &= ~(1 << FIFOCON);
       }
       U8 prev_button = btn;
