@@ -220,7 +220,6 @@ typedef union {
 S_line_status line_status;
 
 @ This request generates RS-232/V.24 style control signals.
-It allows to implement ``hardware flow control''.
 
 Only first two bits of the first byte are used. First bit indicates to DCE if DTE is
 present or not. This signal corresponds to V.24 signal 108/2 and RS-232 signal DTR.
@@ -231,6 +230,9 @@ are tied to each other.}. Carrier control is used for half duplex modems.
 The device ignores the value of this bit when operating in full duplex mode.
 
 \S6.2.14 in CDC spec.
+
+Here DTR is used by host to say the device not to send when DTR is not active.
+@^Hardware flow control@>
 
 @<Handle {\caps set control line state}@>=
 wValue = UEDATX | UEDATX << 8;
