@@ -23,7 +23,7 @@ and ignore first two led state changes in such case.}.
 @y
   DDRD |= 1 << PD5; /* on-line/off-line indicator
                     */
-  int on_line = 0; /* used to get current state to determine if on-line/off-line transition
+  int led = 0; /* used to get current state to determine if on-line/off-line transition
     happened (because PD5 is not activated when the led on base station is enabled after
     poweron) */
   int base_station_was_powered_on = 0;
@@ -64,7 +64,7 @@ else { /* on-line */
   }
   PORTD |= 1 << PD5;
 @y
-  if (on_line) { /* transition happened */
+  if (led) { /* transition happened */
     if (base_station_was_powered_on) base_station_was_powered_on = 0;
     else {
       if (line_status.DTR) { /* off-line was not caused by un-powering base station */
@@ -76,10 +76,10 @@ else { /* on-line */
       PORTD &= ~(1 << PD5);
     }
   }
-  on_line = 0;
+  led = 0;
 }
 else { /* on-line */
-  if (!on_line) { /* transition happened */
+  if (!led) { /* transition happened */
     if (base_station_was_powered_on) ; else {
       while (!(UEINTX & 1 << TXINI)) ;
       UEINTX &= ~(1 << TXINI);
@@ -88,5 +88,5 @@ else { /* on-line */
       PORTD |= 1 << PD5;
     }
   }
-  on_line = 1;
+  led = 1;
 @z
