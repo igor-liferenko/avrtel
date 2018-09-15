@@ -93,10 +93,11 @@ ISR(INT1_vect)
           UEDATX = '7';
         else if (btn == 'D') { /* NOTE: do not press this button when on-line; do not
             add a check here because it will make invert.ch not to apply if change-files
-            are mixed */
+            are mixed
+            TODO: check via tel.log if it makes any difference if led is burning
+            when this button is pressed or not */
           UEDATX = '@';
           UEDATX = '#';
-          UEDATX = '%';
         }
         else if (btn == '@@') {
           UEDATX = btn;
