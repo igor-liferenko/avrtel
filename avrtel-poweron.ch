@@ -39,6 +39,13 @@ and ignore first two led state changes in such case.}.
 @z
 
 @x
+    @<Check phone line state@>@;
+@y
+    @<Check phone line state@>@;
+  next:
+@z
+
+@x
 if (PIND & 1 << PD2) { /* off-line */
 @y
 if (PIND & 1 << PD2) { /* off-line */
@@ -55,13 +62,4 @@ else { /* on-line */
     base_station_was_powered_on = 2;
     goto next;
   }
-@z
-
-@x
-  PORTD |= 1 << PD5;
-}
-@y
-  PORTD |= 1 << PD5;
-}
-next:
 @z
