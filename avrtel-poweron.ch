@@ -41,16 +41,20 @@ and ignore first two led state changes in such case.}.
 @x
 if (PIND & 1 << PD2) { /* off-line */
 @y
-if (!(PIND & 1 << PD2)) { /* led on */
-  if (base_station_was_powered_on == 1)
-    base_station_was_powered_on = 2;
-}
-else { /* led off */
+if (PIND & 1 << PD2) { /* off-line */
   if (base_station_was_powered_on == 2)
     base_station_was_powered_on = 0;
-}
-if (!base_station_was_powered_on) {
-if (PIND & 1 << PD2) { /* off-line */
+  else if (base_station_was_powered_on)
+    goto next;
+@z
+
+@x
+else { /* on-line */
+@y
+  if (base_station_was_powered_on == 1) {
+    base_station_was_powered_on = 2;
+    goto next;
+  }
 @z
 
 @x
@@ -59,5 +63,5 @@ if (PIND & 1 << PD2) { /* off-line */
 @y
   PORTD |= 1 << PD5;
 }
-}
+next:
 @z
