@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.8"
-     inkscape:cx="273.52574"
-     inkscape:cy="405.26465"
+     inkscape:zoom="7.9195959"
+     inkscape:cx="267.778"
+     inkscape:cy="400.85642"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -714,5 +714,32 @@
        height="10.284728"
        x="69.45565"
        y="179.33716" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.17499995px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="69.598"
+       y="184.01083"
+       id="text129"><tspan
+         sodipodi:role="line"
+         id="tspan127"
+         x="69.598"
+         y="184.01083"
+         style="stroke-width:0.26458332">relay</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:1.41111112px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="69.65712"
+       y="185.58202"
+       id="text133"><tspan
+         sodipodi:role="line"
+         id="tspan131"
+         x="69.65712"
+         y="185.58202"
+         style="font-size:1.41111112px;stroke-width:0.26458332">(normally</tspan><tspan
+         sodipodi:role="line"
+         x="69.65712"
+         y="187.3459"
+         style="font-size:1.41111112px;stroke-width:0.26458332"
+         id="tspan137">open)</tspan></text>
   </g>
 </svg>
