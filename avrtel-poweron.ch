@@ -58,6 +58,7 @@ if (PIND & 1 << PD2) { /* off-line */
 @x
 else { /* on-line */
 @y
+else { /* on-line */
   if (base_station_was_powered_on == 1) {
     base_station_was_powered_on = 2;
     goto next;
