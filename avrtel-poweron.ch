@@ -17,16 +17,10 @@ and ignore first two led state changes in such case.}.
 @z
 
 @x
-  DDRD |= 1 << PD5; /* on-line/off-line indicator
-                       (also |PORTD & 1 << PD5| is used to get current
-                       state to determine if transition happened ---~to save extra variable) */
+  DDRD |= 1 << PD5; /* show on-line/off-line state
 @y
-  DDRD |= 1 << PD5; /* on-line/off-line indicator
-                    */
-  int led = 0; /* used to get current state to determine if on-line/off-line transition
-    happened (because PD5 is not activated when the led on base station is enabled after
-    poweron) */
   int base_station_was_powered_on = 0;
+  DDRD |= 1 << PD5; /* show on-line/off-line state
 @z
 
 @x
@@ -45,48 +39,25 @@ and ignore first two led state changes in such case.}.
 @z
 
 @x
-  if (PORTD & 1 << PD5) { /* transition happened */
-    if (line_status.DTR) { /* off-line was not caused by un-powering base station */
-      while (!(UEINTX & 1 << TXINI)) ;
-      UEINTX &= ~(1 << TXINI);
-      UEDATX = '%';
-      UEINTX &= ~(1 << FIFOCON);
-    }
-  }
-  PORTD &= ~(1 << PD5);
-}
-else { /* on-line */
-  if (!(PORTD & 1 << PD5)) { /* transition happened */
-    while (!(UEINTX & 1 << TXINI)) ;
-    UEINTX &= ~(1 << TXINI);
-    UEDATX = '@@';
-    UEINTX &= ~(1 << FIFOCON);
-  }
-  PORTD |= 1 << PD5;
+if (PIND & 1 << PD2) { /* off-line */
 @y
-  if (led) { /* transition happened */
-    if (base_station_was_powered_on) base_station_was_powered_on = 0;
-    else {
-      if (line_status.DTR) { /* off-line was not caused by un-powering base station */
-        while (!(UEINTX & 1 << TXINI)) ;
-        UEINTX &= ~(1 << TXINI);
-        UEDATX = '%';
-        UEINTX &= ~(1 << FIFOCON);
-      }
-      PORTD &= ~(1 << PD5);
-    }
-  }
-  led = 0;
+if (!(PIND & 1 << PD2)) { /* led on */
+  if (base_station_was_powered_on == 1)
+    base_station_was_powered_on = 2;
 }
-else { /* on-line */
-  if (!led) { /* transition happened */
-    if (base_station_was_powered_on) ; else {
-      while (!(UEINTX & 1 << TXINI)) ;
-      UEINTX &= ~(1 << TXINI);
-      UEDATX = '@@';
-      UEINTX &= ~(1 << FIFOCON);
-      PORTD |= 1 << PD5;
-    }
-  }
-  led = 1;
+else { /* led off */
+  if (base_station_was_powered_on == 2)
+    base_station_was_powered_on = 0;
+}
+if (!base_station_was_powered_on) {
+if (PIND & 1 << PD2) { /* off-line */
+@z
+
+@x
+  PORTD |= 1 << PD5;
+}
+@y
+  PORTD |= 1 << PD5;
+}
+}
 @z

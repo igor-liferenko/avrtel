@@ -88,14 +88,12 @@ void main(void)
       @<Process SETUP request@>@;
   UENUM = EP1;
 
-  DDRD |= 1 << PD5; /* on-line/off-line indicator
-                       (also |PORTD & 1 << PD5| is used to get current
-                       state to determine if transition happened ---~to save extra variable) */
+  DDRD |= 1 << PD5; /* show on-line/off-line state
+                       and determine when transition happens */
   @<Set |PD2| to pullup mode@>@;
   EICRA |= 1 << ISC11 | 1 << ISC10; /* set INT1 to trigger on rising edge */
   EIMSK |= 1 << INT1; /* turn on INT1 */
-  DDRB |= 1 << PB0; /* DTR indicator (also |PORTB & 1 << PB0| is used to get current DTR state
-                       to determine if transition happened ---~to save extra variable) */
+  DDRB |= 1 << PB0; /* show DTR state and and determine when transition happens */
   PORTB |= 1 << PB0; /* led on */
   DDRE |= 1 << PE6;
 

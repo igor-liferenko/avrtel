@@ -20,3 +20,9 @@ solder TX and GND to stick to top (like for programmer) to connect UART for debu
 ==================================================
 see cweb/SERIAL_TODO
 ==================================================
+on matrix solder these pins:
+    +-----+
+ +--|     |-----------
+ |  +-----+
+ |
+ |
