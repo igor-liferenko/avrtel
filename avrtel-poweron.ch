@@ -17,10 +17,10 @@ and ignore first two led state changes in such case.}.
 @z
 
 @x
-  DDRD |= 1 << PD5; /* show on-line/off-line state
+  char digit;
 @y
   int base_station_was_powered_on = 0;
-  DDRD |= 1 << PD5; /* show on-line/off-line state
+  char digit;
 @z
 
 @x
