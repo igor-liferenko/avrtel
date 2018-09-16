@@ -25,14 +25,14 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.6"
-     inkscape:cx="253.70293"
-     inkscape:cy="563.83052"
+     inkscape:zoom="2.8"
+     inkscape:cx="273.52574"
+     inkscape:cy="405.26465"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1920"
-     inkscape:window-height="1016"
+     inkscape:window-width="1280"
+     inkscape:window-height="960"
      inkscape:window-x="0"
      inkscape:window-y="27"
      inkscape:window-maximized="1" />
@@ -478,24 +478,6 @@
          x="68.838913"
          y="211.43564"
          style="stroke-width:0.26458332">D1</tspan></text>
-    <rect
-       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.26458332;stroke-opacity:1"
-       id="rect90"
-       width="9.7328863"
-       height="5.8586307"
-       x="68.602676"
-       y="184.1741" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:1.41111112px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="67.034271"
-       y="183.01723"
-       id="text95"><tspan
-         sodipodi:role="line"
-         id="tspan93"
-         x="67.034271"
-         y="183.01723"
-         style="stroke-width:0.26458332">TLP281</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 77.532364,210.06547 76.256697,189.65476"
@@ -547,21 +529,10 @@
          y="173.87425"
          style="stroke-width:0.26458332">base station</tspan></text>
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 82.398808,178.40996 -11.528274,6.70908"
+       style="fill:none;stroke:#000000;stroke-width:0.14154181px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 82.428208,178.35914 -5.30624,4.17143"
        id="path115"
        inkscape:connector-curvature="0" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:1.41111112px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="69.16964"
-       y="186.34747"
-       id="text119"><tspan
-         sodipodi:role="line"
-         id="tspan117"
-         x="69.16964"
-         y="186.34747"
-         style="stroke-width:0.26458332">OUT1</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.93888903px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
@@ -575,22 +546,6 @@
          style="font-size:4.93888903px;stroke-width:0.26458332">-</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:1.41111112px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="73.69957"
-       y="186.2836"
-       id="text127"><tspan
-         sodipodi:role="line"
-         id="tspan125"
-         x="73.69957"
-         y="186.2836"
-         style="stroke-width:0.26458332">HVCC</tspan></text>
-    <path
-       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 76.104998,185.61542 14.098465,-6.48128"
-       id="path129"
-       inkscape:connector-curvature="0" />
-    <text
-       xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        x="90.997772"
        y="179.44942"
@@ -601,26 +556,17 @@
          y="179.44942"
          style="font-size:3.52777767px;stroke-width:0.26458332">+</tspan></text>
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 83.438242,182.28422 2.740329,3.11831"
+       style="fill:none;stroke:#000000;stroke-width:0.30853739px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 90.843846,178.99988 -3.621002,5.84051"
        id="path139"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:transform-center-x="3.857711"
+       inkscape:transform-center-y="3.137991" />
     <path
        style="fill:none;stroke:#000000;stroke-width:0.29014209px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 76.918153,187.3869 h 8.976936"
+       d="m 77.753265,184.29959 8.382372,3.21266"
        id="path141"
        inkscape:connector-curvature="0" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:1.41111112px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="73.516373"
-       y="187.67038"
-       id="text145"><tspan
-         sodipodi:role="line"
-         id="tspan143"
-         x="73.516373"
-         y="187.67038"
-         style="stroke-width:0.26458332">HGND</tspan></text>
     <rect
        style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.36875021;stroke-opacity:1"
        id="rect147"
@@ -742,5 +688,31 @@
          x="44.450836"
          y="211.57201"
          style="stroke-width:0.26458332">E6</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 69.490073,223.76815 3.648319,-34.20788"
+       id="path3836"
+       inkscape:connector-curvature="0" />
+    <rect
+       id="rect3838"
+       width="5.4302721"
+       height="6.2109003"
+       x="70.826424"
+       y="183.44386"
+       style="stroke-width:0.2;fill:none;stroke-miterlimit:4;stroke-dasharray:none" />
+    <rect
+       style="fill:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect4645"
+       width="5.4302735"
+       height="6.210897"
+       x="70.826424"
+       y="183.44386" />
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.18521318;stroke-opacity:1"
+       id="rect109-3"
+       width="9.1894331"
+       height="10.284728"
+       x="69.45565"
+       y="179.33716" />
   </g>
 </svg>

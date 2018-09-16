@@ -40,9 +40,6 @@ is powered when device is not plugged in, this breaks program logic badly.
 $$\hbox to12.27cm{\vbox to9.87777777777778cm{\vfil\special{psfile=scheme.eps
   clip llx=0 lly=0 urx=348 ury=280 rwi=3480}}\hfil}$$
 
-\centerline{TODO: fix scheme to use non-inverted relay}
-@^TODO@>
-
 @d EP0 0
 @d EP1 1
 @d EP2 2
