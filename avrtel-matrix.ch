@@ -89,7 +89,8 @@ ISR(INT1_vect)
           && btn != 'A' && btn != 'D') { /* if on-line, ignore \.D */
         while (!(UEINTX & 1 << TXINI)) ;
         UEINTX &= ~(1 << TXINI);
-        if (btn == 'B')
+        if (btn == 'B') /* note, that it is the responsibility of the user
+                           to use \.B and \.C only inside mpd menu */
           UEDATX = '9';
         else if (btn == 'C')
           UEDATX = '7';
