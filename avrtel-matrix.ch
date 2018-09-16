@@ -2,8 +2,6 @@ Use separate device with matrix keypad and separate router with \.{tel}.
 Connect PD1 to PD2 to minimalize the amount of changes.
 Via PD1 we control led. Via PD2 we read led.
 
-TODO: automatically select kitchen when '@@' is sent
-
 @x
 volatile int keydetect = 0;
 ISR(INT1_vect)
@@ -106,6 +104,13 @@ ISR(INT1_vect)
         UEDATX = '@@';
         UEDATX = '#';
         UEDATX = '%';
+        UEINTX &= ~(1 << FIFOCON);
+      }
+      else if (!(PIND & 1 << PD2) /* on-line */
+               && btn == 'A') {
+        while (!(UEINTX & 1 << TXINI)) ;
+        UEINTX &= ~(1 << TXINI);
+        UEDATX = '2'; /* automatically select kitchen */
         UEINTX &= ~(1 << FIFOCON);
       }
       U8 prev_button = btn;
