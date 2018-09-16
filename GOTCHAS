@@ -26,3 +26,6 @@ on matrix solder these pins:
  |  +-----+
  |
  |
+
+==================================================
+on buzzer 5v must not be connected
