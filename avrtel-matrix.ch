@@ -76,7 +76,6 @@ ISR(INT1_vect)
       case (0xA0): digit = '0'; @+ break;
       case (0xB0): digit = '*'; @+ break;
       case (0xC0): digit = '#'; @+ break;
-      default: digit = '?';
       }
       while (!(UEINTX & 1 << TXINI)) ;
       UEINTX &= ~(1 << TXINI);
@@ -86,7 +85,8 @@ ISR(INT1_vect)
 @y
     if (btn != 0) {
       if (!(PIND & 1 << PD2) /* on-line */
-          && btn != 'A' && btn != 'D') { /* if on-line, ignore \.D */
+          && btn != 'D' /* if on-line, ignore \.D */
+          && btn != 'A') {
         while (!(UEINTX & 1 << TXINI)) ;
         UEINTX &= ~(1 << TXINI);
         if (btn == 'B') /* note, that it is the responsibility of the user

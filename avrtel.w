@@ -131,7 +131,6 @@ void main(void)
       case (0xA0): digit = '0'; @+ break;
       case (0xB0): digit = '*'; @+ break;
       case (0xC0): digit = '#'; @+ break;
-      default: digit = '?';
       }
       while (!(UEINTX & 1 << TXINI)) ;
       UEINTX &= ~(1 << TXINI);
