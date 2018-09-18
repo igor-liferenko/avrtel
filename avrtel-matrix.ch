@@ -2,6 +2,24 @@ Use separate device with matrix keypad and separate router with \.{tel}.
 Connect PD1 to PD2 to minimalize the amount of changes.
 Via PD1 we control led. Via PD2 we read led.
 
+TODO: pass B C and D (if line_status.DTR) via HID interface independently from the rest
+after you do TODO in avrtel-buzzer.ch
+In the hid program use the following 3 functions:
+ 
+1.  system("T=`date +%H-%M`;"
+      "export MPD_HOST=192.168.1.3;"
+      "mpc -q clear;"
+      "mpc add say-time/`echo $T|grep -o '^[0-9]\\+'|sed s/^0//`.mp3;"
+      "mpc add say-time/`echo $T|grep -o '[0-9]\\+$'`.mp3;"
+      "mpc -q repeat off;"
+      "mpc -q random off;"
+      "mpc -q volume 35;"
+      "mpc -q play");
+
+2.  system("mpc -h 192.168.1.3 volume +1");
+
+3.  system("mpc -h 192.168.1.3 volume -1");
+
 @x
 volatile int keydetect = 0;
 ISR(INT1_vect)
@@ -85,26 +103,10 @@ ISR(INT1_vect)
 @y
     if (btn != 0) {
       if (!(PIND & 1 << PD2) /* on-line */
-          && btn != 'D' /* if on-line, ignore \.D */
           && btn != 'A') {
         while (!(UEINTX & 1 << TXINI)) ;
         UEINTX &= ~(1 << TXINI);
-        if (btn == 'B') /* note, that it is the responsibility of the user
-                           to use \.B and \.C only inside mpd menu */
-          UEDATX = '9';
-        else if (btn == 'C')
-          UEDATX = '7';
-        else
-          UEDATX = btn;
-        UEINTX &= ~(1 << FIFOCON);
-      }
-      else if (PIND & 1 << PD2 /* off-line */
-               && btn == 'D') {
-        while (!(UEINTX & 1 << TXINI)) ;
-        UEINTX &= ~(1 << TXINI);
-        UEDATX = '@@';
-        UEDATX = '#';
-        UEDATX = '%';
+        UEDATX = btn;
         UEINTX &= ~(1 << FIFOCON);
       }
       else if (!(PIND & 1 << PD2) /* on-line */
