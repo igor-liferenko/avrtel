@@ -3,10 +3,13 @@ Connect PD1 to PD2 to minimalize the amount of changes.
 Via PD1 we control led. Via PD2 we read led.
 
 TODO: add here HID interface and pass B C and D (if line_status.DTR) via HID
-interface independently from all from separate program based on hid-example.c,
-in which use the following 3 functions:
+interface to separate program based on hid-example.c
 
-1.  T=`date +%H-%M`
+B:  system("mpc -h 192.168.1.3 volume +1");
+
+C:  system("mpc -h 192.168.1.3 volume -1");
+
+D:  T=`date +%H-%M`
     mpc stop
     amixer set volume 50%
     aplay say-time/`echo $T|grep -o '^[0-9]\\+'|sed s/^0//`.wav
@@ -15,10 +18,7 @@ in which use the following 3 functions:
     amixer set volume 100%
 (write these commands to stdin of "nc 192.168.1.3 5554" (busybox's "nc" is necessary) - see git
  lg lfk.w for an example)
-
-2.  system("mpc -h 192.168.1.3 volume +1");
-
-3.  system("mpc -h 192.168.1.3 volume -1");
+(also, if on-line, do the same as if A was pressed)
 
 @x
 volatile int keydetect = 0;
