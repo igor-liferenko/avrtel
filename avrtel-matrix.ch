@@ -7,14 +7,12 @@ interface independently from all from separate program based on hid-example.c,
 in which use the following 3 functions:
 
 1.  system("T=`date +%H-%M`;"
-      "export MPD_HOST=192.168.1.3;"
-      "mpc -q clear;"
-      "mpc add say-time/`echo $T|grep -o '^[0-9]\\+'|sed s/^0//`.mp3;"
-      "mpc add say-time/`echo $T|grep -o '[0-9]\\+$'`.mp3;"
-      "mpc -q repeat off;"
-      "mpc -q random off;"
-      "mpc -q volume 35;"
-      "mpc -q play");
+      "mpc stop;"
+      amixer set volume 50%
+      "aplay say-time/`echo $T|grep -o '^[0-9]\\+'|sed s/^0//`.wav;"
+      aplay pause.wav
+      "aplay say-time/`echo $T|grep -o '[0-9]\\+$'`.wav;"
+      "amixer set volume 100%");
 
 2.  system("mpc -h 192.168.1.3 volume +1");
 
