@@ -2,10 +2,10 @@ Use separate device with matrix keypad and separate router with \.{tel}.
 Connect PD1 to PD2 to minimalize the amount of changes.
 Via PD1 we control led. Via PD2 we read led.
 
-TODO: pass B C and D (if line_status.DTR) via HID interface independently from the rest
-after you do TODO in avrtel-buzzer.ch
-In the hid program use the following 3 functions:
- 
+TODO: add here HID interface and pass B C and D (if line_status.DTR) via HID
+interface independently from all from separate program based on hid-example.c,
+in which use the following 3 functions:
+
 1.  system("T=`date +%H-%M`;"
       "export MPD_HOST=192.168.1.3;"
       "mpc -q clear;"
