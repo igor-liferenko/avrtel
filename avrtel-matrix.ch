@@ -6,13 +6,15 @@ TODO: add here HID interface and pass B C and D (if line_status.DTR) via HID
 interface independently from all from separate program based on hid-example.c,
 in which use the following 3 functions:
 
-1.  system("T=`date +%H-%M`;"
-      "mpc stop;"
-      amixer set volume 50%
-      "aplay say-time/`echo $T|grep -o '^[0-9]\\+'|sed s/^0//`.wav;"
-      aplay pause.wav
-      "aplay say-time/`echo $T|grep -o '[0-9]\\+$'`.wav;"
-      "amixer set volume 100%");
+1.  T=`date +%H-%M`
+    mpc stop
+    amixer set volume 50%
+    aplay say-time/`echo $T|grep -o '^[0-9]\\+'|sed s/^0//`.wav
+    aplay pause.wav
+    aplay say-time/`echo $T|grep -o '[0-9]\\+$'`.wav
+    amixer set volume 100%
+(write these commands to stdin of "nc 192.168.1.3 5554" (busybox's "nc" is necessary) - see git
+ lg lfk.w for an example)
 
 2.  system("mpc -h 192.168.1.3 volume +1");
 
