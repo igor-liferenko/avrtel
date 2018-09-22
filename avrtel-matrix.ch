@@ -9,15 +9,7 @@ B:  system("mpc -h 192.168.1.3 volume +1");
 
 C:  system("mpc -h 192.168.1.3 volume -1");
 
-D:  T=`date +%H-%M`
-    mpc stop
-    amixer set volume 50%
-    aplay say-time/`echo $T|grep -o '^[0-9]\\+'|sed s/^0//`.wav
-    aplay pause.wav
-    aplay say-time/`echo $T|grep -o '[0-9]\\+$'`.wav
-    amixer set volume 100%
-(write these commands to stdin of "nc 192.168.1.3 5554" (busybox's "nc" is necessary) - see git
- lg lfk.w for an example)
+D:  system("nc 192.168.1.3 5554 </etc/say-time"); // busybox's "nc" is necessary
 (also, if on-line, do the same as if A was pressed)
 
 @x
