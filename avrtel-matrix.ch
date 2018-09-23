@@ -101,13 +101,6 @@ ISR(INT1_vect)
         UEDATX = btn;
         UEINTX &= ~(1 << FIFOCON);
       }
-      else if (!(PIND & 1 << PD2) /* on-line */
-               && btn == 'A') {
-        while (!(UEINTX & 1 << TXINI)) ;
-        UEINTX &= ~(1 << TXINI);
-        UEDATX = '2'; /* automatically select kitchen */
-        UEINTX &= ~(1 << FIFOCON);
-      }
       U8 prev_button = btn;
       int timeout;
       if (btn == 'B' || btn == 'C')
