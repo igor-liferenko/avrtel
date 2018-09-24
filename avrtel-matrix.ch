@@ -5,12 +5,6 @@ Via PD1 we control led. Via PD2 we read led.
 TODO: add here HID interface and pass B C and D (if line_status.DTR) via HID
 interface to separate program based on hid-example.c
 
-B:  system("mpc -h 192.168.1.3 volume +1");
-
-C:  system("mpc -h 192.168.1.3 volume -1");
-
-D:  system("nc 192.168.1.3 5554 </etc/say-time");
-
 @x
 volatile int keydetect = 0;
 ISR(INT1_vect)
@@ -99,11 +93,21 @@ ISR(INT1_vect)
 @y
     if (btn != 0) {
       if (!(PIND & 1 << PD2) /* on-line */
-          && btn != 'A') {
+          && btn != 'A' && btn != 'B' && btn != 'C' && btn != 'D') {
         while (!(UEINTX & 1 << TXINI)) ;
         UEINTX &= ~(1 << TXINI);
         UEDATX = btn;
         UEINTX &= ~(1 << FIFOCON);
+      }
+      else if (btn == 'B') {
+        // send this event via HID and on host execute system("mpc -h 192.168.1.3 volume +1");
+      }
+      else if (btn == 'C') {
+        // send this event via HID and on host execute system("mpc -h 192.168.1.3 volume -1");
+
+      }
+      else if (btn == 'D') {
+        // send this event via HID and on host execute system("nc 192.168.1.3 5554 </etc/say-time");
       }
       U8 prev_button = btn;
       int timeout;
