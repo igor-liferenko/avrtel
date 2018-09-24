@@ -9,8 +9,7 @@ B:  system("mpc -h 192.168.1.3 volume +1");
 
 C:  system("mpc -h 192.168.1.3 volume -1");
 
-D:  system("nc 192.168.1.3 5554 </etc/say-time"); // busybox's "nc" is necessary
-(also, if on-line, do the same as if A was pressed)
+D:  system("nc 192.168.1.3 5554 </etc/say-time");
 
 @x
 volatile int keydetect = 0;
@@ -63,10 +62,15 @@ ISR(INT1_vect)
       }
       PORTB |= 1 << PB0; /* led on */
     }
-    if (btn == 'A') { /* toggle hook state */
-      if (DDRD & 1 << PD1) DDRD &= ~(1 << PD1);
-      else DDRD |= 1 << PD1;
-      _delay_ms(1); /* eliminate capacitance */
+    if (btn == 'A' || btn == 'D') { /* toggle hook state */
+      if (DDRD & 1 << PD1) { /* on-line */
+        DDRD &= ~(1 << PD1);
+        _delay_ms(1); /* eliminate capacitance */
+      }
+      else if (btn == 'A') {
+        DDRD |= 1 << PD1;
+        _delay_ms(1); /* eliminate capacitance */
+      }
     }
 @z
 
