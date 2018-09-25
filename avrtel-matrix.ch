@@ -101,22 +101,20 @@ pulled-up to not-pulled-up
     }
 @y
     if (btn != 0) {
-      if (!(PIND & 1 << PD2) /* on-line */
-          && btn != 'A' && btn != 'B' && btn != 'C' && btn != 'D') {
-        while (!(UEINTX & 1 << TXINI)) ;
-        UEINTX &= ~(1 << TXINI);
-        UEDATX = btn;
-        UEINTX &= ~(1 << FIFOCON);
-      }
-      else if (btn == 'B') {
+      if (btn == 'B') {
         // send this event via HID and on host execute system("mpc -h 192.168.1.3 volume +1");
       }
       else if (btn == 'C') {
         // send this event via HID and on host execute system("mpc -h 192.168.1.3 volume -1");
-
       }
       else if (btn == 'D') {
         // send this event via HID and on host execute system("nc 192.168.1.3 5554 </etc/say-time");
+      }
+      else if (btn != 'A' && !(PIND & 1 << PD2)) {
+        while (!(UEINTX & 1 << TXINI)) ;
+        UEINTX &= ~(1 << TXINI);
+        UEDATX = btn;
+        UEINTX &= ~(1 << FIFOCON);
       }
       U8 prev_button = btn;
       int timeout;
