@@ -56,17 +56,26 @@ ISR(INT1_vect)
       }
       PORTB |= 1 << PB0; /* led on */
     }
-    if (btn == 'A' || btn == 'D') { /* toggle hook state */
-      if (DDRD & 1 << PD1) { /* on-line */
+    if (btn == 'A') {
+      if (DDRD & 1 << PD1) {
         DDRD &= ~(1 << PD1);
-        _delay_ms(1); /* eliminate capacitance */
+        _delay_ms(1); /* eliminate capacitance FIXME: need to call it here? */
       }
-      else if (btn == 'A') {
+      else {
         DDRD |= 1 << PD1;
         _delay_ms(1); /* eliminate capacitance */
       }
     }
+    if (btn == 'D') {
+      if (DDRD & 1 << PD1) {
+        DDRD &= ~(1 << PD1);
+        _delay_ms(1); /* eliminate capacitance FIXME: need to call it here? */
+      }
+    }
 @z
+!!!!!!!!!!!!!! for the two FIXME above see https://arduino.stackexchange.com/questions/54919/
+and perform similar test, but check transition not from not-pulled-up to pulled-up, but from
+pulled-up to not-pulled-up
 
 @x
     if (keydetect) {
