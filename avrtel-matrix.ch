@@ -58,8 +58,10 @@ ISR(INT1_vect)
       PORTB |= 1 << PB0; /* led on */
     }
     if (btn == 'A') {
-      if (DDRD & 1 << PD1) DDRD &= ~(1 << PD1);
-      else DDRD |= 1 << PD1;
+      if (DDRD & 1 << PD1)
+        DDRD &= ~(1 << PD1);
+      else
+        DDRD |= 1 << PD1;
       _delay_ms(1); /* eliminate capacitance\footnote\dag{This corresponds to ``2)'' in
         |@<Eliminate capacitance@>|.} */
     }
