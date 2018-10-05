@@ -104,7 +104,8 @@ ISR(INT1_vect)
         // send this event via HID and on host execute system("mpc -h 192.168.1.3 volume -1");
       }
       else if (btn == 'D') {
-        // send this event via HID and on host execute system("nc 192.168.1.3 5554 </etc/say-time");
+        // send this event via HID and on host execute
+        // system("nc 192.168.1.3 5554 </etc/say-time");
       }
       else if (btn != 'A' && !(PIND & 1 << PD2)) {
         while (!(UEINTX & 1 << TXINI)) ;
