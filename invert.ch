@@ -4,10 +4,7 @@ off, so to make 0 and 1 correspond to off and on they double-inverted
 leds on board. But we do not use arduino IDE and for us the problem
 persists, so do the inversion in change-file to avoid headache.
 
-Apply it after other change-file was applied via
-"wmerge avrtel other >merged.w" like
-"ctangle merged invert"
-"make merged"
+It must be applied last (see README).
 
 @x
   DDRD |= 1 << PD5; /* |PD5| is used to show on-line/off-line state

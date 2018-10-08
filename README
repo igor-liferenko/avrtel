@@ -1,0 +1,23 @@
+Apply change-files one after another:
+
+* buzzer on pro micro:
+  wmerge avrtel avrtel-matrix >merged.w
+  wmerge merged avrtel-buzzer | sponge merged.w
+  ctangle merged invert avrtel
+
+* buzzer on original:
+  wmerge avrtel avrtel-matrix >merged.w
+  ctangle merged avrtel-buzzer avrtel
+
+* matrix on pro micro:
+  wmerge avrtel avrtel-matrix >merged.w
+  ctangle merged invert avrtel
+
+* matrix on original:
+  ctangle avrtel avrtel-matrix
+
+* avrtel on pro micro:
+  ctangle avrtel invert
+
+* avrtel on original:
+  ctangle avrtel

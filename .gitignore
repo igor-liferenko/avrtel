@@ -1,6 +1,6 @@
 *.elf
 *.hex
-*.c
+avrtel.c
 *.o
 *.dvi
 *.idx
