@@ -10,10 +10,10 @@ Apply it after other change-file was applied via
 "make merged"
 
 @x
-  DDRD |= 1 << PD5; /* on-line/off-line indicator
+  DDRD |= 1 << PD5; /* |PD5| is used to show on-line/off-line state
 @y
   PORTD |= 1 << PD5; /* led off */
-  DDRD |= 1 << PD5; /* on-line/off-line indicator
+  DDRD |= 1 << PD5; /* |PD5| is used to show on-line/off-line state
 @z
 
 @x
