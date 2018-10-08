@@ -12,7 +12,7 @@ station and automatically powers itself off).
 \.{tel} uses DTR to switch on base station when it starts;
 and when TTY is closed, DTR switches off base station.
 
-The following phone models are used: Panasonic KX-TCD245 and Voxtel.
+The following phone models are used: Panasonic KX-TCD245.
 The main requirement is that base station
 must have led indicator for on-hook / off-hook on base station (to be able
 to reset to initial state in state machine in \.{tel}; note, that
