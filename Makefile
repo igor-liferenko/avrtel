@@ -1,6 +1,6 @@
 MCU=atmega32u4
 
-%:
+avrtel:
 	@avr-gcc -mmcu=atmega32u4 -g -Os -o fw.elf $@.c
 	@avr-objcopy -O ihex fw.elf fw.hex
 
