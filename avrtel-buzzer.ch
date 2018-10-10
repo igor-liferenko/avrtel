@@ -2,8 +2,8 @@ It's impossible to open the same TTY device more than once, otherwise we never
 know which process set the DTR. And DTR is essential for this application, so
 it must not be intervened to. So, use another means - for example HID.
 
-TODO: after you add HID interface to avrtel-matrix.ch, on router use "hid-prog"
-based on hid-example.c like this "35 6 * * * hid-prog"
+TODO: after you add HID interface to avrtel-matrix.ch, on router use "hid-write"
+based on hid-example.c
 
 @x
 void main(void)

@@ -3,7 +3,7 @@ Connect PD1 to PD2 to minimalize the amount of changes.
 Via PD1 we control led. Via PD2 we read led.
 
 TODO: add here HID interface and pass B C and D (if line_status.DTR) via HID
-interface to separate program based on hid-example.c
+interface to separate program "hid-read" based on hid-example.c
 HINT: compare wireshark trace of autologin device and kbd device + avrtel device
 
 @x
