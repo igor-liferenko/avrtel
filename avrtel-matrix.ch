@@ -116,7 +116,10 @@ ISR(INT1_vect)
       U8 prev_button = btn;
       int timeout;
       if (btn == 'B' || btn == 'C')
-        timeout = 300;
+        timeout = 300; /* values smaller that this do not give mpc call
+          enough time to finish before another mpc request arrives; it
+          is manifested by the fact that when button is released, the volume
+          continues to increase (decrease) */
       else timeout = 2000;
       while (--timeout) {
         @<Get button@>@;
