@@ -45,7 +45,8 @@ void main(void)
 @i ../usb/OUT-endpoint-management.w
 
 @ @<Buzz if requested@>=
-UENUM = EP4; /* TODO: add HID */
+/*UENUM = EP4;*/ /* TODO: add HID interface to avrtel-matrix.ch (for 'B' and 'C'
+  and then use it here for 'D') */
 if (UEINTX & 1 << RXOUTI) {
   UEINTX &= ~(1 << RXOUTI);
   UEINTX &= ~(1 << FIFOCON);
