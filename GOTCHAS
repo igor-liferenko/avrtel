@@ -5,6 +5,7 @@ connect both arduinos via ground
 - do not solder RAW pin on micro and mini
 - from KX-TCD245 output led wires via two small holes (afterwards glue with termoglue)
 - after soldering wires to phone, mark by -->|-- where is which, so that it will be clear where to solder the other ends
+- ensure that tone mode is set on phone
 =================================================
 usbasp rear view:
 +-- --+
