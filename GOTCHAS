@@ -1,5 +1,6 @@
 TODO: edit scheme.svg according to PC817C-pinout.png
 
+- first of all solder wire to pins and attach pins to PCB as shown in attach.png, otherwise other components will hinder to attach
 label 7 on board is not PD7 - use label 6
 for ICSP do not solder VCC on both
 connect both arduinos via ground
