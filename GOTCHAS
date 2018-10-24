@@ -33,3 +33,5 @@ for avrtel-matrix.ch solder these pins:
 on buzzer 5v must not be connected
 ==================================================
 solder wires to phone as is drawn in phone-wires.png
+==================================================
+capacitor and resistor solder as in solder.png
