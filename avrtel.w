@@ -12,9 +12,11 @@ station and automatically powers itself off).
 \.{tel} uses DTR to switch on base station when it starts;
 and when TTY is closed, DTR switches off base station.
 
-The following phone models are used: Panasonic KX-TCD245.
-The main requirement is that base station
-must have led indicator for on-hook / off-hook on base station (to be able
+The main requirement to the phone is that base station
+must have led indicator\footnote*{For
+some phone models when base station is powered on, the indicator is turned
+on for a short time. In such case use \.{avrtel-poweron.ch}.}
+for on-hook / off-hook on base station (to be able
 to reset to initial state in state machine in \.{tel}; note, that
 measuring voltage drop in phone line to determine hook state does not work
 reliably, because it

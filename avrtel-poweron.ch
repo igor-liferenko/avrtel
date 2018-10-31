@@ -6,15 +6,9 @@ ACT: go to beginning
 BUT: %
 ACT: disable timeout
 
-@x
-The following phone models are used: Panasonic KX-TCD245.
-@y
-The following phone model is used: Panasonic KX-TG7331\footnote*{For
-this phone model when base station is powered on, the indicator is turned
-on for a short time. To work around this harmful effect, we detect if DTR
-changed to `1' (i.e., when base station was powered on)
-and ignore first two led state changes in such case.}.
-@z
+To work around the led turning on on poweron for a short time, we detect if DTR 
+changed to `1' (i.e., when base station was powered on) 
+and ignore first two led state changes in such case.
 
 @x
   char digit;
