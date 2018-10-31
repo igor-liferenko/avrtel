@@ -47,8 +47,7 @@ void main(void)
 @ @<Buzz if requested@>=
 /*UENUM = EP4;*/ /* TODO: add HID interface to avrtel-matrix.ch for 'B', 'C' and 'D' (to send) and
 then use HID interface here (to receive); and maybe use timer from avr/C.c to stop buzzer not
-to block the main cycle (it is allowed because interrupt is not used for matrix, in contrast
-with dtmf decoder) */
+to block the main cycle (it is allowed because no interrupts are used for matrix (in avrtel an interrupt is used to detect dtmf keypress)) */
 if (UEINTX & 1 << RXOUTI) {
   UEINTX &= ~(1 << RXOUTI);
   UEINTX &= ~(1 << FIFOCON);
