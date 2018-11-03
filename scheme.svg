@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="7.9195959"
-     inkscape:cx="267.778"
-     inkscape:cy="400.85642"
+     inkscape:zoom="5.6"
+     inkscape:cx="281.32043"
+     inkscape:cy="361.16454"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -353,53 +353,44 @@
          y="211.57062"
          style="stroke-width:0.26458332">D2</tspan></text>
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.42127451px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 81.030933,210.16534 94.775241,193.57347"
+       style="fill:none;stroke:#000000;stroke-width:0.28858697px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 81.028004,210.25012 89.79242,193.63126"
        id="path66"
        inkscape:connector-curvature="0" />
     <rect
-       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.26458332;stroke-opacity:1"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.21066853;stroke-opacity:1"
        id="rect68"
-       width="12.095239"
-       height="5.7641373"
-       x="88.635414"
-       y="192.48959" />
+       width="7.611093"
+       height="5.8073254"
+       x="89.40863"
+       y="192.468" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:1.41111112px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       style="font-style:normal;font-weight:normal;font-size:1.41111111px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332;-inkscape-font-specification:'sans-serif, Normal';font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
        x="91.659225"
        y="191.78088"
        id="text72"><tspan
          sodipodi:role="line"
-         id="tspan70"
-         x="91.659225"
-         y="191.78088"
-         style="stroke-width:0.26458332">AOT127A</tspan></text>
+         id="tspan132">PC817C</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:1.41111112px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       style="font-style:normal;font-weight:normal;font-size:1.41111111px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332;-inkscape-font-specification:'sans-serif, Normal';font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
        x="94.995392"
        y="193.75534"
        id="text76"><tspan
          sodipodi:role="line"
-         id="tspan74"
-         x="94.995392"
-         y="193.75534"
-         style="stroke-width:0.26458332">5</tspan></text>
+         id="tspan134">3</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:1.41111112px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       style="font-style:normal;font-weight:normal;font-size:1.41111111px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332;-inkscape-font-specification:'sans-serif, Normal';font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
        x="89.934708"
        y="193.907"
        id="text80"><tspan
          sodipodi:role="line"
-         id="tspan78"
-         x="89.934708"
-         y="193.907"
-         style="stroke-width:0.26458332">6</tspan></text>
+         id="tspan941">4</tspan></text>
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 77.532364,210.06547 21.11942,-16.63095"
+       style="fill:none;stroke:#000000;stroke-width:0.24470998px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 77.167034,211.07986 94.915275,193.66592"
        id="path82"
        inkscape:connector-curvature="0" />
     <path
@@ -445,28 +436,6 @@
          x="95.816956"
          y="197.21428"
          style="stroke-width:0.26458332">2</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:1.41111112px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="98.510048"
-       y="197.35602"
-       id="text102"><tspan
-         sodipodi:role="line"
-         id="tspan100"
-         x="98.510048"
-         y="197.35602"
-         style="stroke-width:0.26458332">3</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:1.41111112px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="98.864403"
-       y="193.76523"
-       id="text106"><tspan
-         sodipodi:role="line"
-         id="tspan104"
-         x="98.864403"
-         y="193.76523"
-         style="stroke-width:0.26458332">4</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:1.41111112px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
