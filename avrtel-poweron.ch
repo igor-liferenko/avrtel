@@ -6,8 +6,8 @@ ACT: go to beginning
 BUT: %
 ACT: disable timeout
 
-To work around the led turning on on poweron for a short time, we detect if DTR 
-changed to `1' (i.e., when base station was powered on) 
+To work around the led turning on on poweron for a short time, we detect if DTR
+changed to `1' (i.e., when base station was powered on)
 and ignore first two led state changes in such case.
 
 @x
