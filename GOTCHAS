@@ -1,5 +1,3 @@
-TODO: edit scheme.svg according to already ready device (+ see PC817C-pinout.png)
-
 - first of all solder wire to pins and attach pins to PCB as shown in attach.png and RJ11.png, otherwise other components will hinder to attach
 - glue RJ11 socket to PCB (клей наносить спичкой)
 label 7 on board is not PD7 - use label 6
@@ -10,6 +8,8 @@ connect both arduinos via ground
 - from KX-TCD245 output led wires via two small holes (afterwards glue with termoglue)
 - after soldering wires to phone, mark by -->|-- where is which, so that it will be clear where to solder the other ends
 - ensure that tone mode is set on phone
+=================================================
+On Panasonic KX-TG7331 cut-off LED, because PC817 does not work (do not remember exactly - check again) there (only AOT127A works).
 =================================================
 usbasp rear view:
 +-- --+
