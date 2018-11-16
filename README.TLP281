@@ -1,0 +1,7 @@
+If we use TLP281 board, base station is powered on when microcontroller is disconnected from PC.
+This behavior is wrong. Behavior must be analogous to normally open mechanical relay: when
+microcontroller is disconnected from PC, base station is not powered; and when
+there is signal from PC, base station must be powered on. It is possible to un-invert
+TLP281 board by connecting two elements to output: pnp transistor and resistor
+(controllable + must go to base of the transistor) and resistor must go to ground, and another end
+of resistor must go to collector and it will be new controllable +, and emitter goes to constant +
