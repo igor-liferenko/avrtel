@@ -9,8 +9,6 @@ connect both arduinos via ground
 - after soldering wires to phone, mark by -->|-- where is which, so that it will be clear where to solder the other ends
 - ensure that tone mode is set on phone
 =================================================
-On Panasonic KX-TG7331 cut-off LED, because PC817 does not work (do not remember exactly - check again) there (only AOT127A works).
-=================================================
 usbasp rear view:
 +-- --+
 |123.4|
