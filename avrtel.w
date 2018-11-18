@@ -191,6 +191,7 @@ $$\hbox to7.54cm{\vbox to3.98638888888889cm{\vfil\special{psfile=pullup.eps
 
 @<Set |PD2| to pullup mode@>=
 PORTD |= 1 << PD2;
+_delay_ms(1); /* FIXME: is it needed here? (see FIXME in \.{kbd.GIL}) */
 
 @ No other requests except {\caps set control line state} come
 after connection is established (speed is not set in \.{tel}).
