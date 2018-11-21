@@ -10,4 +10,5 @@ avrtel.c
 *.tex
 *.toc
 *.eps
+*.mpx
 merged.w
