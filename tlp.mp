@@ -1,8 +1,6 @@
 outputtemplate:="%j.eps"; prologues:=3; fontmapline "+lhr10 <lhr10.pfb";
 beginfig(0)
   u=1cm;
-%  draw (-1u,0)..(10u,0);
-%  draw (0,-1u)..(0,10u);
 
   z1=(1u,3u);
   z2=(x1+2u,y1); z2=1/2[z3,z4];
@@ -25,6 +23,7 @@ beginfig(0)
   ahangle:=45;
   drawarrow z5 -- (x2,y2+.1u);
   draw z6 -- (x2,y2-.1u);
+  draw fullcircle scaled 1.2u shifted (z2+(.2u,0));
   draw z7 -- z5;
   draw z6 -- z8;
   drawdot z8 withpen pencircle scaled 4pt;
@@ -37,31 +36,7 @@ beginfig(0)
   draw z13 -- z14 withpen pencircle scaled 2pt;
   label.top("HVCC", z7);
   label.bot("HGND", z12);
-a=1.5u; b=2.5u;
-z15=(x8+a,y8+.3u);
-z16=(x8,y8+b+.3u);
-z17=(x8-a,y8+.3u);
-z18=(x8,y8-b+.3u);
-draw z15 .. z16 .. z17 .. z18 .. cycle;
 
-endfig;
-
-end
-
-  ahlength:=.3cm;
-  ahangle:=50;
-  %pickup pencircle scaled 4pt;
-  u=1cm;
-  draw (0,.8cm)..(3.5cm,.8cm) withpen pencircle scaled 3 withrgbcolor (1,0,0);
-  draw (3.5cm,.8cm)..(3.5cm,0) withpen pencircle scaled 3 withrgbcolor (1,0,0);
-  drawarrow (.5cm,3cm)..(.5cm,1.2cm) withpen pencircle scaled 3 withrgbcolor (1,0,0);
-  drawarrow (2.3cm,2.9cm)..(1.8cm,1.2cm) withpen pencircle scaled 3 withrgbcolor (1,0,0);
-  drawarrow (4.3cm,2.7cm)..(3.5cm,1.2cm) withpen pencircle scaled 3 withrgbcolor (1,0,0);
-  draw (8.1cm,0)..(8.1cm,.8cm) withpen pencircle scaled 3 withrgbcolor (1,0,0);
-  draw (8.1cm,.8cm)..(12.4cm,.8cm) withpen pencircle scaled 3 withrgbcolor (1,0,0);
-  drawarrow (6.5cm,2.5cm)..(7.9cm,1.2cm) withpen pencircle scaled 3 withrgbcolor (1,0,0);
-  drawarrow (9cm,2.9cm)..(9.5cm,1.2cm) withpen pencircle scaled 3 withrgbcolor (1,0,0);
-  drawarrow (11cm,3cm)..(11.2cm,1.2cm) withpen pencircle scaled 3 withrgbcolor (1,0,0);
 endfig;
 
 end
