@@ -39,3 +39,11 @@ pullup.eps: pullup.svg
 PC817C.eps: PC817C.png
 	@convert $< $@
 	@imgsize $@ 9 -
+
+tlp1.eps: tlp1.jpg
+	@convert $< $@
+	@imgsize $@
+
+tlp2.eps: tlp2.jpg
+	@convert $< $@
+	@imgsize $@ 12 -

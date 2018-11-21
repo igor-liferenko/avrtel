@@ -1,5 +1,5 @@
-outputtemplate:="%j.eps"; prologues:=3; fontmapline "+lhr10 <lhr10.pfb";
-beginfig(0)
+%outputtemplate:="%j.eps"; prologues:=3; fontmapline "+lhr10 <lhr10.pfb";
+beginfig(1)
   u=1cm;
 
   z1=(1u,3u);

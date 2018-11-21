@@ -7,8 +7,9 @@ avrtel.c
 *.log
 *.ps
 *.scn
-*.tex
+avrtel.tex
 *.toc
 *.eps
+*.[0-9]
 *.mpx
 merged.w
