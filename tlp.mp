@@ -18,7 +18,7 @@ beginfig(0)
   z12=1/2[z13,z14];
   z13=(x12-.3u,y12);
 
-  label.lft(btex old output etex, z1);
+  label.lft(btex Out 1 etex, z1);
   draw z1 -- z2;
   draw z3 -- z4;
   ahlength:=.3u;
@@ -29,14 +29,14 @@ beginfig(0)
   draw z6 -- z8;
   drawdot z8 withpen pencircle scaled 4pt;
   draw z8 -- z9;
-  label.rt(btex new output etex, z9);
+  label.rt(btex new Out 1 etex, z9);
   draw z8 -- z10;
   draw unitsquare xscaled .3u yscaled (y10-y11) shifted (x11-.15u,y11);
   label.lft("1K", .5[z10,z11]-(.2u,0));
   draw z11 -- z12;
   draw z13 -- z14 withpen pencircle scaled 2pt;
-  label.top("+12", z7);
-
+  label.top("HVCC", z7);
+  label.bot("HGND", z12);
 a=1.5u; b=2.5u;
 z15=(x8+a,y8+.3u);
 z16=(x8,y8+b+.3u);
