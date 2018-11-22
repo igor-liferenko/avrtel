@@ -30,6 +30,15 @@ label(btex \font\x=cmbx10 scaled\magstep2 \x ep2 etex, z8);
 draw fullcircle scaled 1.7u shifted z8;
 label(btex \font\x=cmbx10 scaled\magstep2 \x ep3 etex, z9);
 draw fullcircle scaled 1.7u shifted z9;
+draw (x1,y0-.55u) -- (x1,y1+.85u);
+draw (x2,y0-.55u) -- (x2,y2+.85u);
+draw (x2,y2-.85u) -- (x3,y3+.85u);
+draw z2 -- z4;
+draw (x3,y3-.85u) -- (x5,y5+.85u);
+draw (x4,y4-.85u) -- (x6,y6+.85u);
+draw z5 -- z7;
+draw z5 -- z8;
+draw (x6,y6-.85u) -- (x9,y9+.85u);
 endfig;
 beginfig(2)
 endfig;
