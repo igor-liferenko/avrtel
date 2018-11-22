@@ -40,3 +40,32 @@ beginfig(1)
 endfig;
 
 end
+
+% from makecirc.mp:
+outputtemplate:="%j.eps"; prologues:=3; fontmapline "+lhr10 <lhr10.pfb";
+vardef bjtahead expr p =
+save A,u,a,b; pair A,u; path a,b;
+A := point 0.7length(p) of p;
+u := unitvector(direction length(p)/2 of p);
+a := A--(A - ahlength*u rotated 20);
+b := A--(A - ahlength*u rotated -20);
+(a & reverse(a) & b & reverse(b))--cycle
+enddef;
+
+beginfig(1)
+bjtlth=1cm;
+        picture BJT;
+        BJT:=nullpicture;
+        pair z; z:=(0,0);
+        addto BJT doublepath z--(z+(.5bjtlth,0));
+        addto BJT doublepath (z+(.5bjtlth,-.5bjtlth))--(z+(.5bjtlth,.5bjtlth));
+        addto BJT doublepath (z+(.5bjtlth,.2bjtlth))--(z+(bjtlth,.5bjtlth))
+        --(z+(bjtlth,.75bjtlth));
+        
+                addto BJT doublepath (z+(.5bjtlth,-.2bjtlth))--(z+(bjtlth,-.5bjtlth))
+                --(z+(bjtlth,-.75bjtlth));
+                addto BJT contour bjtahead (z+(.5bjtlth,-.2bjtlth))
+                --(z+(bjtlth,-.5bjtlth));
+        draw BJT rotatedaround(z,0);
+endfig;
+end
