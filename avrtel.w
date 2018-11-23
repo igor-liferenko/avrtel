@@ -196,7 +196,7 @@ $$\hbox to6.98cm{\vbox to3.88055555555556cm{\vfil\special{psfile=avrtel.2
 
 @<Set |PD2| to pullup mode@>=
 PORTD |= 1 << PD2;
-_delay_ms(1); /* delay is sufficient before checking so it is not necessary */
+/* _delay_ms(1); */ /* see FIXME in \.{kbd.GIL} (delay is sufficient before checking) */
 
 @ No other requests except {\caps set control line state} come
 after connection is established (speed is not set in \.{tel}).
