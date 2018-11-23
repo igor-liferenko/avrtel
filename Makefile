@@ -14,7 +14,7 @@ clean:
 	@git clean -X -d -f
 
 imgs:
-	@mpost -tex=/usr/local/ru-mpost avrtel
+	@mpost avrtel
 	@perl -ne 'if (/^(.*\.eps): (.*)/) { $$x = $$1; $$y = $$2; if ($$y=~/\.svg$$/) { system "inkscape $$y -E $$x 2>/dev/null" } else { system "convert $$y $$x" } }' Makefile
 
 test:
