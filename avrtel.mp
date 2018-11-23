@@ -41,6 +41,8 @@ draw (x5+r*(x7-x5)/length(z7-z5),y5+r*(y7-y5)/length(z7-z5)) -- (x7+r*(x5-x7)/le
 draw (x5+r*(x8-x5)/length(z8-z5),y5+r*(y8-y5)/length(z8-z5)) -- (x8+r*(x5-x8)/length(z5-z8),y8+r*(y5-y8)/length(z5-z8));
 draw (x6,y6-r) -- (x9,y9+r);
 endfig;
+
+%FIXME: why I can't specify u=1cm here?
 beginfig(2)
 z1=(5.5cm,1.9cm);
 z2=(4cm,1.1cm);
