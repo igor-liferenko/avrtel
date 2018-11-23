@@ -19,7 +19,7 @@ label(btex \font\x=cmbx10 scaled\magstep2 \x cfg1 etex, z2);
 draw fullcircle scaled 1.7u shifted z2;
 label(btex \font\x=cmbx10 scaled\magstep2 \x if1 etex, z3);
 draw fullcircle scaled 1.7u shifted z3;
-label(btex \font\x=cmbx10 scaled\magstep2 \x if1 etex, z4);
+label(btex \font\x=cmbx10 scaled\magstep2 \x if0 etex, z4);
 draw fullcircle scaled 1.7u shifted z4;
 label(btex \font\x=cmbx10 scaled\magstep2 \x alt0 etex, z5);
 draw fullcircle scaled 1.7u shifted z5;
