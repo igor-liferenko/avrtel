@@ -29,10 +29,6 @@ scheme.eps: scheme.svg
 	@inkscape $< -E $@ 2>/dev/null
 	@imgsize $@
 
-pullup.eps: pullup.svg
-	@inkscape $< -E $@ 2>/dev/null
-	@imgsize $@
-
 PC817C.eps: PC817C.png
 	@convert $< $@
 	@imgsize $@ 9 -
