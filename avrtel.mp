@@ -42,6 +42,29 @@ draw (x5+r*(x8-x5)/length(z8-z5),y5+r*(y8-y5)/length(z8-z5)) -- (x8+r*(x5-x8)/le
 draw (x6,y6-r) -- (x9,y9+r);
 endfig;
 beginfig(2)
+z1=(5.5cm,1.9cm);
+z2=(4cm,1.1cm);
+z3=(3cm,1.1cm);
+z4=(2.1cm,1.1cm);
+z5=(1.3cm,1.1cm);
+z6=(.4u,1.1cm);
+z7=(.4u,.2);
+z8=(x3,y3+.8cm);
+z9=(x7-.3u,y7);
+z7=1/2[z9,z10];
+label.top(btex \font\x=cmbx10 scaled\magstep5 \x MCU etex, (z1+(0,.5cm)));
+label.bot(btex input pin etex, (z1-(.6cm,.5cm)));
+draw unitsquare shifted (-.5,-.5) xscaled 3cm yscaled 3.7cm shifted z1;
+draw z4 -- z2;
+draw z5 -- z6;
+label.top("switch", (z5+((x4-x5)/2,.5cm)));
+draw z5 -- (x5+(x4-x5)*(cosd 25),y5+(x4-x5)*(sind 25));
+draw z6 -- z7;
+draw z3 -- z8;
+draw z9 -- z10 withpen pencircle scaled 2pt;
+draw unitsquare xscaled .3cm yscaled .7cm shifted (x8-.15cm,y8);
+z11=(x8,y8+1.5cm);
+drawarrow (x8,y8+.7cm) .. z11;
+label.top("5v", (z11+(0,.1cm)));
 endfig;
-%etc
 end
