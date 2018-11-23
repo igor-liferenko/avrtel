@@ -34,9 +34,7 @@ is why non-inverted relay must be used (and from such kind of relay the
 only suitable I know of is mechanical relay; and such relay gives an advantage
 that power supply with AC and DC output may be used; however, see {\tt
 TLP281.tex} how to fix TLP281 to make it behave like
-normally-open-mechanical-relay; also, phone with AC output from power supply
-may be used if we use SHARP relay on power supply's input (considering
-that we don't mind if it can be damaged, as said in previous paragraph))).
+normally-open-mechanical-relay)).
 If base station
 is powered when device is not plugged in, this breaks program logic badly.
 
