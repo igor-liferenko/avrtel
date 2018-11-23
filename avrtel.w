@@ -191,7 +191,7 @@ to ground, thus the input pin reads a low state.
 Since pull-up resistors are so commonly needed, many MCUs, like the ATmega328 microcontroller
 on the Arduino platform, have internal pull-ups that can be enabled and disabled.
 
-$$\hbox to7.54cm{\vbox to3.98638888888889cm{\vfil\special{psfile=pullup.eps
+$$\hbox to7.54cm{\vbox to3.98638888888889cm{\vfil\special{psfile=avrtel.2
   clip llx=0 lly=0 urx=214 ury=113 rwi=2140}}\hfil}$$
 
 @<Set |PD2| to pullup mode@>=
