@@ -34,15 +34,15 @@ label(btex \font\x=cmbx10 scaled\magstep2 \x ep2 etex, z8);
 draw fullcircle scaled 1.7u shifted z8;
 label(btex \font\x=cmbx10 scaled\magstep2 \x ep3 etex, z9);
 draw fullcircle scaled 1.7u shifted z9;
-draw (x1,y0-.55u) -- (x1,y1+r);
-draw (x2,y0-.55u) -- (x2,y2+r);
-draw (x2,y2-r) -- (x3,y3+r);
+draw (x1,y0-.55u) -- z1+(0,r);
+draw (x2,y0-.55u) -- z2+(0,r);
+draw z2-(0,r) -- z3+(0,r);
 draw z2+(r,0)rotated angle(z4-z2) -- z4+(r,0)rotated angle(z2-z4);
-draw (x3,y3-r) -- (x5,y5+r);
-draw (x4,y4-r) -- (x6,y6+r);
+draw z3-(0,r) -- z5+(0,r);
+draw z4-(0,r) -- z6+(0,r);
 draw z5+(r,0)rotated angle(z7-z5) -- z7+(r,0)rotated angle(z5-z7);
 draw z5+(r,0)rotated angle(z8-z5) -- z8+(r,0)rotated angle(z5-z8);
-draw (x6,y6-r) -- (x9,y9+r);
+draw z6-(0,r) -- z9+(0,r);
 endfig;
 
 %FIXME: why I can't specify u=1cm here?
