@@ -634,7 +634,7 @@ channels over which to carry data.
 
 \S3.4 in CDC spec.
 
-$$\hbox to7.5cm{\vbox to8.72cm{\vfil\special{psfile=avrtel.1
+$$\hbox to7.5cm{\vbox to8.72cm{\vfil\special{psfile=../avrtel/avrtel.1
   clip llx=1 lly=1 urx=246 ury=286 rwi=2125}}\hfil}$$ % 7.5 -
 
 @<Type \null definitions@>=
