@@ -15,7 +15,7 @@ clean:
 
 imgs:
 	@mp avrtel
-	@perl -ne 'if (/^(.*\.eps): (.*)/) { $$x = $$1; $$y = $$2; if ($$y=~/\.svg$$/) { system "inkscape $$y -E $$x 2>/dev/null" } else { system "convert $$y $$x" } }' Makefile
+	@perl -ne 'if (/^(.*\.eps): (.*)/) { system "convert $$2 $$1" }' Makefile
 
 test:
 	avr-gcc -mmcu=$(MCU) -g -Os -c test-PC817C.c
@@ -24,10 +24,6 @@ test:
 	avrdude -c usbasp -p $(MCU) -U flash:w:test.hex -qq
 
 .PHONY: $(wildcard *.eps)
-
-scheme.eps: scheme.svg
-	@inkscape $< -E $@ 2>/dev/null
-	@imgsize $@
 
 PC817C.eps: PC817C.png
 	@convert $< $@
