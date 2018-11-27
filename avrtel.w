@@ -189,8 +189,8 @@ to ground, thus the input pin reads a low state.
 Since pull-up resistors are so commonly needed, many MCUs, like the ATmega328 microcontroller
 on the Arduino platform, have internal pull-ups that can be enabled and disabled.
 
-$$\hbox to6.98cm{\vbox to3.88055555555556cm{\vfil\special{psfile=avrtel.2
-  clip llx=1 lly=-1 urx=199 ury=109 rwi=1980}}\hfil}$$
+$$\hbox to7.54cm{\vbox to3.98638888888889cm{\vfil\special{psfile=avrtel.2
+  clip llx=0 lly=0 urx=214 ury=113 rwi=2140}}\hfil}$$
 
 @<Set |PD2| to pullup mode@>=
 PORTD |= 1 << PD2;
@@ -634,8 +634,8 @@ channels over which to carry data.
 
 \S3.4 in CDC spec.
 
-$$\hbox to7.5cm{\vbox to8.72cm{\vfil\special{psfile=../avrtel/avrtel.1
-  clip llx=1 lly=1 urx=246 ury=286 rwi=2125}}\hfil}$$ % 7.5 -
+$$\hbox to7.5cm{\vbox to7.88cm{\vfil\special{psfile=../avrtel/avrtel.1
+  clip llx=0 lly=0 urx=274 ury=288 rwi=2125}}\hfil}$$
 
 @<Type \null definitions@>=
 @<Type definitions used in configuration descriptor@>@;
