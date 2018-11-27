@@ -69,6 +69,6 @@ draw z9 -- z10 withpen pencircle scaled 1.5pt;
 draw unitsquare xscaled .3cm yscaled .7cm shifted (z8+left*.15cm);
 z11=(x8,y8+1.5cm);
 drawarrow z8+up*.7cm .. z11;
-label.top("5v" infont "cmss10", (z11+up*.1cm));
+label.top("5v" infont "cmss10", z11+up*.1cm);
 endfig;
 end
