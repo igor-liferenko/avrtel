@@ -56,7 +56,7 @@ z4=(2.1cm,1.1cm);
 z5=(1.3cm,1.1cm);
 z6=(.4cm,1.1cm);
 z8=z3+up*23pt;
-z7=(.4cm,.1cm);
+z7=(.4cm,.75pt); % height is for width of the line
 z9=z7+left*9pt;
 z7=1/2[z9,z10];
 label.top(btex \big MCU etex, z1+up*14pt);
