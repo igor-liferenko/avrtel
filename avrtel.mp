@@ -1,5 +1,7 @@
 %outputtemplate:="%j.eps"; prologues:=3;
 
+verbatimtex \font\big=cmss17 etex
+
 beginfig(1)
 u=1cm;
 r=.85u;
@@ -13,25 +15,25 @@ z6=(7.8u,3u);
 z7=(2.4u,.9u);
 z8=(5.6u,.9u);
 z9=(7.8u,.9u);
-label("DEVICE" infont "cmss17", z0);
+label(btex \big DEVICE etex, z0);
 draw unitsquare shifted (-.5,-.5) xscaled 5.1u yscaled 1.1u shifted z0;
-label("ep0" infont "cmss17", z1);
+label(btex \big ep0 etex, z1);
 draw fullcircle scaled 1.7u shifted z1;
-label("cfg1" infont "cmss17", z2);
+label(btex \big cfg1 etex, z2);
 draw fullcircle scaled 1.7u shifted z2;
-label("if1" infont "cmss17", z3);
+label(btex \big if1 etex, z3);
 draw fullcircle scaled 1.7u shifted z3;
-label("if0" infont "cmss17", z4);
+label(btex \big if0 etex, z4);
 draw fullcircle scaled 1.7u shifted z4;
-label("alt0" infont "cmss17", z5);
+label(btex \big alt0 etex, z5);
 draw fullcircle scaled 1.7u shifted z5;
-label("alt0" infont "cmss17", z6);
+label(btex \big alt0 etex, z6);
 draw fullcircle scaled 1.7u shifted z6;
-label("ep1" infont "cmss17", z7);
+label(btex \big ep1 etex, z7);
 draw fullcircle scaled 1.7u shifted z7;
-label("ep2" infont "cmss17", z8);
+label(btex \big ep2 etex, z8);
 draw fullcircle scaled 1.7u shifted z8;
-label("ep3" infont "cmss17", z9);
+label(btex \big ep3 etex, z9);
 draw fullcircle scaled 1.7u shifted z9;
 draw (x1,y0-.55u) -- z1+up*r;
 draw (x2,y0-.55u) -- z2+up*r;
@@ -56,7 +58,7 @@ z7=(.4u,.2);
 z8=(x3,y3+.8cm);
 z9=(x7-.3u,y7);
 z7=1/2[z9,z10];
-label.top("MCU" infont "cmss17", z1+up*.5cm);
+label.top(btex \big MCU etex, z1+up*.5cm);
 label.bot(btex \font\x=cmss10 \x input pin etex, z1+left*.6cm+down*.5cm);
 draw unitsquare shifted (-.5,-.5) xscaled 3cm yscaled 3.7cm shifted z1;
 draw z4 -- z2;
