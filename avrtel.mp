@@ -1,6 +1,9 @@
 %outputtemplate:="%j.eps"; prologues:=3;
 
-verbatimtex \font\big=cmss17 etex
+verbatimtex
+\font\big=cmss17
+\font\tenrm=cmss10 \rm
+etex
 
 beginfig(1)
 u=1cm;
@@ -59,11 +62,11 @@ z8=(x3,y3+.8cm);
 z9=(x7-.3u,y7);
 z7=1/2[z9,z10];
 label.top(btex \big MCU etex, z1+up*.5cm);
-label.bot(btex \font\x=cmss10 \x input pin etex, z1+left*.6cm+down*.5cm);
+label.bot(btex input pin etex, z1+left*.6cm+down*.5cm);
 draw unitsquare shifted (-.5,-.5) xscaled 3cm yscaled 3.7cm shifted z1;
 draw z4 -- z2;
 draw z5 -- z6;
-label.top("switch" infont "cmss10", z5+right*(x4-x5)/2+up*.5cm);
+label.top(btex switch etex, z5+right*(x4-x5)/2+up*.5cm);
 draw z5 -- z5+right*(x4-x5)rotated25;
 draw z6 -- z7;
 draw z3 -- z8;
@@ -71,6 +74,6 @@ draw z9 -- z10 withpen pencircle scaled 1.5pt;
 draw unitsquare xscaled .3cm yscaled .7cm shifted (z8+left*.15cm);
 z11=(x8,y8+1.5cm);
 drawarrow z8+up*.7cm .. z11;
-label.top("5v" infont "cmss10", z11+up*.1cm);
+label.top(btex 5v etex, z11+up*.1cm);
 endfig;
 end
