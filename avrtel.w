@@ -194,7 +194,11 @@ $$\hbox to7.54cm{\vbox to3.98638888888889cm{\vfil\special{psfile=avrtel.2
 
 @<Set |PD2| to pullup mode@>=
 PORTD |= 1 << PD2;
-_delay_us(1); /* wait for the pullup to charge the stray capacitance */
+_delay_us(1); /* ensure that the pullup has charged the stray
+        capacitance by the time the pin is
+        read\footnote\dag{This corresponds to ``1)'' in
+        |@<Eliminate capacitance@>|; |_delay_us| is used here instead of |noop| because 1 us
+        does not make any difference when done once.} */
 
 @ No other requests except {\caps set control line state} come
 after connection is established (speed is not set in \.{tel}).
