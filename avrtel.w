@@ -194,7 +194,7 @@ $$\hbox to7.54cm{\vbox to3.98638888888889cm{\vfil\special{psfile=avrtel.2
 
 @<Set |PD2| to pullup mode@>=
 PORTD |= 1 << PD2;
-/* |_delay_ms(1);| */ /* see FIXME in \.{kbd.GIL} (delay is sufficient before checking) */
+_delay_us(1); /* wait for the pullup to charge the stray capacitance */
 
 @ No other requests except {\caps set control line state} come
 after connection is established (speed is not set in \.{tel}).
