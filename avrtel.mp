@@ -2,7 +2,7 @@
 
 verbatimtex
 \font\big=cmss17
-\font\tenrm=cmss10 \rm
+\font\tenss=cmss10 \tenss
 etex
 
 beginfig(1)
