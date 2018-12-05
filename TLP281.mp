@@ -1,8 +1,7 @@
 %outputtemplate:="%j.eps"; prologues:=3;
-fontmapline "+lhr10 <cmr10.pfb";
 
 beginfig(1)
-  u=1cm;
+  u=1cm; % TODO: re-do without "u" (use "cm" + "pt")
 
   z1=(1u,3u);
   z2=(x1+2u,y1); z2=1/2[z3,z4];
