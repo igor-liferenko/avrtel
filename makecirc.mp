@@ -610,6 +610,7 @@ enddef;
 %%%<--- Transistor --->%%%
 newinternal npn, pnp, cnpn, cpnp, bjtlth;
 npn:=1; pnp:=-1; cnpn:=0; cpnp:=2; bjtlth:=7mm;
+npnf:=3; cpnpf:=4; cnpnf:=5; pnpf:=6; % flipped
 
 vardef transistor@#(expr z,type,ang)=
 	save BJT;
@@ -648,6 +649,49 @@ vardef transistor@#(expr z,type,ang)=
 		addto BJT contour bjtahead (z+(bjtlth,-.5bjtlth))
 		--(z+(.5bjtlth,-.2bjtlth)) withpen line;
 		addto BJT doublepath fullcircle scaled 1.3bjtlth shifted (z+(.65bjtlth,0)) withpen line;
+	elseif type=npnf:
+                T@#.E:=(z+(bjtlth,.75bjtlth)) rotatedaround(z,ang);
+                T@#.C:=(z+(bjtlth,-.75bjtlth)) rotatedaround(z,ang);
+%^^^^^^^^^^^^ same as in the beginning, but swapped
+                addto BJT doublepath (z+(.5bjtlth,-.2bjtlth))--(z+(bjtlth,-.5bjtlth))
+                --(z+(bjtlth,-.75bjtlth)) withpen line;
+                addto BJT contour bjtahead (z+(.5bjtlth,-.2bjtlth))
+                --(z+(bjtlth,-.5bjtlth)) withpen line;
+%^^^^^^^^^^^^ copy of npn ^^^^^^^^^^^^^^^^
+	        BJT:=BJT reflectedabout (z,z+right);
+	elseif type=cnpnf:
+                T@#.E:=(z+(bjtlth,.75bjtlth)) rotatedaround(z,ang);                
+                T@#.C:=(z+(bjtlth,-.75bjtlth)) rotatedaround(z,ang);                
+%^^^^^^^^^^^^ same as in the beginning, but swapped                
+                addto BJT doublepath (z+(.5bjtlth,-.2bjtlth))--(z+(bjtlth,-.5bjtlth))
+                --(z+(bjtlth,-.75bjtlth)) withpen line;
+                addto BJT contour bjtahead (z+(.5bjtlth,-.2bjtlth))
+                --(z+(bjtlth,-.5bjtlth)) withpen line;
+                addto BJT doublepath fullcircle scaled 1.3bjtlth shifted (z+(.65bjtlth,0))
+                 withpen line;
+%^^^^^^^^^^^^ copy of cnpn ^^^^^^^^^^^^^^^^
+                BJT:=BJT reflectedabout (z,z+right);
+	elseif type=pnpf:
+                T@#.E:=(z+(bjtlth,.75bjtlth)) rotatedaround(z,ang);                
+                T@#.C:=(z+(bjtlth,-.75bjtlth)) rotatedaround(z,ang);                
+%^^^^^^^^^^^^ same as in the beginning, but swapped                
+                addto BJT doublepath (z+(bjtlth,-.75bjtlth))--(z+(bjtlth,-.5bjtlth))
+                --(z+(.5bjtlth,-.2bjtlth)) withpen line;
+                addto BJT contour bjtahead (z+(bjtlth,-.5bjtlth))
+                --(z+(.5bjtlth,-.2bjtlth)) withpen line;
+%^^^^^^^^^^^^ copy of pnp ^^^^^^^^^^^^^^^^
+                BJT:=BJT reflectedabout (z,z+right);
+	elseif type=cpnpf:
+                T@#.E:=(z+(bjtlth,.75bjtlth)) rotatedaround(z,ang);
+                T@#.C:=(z+(bjtlth,-.75bjtlth)) rotatedaround(z,ang);
+%^^^^^^^^^^^^ same as in the beginning, but swapped
+                addto BJT doublepath (z+(bjtlth,-.75bjtlth))--(z+(bjtlth,-.5bjtlth))
+                --(z+(.5bjtlth,-.2bjtlth)) withpen line;
+                addto BJT contour bjtahead (z+(bjtlth,-.5bjtlth))
+                --(z+(.5bjtlth,-.2bjtlth)) withpen line;
+                addto BJT doublepath fullcircle scaled 1.3bjtlth shifted (z+(.65bjtlth,0)) withpen line;
+%^^^^^^^^^^^^^^^^^^^^ copy of cpnp ^^^^^^^^^^^^^^
+                BJT:=BJT reflectedabout (z,z+right);
 	fi;
 	
 	draw BJT rotatedaround(z,ang);
