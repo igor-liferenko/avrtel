@@ -189,8 +189,8 @@ LaTeXsetup:="\documentclass{article}";
 %
 % The auxiliar file is read, but only if it exists
 %
-if readfrom(jobname&".mpt") <> EOF:
-  scantokens ("input "&jobname & ".mpt");
+if readfrom("mpcirctmp.mp") <> EOF:
+  scantokens ("input mpcirctmp.mp");
 fi;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -211,12 +211,12 @@ fi;
 % LaTeXsetup:=LaTeXsetup & "\def\TO{\Longrightarrow}";
 %
 def initlatex primary s =
-  write "verbatimtex" to jobname & ".mpt";
-  write "%&latex" to jobname & ".mpt";
-  write LaTeXsetup to jobname & ".mpt";
-  write s to jobname & ".mpt";
-  write "\begin{document}" to jobname & ".mpt";
-  write "etex" to jobname & ".mpt";
+  write "verbatimtex" to "mpcirctmp.mp";
+  write "%&latex" to "mpcirctmp.mp";
+  write LaTeXsetup to "mpcirctmp.mp";
+  write s to "mpcirctmp.mp";
+  write "\begin{document}" to "mpcirctmp.mp";
+  write "etex" to "mpcirctmp.mp";
 enddef;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -231,7 +231,7 @@ vardef latex@#(expr txt) =
   if string txt :
     write "% figure " & decimal charcode & " : " & char(10) &
     "LaTeXPic[" & decimal NumPic & "] := btex " &
-    txt & " etex ;" to jobname & ".mpt" ;
+    txt & " etex ;" to "mpcirctmp.mp" ;
     if unknown LaTeXPic[NumPic] :
       thelabel@#("[??]",origin)
     else :
