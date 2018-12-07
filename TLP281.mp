@@ -1,4 +1,5 @@
-%outputtemplate:="%j.eps"; prologues:=3;
+outputtemplate:="%j.eps"; prologues:=3;
+input makecirc; initlatex("");
 
 beginfig(1)
   u=1cm; % TODO: re-do without "u" (use "cm" + "pt")
@@ -40,34 +41,45 @@ beginfig(1)
 
 endfig;
 
-end
+beginfig(2)
+draw (-3cm,0)..(3cm,0);
+draw (0,-3cm)..(0,3cm);
 
-% from makecirc.mp:
-outputtemplate:="%j.eps"; prologues:=3;
+%inductor.a((2cm,-10mm),Up,-90,"L","xxx");
+%impedance.a(origin,90,"","1K");
+%transistor.a(Z.a.r+T.a.E,cpnp,0);
+ground.a(origin,simple,0);
+impedance1(gnd.a+up*2*imp+up*.3cm,-90,"Z1","1K");
+wire(gnd.a,Z1r,nsq);
+T1C=Z1l;
+T1E=T1C+(0,3*bjt)rotated0;
+T1B=T1C+(0,2.5*bjt)rotated(0+angle(1.5,2));
+transistor1(cpnp);
 
-%vardef bjtahead expr p =
-%save A,u,a,b; pair A,u; path a,b;
-%A := point 0.7length(p) of p;
-%u := unitvector(direction length(p)/2 of p);
-%a := A--(A - ahlength*u rotated 20);
-%b := A--(A - ahlength*u rotated -20);
-%(a & reverse(a) & b & reverse(b))--cycle
-%enddef;
+wire(Z1l,T1C,nsq);
 
-beginfig(1)
-bjtlth=5cm; %distance from left to right
-        picture BJT;
-        BJT:=nullpicture;
-        pair z; z:=(0,0); %left edge
+%ground.b(T.a.E,simple,180);
+%centerto.A(R.a.r,R.a.l,2cm,ind);
+%inductor.a(A,Up,-90,"L","");
+%inductor.a(R.a.r+(2cm,0),Up,-90,"L","");
+%centreof.A(R.a.r,L.a.l,cap);
+%capacitor.a(c.A,normal,phi.A,"C","");
 
-        addto BJT doublepath z--(z+(.5bjtlth,0)); %horizontal bar
-        addto BJT doublepath (z+(.5bjtlth,-.5bjtlth))--(z+(.5bjtlth,.5bjtlth)); %vertical bar
+%centerto.α(pin1,pin2,dist,sym)
 
-        addto BJT doublepath (z+(.5bjtlth,.2bjtlth))--(z+(bjtlth,.5bjtlth))--(z+(bjtlth,.75bjtlth)); %upper USS
-        addto BJT doublepath (z+(.5bjtlth,-.2bjtlth))--(z+(bjtlth,-.5bjtlth))--(z+(bjtlth,-.75bjtlth)); %lower USS
-                %addto BJT contour bjtahead (z+(.5bjtlth,-.2bjtlth))
-                %--(z+(bjtlth,-.5bjtlth));
-        draw BJT rotatedaround(z,0);
-label("x",z+right*bjtlth);
+%resistor.a(origin,normal,90,"R","10\ohm");
+%centerto.A(R.a.l,R.a.r,2cm,ind);
+%inductor.a((xpart A, ypart(R.a.r-A-R.a.l)),Up,-90,"L","");
+%z1=(xpart L.a.r,ypart R.a.r);
+%centreof.B(R.a.r,z1,cap);
+%capacitor.a(c.B,normal,phi.B,"C","");
+%wire(R.a.r,C.a.l,nsq);
+%wire(C.a.r,L.a.l,nsq);
+
+%wire(L.a.l,R.a.l,udsq);
+% o bien %
+%wire(R.a.l,L.a.l,rlsq);
+
 endfig;
+
 end

@@ -611,20 +611,19 @@ enddef;
 newinternal npn, pnp, cnpn, cpnp, bjtlth;
 npn:=1; pnp:=-1; cnpn:=0; cpnp:=2; bjtlth:=7mm;
 
-vardef transistor@#(expr z,type,ang)=
-	save BJT;
-	pair T@#.B,T@#.E,T@#.C; % pines: Base, Emisor, Colector %
-	T@#.B:=z;
-	T@#.E:=(z+(bjtlth,-.75bjtlth)) rotatedaround(z,ang);
-	T@#.C:=(z+(bjtlth,.75bjtlth)) rotatedaround(z,ang);
-	picture BJT;
-	BJT:=nullpicture;
-	
-	addto BJT doublepath z--(z+(.5bjtlth,0)) withpen line;
-	addto BJT doublepath (z+(.5bjtlth,-.5bjtlth))--(z+(.5bjtlth,.5bjtlth)) withpen line;
-	addto BJT doublepath (z+(.5bjtlth,.2bjtlth))--(z+(bjtlth,.5bjtlth))
-	--(z+(bjtlth,.75bjtlth)) withpen line;
-	
+pair T[]B,T[]E,T[]C; % pines: Base, Emisor, Colector %
+vardef transistor@#(expr type)=
+  save BJT;
+  picture BJT;
+  BJT:=nullpicture;
+
+  addto BJT doublepath T@#.B--1/2[1/2[T@#.C,T@#.E],T@#.B] withpen line;
+  addto BJT doublepath 1/2[1/2[T@#.C,T@#.E],T@#.B]+(1/3abs(T@#.E-T@#.C),0)
+    rotated(angle(T@#.E-T@#.C))--1/2[1/2[T@#.C,T@#.E],T@#.B]+
+    (1/3abs(T@#.C-T@#.E),0)rotated(angle(T@#.C-T@#.E)) withpen line;
+  addto BJT doublepath 1/2[1/2[T@#.C,T@#.E],T@#.B]+(2/15abs(T@#.C-T@#.E),0)
+    rotated(angle(T@#.C-T@#.E))--1/6[T@#.C,T@#.E]--T@#.C withpen line;
+
 	if type=npn:
 		addto BJT doublepath (z+(.5bjtlth,-.2bjtlth))--(z+(bjtlth,-.5bjtlth))
 		--(z+(bjtlth,-.75bjtlth)) withpen line;
@@ -637,20 +636,21 @@ vardef transistor@#(expr z,type,ang)=
 		--(z+(bjtlth,-.5bjtlth)) withpen line;
 		addto BJT doublepath fullcircle scaled 1.3bjtlth shifted (z+(.65bjtlth,0))
 		 withpen line;
-	elseif type=pnp:
-		addto BJT doublepath (z+(bjtlth,-.75bjtlth))--(z+(bjtlth,-.5bjtlth))
-		--(z+(.5bjtlth,-.2bjtlth)) withpen line;
-		addto BJT contour bjtahead (z+(bjtlth,-.5bjtlth))
-		--(z+(.5bjtlth,-.2bjtlth)) withpen line;
-	elseif type=cpnp:
-		addto BJT doublepath (z+(bjtlth,-.75bjtlth))--(z+(bjtlth,-.5bjtlth))
-		--(z+(.5bjtlth,-.2bjtlth)) withpen line;
-		addto BJT contour bjtahead (z+(bjtlth,-.5bjtlth))
-		--(z+(.5bjtlth,-.2bjtlth)) withpen line;
-		addto BJT doublepath fullcircle scaled 1.3bjtlth shifted (z+(.65bjtlth,0)) withpen line;
-	fi;
+  elseif type=pnp:
+                addto BJT doublepath (z+(bjtlth,-.75bjtlth))--(z+(bjtlth,-.5bjtlth))
+                --(z+(.5bjtlth,-.2bjtlth)) withpen line;
+                addto BJT contour bjtahead (z+(bjtlth,-.5bjtlth))
+                --(z+(.5bjtlth,-.2bjtlth)) withpen line;
+  elseif type=cpnp:
+    addto BJT doublepath T@#.E--1/6[T@#.E,T@#.C]--1/2[1/2[T@#.C,T@#.E],T@#.B]+
+      (2/15abs(T@#.E-T@#.C),0)rotated(angle(T@#.E-T@#.C)) withpen line;
+    addto BJT contour bjtahead 1/6[T@#.E,T@#.C]--1/2[1/2[T@#.C,T@#.E],T@#.B]+
+      (2/15abs(T@#.E-T@#.C),0)rotated(angle(T@#.E-T@#.C)) withpen line;
+    addto BJT doublepath fullcircle scaled 1.3bjtlth shifted .65[T@#.B,1/2[T@#.C,T@#.E]]
+      withpen line;
+  fi;
 	
-	draw BJT rotatedaround(z,ang);
+  draw BJT;
 enddef;
 
 %%%<--- Measurement instruments (Intrumentos de medicion)--->%%%
@@ -753,9 +753,9 @@ vardef junction@#(expr z,name)(suffix $)=
 	label.$(latex(name),z);
 enddef;
 
+pair Z[]l,Z[]r;
 vardef impedance@#(expr z,ang,name,val)=
 	save imp;
-	pair Z@#.l, Z@#.r; % pines %
 	Z@#.l:=z;
 	Z@#.r:=(z+(1.5implth,0)) rotatedaround(z,ang);
 	picture imp; imp:=nullpicture;
