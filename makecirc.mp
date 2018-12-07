@@ -1,9 +1,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%||||||||||||||||||||«makecirc.mp»|||||||||||||||||||||||||%%
+%%||||||||||||||||||||Â«makecirc.mpÂ»|||||||||||||||||||||||||%%
 %%==========================================================%%
 %<------------------- version 1.1 ------------------------->%%
 % A MetaPost library for drawing electrical circuit diagrams.
-% Copyright (c) 2003 GS Bustamante Argañaraz. 
+% Copyright (c) 2003 GS Bustamante ArgaÃ±araz. 
 % It uses latex.mp by JL Diaz.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -34,7 +34,7 @@ labeling:=0; norotatelabel:=labeling; rotatelabel:=1;
 % Macros for the pens, I define them as such so when they expand,
 % look for the last value assigned to linewd and use it
 % (thanks to JLD). The linewd value assigns it as newinternal to
-% be able to change it «from out».
+% be able to change it Â«from outÂ».
 
 newinternal linewd;
 linewd:=0.25mm;
@@ -111,7 +111,7 @@ vardef centreof@#(expr pin_beg,pin_end,lchar)=
 enddef;
 
 % Variable to center an element regarding the pins of another, at 
-% a distance «dist» of the same one. It returns the point in which we should
+% a distance Â«distÂ» of the same one. It returns the point in which we should
 % place the symbol that we want to center.
 
 vardef centerto.@#(expr pinref_beg,pinref_end)(expr dist,elem)=
