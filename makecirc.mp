@@ -608,11 +608,11 @@ vardef diode@#(expr z,type,ang,pin,name,val)=
 enddef;
 
 %%%<--- Transistor --->%%%
-newinternal npn, pnp, cnpn, cpnp, bjtlth;
-npn:=1; pnp:=-1; cnpn:=0; cpnp:=2; bjtlth:=7mm;
+newinternal npn, pnp, cnpn, cpnp, bjt;
+npn:=1; pnp:=-1; cnpn:=0; cpnp:=2; bjt:=7mm/2;
 
 pair T[]B,T[]E,T[]C; % pines: Base, Emisor, Colector %
-vardef transistor@#(expr type)=
+vardef transistor@#(expr type,name)=
   save BJT;
   picture BJT;
   BJT:=nullpicture;
@@ -646,9 +646,11 @@ vardef transistor@#(expr type)=
       (2/15abs(T@#.E-T@#.C),0)rotated(angle(T@#.E-T@#.C)) withpen line;
     addto BJT contour bjtahead 1/6[T@#.E,T@#.C]--1/2[1/2[T@#.C,T@#.E],T@#.B]+
       (2/15abs(T@#.E-T@#.C),0)rotated(angle(T@#.E-T@#.C)) withpen line;
-    addto BJT doublepath fullcircle scaled 1.3bjtlth shifted .65[T@#.B,1/2[T@#.C,T@#.E]]
+    addto BJT doublepath fullcircle scaled 2.6bjt shifted .65[T@#.B,1/2[T@#.C,T@#.E]]
       withpen line;
   fi;
+
+  putlabel(T@#.C,T@#.E,bjt,bjt,0,name,"");
 	
   draw BJT;
 enddef;
@@ -971,7 +973,6 @@ def gen = ssize enddef;			% 9
 def tra = 4coil enddef;			%10
 def ins = ssize enddef;			%11
 def dio = 1.5diodeht enddef;	%12
-def bjt = .5bjtlth enddef;		%13
 def imp = .75implth enddef;		%14
 def lam = ssize enddef;			%15
 def swt = 1.2ssep enddef;		%16
