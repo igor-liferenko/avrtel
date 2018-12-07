@@ -1,0 +1,2 @@
+instead of "centreof" use "1/2[x,y]-(1/2cap,0)rotated angle(y-x);"
+and instead of "centerto" use "1/2[x,y]+(0,-dist)rotated angle(y-x);"
