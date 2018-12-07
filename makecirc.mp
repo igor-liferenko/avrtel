@@ -749,10 +749,10 @@ enddef;
 newinternal junctiondiam;
 junctiondiam:=1.25mm;
 
-vardef junction@#(expr z,name)(suffix $)=
-	pair J@#; J@#:=z;
-	draw z withpen pencircle scaled junctiondiam;
-	label.$(latex(name),z);
+pair J[];
+vardef junction@#(expr name)(suffix $)=
+	draw J@# withpen pencircle scaled junctiondiam;
+	label.$(latex(name),J@#);
 enddef;
 
 pair Z[]l,Z[]r;
