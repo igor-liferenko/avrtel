@@ -1,0 +1,5 @@
+after converting to TeX from LaTeX,
+use "input TEX" instead of "input latex", and change latex() to TEX(),
+and in latex.mp change latex() to TEX(), and do so that TEXPRE will
+be used in latex.mp instead of LaTeXsetup, and while drawing change
+"input TEX" to "input latex" and use double compilation
