@@ -612,7 +612,7 @@ newinternal npn, pnp, cnpn, cpnp, bjt;
 npn:=1; pnp:=-1; cnpn:=0; cpnp:=2; bjt:=7mm/2;
 
 pair T[]B,T[]E,T[]C; % pines: Base, Emisor, Colector %
-vardef transistor@#(expr type,name)=
+vardef transistor@#(expr type)=
   save BJT;
   picture BJT;
   BJT:=nullpicture;
@@ -650,8 +650,6 @@ vardef transistor@#(expr type,name)=
       withpen line;
   fi;
 
-  putlabel(T@#.C,T@#.E,bjt,bjt,0,name,"");
-	
   draw BJT;
 enddef;
 
@@ -726,8 +724,8 @@ enddef;
 
 %%%<--- Miscellaneous symbols --->%%%
 
-newinternal gndlth, implth, simple, shield;
-gndlth:=5mm; implth:=7mm; simple:=1; shield:=2;
+newinternal gndlth, imp, simple, shield;
+gndlth:=5mm; imp:=.75*7mm; simple:=1; shield:=2;
 
 vardef ground@#(expr z,type,ang)=
 	save GND;
@@ -755,21 +753,18 @@ vardef junction@#(expr name)(suffix $)=
 	label.$(latex(name),J@#);
 enddef;
 
-pair Z[]l,Z[]r;
-vardef impedance@#(expr z,ang,name,val)=
+vardef impedance@#=
 	save imp;
-	Z@#.l:=z;
-	Z@#.r:=(z+(1.5implth,0)) rotatedaround(z,ang);
 	picture imp; imp:=nullpicture;
 	
-	addto imp doublepath z--(z+(.25implth,0));
-	addto imp doublepath (z+(.25implth,-.18implth))--(z+(.25implth,.18implth))
-	--(z+(1.25implth,.18implth))--(z+(1.25implth,-.18implth))--cycle;
-	addto imp doublepath (z+(1.25implth,0))--(z+(1.5implth,0));
-		
-	draw imp rotatedaround(z,ang) withpen line;
-	
-	putlabel(Z@#.l,Z@#.r,.2implth,.2implth,ang,name,val);
+       addto imp doublepath z@#.l--.25[z@#.l,z@#.r]; %left line
+       addto imp doublepath .25[z@#.l,z@#.r]+(0,.18imp)rotated(angle(z@#.r-z@#.l))--
+         .25[z@#.l,z@#.r]+(0,.18imp)rotated(angle(z@#.l-z@#.r))--
+         1.25[z@#.l,z@#.r]+(0,.18imp)rotated(angle(z@#.l-z@#.r))--
+         1.25[z@#.l,z@#.r]+(0,.18imp)rotated(angle(z@#.r-z@#.l))--cycle;
+       addto imp doublepath 1.25[z@#.l,z@#.r]--1.5[z@#.l,z@#.r]; %right line
+
+	draw imp withpen line;
 enddef;
 
 vardef lamp@#(expr z,ang,name,val)=
@@ -973,7 +968,6 @@ def gen = ssize enddef;			% 9
 def tra = 4coil enddef;			%10
 def ins = ssize enddef;			%11
 def dio = 1.5diodeht enddef;	%12
-def imp = .75implth enddef;		%14
 def lam = ssize enddef;			%15
 def swt = 1.2ssep enddef;		%16
 def bat = .9ssize enddef;		%17
