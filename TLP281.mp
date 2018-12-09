@@ -4,6 +4,8 @@ input makecirc; initlatex("");
 % do not use names of elements
 % when you will get rid of makecirc, move mpcirctmp.mp from .gitigrone, TODO.makecirc, README.makecirc, makecirc.mp and latex.mp to ~/makecirc/new/
 
+%TODO: try to use base on right side for transistor and .r to the left of .l for resistor
+
 beginfig(1);
 ground.a(origin,simple,0);
 z3l=origin;
