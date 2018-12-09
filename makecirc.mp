@@ -645,7 +645,7 @@ vardef transistor@#(expr type)=
       (2/15abs(z@#.e-z@#.c),0)rotated(angle(z@#.e-z@#.c)) withpen line;
     addto BJT contour bjtahead 1/6[z@#.e,z@#.c]--1/2[1/2[z@#.c,z@#.e],z@#.b]+
       (2/15abs(z@#.e-z@#.c),0)rotated(angle(z@#.e-z@#.c)) withpen line;
-    addto BJT doublepath fullcircle scaled 2.6bjt shifted .65[z@#.b,1/2[z@#.c,z@#.e]]
+    addto BJT doublepath fullcircle scaled 1.3abs(z@#.b-1/2[z@#.c,z@#.e]) shifted .65[z@#.b,1/2[z@#.c,z@#.e]]
       withpen line;
   fi;
 
