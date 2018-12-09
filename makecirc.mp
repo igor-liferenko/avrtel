@@ -756,12 +756,12 @@ vardef impedance@#=
 	save IMP;
 	picture IMP; IMP:=nullpicture;
 	
-       addto IMP doublepath z@#.l--.25[z@#.l,z@#.r]; %left line
-       addto IMP doublepath .25[z@#.l,z@#.r]+(0,6/25abs(z@#.r-z@#.l))rotated(angle(z@#.r-z@#.l))--
-         .25[z@#.l,z@#.r]+(0,6/25abs(z@#.l-z@#.r))rotated(angle(z@#.l-z@#.r))--
-         1.25[z@#.l,z@#.r]+(0,6/25abs(z@#.l-z@#.r))rotated(angle(z@#.l-z@#.r))--
-         1.25[z@#.l,z@#.r]+(0,6/25abs(z@#.r-z@#.l))rotated(angle(z@#.r-z@#.l))--cycle;
-       addto IMP doublepath 1.25[z@#.l,z@#.r]--1.5[z@#.l,z@#.r]; %right line
+       addto IMP doublepath z@#.l--1/6[z@#.l,z@#.r];
+       addto IMP doublepath 1/6[z@#.l,z@#.r]+(0,3/25abs(z@#.r-z@#.l))rotated(angle(z@#.r-z@#.l))--
+         1/6[z@#.l,z@#.r]+(0,3/25abs(z@#.l-z@#.r))rotated(angle(z@#.l-z@#.r))--
+         5/6[z@#.l,z@#.r]+(0,3/25abs(z@#.l-z@#.r))rotated(angle(z@#.l-z@#.r))--
+         5/6[z@#.l,z@#.r]+(0,3/25abs(z@#.r-z@#.l))rotated(angle(z@#.r-z@#.l))--cycle;
+       addto IMP doublepath 5/6[z@#.l,z@#.r]--z@#.r;
 
 	draw IMP withpen line;
 enddef;
