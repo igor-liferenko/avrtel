@@ -2,6 +2,7 @@ outputtemplate:="%j.eps"; prologues:=3;
 input makecirc; initlatex("");
 
 % do not use names of elements
+% when you will get rid of makecirc, move mpcirctmp.mp from .gitigrone, TODO.makecirc, README.makecirc, makecirc.mp and latex.mp to ~/makecirc/new/
 
 beginfig(1);
 ground.a(origin,simple,0);
