@@ -609,7 +609,7 @@ enddef;
 
 %%%<--- Transistor --->%%%
 newinternal npn, pnp, cnpn, cpnp, bjt;
-npn:=1; pnp:=-1; cnpn:=0; cpnp:=2; bjt:=7mm/2;
+npn:=1; pnp:=-1; cnpn:=0; cpnp:=2; bjt:=1/2*7mm;
 
 pair T[]B,T[]E,T[]C; % pines: Base, Emisor, Colector %
 vardef transistor@#(expr type)=
@@ -725,7 +725,7 @@ enddef;
 %%%<--- Miscellaneous symbols --->%%%
 
 newinternal gndlth, imp, simple, shield;
-gndlth:=5mm; imp:=.75*7mm; simple:=1; shield:=2;
+gndlth:=5mm; imp:=3/4*7mm; simple:=1; shield:=2;
 
 vardef ground@#(expr z,type,ang)=
 	save GND;
@@ -754,17 +754,17 @@ vardef junction@#(expr name)(suffix $)=
 enddef;
 
 vardef impedance@#=
-	save imp;
-	picture imp; imp:=nullpicture;
+	save IMP;
+	picture IMP; IMP:=nullpicture;
 	
-       addto imp doublepath z@#.l--.25[z@#.l,z@#.r]; %left line
-       addto imp doublepath .25[z@#.l,z@#.r]+(0,.18imp)rotated(angle(z@#.r-z@#.l))--
-         .25[z@#.l,z@#.r]+(0,.18imp)rotated(angle(z@#.l-z@#.r))--
-         1.25[z@#.l,z@#.r]+(0,.18imp)rotated(angle(z@#.l-z@#.r))--
-         1.25[z@#.l,z@#.r]+(0,.18imp)rotated(angle(z@#.r-z@#.l))--cycle;
-       addto imp doublepath 1.25[z@#.l,z@#.r]--1.5[z@#.l,z@#.r]; %right line
+       addto IMP doublepath z@#.l--.25[z@#.l,z@#.r]; %left line
+       addto IMP doublepath .25[z@#.l,z@#.r]+(0,6/25imp)rotated(angle(z@#.r-z@#.l))--
+         .25[z@#.l,z@#.r]+(0,6/25imp)rotated(angle(z@#.l-z@#.r))--
+         1.25[z@#.l,z@#.r]+(0,6/25imp)rotated(angle(z@#.l-z@#.r))--
+         1.25[z@#.l,z@#.r]+(0,6/25imp)rotated(angle(z@#.r-z@#.l))--cycle;
+       addto IMP doublepath 1.25[z@#.l,z@#.r]--1.5[z@#.l,z@#.r]; %right line
 
-	draw imp withpen line;
+	draw IMP withpen line;
 enddef;
 
 vardef lamp@#(expr z,ang,name,val)=
