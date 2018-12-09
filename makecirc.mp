@@ -611,18 +611,17 @@ enddef;
 newinternal npn, pnp, cnpn, cpnp, bjt;
 npn:=1; pnp:=-1; cnpn:=0; cpnp:=2; bjt:=1/2*7mm;
 
-pair T[]B,T[]E,T[]C; % pines: Base, Emisor, Colector %
 vardef transistor@#(expr type)=
   save BJT;
   picture BJT;
   BJT:=nullpicture;
 
-  addto BJT doublepath T@#.B--1/2[1/2[T@#.C,T@#.E],T@#.B] withpen line;
-  addto BJT doublepath 1/2[1/2[T@#.C,T@#.E],T@#.B]+(1/3abs(T@#.E-T@#.C),0)
-    rotated(angle(T@#.E-T@#.C))--1/2[1/2[T@#.C,T@#.E],T@#.B]+
-    (1/3abs(T@#.C-T@#.E),0)rotated(angle(T@#.C-T@#.E)) withpen line;
-  addto BJT doublepath 1/2[1/2[T@#.C,T@#.E],T@#.B]+(2/15abs(T@#.C-T@#.E),0)
-    rotated(angle(T@#.C-T@#.E))--1/6[T@#.C,T@#.E]--T@#.C withpen line;
+  addto BJT doublepath z@#.b--1/2[1/2[z@#.c,z@#.e],z@#.b] withpen line;
+  addto BJT doublepath 1/2[1/2[z@#.c,z@#.e],z@#.b]+(1/3abs(z@#.e-z@#.c),0)
+    rotated(angle(z@#.e-z@#.c))--1/2[1/2[z@#.c,z@#.e],z@#.b]+
+    (1/3abs(z@#.c-z@#.e),0)rotated(angle(z@#.c-z@#.e)) withpen line;
+  addto BJT doublepath 1/2[1/2[z@#.c,z@#.e],z@#.b]+(2/15abs(z@#.c-z@#.e),0)
+    rotated(angle(z@#.c-z@#.e))--1/6[z@#.c,z@#.e]--z@#.c withpen line;
 
 	if type=npn:
 		addto BJT doublepath (z+(.5bjtlth,-.2bjtlth))--(z+(bjtlth,-.5bjtlth))
@@ -642,11 +641,11 @@ vardef transistor@#(expr type)=
                 addto BJT contour bjtahead (z+(bjtlth,-.5bjtlth))
                 --(z+(.5bjtlth,-.2bjtlth)) withpen line;
   elseif type=cpnp:
-    addto BJT doublepath T@#.E--1/6[T@#.E,T@#.C]--1/2[1/2[T@#.C,T@#.E],T@#.B]+
-      (2/15abs(T@#.E-T@#.C),0)rotated(angle(T@#.E-T@#.C)) withpen line;
-    addto BJT contour bjtahead 1/6[T@#.E,T@#.C]--1/2[1/2[T@#.C,T@#.E],T@#.B]+
-      (2/15abs(T@#.E-T@#.C),0)rotated(angle(T@#.E-T@#.C)) withpen line;
-    addto BJT doublepath fullcircle scaled 2.6bjt shifted .65[T@#.B,1/2[T@#.C,T@#.E]]
+    addto BJT doublepath z@#.e--1/6[z@#.e,z@#.c]--1/2[1/2[z@#.c,z@#.e],z@#.b]+
+      (2/15abs(z@#.e-z@#.c),0)rotated(angle(z@#.e-z@#.c)) withpen line;
+    addto BJT contour bjtahead 1/6[z@#.e,z@#.c]--1/2[1/2[z@#.c,z@#.e],z@#.b]+
+      (2/15abs(z@#.e-z@#.c),0)rotated(angle(z@#.e-z@#.c)) withpen line;
+    addto BJT doublepath fullcircle scaled 2.6bjt shifted .65[z@#.b,1/2[z@#.c,z@#.e]]
       withpen line;
   fi;
 
