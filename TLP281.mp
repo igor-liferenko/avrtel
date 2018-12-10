@@ -7,6 +7,8 @@ input makecirc; initlatex("");
 %TODO: try to use base on right side for transistor and .r to the left of .l for resistor
 
 beginfig(1);
+imp:=1/2*1.5*7mm; % half of element (element = resistor size + half resistor size for connectors)
+bjt:=1/2*7mm; % half of element (element = width of transistor)
 ground.a(origin,simple,0);
 z3l=origin;
 z3r=z3l+(2imp,0)rotated 90;
