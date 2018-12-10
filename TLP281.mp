@@ -9,7 +9,7 @@ bjt:=1/2*7mm; % half of element (element = width of transistor)
 
 z0o=origin;
 z0b=(0,-5mm);
-z3l=origin;
+z3l=z0o;
 z3r=z3l+(2imp,0)rotated 90;
 z2=z3r+up*5mm;
 z1c=z2+up*5mm;
