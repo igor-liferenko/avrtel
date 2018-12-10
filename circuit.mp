@@ -82,16 +82,16 @@ enddef;
 newinternal simple, shield;
 simple:=1; shield:=2;
 
-vardef ground@#(expr type,wd)=
+vardef ground@#(expr type)=
   save GND;
   picture GND; GND:=nullpicture;
-  addto GND doublepath z@#.l--z@#.r withpen line;
+  addto GND doublepath z@#.o--z@#.b withpen line;
   if type=shield:
-    addto GND doublepath z@#.r+(0,1/2wd)rotated(angle(z@#.r-z@#.l))--z@#.r+(0,-1/2wd)rotated(angle(z@#.r-z@#.l)) withpen line;
-    addto GND doublepath z@#.r+1/8[z@#.l,z@#.r]+(0,3/10wd)rotated(angle(z@#.r-z@#.l))--z@#.r+1/8[z@#.l,z@#.r]+(0,-3/10wd)rotated(angle(z@#.r-z@#.l)) withpen line;
-    addto GND doublepath z@#.r+2/8[z@#.l,z@#.r]+(0,1/10wd)rotated(angle(z@#.r-z@#.l))--z@#.r+2/8[z@#.l,z@#.r]+(0,-1/10wd)rotated(angle(z@#.r-z@#.l)) withpen line;
+    addto GND doublepath z@#.b+(0,1/2abs(z@#.o-z@#.b))rotated(angle(z@#.b-z@#.o))--z@#.b+(0,-1/2abs(z@#.o-z@#.b))rotated(angle(z@#.b-z@#.o)) withpen line;
+    addto GND doublepath z@#.b-z@#.o+1/8[z@#.o,z@#.b]+(0,3/10abs(z@#.o-z@#.b))rotated(angle(z@#.b-z@#.o))--z@#.b-z@#.o+1/8[z@#.o,z@#.b]+(0,-3/10abs(z@#.o-z@#.b))rotated(angle(z@#.b-z@#.o)) withpen line;
+    addto GND doublepath z@#.b-z@#.o+2/8[z@#.o,z@#.b]+(0,1/10abs(z@#.o-z@#.b))rotated(angle(z@#.b-z@#.o))--z@#.b-z@#.o+2/8[z@#.o,z@#.b]+(0,-1/10abs(z@#.o-z@#.b))rotated(angle(z@#.b-z@#.o)) withpen line;
   elseif type=simple:
-    addto GND doublepath z@#.r+(0,7/10wd)rotated(angle(z@#.r-z@#.l))--z@#.r+(0,-7/10wd)rotated(angle(z@#.r-z@#.l)) withpen pencircle scaled 2linewd;
+    addto GND doublepath z@#.b+(0,1/2abs(z@#.o-z@#.b))rotated(angle(z@#.b-z@#.o))--z@#.b+(0,-1/2abs(z@#.o-z@#.b))rotated(angle(z@#.b-z@#.o)) withpen pencircle scaled 2linewd;
   fi;
   draw GND;
 enddef;
