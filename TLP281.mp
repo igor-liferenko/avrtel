@@ -1,8 +1,6 @@
 %outputtemplate:="%j.eps"; prologues:=3;
 input circuit;
 
-% TODO: move mpcirctmp.mp from .gitigrone, TODO.makecirc, README.makecirc, makecirc.mp and latex.mp to ~/makecirc/
-
 beginfig(1);
 imp:=1/2*1.5*7mm; % half of element (element = resistor size + half resistor size for connectors)
 bjt:=1/2*7mm; % half of element (element = width of transistor)
