@@ -1,11 +1,11 @@
-%outputtemplate:="%j.eps"; prologues:=3;
+outputtemplate:="%j.eps"; prologues:=3;
 
 verbatimtex
 \font\big=cmss17
 \font\tenss=cmss10 \tenss
 etex
 
-beginfig(1)
+beginfig(1);
 r=24pt;
 z0=(2.6cm,9.5cm);
 z1=(1.3cm,7.5cm);
@@ -48,7 +48,7 @@ draw z5+right*r rotated angle(z8-z5) -- z8+right*r rotated angle(z5-z8);
 draw z6+down*r -- z9+up*r;
 endfig;
 
-beginfig(2)
+beginfig(2);
 z1=(5.5cm,1.9cm);
 z2=(4cm,1.1cm);
 z3=(3cm,1.1cm);
@@ -73,6 +73,9 @@ draw unitsquare xscaled .3cm yscaled .7cm shifted (z8+left*4pt);
 z11=z8+up*43pt;
 drawarrow z8+up*20pt .. z11;
 label.top(btex 5v etex, z11+up*3pt);
+endfig;
+
+beginfig(3);
 endfig;
 
 end
