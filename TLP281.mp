@@ -4,9 +4,10 @@ input circuit;
 beginfig(1);
 imp:=1/2*1.5*7mm; % half of element (element = resistor size + half resistor size for connectors)
 bjt:=1/2*7mm; % half of element (element = width of transistor)
+gnd:=5mm; % side of square in which the picture is contained
 
 z0o=origin;
-z0b=(0,-5mm);
+z0b=(0,-gnd);
 z3l=z0o;
 z3r=z3l+(2imp,0)rotated 90;
 z2=z3r+up*5mm;
