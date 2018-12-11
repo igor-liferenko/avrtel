@@ -1,8 +1,12 @@
 outputtemplate:="%j.eps"; prologues:=3;
 
+input circuit;
+
 verbatimtex
 \font\big=cmss17
 \font\tenss=cmss10 \tenss
+\font\smallss=cmss8 scaled 400
+\font\eightss=cmss8
 etex
 
 beginfig(1);
@@ -76,6 +80,35 @@ label.top(btex 5v etex, z11+up*3pt);
 endfig;
 
 beginfig(3);
+imp:=1/2*1.5*7mm;
+
+z0l=origin;
+z0r=(2imp,0);
+z1=z0l+left*2cm;
+z2=z0r+right*2cm;
+z4=z2+right*3mm;
+x3w=4cm; x3h=2cm; z3=z4+right*1/2x3w+up*5mm;
+x6s=3mm;
+z6=z2+right*1/2x6s+up*1/6x6s;
+z7=z2+up*2/6x6s;
+z5=z3+up*1/2x3h+left*1/8x3w;
+z8=z5+right*2/8x3w;
+
+draw z1--z0l withpen line;
+impedance0; label(btex ${}_?$ etex, 1/2[z0l,z0r]);
+label(btex \vbox{
+\hbox{In gorod power is 9V, not 12V, and ``?'' is 620R.}
+\hbox{In home ``?'' is 560R.}
+} etex, 1/2[z0l,z0r]+down*1cm);
+draw z0r--z2 withpen line;
+draw unitsquare shifted (-.5,-.5) xscaled 3mm yscaled 3mm shifted z6;
+label(btex \smallss RJ11 etex, z6);
+draw unitsquare shifted (-.5,-.5) xscaled x3w yscaled x3h shifted z3 withpen line;
+label(btex Analog DECT phone etex, z3);
+draw z7--z7+left*2mm withpen line;
+label.top(btex \tt+ etex, z5); label.top(btex \tt- etex, z8);
+label(btex \eightss power etex, 1/2[z5,z8]+up*1.7mm);
+draw unitsquare shifted (-.5,0) xscaled (abs(z5-z8)+3mm) yscaled 4mm shifted 1/2[z5,z8];
 endfig;
 
 end
