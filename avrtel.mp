@@ -138,6 +138,13 @@ label.bot(btex \smallss GND etex, z32);
 label.bot(btex \smallss VCC etex, z33);
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%% Capacitor %%%%%%%%%%%
+x34l=x31;
+y34l=y31+5mm;
+x34r=x13;
+y34r=y34l;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 draw z1--z0l withpen line;
 impedance0; label(btex ${}_?$ etex, 1/2[z0l,z0r]);
 label(btex \vbox{
@@ -164,6 +171,7 @@ label(btex \tt+ etex, z18+left*2mm);
 label(btex \twlbs 12V etex, 1/2[z1,z18]+left*8mm);
 draw z0r--z20 withpen line;
 draw z19--z20 withpen line;
+capacitor34(normal); draw z31--z34l withpen line; draw z34r--z13 withpen line;
 endfig;
 
 end

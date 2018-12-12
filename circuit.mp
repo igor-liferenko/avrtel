@@ -95,3 +95,19 @@ vardef ground@#(expr type)=
   fi;
   draw GND;
 enddef;
+
+newinternal normal, electrolytic, variable, variant, platsep;
+normal:=0; electrolytic:=1; variable:=2; platsep:=1mm; variant:=3;
+vardef capacitor@#(expr type)=
+  save CAP;
+  picture CAP; CAP:=nullpicture;
+
+  addto CAP doublepath z@#.l--9/20[z@#.l,z@#.r] withpen line;
+  draw 9/20[z@#.l,z@#.r]+(0,3/25abs(z@#.r-z@#.l))rotated(angle(z@#.r-z@#.l))--
+    9/20[z@#.l,z@#.r]+(0,3/25abs(z@#.l-z@#.r))rotated(angle(z@#.l-z@#.r)) withpen pencircle scaled 2linewd;
+  draw 11/20[z@#.l,z@#.r]+(0,3/25abs(z@#.l-z@#.r))rotated(angle(z@#.l-z@#.r))--
+    11/20[z@#.l,z@#.r]+(0,3/25abs(z@#.r-z@#.l))rotated(angle(z@#.r-z@#.l)) withpen pencircle scaled 2linewd;
+  addto CAP doublepath 11/20[z@#.l,z@#.r]--z@#.r withpen line;
+
+  draw CAP withpen line;
+enddef;
