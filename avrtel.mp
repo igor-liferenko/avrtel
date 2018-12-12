@@ -111,14 +111,15 @@ arduino3=arduino2+up*1cm;
 xpart(arduino4)=xpart(arduino1);
 ypart(arduino4)=ypart(arduino3);
 % pins
-x43=xpart(arduino4)+2mm; y43=ypart(arduino4);
-x44=x43+3mm; y44=ypart(arduino4);
+pair arduino.B[],arduino.D[],arduino.GND,arduino[]V;
+xpart(arduino.B5)=xpart(arduino4)+2mm; ypart(arduino.B5)=ypart(arduino4);
+x44=xpart(arduino.B5)+3mm; y44=ypart(arduino4);
 x45=x44+3mm; y45=ypart(arduino4);
 x46=x45+3mm; y46=ypart(arduino4);
 x47=x46+12mm; y47=ypart(arduino4);
 x48=x47+5mm; y48=ypart(arduino4);
 x49=x48+3.5mm; y49=ypart(arduino4);
-x50=x43; y50=ypart(arduino1);
+x50=xpart(arduino.B5); y50=ypart(arduino1);
 x51=x47; y51=ypart(arduino1);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -214,7 +215,7 @@ draw z12--z13 ;
 
 %%%%%%%%% Arduino %%%%%%%%%%%%%%%
 draw arduino1--arduino2--arduino3--arduino4--cycle;
-label.bot(btex \smallss B5 etex, z43);
+label.bot(btex \smallss B5 etex, arduino.B5);
 label.bot(btex \smallss B4 etex, z44);
 label.bot(btex \smallss E6 etex, z45);
 label.bot(btex \smallss D7 etex, z46);
@@ -284,7 +285,7 @@ label.rt(btex \smallss VCC etex, (x56,y42+1mm));
 label(btex \vbox{\hsize0pt\centerline{\sevenss Relay}\kern-7pt\centerline{\smallss(normally open)}} etex rotated 90,1/2[z56,z58]+right*2mm);
 
 draw z25--(x25,y44+2mm)--(x44,y44+2mm)--z44;
-draw z26--(x26,y43+1mm)--(x43,y43+1mm)--z43;
+draw z26--(x26,ypart(arduino.B5)+1mm)--(xpart(arduino.B5),ypart(arduino.B5)+1mm)--arduino.B5;
 draw z27..controls (x27,y27+7mm) and (x50,y50-7mm) .. z50;
 draw z28--(x28,y28+2mm)--(x25-2mm,y28+2mm)--(x25-2mm,y44+3mm)--(x46,y44+3mm)--z46;
 draw z29--(x29,y29+4mm)--(x25-4mm,y29+4mm)--(x25-4mm,y44+5mm)--(x47,y44+5mm)--z47;
