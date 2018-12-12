@@ -66,17 +66,12 @@ vardef transistor@#(expr type)=
 enddef;
 
 vardef impedance@#=
-	save IMP;
-	picture IMP; IMP:=nullpicture;
-	
-       addto IMP doublepath z@#.l--1/6[z@#.l,z@#.r];
-       addto IMP doublepath 1/6[z@#.l,z@#.r]+(0,3/25abs(z@#.r-z@#.l))rotated(angle(z@#.r-z@#.l))--
+  draw z@#.l--1/6[z@#.l,z@#.r];
+  draw 1/6[z@#.l,z@#.r]+(0,3/25abs(z@#.r-z@#.l))rotated(angle(z@#.r-z@#.l))--
          1/6[z@#.l,z@#.r]+(0,3/25abs(z@#.l-z@#.r))rotated(angle(z@#.l-z@#.r))--
          5/6[z@#.l,z@#.r]+(0,3/25abs(z@#.l-z@#.r))rotated(angle(z@#.l-z@#.r))--
          5/6[z@#.l,z@#.r]+(0,3/25abs(z@#.r-z@#.l))rotated(angle(z@#.r-z@#.l))--cycle;
-       addto IMP doublepath 5/6[z@#.l,z@#.r]--z@#.r;
-
-	draw IMP withpen line;
+  draw 5/6[z@#.l,z@#.r]--z@#.r;
 enddef;
 
 newinternal simple, shield;
@@ -99,15 +94,10 @@ enddef;
 newinternal normal, electrolytic, variable, variant, platsep;
 normal:=0; electrolytic:=1; variable:=2; platsep:=1mm; variant:=3;
 vardef capacitor@#(expr type)=
-  save CAP;
-  picture CAP; CAP:=nullpicture;
-
-  addto CAP doublepath z@#.l--9/20[z@#.l,z@#.r];
+  draw z@#.l--9/20[z@#.l,z@#.r];
   draw 9/20[z@#.l,z@#.r]+(0,3/25abs(z@#.r-z@#.l))rotated(angle(z@#.r-z@#.l))--
     9/20[z@#.l,z@#.r]+(0,3/25abs(z@#.l-z@#.r))rotated(angle(z@#.l-z@#.r)) withpen pencircle scaled 2linewd;
   draw 11/20[z@#.l,z@#.r]+(0,3/25abs(z@#.l-z@#.r))rotated(angle(z@#.l-z@#.r))--
     11/20[z@#.l,z@#.r]+(0,3/25abs(z@#.r-z@#.l))rotated(angle(z@#.r-z@#.l)) withpen pencircle scaled 2linewd;
-  addto CAP doublepath 11/20[z@#.l,z@#.r]--z@#.r;
-
-  draw CAP withpen line;
+  draw 11/20[z@#.l,z@#.r]--z@#.r;
 enddef;

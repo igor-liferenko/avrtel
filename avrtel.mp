@@ -287,6 +287,8 @@ draw z27..controls (x27,y27+7mm) and (x50,y50-7mm) .. z50;
 draw z28--(x28,y28+2mm)--(x25-2mm,y28+2mm)--(x25-2mm,y44+3mm)--(x46,y44+3mm)--z46;
 draw z29--(x29,y29+4mm)--(x25-4mm,y29+4mm)--(x25-4mm,y44+5mm)--(x47,y44+5mm)--z47;
 
+label(btex Arduino etex, 1/2[z14,z16]);
+
 endfig;
 
 end
