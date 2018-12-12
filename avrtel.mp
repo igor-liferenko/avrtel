@@ -104,20 +104,22 @@ z12=z11+up*2mm;
 z13=z12+left*2.3cm;
 
 %%%%%%%%% Arduino %%%%%%%%%%%%%
-z14=(-1.3cm,2cm); % anchor point
-z15=z14+right*3.3cm;
-z16=z15+up*1cm;
-x17=x14; y17=y16;
+pair arduino[];
+arduino1=(-1.3cm,2cm);
+arduino2=arduino1+right*3.3cm;
+arduino3=arduino2+up*1cm;
+xpart(arduino4)=xpart(arduino1);
+ypart(arduino4)=ypart(arduino3);
 % pins
-x43=x17+2mm; y43=y17;
-x44=x43+3mm; y44=y17;
-x45=x44+3mm; y45=y17;
-x46=x45+3mm; y46=y17;
-x47=x46+12mm; y47=y17;
-x48=x47+5mm; y48=y17;
-x49=x48+3.5mm; y49=y17;
-x50=x43; y50=y14;
-x51=x47; y51=y14;
+x43=xpart(arduino4)+2mm; y43=ypart(arduino4);
+x44=x43+3mm; y44=ypart(arduino4);
+x45=x44+3mm; y45=ypart(arduino4);
+x46=x45+3mm; y46=ypart(arduino4);
+x47=x46+12mm; y47=ypart(arduino4);
+x48=x47+5mm; y48=ypart(arduino4);
+x49=x48+3.5mm; y49=ypart(arduino4);
+x50=x43; y50=ypart(arduino1);
+x51=x47; y51=ypart(arduino1);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 y18=y13;
@@ -185,8 +187,8 @@ x39=x9; x40=x10; y39=y40=y35;
 x41=x40; x42=x39; y41=y42=y37;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-x52=x15+3mm; y52=y0r;
-x53=x52; y53=y17+3mm;
+x52=xpart(arduino2)+3mm; y52=y0r;
+x53=x52; y53=ypart(arduino4)+3mm;
 
 x54=x48; y54=y53;
 x55=x52; y55=y54;
@@ -211,7 +213,7 @@ draw z11--z12 ;
 draw z12--z13 ;
 
 %%%%%%%%% Arduino %%%%%%%%%%%%%%%
-draw z14--z15--z16--z17--cycle;
+draw arduino1--arduino2--arduino3--arduino4--cycle;
 label.bot(btex \smallss B5 etex, z43);
 label.bot(btex \smallss B4 etex, z44);
 label.bot(btex \smallss E6 etex, z45);
@@ -251,7 +253,7 @@ draw z48--z54;
 draw z42--(x42,y49+1mm)--(x49,y49+1mm)--z49;
 draw z41--(x41,y53+1mm)--(x48,y53+1mm)--z48;
 drawdot z54 withpen pencircle scaled 2pt;
-draw z32--(x32,y32+2mm)--(x15+2mm,y32+2mm)--(x15+2mm,y48+2mm)--(x48,y48+2mm)--z48;
+draw z32--(x32,y32+2mm)--(xpart(arduino2)+2mm,y32+2mm)--(xpart(arduino2)+2mm,y48+2mm)--(x48,y48+2mm)--z48;
 drawdot (x48,y48+2mm) withpen pencircle scaled 2pt;
 
 %%%%%%%%%%%%%% relay %%%%%%%%%%%%%%
@@ -269,7 +271,7 @@ draw z5+right*.5mm+up*4mm--(x5+.5mm,y5+2.1cm)--(x57,y5+2.1cm);
 draw (x57,y5+2.4cm)--(x5+.5mm,y5+2.4cm)--(x5+.5mm,y60);
 draw z8+left*.5mm+up*4mm--(x8-.5mm,y60);
 draw z33--(x33,y33+1mm)--(x51,y33+1mm)--(x51,y51-2mm);
-draw z51--(x51,y51-2mm)--(x15+5mm,y51-2mm)--(x15+5mm,y42+1mm)--(x56,y42+1mm);
+draw z51--(x51,y51-2mm)--(xpart(arduino2)+5mm,y51-2mm)--(xpart(arduino2)+5mm,y42+1mm)--(x56,y42+1mm);
 drawdot (x51,y51-2mm) withpen pencircle scaled 2pt;
 
 draw (x56,y56+5mm)--(x56-6mm,y56+5mm)--(x56-6mm,y53+2mm)--(x48,y53+2mm)--(x48,y53+1mm);
@@ -287,7 +289,7 @@ draw z27..controls (x27,y27+7mm) and (x50,y50-7mm) .. z50;
 draw z28--(x28,y28+2mm)--(x25-2mm,y28+2mm)--(x25-2mm,y44+3mm)--(x46,y44+3mm)--z46;
 draw z29--(x29,y29+4mm)--(x25-4mm,y29+4mm)--(x25-4mm,y44+5mm)--(x47,y44+5mm)--z47;
 
-label(btex Arduino etex, 1/2[z14,z16]);
+label(btex Arduino etex, 1/2[arduino1,arduino3]);
 
 endfig;
 
