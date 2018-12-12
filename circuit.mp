@@ -102,12 +102,12 @@ vardef capacitor@#(expr type)=
   save CAP;
   picture CAP; CAP:=nullpicture;
 
-  addto CAP doublepath z@#.l--9/20[z@#.l,z@#.r] withpen line;
+  addto CAP doublepath z@#.l--9/20[z@#.l,z@#.r];
   draw 9/20[z@#.l,z@#.r]+(0,3/25abs(z@#.r-z@#.l))rotated(angle(z@#.r-z@#.l))--
     9/20[z@#.l,z@#.r]+(0,3/25abs(z@#.l-z@#.r))rotated(angle(z@#.l-z@#.r)) withpen pencircle scaled 2linewd;
   draw 11/20[z@#.l,z@#.r]+(0,3/25abs(z@#.l-z@#.r))rotated(angle(z@#.l-z@#.r))--
     11/20[z@#.l,z@#.r]+(0,3/25abs(z@#.r-z@#.l))rotated(angle(z@#.r-z@#.l)) withpen pencircle scaled 2linewd;
-  addto CAP doublepath 11/20[z@#.l,z@#.r]--z@#.r withpen line;
+  addto CAP doublepath 11/20[z@#.l,z@#.r]--z@#.r;
 
   draw CAP withpen line;
 enddef;

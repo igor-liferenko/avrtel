@@ -104,8 +104,8 @@ z12=z11+up*2mm;
 z13=z12+left*2.3cm;
 
 %%%%%%%%% Arduino %%%%%%%%%%%%%
-z14=(-1.5cm,2cm); % anchor point
-z15=z14+right*3.5cm;
+z14=(-1.3cm,2cm); % anchor point
+z15=z14+right*3.3cm;
 z16=z15+up*1cm;
 x17=x14; y17=y16;
 % pins
@@ -191,24 +191,24 @@ x53=x52; y53=y17+3mm;
 x54=x48; y54=y53;
 x55=x52; y55=y54;
 
-draw z1--z0l withpen line;
+draw z1--z0l ;
 impedance0; label(btex ${}_?$ etex, 1/2[z0l,z0r]);
 label(btex \vbox{
 \hbox{In gorod power is 9V, not 12V, and ``?'' is 620R.}
 \hbox{In home ``?'' is 560R.}
 } etex, 1/2[z0l,z0r]+down*1cm);
-draw z19--z2 withpen line;
+draw z19--z2 ;
 draw unitsquare shifted (-.5,-.5) xscaled 3mm yscaled 3mm shifted z6;
 label(btex \smallss RJ11 etex, z6);
-draw unitsquare shifted (-.5,-.5) xscaled x3w yscaled x3h shifted z3 withpen line;
+draw unitsquare shifted (-.5,-.5) xscaled x3w yscaled x3h shifted z3 ;
 label(btex Analog DECT phone etex, z3);
-draw z7--z11 withpen line;
+draw z7--z11 ;
 label.top(btex \tt- etex, z5); label.top(btex \tt+ etex, z8);
 draw unitsquare shifted (-.5,0) xscaled (abs(z5-z8)+3mm) yscaled 4mm shifted 1/2[z5,z8];
 draw z9{up}..(1/2[z9,z10]+up*3mm){z10-z9}..z10{down};
 label.top(btex \smallss LED etex, 1/2[z9,z10]+down*.5mm);
-draw z11--z12 withpen line;
-draw z12--z13 withpen line;
+draw z11--z12 ;
+draw z12--z13 ;
 
 %%%%%%%%% Arduino %%%%%%%%%%%%%%%
 draw z14--z15--z16--z17--cycle;
@@ -224,17 +224,17 @@ label.top(btex \smallss 5V etex, z51);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 label(btex \tt- etex, z1+left*2mm);
-draw z13--z18 withpen line;
+draw z13--z18 ;
 drawdot z13 withpen pencircle scaled 2pt;
 label(btex \tt+ etex, z18+left*2mm);
 label(btex \twlbs 12V etex, 1/2[z1,z18]+left*8mm);
-draw z0r--z20 withpen line;
-draw z19--z20 withpen line;
+draw z0r--z20 ;
+draw z19--z20 ;
 
 %%%%%%%%%%%% capacitor %%%%%%%%%%%%%%%%%
 capacitor34(normal);
-draw z31--(x31,y34l)--z34l withpen line;
-draw z34r--z13 withpen line;
+draw z31--(x31,y34l)--z34l ;
+draw z34r--z13 ;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 draw z35--z36--z37--z38--cycle;
@@ -277,9 +277,15 @@ drawdot (x48,y53+1mm) withpen pencircle scaled 2pt;
 draw (x56,y56+7mm)--(x56-3mm,y56+7mm)--(x56-3mm,y53+4mm)--(x45,y53+4mm)--z45;
 
 label.rt(btex \smallss GND etex, (x56,y56+5mm));
-label.rt(btex \smallss IN1 etex, (x56,y56+7mm));
+label.rt(btex \smallss IN etex, (x56,y56+7mm));
 label.rt(btex \smallss VCC etex, (x56,y42+1mm));
 label(btex \vbox{\hsize0pt\centerline{\sevenss Relay}\kern-7pt\centerline{\smallss(normally open)}} etex rotated 90,1/2[z56,z58]+right*2mm);
+
+draw z25--(x25,y44+2mm)--(x44,y44+2mm)--z44;
+draw z26--(x26,y43+1mm)--(x43,y43+1mm)--z43;
+draw z27..controls (x27,y27+7mm) and (x50,y50-7mm) .. z50;
+draw z28--(x28,y28+2mm)--(x25-2mm,y28+2mm)--(x25-2mm,y44+3mm)--(x46,y44+3mm)--z46;
+draw z29--(x29,y29+4mm)--(x25-4mm,y29+4mm)--(x25-4mm,y44+5mm)--(x47,y44+5mm)--z47;
 
 endfig;
 
