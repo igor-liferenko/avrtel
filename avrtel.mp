@@ -7,6 +7,7 @@ verbatimtex
 \font\tenss=cmss10 \tenss
 \font\smallss=cmss8 scaled 400
 \font\eightss=cmss8
+\font\sevenss=cmss8 scaled 600
 \font\twlbs=cmssbx10 scaled 1200
 etex
 
@@ -82,6 +83,7 @@ endfig;
 
 beginfig(3);
 imp:=1/2*1.5*7mm;
+cap:=1/2*8mm;
 
 z0l=(0,-10mm);
 z0r=z0l+right*2imp;
@@ -99,13 +101,23 @@ z9=z3+up*1/2x3h+left*(18/40x3w-3mm);
 z10=z9+right*3mm;
 x11=x19; y11=y7;
 z12=z11+up*2mm;
-z13=z12+left*2cm;
+z13=z12+left*2.3cm;
 
 %%%%%%%%% Arduino %%%%%%%%%%%%%
-z14=(1cm,2cm); % anchor point
+z14=(-1.5cm,2cm); % anchor point
 z15=z14+right*3.5cm;
 z16=z15+up*1cm;
 x17=x14; y17=y16;
+% pins
+x43=x17+2mm; y43=y17;
+x44=x43+3mm; y44=y17;
+x45=x44+3mm; y45=y17;
+x46=x45+3mm; y46=y17;
+x47=x46+12mm; y47=y17;
+x48=x47+5mm; y48=y17;
+x49=x48+3.5mm; y49=y17;
+x50=x43; y50=y14;
+x51=x47; y51=y14;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 y18=y13;
@@ -114,7 +126,7 @@ y20=y0r;
 x20=x19;
 
 %%%%%% MT8870 %%%%%%%%%%%
-z21=z1+right*5mm+up*8mm; % anchor point
+z21=z1+right*2mm+up*8mm; % anchor point
 z22=z21+right*2.1cm;
 z23=z22+up*1cm;
 x24=x21;
@@ -143,11 +155,25 @@ label.bot(btex \smallss VCC etex, z33);
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%% Capacitor %%%%%%%%%%%
-x34l=x31;     % anchor point 1
+x34l=x13-2cap;     % anchor point 1
 y34l=y31+5mm; % anchor point 2
-x34r=x13;     % anchor point 3
-y34r=y34l;
+z34r=z34l+(2cap,0);
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%% relay %%%%%%%%%%%%%%%
+z56=(5cm,2.5cm); % anchor point
+z57=z56+right*1cm;
+z58=z57+up*9mm;
+x59=x56; y59=y58;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%% power plug %%%%%%%%%%
+z60=(6.8cm,4cm);
+z61=z60+right*3mm;
+z62=z61+up*7mm;
+x63=x60; y63=y62;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%% PC817C %%%%%%%%%%%
 z35=(3.7cm,2cm); % anchor point
@@ -158,6 +184,12 @@ x38=x35; y38=y37;
 x39=x9; x40=x10; y39=y40=y35;
 x41=x40; x42=x39; y41=y42=y37;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+x52=x15+3mm; y52=y0r;
+x53=x52; y53=y17+3mm;
+
+x54=x48; y54=y53;
+x55=x52; y55=y54;
 
 draw z1--z0l withpen line;
 impedance0; label(btex ${}_?$ etex, 1/2[z0l,z0r]);
@@ -171,13 +203,26 @@ label(btex \smallss RJ11 etex, z6);
 draw unitsquare shifted (-.5,-.5) xscaled x3w yscaled x3h shifted z3 withpen line;
 label(btex Analog DECT phone etex, z3);
 draw z7--z11 withpen line;
-label.top(btex \tt+ etex, z5); label.top(btex \tt- etex, z8);
+label.top(btex \tt- etex, z5); label.top(btex \tt+ etex, z8);
 draw unitsquare shifted (-.5,0) xscaled (abs(z5-z8)+3mm) yscaled 4mm shifted 1/2[z5,z8];
 draw z9{up}..(1/2[z9,z10]+up*3mm){z10-z9}..z10{down};
 label.top(btex \smallss LED etex, 1/2[z9,z10]+down*.5mm);
 draw z11--z12 withpen line;
 draw z12--z13 withpen line;
+
+%%%%%%%%% Arduino %%%%%%%%%%%%%%%
 draw z14--z15--z16--z17--cycle;
+label.bot(btex \smallss B5 etex, z43);
+label.bot(btex \smallss B4 etex, z44);
+label.bot(btex \smallss E6 etex, z45);
+label.bot(btex \smallss D7 etex, z46);
+label.bot(btex \smallss D1 etex, z47);
+label.bot(btex \smallss GND etex, z48);
+label.bot(btex \smallss D2 etex, z49);
+label.top(btex \smallss B6 etex, z50);
+label.top(btex \smallss 5V etex, z51);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 label(btex \tt- etex, z1+left*2mm);
 draw z13--z18 withpen line;
 drawdot z13 withpen pencircle scaled 2pt;
@@ -185,12 +230,57 @@ label(btex \tt+ etex, z18+left*2mm);
 label(btex \twlbs 12V etex, 1/2[z1,z18]+left*8mm);
 draw z0r--z20 withpen line;
 draw z19--z20 withpen line;
-capacitor34(normal); draw z31--z34l withpen line; draw z34r--z13 withpen line;
+
+%%%%%%%%%%%% capacitor %%%%%%%%%%%%%%%%%
+capacitor34(normal);
+draw z31--(x31,y34l)--z34l withpen line;
+draw z34r--z13 withpen line;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 draw z35--z36--z37--z38--cycle;
 draw z9--z39; draw z10--z40;
 label(btex \smallss 1 etex, z39+up*1mm); label(btex \smallss 2 etex, z40+up*1mm);
 label(btex \smallss PC817C etex, 1/2[z35,z37]);
 label(btex \smallss 3 etex, z41+down*1mm); label(btex \smallss 4 etex, z42+down*1mm);
+
+draw z52--z53;
+drawdot z52 withpen pencircle scaled 2pt;
+draw z54--z55;
+draw z48--z54;
+
+draw z42--(x42,y49+1mm)--(x49,y49+1mm)--z49;
+draw z41--(x41,y53+1mm)--(x48,y53+1mm)--z48;
+drawdot z54 withpen pencircle scaled 2pt;
+draw z32--(x32,y32+2mm)--(x15+2mm,y32+2mm)--(x15+2mm,y48+2mm)--(x48,y48+2mm)--z48;
+drawdot (x48,y48+2mm) withpen pencircle scaled 2pt;
+
+%%%%%%%%%%%%%% relay %%%%%%%%%%%%%%
+draw z56--z57--z58--z59--cycle;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%% power plug %%%%%%%%%%%%%%
+draw z60--z61--z62--z63--cycle;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+draw (z62+down*1mm)--(z62+down*1mm+right*2mm);
+draw (z62+down*2.5mm)--(z62+down*2.5mm+right*2mm);
+
+draw z5+right*.5mm+up*4mm--(x5+.5mm,y5+2.1cm)--(x57,y5+2.1cm);
+draw (x57,y5+2.4cm)--(x5+.5mm,y5+2.4cm)--(x5+.5mm,y60);
+draw z8+left*.5mm+up*4mm--(x8-.5mm,y60);
+draw z33--(x33,y33+1mm)--(x51,y33+1mm)--(x51,y51-2mm);
+draw z51--(x51,y51-2mm)--(x15+5mm,y51-2mm)--(x15+5mm,y42+1mm)--(x56,y42+1mm);
+drawdot (x51,y51-2mm) withpen pencircle scaled 2pt;
+
+draw (x56,y56+5mm)--(x56-6mm,y56+5mm)--(x56-6mm,y53+2mm)--(x48,y53+2mm)--(x48,y53+1mm);
+drawdot (x48,y53+1mm) withpen pencircle scaled 2pt;
+draw (x56,y56+7mm)--(x56-3mm,y56+7mm)--(x56-3mm,y53+4mm)--(x45,y53+4mm)--z45;
+
+label.rt(btex \smallss GND etex, (x56,y56+5mm));
+label.rt(btex \smallss IN1 etex, (x56,y56+7mm));
+label.rt(btex \smallss VCC etex, (x56,y42+1mm));
+label(btex \vbox{\hsize0pt\centerline{\sevenss Relay}\kern-7pt\centerline{\smallss(normally open)}} etex rotated 90,1/2[z56,z58]+right*2mm);
+
 endfig;
 
 end
