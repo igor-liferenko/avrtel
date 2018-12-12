@@ -116,11 +116,11 @@ xpart(arduino.B5)=xpart(arduino4)+2mm; ypart(arduino.B5)=ypart(arduino4);
 xpart(arduino.B4)=xpart(arduino.B5)+3mm; ypart(arduino.B4)=ypart(arduino4);
 xpart(arduino.E6)=xpart(arduino.B4)+3mm; ypart(arduino.E6)=ypart(arduino4);
 xpart(arduino.D7)=xpart(arduino.E6)+3mm; ypart(arduino.D7)=ypart(arduino4);
-x47=xpart(arduino.D7)+12mm; y47=ypart(arduino4);
-x48=x47+5mm; y48=ypart(arduino4);
+xpart(arduino.D1)=xpart(arduino.D7)+12mm; ypart(arduino.D1)=ypart(arduino4);
+x48=xpart(arduino.D1)+5mm; y48=ypart(arduino4);
 x49=x48+3.5mm; y49=ypart(arduino4);
 x50=xpart(arduino.B5); y50=ypart(arduino1);
-x51=x47; y51=ypart(arduino1);
+x51=xpart(arduino.D1); y51=ypart(arduino1);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 y18=y13;
@@ -219,7 +219,7 @@ label.bot(btex \smallss B5 etex, arduino.B5);
 label.bot(btex \smallss B4 etex, arduino.B4);
 label.bot(btex \smallss E6 etex, arduino.E6);
 label.bot(btex \smallss D7 etex, arduino.D7);
-label.bot(btex \smallss D1 etex, z47);
+label.bot(btex \smallss D1 etex, arduino.D1);
 label.bot(btex \smallss GND etex, z48);
 label.bot(btex \smallss D2 etex, z49);
 label.top(btex \smallss B6 etex, z50);
@@ -288,7 +288,7 @@ draw z25--(x25,ypart(arduino.B4)+2mm)--(xpart(arduino.B4),ypart(arduino.B4)+2mm)
 draw z26--(x26,ypart(arduino.B5)+1mm)--(xpart(arduino.B5),ypart(arduino.B5)+1mm)--arduino.B5;
 draw z27..controls (x27,y27+7mm) and (x50,y50-7mm) .. z50;
 draw z28--(x28,y28+2mm)--(x25-2mm,y28+2mm)--(x25-2mm,ypart(arduino.B4)+3mm)--(xpart(arduino.D7),ypart(arduino.B4)+3mm)--arduino.D7;
-draw z29--(x29,y29+4mm)--(x25-4mm,y29+4mm)--(x25-4mm,ypart(arduino.B4)+5mm)--(x47,ypart(arduino.B4)+5mm)--z47;
+draw z29--(x29,y29+4mm)--(x25-4mm,y29+4mm)--(x25-4mm,ypart(arduino.B4)+5mm)--(xpart(arduino.D1),ypart(arduino.B4)+5mm)--arduino.D1;
 
 label(btex Arduino etex, 1/2[arduino1,arduino3]);
 
