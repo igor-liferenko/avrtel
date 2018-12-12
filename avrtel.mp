@@ -100,10 +100,14 @@ z10=z9+right*3mm;
 x11=x19; y11=y7;
 z12=z11+up*2mm;
 z13=z12+left*2cm;
-z14=z11+left*5mm+up*3cm;
-z15=z14+up*1cm;
-z16=z15+left*3.5cm;
-z17=z16+down*1cm;
+
+%%%%%%%%% Arduino %%%%%%%%%%%%%
+z14=(1cm,2cm); % anchor point
+z15=z14+right*3.5cm;
+z16=z15+up*1cm;
+x17=x14; y17=y16;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 y18=y13;
 x18=x1;
 y20=y0r;
@@ -139,11 +143,21 @@ label.bot(btex \smallss VCC etex, z33);
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%% Capacitor %%%%%%%%%%%
-x34l=x31;
-y34l=y31+5mm;
-x34r=x13;
+x34l=x31;     % anchor point 1
+y34l=y31+5mm; % anchor point 2
+x34r=x13;     % anchor point 3
 y34r=y34l;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%% PC817C %%%%%%%%%%%
+z35=(3.7cm,2cm); % anchor point
+z36=z35+right*6mm;
+z37=z36+up*7mm;
+x38=x35; y38=y37;
+% pins
+x39=x9; x40=x10; y39=y40=y35;
+x41=x40; x42=x39; y41=y42=y37;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 draw z1--z0l withpen line;
 impedance0; label(btex ${}_?$ etex, 1/2[z0l,z0r]);
@@ -172,6 +186,11 @@ label(btex \twlbs 12V etex, 1/2[z1,z18]+left*8mm);
 draw z0r--z20 withpen line;
 draw z19--z20 withpen line;
 capacitor34(normal); draw z31--z34l withpen line; draw z34r--z13 withpen line;
+draw z35--z36--z37--z38--cycle;
+draw z9--z39; draw z10--z40;
+label(btex \smallss 1 etex, z39+up*1mm); label(btex \smallss 2 etex, z40+up*1mm);
+label(btex \smallss PC817C etex, 1/2[z35,z37]);
+label(btex \smallss 3 etex, z41+down*1mm); label(btex \smallss 4 etex, z42+down*1mm);
 endfig;
 
 end
