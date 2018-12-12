@@ -111,11 +111,11 @@ arduino3=arduino2+up*1cm;
 xpart(arduino4)=xpart(arduino1);
 ypart(arduino4)=ypart(arduino3);
 % pins
-pair arduino.B[],arduino.D[],arduino.GND,arduino[]V;
+pair arduino.B[],arduino.D[],arduino.E[],arduino.GND,arduino[]V;
 xpart(arduino.B5)=xpart(arduino4)+2mm; ypart(arduino.B5)=ypart(arduino4);
 xpart(arduino.B4)=xpart(arduino.B5)+3mm; ypart(arduino.B4)=ypart(arduino4);
-x45=xpart(arduino.B4)+3mm; y45=ypart(arduino4);
-x46=x45+3mm; y46=ypart(arduino4);
+xpart(arduino.E6)=xpart(arduino.B4)+3mm; ypart(arduino.E6)=ypart(arduino4);
+x46=xpart(arduino.E6)+3mm; y46=ypart(arduino4);
 x47=x46+12mm; y47=ypart(arduino4);
 x48=x47+5mm; y48=ypart(arduino4);
 x49=x48+3.5mm; y49=ypart(arduino4);
@@ -217,7 +217,7 @@ draw z12--z13 ;
 draw arduino1--arduino2--arduino3--arduino4--cycle;
 label.bot(btex \smallss B5 etex, arduino.B5);
 label.bot(btex \smallss B4 etex, arduino.B4);
-label.bot(btex \smallss E6 etex, z45);
+label.bot(btex \smallss E6 etex, arduino.E6);
 label.bot(btex \smallss D7 etex, z46);
 label.bot(btex \smallss D1 etex, z47);
 label.bot(btex \smallss GND etex, z48);
@@ -277,7 +277,7 @@ drawdot (x51,y51-2mm) withpen pencircle scaled 2pt;
 
 draw (x56,y56+5mm)--(x56-6mm,y56+5mm)--(x56-6mm,y53+2mm)--(x48,y53+2mm)--(x48,y53+1mm);
 drawdot (x48,y53+1mm) withpen pencircle scaled 2pt;
-draw (x56,y56+7mm)--(x56-3mm,y56+7mm)--(x56-3mm,y53+4mm)--(x45,y53+4mm)--z45;
+draw (x56,y56+7mm)--(x56-3mm,y56+7mm)--(x56-3mm,y53+4mm)--(xpart(arduino.E6),y53+4mm)--arduino.E6;
 
 label.rt(btex \smallss GND etex, (x56,y56+5mm));
 label.rt(btex \smallss IN etex, (x56,y56+7mm));
