@@ -117,8 +117,8 @@ xpart(arduino.B4)=xpart(arduino.B5)+3mm; ypart(arduino.B4)=ypart(arduino4);
 xpart(arduino.E6)=xpart(arduino.B4)+3mm; ypart(arduino.E6)=ypart(arduino4);
 xpart(arduino.D7)=xpart(arduino.E6)+3mm; ypart(arduino.D7)=ypart(arduino4);
 xpart(arduino.D1)=xpart(arduino.D7)+12mm; ypart(arduino.D1)=ypart(arduino4);
-x48=xpart(arduino.D1)+5mm; y48=ypart(arduino4);
-x49=x48+3.5mm; y49=ypart(arduino4);
+xpart(arduino.GND)=xpart(arduino.D1)+5mm; ypart(arduino.GND)=ypart(arduino4);
+x49=xpart(arduino.GND)+3.5mm; y49=ypart(arduino4);
 x50=xpart(arduino.B5); y50=ypart(arduino1);
 x51=xpart(arduino.D1); y51=ypart(arduino1);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -191,7 +191,7 @@ x41=x40; x42=x39; y41=y42=y37;
 x52=xpart(arduino2)+3mm; y52=y0r;
 x53=x52; y53=ypart(arduino4)+3mm;
 
-x54=x48; y54=y53;
+x54=xpart(arduino.GND); y54=y53;
 x55=x52; y55=y54;
 
 draw z1--z0l ;
@@ -220,7 +220,7 @@ label.bot(btex \smallss B4 etex, arduino.B4);
 label.bot(btex \smallss E6 etex, arduino.E6);
 label.bot(btex \smallss D7 etex, arduino.D7);
 label.bot(btex \smallss D1 etex, arduino.D1);
-label.bot(btex \smallss GND etex, z48);
+label.bot(btex \smallss GND etex, arduino.GND);
 label.bot(btex \smallss D2 etex, z49);
 label.top(btex \smallss B6 etex, z50);
 label.top(btex \smallss 5V etex, z51);
@@ -249,13 +249,13 @@ label(btex \smallss 3 etex, z41+down*1mm); label(btex \smallss 4 etex, z42+down*
 draw z52--z53;
 drawdot z52 withpen pencircle scaled 2pt;
 draw z54--z55;
-draw z48--z54;
+draw arduino.GND--z54;
 
 draw z42--(x42,y49+1mm)--(x49,y49+1mm)--z49;
-draw z41--(x41,y53+1mm)--(x48,y53+1mm)--z48;
+draw z41--(x41,y53+1mm)--(xpart(arduino.GND),y53+1mm)--arduino.GND;
 drawdot z54 withpen pencircle scaled 2pt;
-draw z32--(x32,y32+2mm)--(xpart(arduino2)+2mm,y32+2mm)--(xpart(arduino2)+2mm,y48+2mm)--(x48,y48+2mm)--z48;
-drawdot (x48,y48+2mm) withpen pencircle scaled 2pt;
+draw z32--(x32,y32+2mm)--(xpart(arduino2)+2mm,y32+2mm)--(xpart(arduino2)+2mm,ypart(arduino.GND)+2mm)--(xpart(arduino.GND),ypart(arduino.GND)+2mm)--arduino.GND;
+drawdot (xpart(arduino.GND),ypart(arduino.GND)+2mm) withpen pencircle scaled 2pt;
 
 %%%%%%%%%%%%%% relay %%%%%%%%%%%%%%
 draw z56--z57--z58--z59--cycle;
@@ -275,8 +275,8 @@ draw z33--(x33,y33+1mm)--(x51,y33+1mm)--(x51,y51-2mm);
 draw z51--(x51,y51-2mm)--(xpart(arduino2)+5mm,y51-2mm)--(xpart(arduino2)+5mm,y42+1mm)--(x56,y42+1mm);
 drawdot (x51,y51-2mm) withpen pencircle scaled 2pt;
 
-draw (x56,y56+5mm)--(x56-6mm,y56+5mm)--(x56-6mm,y53+2mm)--(x48,y53+2mm)--(x48,y53+1mm);
-drawdot (x48,y53+1mm) withpen pencircle scaled 2pt;
+draw (x56,y56+5mm)--(x56-6mm,y56+5mm)--(x56-6mm,y53+2mm)--(xpart(arduino.GND),y53+2mm)--(xpart(arduino.GND),y53+1mm);
+drawdot (xpart(arduino.GND),y53+1mm) withpen pencircle scaled 2pt;
 draw (x56,y56+7mm)--(x56-3mm,y56+7mm)--(x56-3mm,y53+4mm)--(xpart(arduino.E6),y53+4mm)--arduino.E6;
 
 label.rt(btex \smallss GND etex, (x56,y56+5mm));
