@@ -82,6 +82,12 @@ drawarrow z8+up*20pt .. z11;
 label.top(btex 5v etex, z11+up*3pt);
 endfig;
 
+% RULES:
+%  1) set wire relative to itself and to connection points (never relative to other wires or elements)
+%  2) draw objects in the same place in file where their points are defined
+%  3) bind each object to one point with absolute coordinates 
+%  4) define and draw wires in the end of figure (using "for" loop where applicable) with endpoints being connection points
+
 beginfig(3);
 imp:=1/2*1.5*7mm;
 cap:=1/2*8mm;
