@@ -176,10 +176,11 @@ z34r=z34l+(2cap,0);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%% relay %%%%%%%%%%%%%%%
-z56=(5cm,2.5cm); % anchor point
-z57=z56+right*1cm;
-z58=z57+up*9mm;
-x59=x56; y59=y58;
+pair relay[];
+relay1=(5cm,2.5cm);
+relay2=relay1+right*1cm;
+relay3=relay2+up*9mm;
+xpart(relay4)=xpart(relay1); ypart(relay4)=ypart(relay3);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%% power plug %%%%%%%%%%
@@ -256,7 +257,7 @@ draw z32--(x32,y32+2mm)--(xpart(arduino2)+2mm,y32+2mm)--(xpart(arduino2)+2mm,ypa
 drawdot (xpart(arduino.GND),ypart(arduino.GND)+2mm) withpen pencircle scaled 2pt;
 
 %%%%%%%%%%%%%% relay %%%%%%%%%%%%%%
-draw z56--z57--z58--z59--cycle;
+draw relay1--relay2--relay3--relay4--cycle;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%% power plug %%%%%%%%%%%%%%
@@ -266,21 +267,21 @@ draw z60--z61--z62--z63--cycle;
 draw (z62+down*1mm)--(z62+down*1mm+right*2mm);
 draw (z62+down*2.5mm)--(z62+down*2.5mm+right*2mm);
 
-draw z5+right*.5mm+up*4mm--(x5+.5mm,y5+2.1cm)--(x57,y5+2.1cm);
-draw (x57,y5+2.4cm)--(x5+.5mm,y5+2.4cm)--(x5+.5mm,y60);
+draw z5+right*.5mm+up*4mm--(x5+.5mm,y5+2.1cm)--(xpart(relay2),y5+2.1cm);
+draw (xpart(relay2),y5+2.4cm)--(x5+.5mm,y5+2.4cm)--(x5+.5mm,y60);
 draw z8+left*.5mm+up*4mm--(x8-.5mm,y60);
 draw z33--(x33,y33+1mm)--(xpart(arduino.5V),y33+1mm)--(xpart(arduino.5V),ypart(arduino.5V)-2mm);
-draw arduino.5V--(xpart(arduino.5V),ypart(arduino.5V)-2mm)--(xpart(arduino2)+5mm,ypart(arduino.5V)-2mm)--(xpart(arduino2)+5mm,y42+1mm)--(x56,y42+1mm);
+draw arduino.5V--(xpart(arduino.5V),ypart(arduino.5V)-2mm)--(xpart(arduino2)+5mm,ypart(arduino.5V)-2mm)--(xpart(arduino2)+5mm,y42+1mm)--(xpart(relay1),y42+1mm);
 drawdot (xpart(arduino.5V),ypart(arduino.5V)-2mm) withpen pencircle scaled 2pt;
 
-draw (x56,y56+5mm)--(x56-6mm,y56+5mm)--(x56-6mm,y53+2mm)--(xpart(arduino.GND),y53+2mm)--(xpart(arduino.GND),y53+1mm);
+draw (xpart(relay1),ypart(relay1)+5mm)--(xpart(relay1)-6mm,ypart(relay1)+5mm)--(xpart(relay1)-6mm,y53+2mm)--(xpart(arduino.GND),y53+2mm)--(xpart(arduino.GND),y53+1mm);
 drawdot (xpart(arduino.GND),y53+1mm) withpen pencircle scaled 2pt;
-draw (x56,y56+7mm)--(x56-3mm,y56+7mm)--(x56-3mm,y53+4mm)--(xpart(arduino.E6),y53+4mm)--arduino.E6;
+draw (xpart(relay1),ypart(relay1)+7mm)--(xpart(relay1)-3mm,ypart(relay1)+7mm)--(xpart(relay1)-3mm,y53+4mm)--(xpart(arduino.E6),y53+4mm)--arduino.E6;
 
-label.rt(btex \smallss GND etex, (x56,y56+5mm));
-label.rt(btex \smallss IN etex, (x56,y56+7mm));
-label.rt(btex \smallss VCC etex, (x56,y42+1mm));
-label(btex \vbox{\hsize0pt\centerline{\sevenss Relay}\kern-7pt\centerline{\smallss(normally open)}} etex rotated 90,1/2[z56,z58]+right*2mm);
+label.rt(btex \smallss GND etex, (xpart(relay1),ypart(relay1)+5mm));
+label.rt(btex \smallss IN etex, (xpart(relay1),ypart(relay1)+7mm));
+label.rt(btex \smallss VCC etex, (xpart(relay1),y42+1mm));
+label(btex \vbox{\hsize0pt\centerline{\sevenss Relay}\kern-7pt\centerline{\smallss(normally open)}} etex rotated 90,1/2[relay1,relay3]+right*2mm);
 
 draw z25--(x25,ypart(arduino.B4)+2mm)--(xpart(arduino.B4),ypart(arduino.B4)+2mm)--arduino.B4;
 draw z26--(x26,ypart(arduino.B5)+1mm)--(xpart(arduino.B5),ypart(arduino.B5)+1mm)--arduino.B5;
