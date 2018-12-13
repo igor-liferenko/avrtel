@@ -119,7 +119,7 @@ xpart(arduino.D7)=xpart(arduino.E6)+3mm; ypart(arduino.D7)=ypart(arduino4);
 xpart(arduino.D1)=xpart(arduino.D7)+12mm; ypart(arduino.D1)=ypart(arduino4);
 xpart(arduino.GND)=xpart(arduino.D1)+5mm; ypart(arduino.GND)=ypart(arduino4);
 xpart(arduino.D2)=xpart(arduino.GND)+3.5mm; ypart(arduino.D2)=ypart(arduino4);
-x50=xpart(arduino.B5); y50=ypart(arduino1);
+xpart(arduino.B6)=xpart(arduino.B5); ypart(arduino.B6)=ypart(arduino1);
 x51=xpart(arduino.D1); y51=ypart(arduino1);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -222,7 +222,7 @@ label.bot(btex \smallss D7 etex, arduino.D7);
 label.bot(btex \smallss D1 etex, arduino.D1);
 label.bot(btex \smallss GND etex, arduino.GND);
 label.bot(btex \smallss D2 etex, arduino.D2);
-label.top(btex \smallss B6 etex, z50);
+label.top(btex \smallss B6 etex, arduino.B6);
 label.top(btex \smallss 5V etex, z51);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -286,7 +286,7 @@ label(btex \vbox{\hsize0pt\centerline{\sevenss Relay}\kern-7pt\centerline{\small
 
 draw z25--(x25,ypart(arduino.B4)+2mm)--(xpart(arduino.B4),ypart(arduino.B4)+2mm)--arduino.B4;
 draw z26--(x26,ypart(arduino.B5)+1mm)--(xpart(arduino.B5),ypart(arduino.B5)+1mm)--arduino.B5;
-draw z27..controls (x27,y27+7mm) and (x50,y50-7mm) .. z50;
+draw z27..controls (x27,y27+7mm) and (xpart(arduino.B6),ypart(arduino.B6)-7mm) .. arduino.B6;
 draw z28--(x28,y28+2mm)--(x25-2mm,y28+2mm)--(x25-2mm,ypart(arduino.B4)+3mm)--(xpart(arduino.D7),ypart(arduino.B4)+3mm)--arduino.D7;
 draw z29--(x29,y29+4mm)--(x25-4mm,y29+4mm)--(x25-4mm,ypart(arduino.B4)+5mm)--(xpart(arduino.D1),ypart(arduino.B4)+5mm)--arduino.D1;
 
