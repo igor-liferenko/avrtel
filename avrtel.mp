@@ -101,7 +101,6 @@ z9=z3+up*1/2x3h+left*(18/40x3w-3mm);
 z10=z9+right*3mm;
 x11=x19; y11=y7;
 z12=z11+up*2mm;
-z13=z12+left*2.3cm;
 
 %%%%%%%% RJ11 %%%%%%%%%%%%%%
 pair rj[];
@@ -150,8 +149,6 @@ label.top(btex \smallss B6 etex, arduino.B6);
 label.top(btex \smallss 5V etex, arduino.5V);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-y18=y13;
-x18=x1;
 y20=y0r;
 x20=x19;
 
@@ -185,7 +182,7 @@ label.bot(btex \smallss VCC etex, z33);
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%% Capacitor %%%%%%%%%%%
-x34l=x13-2cap;     % anchor point 1
+x34l=x12-2.3cm-2cap;
 y34l=y31+5mm; % anchor point 2
 z34r=z34l+(2cap,0);
 
@@ -239,24 +236,14 @@ label(btex \vbox{
 } etex, 1/2[z0l,z0r]+down*1cm);
 draw unitsquare shifted (-.5,-.5) xscaled x3w yscaled x3h shifted z3 ;
 label(btex Analog DECT phone etex, z3);
-draw z7--z11 ;
 label.top(btex \tt- etex, z5); label.top(btex \tt+ etex, z8);
 draw unitsquare shifted (-.5,0) xscaled (abs(z5-z8)+3mm) yscaled 4mm shifted 1/2[z5,z8];
 draw z9{up}..(1/2[z9,z10]+up*3mm){z10-z9}..z10{down};
 label.top(btex \smallss LED etex, 1/2[z9,z10]+down*.5mm);
-draw z11--z12 ;
-draw z12--z13 ;
-
-label(btex \tt- etex, z1+left*2mm);
-draw z13--z18 ;
-drawdot z13 withpen pencircle scaled 2pt;
-label(btex \tt+ etex, z18+left*2mm);
-label(btex \twlbs 12V etex, 1/2[z1,z18]+left*8mm);
 
 %%%%%%%%%%%% capacitor %%%%%%%%%%%%%%%%%
 capacitor34(normal);
 draw z31--(x31,y34l)--z34l ;
-draw z34r--z13 ;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 draw z35--z36--z37--z38--cycle;
@@ -308,6 +295,17 @@ wire4\2=arduino.GND+up*3mm;
 draw wire3\1--wire4\1--wire4\2--arduino.GND;
 drawdot wire3\1 withpen pencircle scaled 2pt;
 drawdot wire4\2 withpen pencircle scaled 2pt;
+
+xpart(wire5\1)=x1;
+ypart(wire5\1)=ypart(rj.plus);
+xpart(wire5\2)=x34r; ypart(wire5\2)=ypart(wire5\1);
+draw wire5\1--wire5\2--rj.plus;
+drawdot wire5\2 withpen pencircle scaled 2pt;
+label(btex \tt- etex, z1+left*2mm);
+label(btex \tt+ etex, wire5\1+left*2mm);
+label(btex \twlbs 12V etex, 1/2[z1,wire5\1]+left*8mm);
+
+draw z34r--wire5\2;
 
 draw (xpart(relay1),ypart(relay1)+7mm)--(xpart(relay1)-3mm,ypart(relay1)+7mm)--(xpart(relay1)-3mm,ypart(arduino4)+3mm+4mm)--(xpart(arduino.E6),ypart(arduino4)+3mm+4mm)--arduino.E6;
 
