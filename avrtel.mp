@@ -103,6 +103,22 @@ x11=x19; y11=y7;
 z12=z11+up*2mm;
 z13=z12+left*2.3cm;
 
+%%%%%%%% RJ11 %%%%%%%%%%%%%%
+pair rj[];
+rj1=(30.5mm,-9mm);
+rj2=rj1+right*3mm;
+rj3=rj2+up*3mm;
+xpart(rj4)=xpart(rj1); ypart(rj4)=ypart(rj3);
+% pins
+pair rj.plus,rj.minus;
+xpart(rj.plus)=xpart(rj.minus)=xpart(rj1);
+ypart(rj.plus)=ypart(rj1)+2mm;
+ypart(rj.minus)=ypart(rj1)+1mm;
+% draw
+draw rj1--rj2--rj3--rj4--cycle;
+label(btex \smallss RJ11 etex, 1/2[rj1,rj3]);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %%%%%%%%% Arduino %%%%%%%%%%%%%
 pair arduino[];
 arduino1=(-1.3cm,2cm);
@@ -215,22 +231,12 @@ x39=x9; x40=x10; y39=y40=y35;
 x41=x40; x42=x39; y41=y42=y37;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-x52=xpart(arduino2)+3mm; y52=y0r;
-x53=x52; y53=ypart(arduino4)+3mm;
-
-x54=xpart(arduino.GND); y54=y53;
-x55=x52; y55=y54;
-
 draw z1--z0l ;
 impedance0; label(btex ${}_?$ etex, 1/2[z0l,z0r]);
 label(btex \vbox{
 \hbox{In gorod power is 9V, not 12V, and ``?'' is 620R.}
 \hbox{In home ``?'' is 560R.}
 } etex, 1/2[z0l,z0r]+down*1cm);
-draw z19--z2 ;
-draw unitsquare shifted (-.5,-.5) xscaled 3mm yscaled 3mm shifted z6;
-label(btex \smallss RJ11 etex, z6);
 draw unitsquare shifted (-.5,-.5) xscaled x3w yscaled x3h shifted z3 ;
 label(btex Analog DECT phone etex, z3);
 draw z7--z11 ;
@@ -246,8 +252,6 @@ draw z13--z18 ;
 drawdot z13 withpen pencircle scaled 2pt;
 label(btex \tt+ etex, z18+left*2mm);
 label(btex \twlbs 12V etex, 1/2[z1,z18]+left*8mm);
-draw z0r--z20 ;
-draw z19--z20 ;
 
 %%%%%%%%%%%% capacitor %%%%%%%%%%%%%%%%%
 capacitor34(normal);
@@ -261,14 +265,8 @@ label(btex \smallss 1 etex, z39+up*1mm); label(btex \smallss 2 etex, z40+up*1mm)
 label(btex \smallss PC817C etex, 1/2[z35,z37]);
 label(btex \smallss 3 etex, z41+down*1mm); label(btex \smallss 4 etex, z42+down*1mm);
 
-draw z52--z53;
-drawdot z52 withpen pencircle scaled 2pt;
-draw z54--z55;
-draw arduino.GND--z54;
-
 draw z42--(x42,ypart(arduino.D2)+1mm)--(xpart(arduino.D2),ypart(arduino.D2)+1mm)--arduino.D2;
-draw z41--(x41,y53+1mm)--(xpart(arduino.GND),y53+1mm)--arduino.GND;
-drawdot z54 withpen pencircle scaled 2pt;
+draw z41--(x41,ypart(arduino4)+3mm+1mm)--(xpart(arduino.GND),ypart(arduino4)+3mm+1mm)--arduino.GND;
 draw z32--(x32,y32+2mm)--(xpart(arduino2)+2mm,y32+2mm)--(xpart(arduino2)+2mm,ypart(arduino.GND)+2mm)--(xpart(arduino.GND),ypart(arduino.GND)+2mm)--arduino.GND;
 drawdot (xpart(arduino.GND),ypart(arduino.GND)+2mm) withpen pencircle scaled 2pt;
 
@@ -294,15 +292,24 @@ draw arduino.5V -- for i=1 upto 3: wire1[i]-- endfor relay.VCC;
 
 drawdot (xpart(arduino.5V),ypart(arduino.5V)-2mm) withpen pencircle scaled 2pt;
 
-%draw (xpart(relay1),ypart(relay1)+5mm)--(xpart(relay1)-6mm,ypart(relay1)+5mm)--(xpart(relay1)-6mm,y53+2mm)--(xpart(arduino.GND),y53+2mm)--(xpart(arduino.GND),y53+1mm) withcolor red;
 wire2\1=relay.GND+left*5mm;
 wire2\2=wire2\1+up*7mm;
 xpart(wire2\3)=xpart(arduino.GND); ypart(wire2\3)=ypart(wire2\2);
 draw relay.GND -- for i=1 upto 3: wire2[i]-- endfor arduino.GND;
 
+drawdot (xpart(arduino.GND),ypart(arduino4)+3mm+1mm) withpen pencircle scaled 2pt;
 
-drawdot (xpart(arduino.GND),y53+1mm) withpen pencircle scaled 2pt;
-draw (xpart(relay1),ypart(relay1)+7mm)--(xpart(relay1)-3mm,ypart(relay1)+7mm)--(xpart(relay1)-3mm,y53+4mm)--(xpart(arduino.E6),y53+4mm)--arduino.E6;
+wire3\1=z0r+right*12.5mm;
+draw z0r..wire3\1..controls (xpart(wire3\1)+5mm,ypart(wire3\1)) and (xpart(rj.minus)-5mm,ypart(rj.minus))..rj.minus;
+
+xpart(wire4\1)=xpart(wire3\1);
+ypart(wire4\1)=ypart(wire4\2);
+wire4\2=arduino.GND+up*3mm;
+draw wire3\1--wire4\1--wire4\2--arduino.GND;
+drawdot wire3\1 withpen pencircle scaled 2pt;
+drawdot wire4\2 withpen pencircle scaled 2pt;
+
+draw (xpart(relay1),ypart(relay1)+7mm)--(xpart(relay1)-3mm,ypart(relay1)+7mm)--(xpart(relay1)-3mm,ypart(arduino4)+3mm+4mm)--(xpart(arduino.E6),ypart(arduino4)+3mm+4mm)--arduino.E6;
 
 draw z25--(x25,ypart(arduino.B4)+2mm)--(xpart(arduino.B4),ypart(arduino.B4)+2mm)--arduino.B4;
 draw z26--(x26,ypart(arduino.B5)+1mm)--(xpart(arduino.B5),ypart(arduino.B5)+1mm)--arduino.B5;
