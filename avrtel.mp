@@ -9,6 +9,7 @@ verbatimtex
 \font\eightss=cmss8
 \font\sevenss=cmss8 scaled 600
 \font\twlbs=cmssbx10 scaled 1200
+\font\eighttt=cmtt8
 etex
 
 beginfig(1);
@@ -175,7 +176,6 @@ label.bot(btex \smallss Q2 etex, z26);
 label.bot(btex \smallss Q3 etex, z27);
 label.bot(btex \smallss Q4 etex, z28);
 label.bot(btex \smallss STQ etex, z29);
-label.bot(btex \smallss x etex, z30);
 label.bot(btex \smallss IN etex, z31);
 label.bot(btex \smallss GND etex, z32);
 label.bot(btex \smallss VCC etex, z33);
@@ -240,6 +240,8 @@ label.top(btex \tt- etex, z5); label.top(btex \tt+ etex, z8);
 draw unitsquare shifted (-.5,0) xscaled (abs(z5-z8)+3mm) yscaled 4mm shifted 1/2[z5,z8];
 draw z9{up}..(1/2[z9,z10]+up*3mm){z10-z9}..z10{down};
 label.top(btex \smallss LED etex, 1/2[z9,z10]+down*.5mm);
+label.bot(btex \eighttt+ etex, z9);
+label.bot(btex \eighttt- etex, z10);
 
 %%%%%%%%%%%% capacitor %%%%%%%%%%%%%%%%%
 capacitor34(normal);
