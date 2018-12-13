@@ -121,6 +121,17 @@ xpart(arduino.GND)=xpart(arduino.D1)+5mm; ypart(arduino.GND)=ypart(arduino4);
 xpart(arduino.D2)=xpart(arduino.GND)+3.5mm; ypart(arduino.D2)=ypart(arduino4);
 xpart(arduino.B6)=xpart(arduino.B5); ypart(arduino.B6)=ypart(arduino1);
 xpart(arduino.5V)=xpart(arduino.D1); ypart(arduino.5V)=ypart(arduino1);
+% draw
+draw arduino1--arduino2--arduino3--arduino4--cycle;
+label.bot(btex \smallss B5 etex, arduino.B5);
+label.bot(btex \smallss B4 etex, arduino.B4);
+label.bot(btex \smallss E6 etex, arduino.E6);
+label.bot(btex \smallss D7 etex, arduino.D7);
+label.bot(btex \smallss D1 etex, arduino.D1);
+label.bot(btex \smallss GND etex, arduino.GND);
+label.bot(btex \smallss D2 etex, arduino.D2);
+label.top(btex \smallss B6 etex, arduino.B6);
+label.top(btex \smallss 5V etex, arduino.5V);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 y18=y13;
@@ -212,19 +223,6 @@ draw z9{up}..(1/2[z9,z10]+up*3mm){z10-z9}..z10{down};
 label.top(btex \smallss LED etex, 1/2[z9,z10]+down*.5mm);
 draw z11--z12 ;
 draw z12--z13 ;
-
-%%%%%%%%% Arduino %%%%%%%%%%%%%%%
-draw arduino1--arduino2--arduino3--arduino4--cycle;
-label.bot(btex \smallss B5 etex, arduino.B5);
-label.bot(btex \smallss B4 etex, arduino.B4);
-label.bot(btex \smallss E6 etex, arduino.E6);
-label.bot(btex \smallss D7 etex, arduino.D7);
-label.bot(btex \smallss D1 etex, arduino.D1);
-label.bot(btex \smallss GND etex, arduino.GND);
-label.bot(btex \smallss D2 etex, arduino.D2);
-label.top(btex \smallss B6 etex, arduino.B6);
-label.top(btex \smallss 5V etex, arduino.5V);
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 label(btex \tt- etex, z1+left*2mm);
 draw z13--z18 ;
