@@ -181,6 +181,21 @@ relay1=(5cm,2.5cm);
 relay2=relay1+right*1cm;
 relay3=relay2+up*9mm;
 xpart(relay4)=xpart(relay1); ypart(relay4)=ypart(relay3);
+% pins
+pair relay.IN, relay.GND, relay.VCC;
+xpart(relay.GND)=xpart(relay1); ypart(relay.GND)=ypart(relay1)+5mm;
+xpart(relay.IN)=xpart(relay1); ypart(relay.IN)=ypart(relay1)+7mm;
+xpart(relay.VCC)=xpart(relay1); ypart(relay.VCC)=ypart(relay1)+3mm;
+% draw
+draw relay1--relay2--relay3--relay4--cycle;
+label.rt(btex \smallss GND etex, relay.GND);
+label.rt(btex \smallss IN etex, relay.IN);
+label.rt(btex \smallss VCC etex, relay.VCC);
+label(btex \vbox{\hsize0pt
+  \centerline{\sevenss Relay}
+  \kern-7pt
+  \centerline{\smallss(normally open)}
+} etex rotated 90, 1/2[relay1,relay3]+right*2mm);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%% power plug %%%%%%%%%%
@@ -198,6 +213,7 @@ x38=x35; y38=y37;
 % pins
 x39=x9; x40=x10; y39=y40=y35;
 x41=x40; x42=x39; y41=y42=y37;
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 x52=xpart(arduino2)+3mm; y52=y0r;
@@ -256,10 +272,6 @@ drawdot z54 withpen pencircle scaled 2pt;
 draw z32--(x32,y32+2mm)--(xpart(arduino2)+2mm,y32+2mm)--(xpart(arduino2)+2mm,ypart(arduino.GND)+2mm)--(xpart(arduino.GND),ypart(arduino.GND)+2mm)--arduino.GND;
 drawdot (xpart(arduino.GND),ypart(arduino.GND)+2mm) withpen pencircle scaled 2pt;
 
-%%%%%%%%%%%%%% relay %%%%%%%%%%%%%%
-draw relay1--relay2--relay3--relay4--cycle;
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %%%%%%%%%%%%%%% power plug %%%%%%%%%%%%%%
 draw z60--z61--z62--z63--cycle;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -277,11 +289,6 @@ drawdot (xpart(arduino.5V),ypart(arduino.5V)-2mm) withpen pencircle scaled 2pt;
 draw (xpart(relay1),ypart(relay1)+5mm)--(xpart(relay1)-6mm,ypart(relay1)+5mm)--(xpart(relay1)-6mm,y53+2mm)--(xpart(arduino.GND),y53+2mm)--(xpart(arduino.GND),y53+1mm);
 drawdot (xpart(arduino.GND),y53+1mm) withpen pencircle scaled 2pt;
 draw (xpart(relay1),ypart(relay1)+7mm)--(xpart(relay1)-3mm,ypart(relay1)+7mm)--(xpart(relay1)-3mm,y53+4mm)--(xpart(arduino.E6),y53+4mm)--arduino.E6;
-
-label.rt(btex \smallss GND etex, (xpart(relay1),ypart(relay1)+5mm));
-label.rt(btex \smallss IN etex, (xpart(relay1),ypart(relay1)+7mm));
-label.rt(btex \smallss VCC etex, (xpart(relay1),y42+1mm));
-label(btex \vbox{\hsize0pt\centerline{\sevenss Relay}\kern-7pt\centerline{\smallss(normally open)}} etex rotated 90,1/2[relay1,relay3]+right*2mm);
 
 draw z25--(x25,ypart(arduino.B4)+2mm)--(xpart(arduino.B4),ypart(arduino.B4)+2mm)--arduino.B4;
 draw z26--(x26,ypart(arduino.B5)+1mm)--(xpart(arduino.B5),ypart(arduino.B5)+1mm)--arduino.B5;
