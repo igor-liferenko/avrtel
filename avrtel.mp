@@ -183,14 +183,14 @@ relay3=relay2+up*9mm;
 xpart(relay4)=xpart(relay1); ypart(relay4)=ypart(relay3);
 % pins
 pair relay.IN, relay.GND, relay.VCC;
-xpart(relay.GND)=xpart(relay1); ypart(relay.GND)=ypart(relay1)+5mm;
 xpart(relay.IN)=xpart(relay1); ypart(relay.IN)=ypart(relay1)+7mm;
-xpart(relay.VCC)=xpart(relay1); ypart(relay.VCC)=ypart(relay1)+3mm;
+xpart(relay.VCC)=xpart(relay1); ypart(relay.VCC)=ypart(relay1)+5mm;
+xpart(relay.GND)=xpart(relay1); ypart(relay.GND)=ypart(relay1)+3mm;
 % draw
 draw relay1--relay2--relay3--relay4--cycle;
-label.rt(btex \smallss GND etex, relay.GND);
 label.rt(btex \smallss IN etex, relay.IN);
 label.rt(btex \smallss VCC etex, relay.VCC);
+label.rt(btex \smallss GND etex, relay.GND);
 label(btex \vbox{\hsize0pt
   \centerline{\sevenss Relay}
   \kern-7pt
@@ -279,14 +279,28 @@ draw z60--z61--z62--z63--cycle;
 draw (z62+down*1mm)--(z62+down*1mm+right*2mm);
 draw (z62+down*2.5mm)--(z62+down*2.5mm+right*2mm);
 
+%----
+pair wire[][];
+
 draw z5+right*.5mm+up*4mm--(x5+.5mm,y5+2.1cm)--(xpart(relay2),y5+2.1cm);
 draw (xpart(relay2),y5+2.4cm)--(x5+.5mm,y5+2.4cm)--(x5+.5mm,y60);
 draw z8+left*.5mm+up*4mm--(x8-.5mm,y60);
 draw z33--(x33,y33+1mm)--(xpart(arduino.5V),y33+1mm)--(xpart(arduino.5V),ypart(arduino.5V)-2mm);
-draw arduino.5V--(xpart(arduino.5V),ypart(arduino.5V)-2mm)--(xpart(arduino2)+5mm,ypart(arduino.5V)-2mm)--(xpart(arduino2)+5mm,y42+1mm)--(xpart(relay1),y42+1mm);
+
+wire1\1=arduino.5V+down*2mm;
+wire1\2=wire1\1+right*2cm;
+xpart(wire1\3)=xpart(wire1\2); ypart(wire1\3)=ypart(relay.VCC);
+draw arduino.5V -- for i=1 upto 3: wire1[i]-- endfor relay.VCC;
+
 drawdot (xpart(arduino.5V),ypart(arduino.5V)-2mm) withpen pencircle scaled 2pt;
 
-draw (xpart(relay1),ypart(relay1)+5mm)--(xpart(relay1)-6mm,ypart(relay1)+5mm)--(xpart(relay1)-6mm,y53+2mm)--(xpart(arduino.GND),y53+2mm)--(xpart(arduino.GND),y53+1mm);
+%draw (xpart(relay1),ypart(relay1)+5mm)--(xpart(relay1)-6mm,ypart(relay1)+5mm)--(xpart(relay1)-6mm,y53+2mm)--(xpart(arduino.GND),y53+2mm)--(xpart(arduino.GND),y53+1mm) withcolor red;
+wire2\1=relay.GND+left*5mm;
+wire2\2=wire2\1+up*7mm;
+xpart(wire2\3)=xpart(arduino.GND); ypart(wire2\3)=ypart(wire2\2);
+draw relay.GND -- for i=1 upto 3: wire2[i]-- endfor arduino.GND;
+
+
 drawdot (xpart(arduino.GND),y53+1mm) withpen pencircle scaled 2pt;
 draw (xpart(relay1),ypart(relay1)+7mm)--(xpart(relay1)-3mm,ypart(relay1)+7mm)--(xpart(relay1)-3mm,y53+4mm)--(xpart(arduino.E6),y53+4mm)--arduino.E6;
 
