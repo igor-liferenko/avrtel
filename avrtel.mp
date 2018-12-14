@@ -280,40 +280,40 @@ draw (xpart(relay2),y5+2.4cm)--(x5+.5mm,y5+2.4cm)--(x5+.5mm,y60);
 draw z8+left*.5mm+up*4mm--(x8-.5mm,y60);
 draw z33--(x33,y33+1mm)--(xpart(arduino.5V),y33+1mm)--(xpart(arduino.5V),ypart(arduino.5V)-2mm);
 
-wire1\1=arduino.5V+down*2mm;
-wire1\2=wire1\1+right*2cm;
-xpart(wire1\3)=xpart(wire1\2); ypart(wire1\3)=ypart(relay.VCC);
+wire1[1]=arduino.5V+down*2mm;
+wire1[2]=wire1[1]+right*2cm;
+xpart(wire1[3])=xpart(wire1[2]); ypart(wire1[3])=ypart(relay.VCC);
 draw arduino.5V -- for i=1 upto 3: wire1[i]-- endfor relay.VCC;
 
 drawdot (xpart(arduino.5V),ypart(arduino.5V)-2mm) withpen pencircle scaled 2pt;
 
-wire2\1=relay.GND+left*5mm;
-wire2\2=wire2\1+up*7mm;
-xpart(wire2\3)=xpart(arduino.GND); ypart(wire2\3)=ypart(wire2\2);
+wire2[1]=relay.GND+left*5mm;
+wire2[2]=wire2[1]+up*7mm;
+xpart(wire2[3])=xpart(arduino.GND); ypart(wire2[3])=ypart(wire2[2]);
 draw relay.GND -- for i=1 upto 3: wire2[i]-- endfor arduino.GND;
 
 drawdot (xpart(arduino.GND),ypart(arduino4)+3mm+1mm) withpen pencircle scaled 2pt;
 
-wire3\1=z0r+right*12.5mm;
-draw z0r..wire3\1..controls (xpart(wire3\1)+5mm,ypart(wire3\1)) and (xpart(rj.minus)-5mm,ypart(rj.minus))..rj.minus;
+wire3[1]=z0r+right*12.5mm;
+draw z0r..wire3[1]..controls (xpart(wire3[1])+5mm,ypart(wire3[1])) and (xpart(rj.minus)-5mm,ypart(rj.minus))..rj.minus;
 
-xpart(wire4\1)=xpart(wire3\1);
-ypart(wire4\1)=ypart(wire4\2);
-wire4\2=arduino.GND+up*3mm;
-draw wire3\1--wire4\1--wire4\2--arduino.GND;
-drawdot wire3\1 withpen pencircle scaled 2pt;
-drawdot wire4\2 withpen pencircle scaled 2pt;
+xpart(wire4[1])=xpart(wire3[1]);
+ypart(wire4[1])=ypart(wire4[2]);
+wire4[2]=arduino.GND+up*3mm;
+draw wire3[1]--wire4[1]--wire4[2]--arduino.GND;
+drawdot wire3[1] withpen pencircle scaled 2pt;
+drawdot wire4[2] withpen pencircle scaled 2pt;
 
-xpart(wire5\1)=x1;
-ypart(wire5\1)=ypart(rj.plus);
-xpart(wire5\2)=x34r; ypart(wire5\2)=ypart(wire5\1);
-draw wire5\1--wire5\2--rj.plus;
-drawdot wire5\2 withpen pencircle scaled 2pt;
+xpart(wire5[1])=x1;
+ypart(wire5[1])=ypart(rj.plus);
+xpart(wire5[2])=x34r; ypart(wire5[2])=ypart(wire5[1]);
+draw wire5[1]--wire5[2]--rj.plus;
+drawdot wire5[2] withpen pencircle scaled 2pt;
 label(btex \tt- etex, z1+left*2mm);
-label(btex \tt+ etex, wire5\1+left*2mm);
-label(btex \twlbs 12V etex, 1/2[z1,wire5\1]+left*8mm);
+label(btex \tt+ etex, wire5[1]+left*2mm);
+label(btex \twlbs 12V etex, 1/2[z1,wire5[1]]+left*8mm);
 
-draw z34r--wire5\2;
+draw z34r--wire5[2];
 
 draw (xpart(relay1),ypart(relay1)+7mm)--(xpart(relay1)-3mm,ypart(relay1)+7mm)--(xpart(relay1)-3mm,ypart(arduino4)+3mm+4mm)--(xpart(arduino.E6),ypart(arduino4)+3mm+4mm)--arduino.E6;
 
