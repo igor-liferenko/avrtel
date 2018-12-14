@@ -20,13 +20,13 @@ z6=z1b+left*1cm;
 
 ground0(simple); label.bot(btex HGND etex, z0b+down*1mm);
 impedance3; label.lft(btex 1K etex, 1/2[z3l,z3r]+(0,1mm)rotated(angle(z3r-z3l)));
-draw z3r--z2 withpen line;
+draw z3r--z2;
 drawdot z2 withpen pencircle scaled 4pt;
-draw z2--z4 withpen line; label.rt(btex new Out 1 etex, z4);
-draw z2--z1c withpen line;
+draw z2--z4; label.rt(btex new Out 1 etex, z4);
+draw z2--z1c;
 transistor1(cpnp);
-draw z1b--z6 withpen line; label.lft(btex Out 1 etex, z6);
-draw z1e--z5 withpen line; label.top(btex HVCC etex, z5);
+draw z1b--z6; label.lft(btex Out 1 etex, z6);
+draw z1e--z5; label.top(btex HVCC etex, z5);
 
 endfig;
 
