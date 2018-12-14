@@ -29,12 +29,12 @@ vardef transistor@#(expr type)=
   picture BJT;
   BJT:=nullpicture;
 
-  addto BJT doublepath z@#.b--1/2[1/2[z@#.c,z@#.e],z@#.b] withpen line;
-  addto BJT doublepath 1/2[1/2[z@#.c,z@#.e],z@#.b]+(1/3abs(z@#.e-z@#.c),0)
+  draw z@#.b--1/2[1/2[z@#.c,z@#.e],z@#.b];
+  draw 1/2[1/2[z@#.c,z@#.e],z@#.b]+(1/3abs(z@#.e-z@#.c),0)
     rotated(angle(z@#.e-z@#.c))--1/2[1/2[z@#.c,z@#.e],z@#.b]+
-    (1/3abs(z@#.c-z@#.e),0)rotated(angle(z@#.c-z@#.e)) withpen line;
-  addto BJT doublepath 1/2[1/2[z@#.c,z@#.e],z@#.b]+(2/15abs(z@#.c-z@#.e),0)
-    rotated(angle(z@#.c-z@#.e))--1/6[z@#.c,z@#.e]--z@#.c withpen line;
+    (1/3abs(z@#.c-z@#.e),0)rotated(angle(z@#.c-z@#.e));
+  draw 1/2[1/2[z@#.c,z@#.e],z@#.b]+(2/15abs(z@#.c-z@#.e),0)
+    rotated(angle(z@#.c-z@#.e))--1/6[z@#.c,z@#.e]--z@#.c;
 
 	if type=npn:
 		addto BJT doublepath (z+(.5bjtlth,-.2bjtlth))--(z+(bjtlth,-.5bjtlth))
@@ -54,15 +54,14 @@ vardef transistor@#(expr type)=
                 addto BJT contour bjtahead (z+(bjtlth,-.5bjtlth))
                 --(z+(.5bjtlth,-.2bjtlth)) withpen line;
   elseif type=cpnp:
-    addto BJT doublepath z@#.e--1/6[z@#.e,z@#.c]--1/2[1/2[z@#.c,z@#.e],z@#.b]+
-      (2/15abs(z@#.e-z@#.c),0)rotated(angle(z@#.e-z@#.c)) withpen line;
-    addto BJT contour bjtahead 1/6[z@#.e,z@#.c]--1/2[1/2[z@#.c,z@#.e],z@#.b]+
-      (2/15abs(z@#.e-z@#.c),0)rotated(angle(z@#.e-z@#.c)) withpen line;
-    addto BJT doublepath fullcircle scaled 1.3abs(z@#.b-1/2[z@#.c,z@#.e]) shifted .65[z@#.b,1/2[z@#.c,z@#.e]]
-      withpen line;
+    draw z@#.e--1/6[z@#.e,z@#.c]--1/2[1/2[z@#.c,z@#.e],z@#.b]+
+      (2/15abs(z@#.e-z@#.c),0)rotated(angle(z@#.e-z@#.c));
+    draw bjtahead 1/6[z@#.e,z@#.c]--1/2[1/2[z@#.c,z@#.e],z@#.b]+
+      (2/15abs(z@#.e-z@#.c),0)rotated(angle(z@#.e-z@#.c));
+    draw fullcircle scaled 1.3abs(z@#.b-1/2[z@#.c,z@#.e]) shifted .65[z@#.b,1/2[z@#.c,z@#.e]]
+      ;
   fi;
 
-  draw BJT;
 enddef;
 
 vardef impedance@#=
@@ -78,17 +77,15 @@ newinternal simple, shield;
 simple:=1; shield:=2;
 
 vardef ground@#(expr type)=
-  save GND;
-  picture GND; GND:=nullpicture;
-  addto GND doublepath z@#.o--7/10[z@#.o,z@#.b] withpen line;
   if type=shield:
-    addto GND doublepath 7/10[z@#.o,z@#.b]+(0,1/2abs(z@#.o-z@#.b))rotated(angle(z@#.b-z@#.o))--7/10[z@#.o,z@#.b]+(0,-1/2abs(z@#.o-z@#.b))rotated(angle(z@#.b-z@#.o)) withpen line;
-    addto GND doublepath 85/100[z@#.o,z@#.b]+(0,3/10abs(z@#.o-z@#.b))rotated(angle(z@#.b-z@#.o))--85/100[z@#.o,z@#.b]+(0,-3/10abs(z@#.o-z@#.b))rotated(angle(z@#.b-z@#.o)) withpen line;
-    addto GND doublepath z@#.b+(0,1/10abs(z@#.o-z@#.b))rotated(angle(z@#.b-z@#.o))--z@#.b+(0,-1/10abs(z@#.o-z@#.b))rotated(angle(z@#.b-z@#.o)) withpen line;
+    draw z@#.o--7/10[z@#.o,z@#.b];
+    draw 7/10[z@#.o,z@#.b]+(0,1/2abs(z@#.o-z@#.b))rotated(angle(z@#.b-z@#.o))--7/10[z@#.o,z@#.b]+(0,-1/2abs(z@#.o-z@#.b))rotated(angle(z@#.b-z@#.o));
+    draw 85/100[z@#.o,z@#.b]+(0,3/10abs(z@#.o-z@#.b))rotated(angle(z@#.b-z@#.o))--85/100[z@#.o,z@#.b]+(0,-3/10abs(z@#.o-z@#.b))rotated(angle(z@#.b-z@#.o));
+    draw z@#.b+(0,1/10abs(z@#.o-z@#.b))rotated(angle(z@#.b-z@#.o))--z@#.b+(0,-1/10abs(z@#.o-z@#.b))rotated(angle(z@#.b-z@#.o));
   elseif type=simple:
-    addto GND doublepath z@#.b+(0,1/2abs(z@#.o-z@#.b))rotated(angle(z@#.b-z@#.o))--z@#.b+(0,-1/2abs(z@#.o-z@#.b))rotated(angle(z@#.b-z@#.o)) withpen pencircle scaled 2linewd;
+    draw z@#.o--z@#.b;
+    draw z@#.b+(0,1/2abs(z@#.o-z@#.b))rotated(angle(z@#.b-z@#.o))--z@#.b+(0,-1/2abs(z@#.o-z@#.b))rotated(angle(z@#.b-z@#.o)) withpen pencircle scaled 2linewd;
   fi;
-  draw GND;
 enddef;
 
 newinternal normal, electrolytic, variable, variant, platsep;
