@@ -162,7 +162,15 @@ label.bot(btex \smallss D2 etex, arduino.D2);
 label.top(btex \smallss B6 etex, arduino.B6);
 label.top(btex \smallss VCC etex, arduino.VCC);
 label.top(btex \smallss RST etex, arduino.RST);
-drawarrow arduino.RST--arduino.RST+down*2mm;
+path p; p:=arduino.RST--arduino.RST+down*1.5mm;
+pair A,u; path a,b;
+A := point length(p) of p;
+u := unitvector(direction 1 of p); % ???
+a := A--(A - 2pt*u rotated 20);
+b := A--(A - 2pt*u rotated -20);
+draw p withpen pencircle scaled .4pt;
+draw a--A withpen pencircle scaled .4pt;
+draw b--A withpen pencircle scaled .4pt;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 y20=y0r;
