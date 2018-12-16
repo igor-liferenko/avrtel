@@ -43,7 +43,7 @@ is powered when device is not plugged in, this breaks program logic badly.
 %(FIXME: check if it is really so).
 
 $$\hbox to12.27cm{\vbox to9.87777777777778cm{\vfil\special{psfile=avrtel.3
-  llx=-91 lly=-67 urx=209 ury=134 rwi=3478}}\hfil}$$
+  clip llx=-91 lly=-67 urx=209 ury=134 rwi=3478}}\hfil}$$
 
 @d EP0 0
 @d EP1 1
