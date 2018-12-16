@@ -42,10 +42,8 @@ is powered when device is not plugged in, this breaks program logic badly.
 %resetting base station to put the phone on-hook will not work
 %(FIXME: check if it is really so).
 
-$$\hbox to12.27cm{\kern-0.4pt\vrule\vbox to9.87777777777778cm{\kern-0.4pt\hrule width12.27cm\vfil\special{psfile=avrtel.3
-  llx=-91 lly=-67 urx=209 ury=134 rwi=3478}\hrule\kern-0.4pt}\hfil\vrule\kern-0.4pt}$$
-%$$\hbox to12.27cm{\vbox to9.87777777777778cm{\vfil\special{psfile=avrtel.3
-%  clip llx=-91 lly=-67 urx=209 ury=134 rwi=3478}}\hfil}$$
+$$\hbox to12.27cm{\vbox to9.87777777777778cm{\vfil\special{psfile=avrtel.3
+  llx=-91 lly=-67 urx=209 ury=134 rwi=3478}}\hfil}$$
 
 @d EP0 0
 @d EP1 1
