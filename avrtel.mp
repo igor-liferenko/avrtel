@@ -146,6 +146,7 @@ xpart(arduino.VCC)=xpart(arduino.D1); ypart(arduino.VCC)=ypart(arduino1);
 xpart(arduino.RST)=xpart(arduino.VCC)+3mm; ypart(arduino.RST)=ypart(arduino1);
 % draw
 draw arduino1--arduino2--arduino3--arduino4--cycle;
+label.rt(btex \smallss pro micro etex rotated -90, 1/2[arduino1,arduino4]+right*2mm);
 label.bot(btex \smallss B5 etex, arduino.B5);
 label.bot(btex \smallss B4 etex, arduino.B4);
 label.bot(btex \smallss E6 etex, arduino.E6);
