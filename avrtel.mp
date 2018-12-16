@@ -149,13 +149,9 @@ draw arduino1--arduino2--arduino3--arduino4--cycle;
 label.bot(btex \smallss B5 etex, arduino.B5);
 label.bot(btex \smallss B4 etex, arduino.B4);
 label.bot(btex \smallss E6 etex, arduino.E6);
-label.bot(btex \vbox{\hsize0pt
-\centerline{\smallss 6}
-\kern-7.5pt
-\centerline{\smallss D7}
-} etex, arduino.D7);
-%draw superellipse((100pt,50pt),(50pt,100pt),(0,50pt),(50pt,0),.95); % "right\_point","top\_point","left\_point","bottom\_point",
-draw unitsquare shifted (-.5,-1) xscaled 6pt yscaled 4pt shifted (arduino.D7+down*2.3mm) withpen pencircle scaled .4pt;
+label.bot(btex \smallss 6 etex, arduino.D7);
+label.bot(btex \smallss D7 etex, arduino.D7+down*2mm);
+%TODO draw superellipse like in mfbook with center in the same point as second argument of previous command withpen pencircle scaled .4pt withcolor red;
 label.bot(btex \smallss D1 etex, arduino.D1);
 label.bot(btex \smallss GND etex, arduino.GND);
 label.bot(btex \smallss D2 etex, arduino.D2);
