@@ -1,4 +1,4 @@
-%outputtemplate:="%j.eps"; prologues:=3;
+outputtemplate:="%j.eps"; prologues:=3;
 
 input circuit;
 
@@ -85,7 +85,7 @@ endfig;
 % RULES:
 %  1) set wire relative to itself and to connection points (never relative to other wires or elements)
 %  2) draw objects in the same place in file where their points are defined
-%  3) bind each object to one point with absolute coordinates 
+%  3) bind each object to one point with absolute coordinates
 %  4) define and draw wires in the end of figure (using "for" loop where applicable) with endpoints being connection points
 
 beginfig(3);
@@ -133,7 +133,7 @@ arduino3=arduino2+up*1cm;
 xpart(arduino4)=xpart(arduino1);
 ypart(arduino4)=ypart(arduino3);
 % pins
-pair arduino.B[],arduino.D[],arduino.E[],arduino.GND,arduino[]V;
+pair arduino.B[],arduino.D[],arduino.E[],arduino.GND,arduino.VCC,arduino.RST;
 xpart(arduino.B5)=xpart(arduino4)+2mm; ypart(arduino.B5)=ypart(arduino4);
 xpart(arduino.B4)=xpart(arduino.B5)+3mm; ypart(arduino.B4)=ypart(arduino4);
 xpart(arduino.E6)=xpart(arduino.B4)+3mm; ypart(arduino.E6)=ypart(arduino4);
@@ -142,18 +142,27 @@ xpart(arduino.D1)=xpart(arduino.D7)+12mm; ypart(arduino.D1)=ypart(arduino4);
 xpart(arduino.GND)=xpart(arduino.D1)+5mm; ypart(arduino.GND)=ypart(arduino4);
 xpart(arduino.D2)=xpart(arduino.GND)+3.5mm; ypart(arduino.D2)=ypart(arduino4);
 xpart(arduino.B6)=xpart(arduino.B5); ypart(arduino.B6)=ypart(arduino1);
-xpart(arduino.5V)=xpart(arduino.D1); ypart(arduino.5V)=ypart(arduino1);
+xpart(arduino.VCC)=xpart(arduino.D1); ypart(arduino.VCC)=ypart(arduino1);
+xpart(arduino.RST)=xpart(arduino.VCC)+3mm; ypart(arduino.RST)=ypart(arduino1);
 % draw
 draw arduino1--arduino2--arduino3--arduino4--cycle;
 label.bot(btex \smallss B5 etex, arduino.B5);
 label.bot(btex \smallss B4 etex, arduino.B4);
 label.bot(btex \smallss E6 etex, arduino.E6);
-label.bot(btex \smallss D7 etex, arduino.D7);
+label.bot(btex \vbox{\hsize0pt
+\centerline{\smallss 6}
+\kern-7.5pt
+\centerline{\smallss D7}
+} etex, arduino.D7);
+%draw superellipse((100pt,50pt),(50pt,100pt),(0,50pt),(50pt,0),.95); % "right\_point","top\_point","left\_point","bottom\_point",
+draw unitsquare shifted (-.5,-1) xscaled 6pt yscaled 4pt shifted (arduino.D7+down*2.3mm) withpen pencircle scaled .4pt;
 label.bot(btex \smallss D1 etex, arduino.D1);
 label.bot(btex \smallss GND etex, arduino.GND);
 label.bot(btex \smallss D2 etex, arduino.D2);
 label.top(btex \smallss B6 etex, arduino.B6);
-label.top(btex \smallss 5V etex, arduino.5V);
+label.top(btex \smallss VCC etex, arduino.VCC);
+label.top(btex \smallss RST etex, arduino.RST);
+drawarrow arduino.RST--arduino.RST+down*2mm;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 y20=y0r;
@@ -278,14 +287,13 @@ pair wire[][];
 draw z5+right*.5mm+up*4mm--(x5+.5mm,y5+2.1cm)--(xpart(relay2),y5+2.1cm);
 draw (xpart(relay2),y5+2.4cm)--(x5+.5mm,y5+2.4cm)--(x5+.5mm,y60);
 draw z8+left*.5mm+up*4mm--(x8-.5mm,y60);
-draw z33--(x33,y33+1mm)--(xpart(arduino.5V),y33+1mm)--(xpart(arduino.5V),ypart(arduino.5V)-2mm);
+draw z33--(x33,y33+1mm)--(xpart(arduino.VCC),y33+1mm)--(xpart(arduino.VCC),ypart(arduino.VCC)-2mm);
 
-wire1[1]=arduino.5V+down*2mm;
+wire1[1]=arduino.VCC+down*3mm;
 wire1[2]=wire1[1]+right*2cm;
 xpart(wire1[3])=xpart(wire1[2]); ypart(wire1[3])=ypart(relay.VCC);
-draw arduino.5V -- for i=1 upto 3: wire1[i]-- endfor relay.VCC;
-
-drawdot (xpart(arduino.5V),ypart(arduino.5V)-2mm) withpen pencircle scaled 2pt;
+draw arduino.VCC -- for i=1 upto 3: wire1[i]-- endfor relay.VCC;
+drawdot wire1[1] withpen pencircle scaled 2pt;
 
 wire2[1]=relay.GND+left*5mm;
 wire2[2]=wire2[1]+up*7mm;
