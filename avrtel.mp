@@ -158,20 +158,22 @@ xpart(arduino.RST)=xpart(arduino.VCC)+3mm; ypart(arduino.RST)=ypart(arduino1);
 xpart(arduino.GND3)=xpart(arduino.RST)+3mm; ypart(arduino.GND3)=ypart(arduino1);
 % draw
 draw arduino1--arduino2--arduino3--arduino4--cycle;
+begingroup;
+save A; pen A; A:=currentpen;
+pickup pencircle scaled .4pt;
 label.rt(btex \smallss pro micro etex rotated -90, 1/2[arduino1,arduino4]+right*2mm);
 label.bot(btex \smallss B5 etex, arduino.B5);
 label.bot(btex \smallss B4 etex, arduino.B4);
-label.bot(btex \smallss E6 etex, arduino.E6);
+label.bot(btex \smallss 7 etex, arduino.E6);
+rboxit.arduino.E6.box(btex \smallss E6 etex);
+arduino.E6.box.c=arduino.E6+down*3mm;
+arduino.E6.box.sw=arduino.E6.box.c+down*2pt+left*3pt;
+drawboxed(arduino.E6.box);
 label.bot(btex \smallss 6 etex, arduino.D7);
 rboxit.arduino.D7.box(btex \smallss D7 etex);
 arduino.D7.box.c=arduino.D7+down*3mm;
 arduino.D7.box.sw=arduino.D7.box.c+down*2pt+left*3pt;
-begingroup;
-save A; pen A; A:=currentpen;
-pickup pencircle scaled .4pt;
 drawboxed(arduino.D7.box);
-pickup A;
-endgroup;
 label.bot(btex \smallss D1 etex, arduino.D1);
 label.bot(btex \smallss GND etex, arduino.GND1);
 label.bot(btex \smallss GND etex, arduino.GND2);
@@ -183,6 +185,8 @@ label.top(btex \smallss RST etex, arduino.RST);
 draw piggy(arduino.RST--arduino.RST+down*1.5mm) withpen pencircle scaled .4pt;
 label.top(btex \smallss GND etex, arduino.GND3);
 draw piggy(arduino.GND3--arduino.GND3+down*1.5mm) withpen pencircle scaled .4pt;
+pickup A;
+endgroup;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 y20=y0r;
