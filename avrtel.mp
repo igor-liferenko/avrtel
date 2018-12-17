@@ -91,8 +91,23 @@ endfig;
 
 vardef piggy(expr p) =
 save A,u,a,b; pair A,u; path a,b;
-A := point length(p) of p;
-u := unitvector(direction 1 of p); % ???
+A := point length(p) of p; % Given a path
+p = z 0 . . controls u 0 and v 1 . . z 1 hetc.i z n−1 . . controls u n−1 and v n . . z n
+and a number t, hijklmnj determines ‘point t of p’ as follows: If t ≤ 0, the result
+is z 0 ; if t ≥ n, the result is z n ; otherwise if k ≤ t < k + 1, it is (t − k)[z k , u k , v k+1 , z k+1 ],
+where we generalize the ‘t[α, β]’ notation so that t[α, β, γ] means t [ t[α, β], t[β, γ] ] and
+t[α, β, γ, δ] means t [ t[α, β, γ], t[β, γ, δ] ] . (This is a Bernshteı̆n polynomial in t, cf. Chap-
+ter 3.) Given a cyclic path
+c = z 0 . . controls u 0 and v 1 . . z 1 hetc.i z n−1 . . controls u n−1 and v n . . cycle
+and a number t, hijklmnj determines ‘point t of c’ in essentially the same way,
+except that t is first reduced modulo n so as to lie in the range 0 ≤ t < n.
+u := unitvector(direction 1 of p); % Plain hijklmnj allows you to say ‘direction t of p’ in order to determine the
+direction in which path p is moving at time t. This is simply an abbreviation
+for ‘(postcontrol t of p) − (precontrol t of p)’. Sometimes a path veers abruptly and has
+no unique direction; in this case the direction function gives a result somewhere between
+the two possible extremes. For example, the heart path above turns a corner at time 3;
+‘direction 3 of heart ’ turns out to be (−93.29172, 0), but ‘direction 3 − epsilon of heart ’
+is (−46.64589, −31.63852) and ‘direction 3 + epsilon of heart ’ is (−46.64589, 31.63852).
 a := A--(A - 2pt*u rotated 20);
 b := A--(A - 2pt*u rotated -20);
 p & a & reverse(a) & b
