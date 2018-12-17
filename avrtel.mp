@@ -316,14 +316,13 @@ draw (z62+down*1mm)--(z62+down*1mm+right*2mm);
 draw (z62+down*2.5mm)--(z62+down*2.5mm+right*2mm);
 
 %----
-path wire[];
 pair wire[][];
 
 wire1[1]=arduino.VCC+down*2mm;
 wire1[2]=wire1[1]+right*2cm;
 xpart(wire1[3])=xpart(wire1[2]); ypart(wire1[3])=ypart(relay.VCC);
-wire1:=arduino.VCC -- for i=1 upto 3: wire1[i]-- endfor relay.VCC;
-draw wire1;
+draw  arduino.VCC -- for i=1 upto 3: wire1[i]-- endfor relay.VCC;
+drawdot wire1[1] withpen pencircle scaled 2pt;
 
 wire2[1]=relay.GND+left*5mm;
 xpart(wire2[2])=xpart(wire2[1]);
@@ -361,12 +360,9 @@ draw z8+left*.5mm+up*4mm--(x8-.5mm,y60) withcolor blue;
 %???
 
 wire6[1]=dtmf.VCC+up*1mm;
-xpart(wire6[2])=xpart(wire6[3]);
+xpart(wire6[2])=xpart(arduino.VCC);
 ypart(wire6[2])=ypart(wire6[1]);
-wire6[3]=wire1[1];
-wire6:=dtmf.VCC -- for i=1 upto 3: wire6[i]-- endfor arduino.VCC;
-draw wire6;
-drawdot (wire6 intersectionpoint wire1) withpen pencircle scaled 2pt;
+draw dtmf.VCC -- for i=1 upto 2: wire6[i]-- endfor arduino.VCC;
 
 draw (xpart(relay1),ypart(relay1)+7mm)--(xpart(relay1)-3mm,ypart(relay1)+7mm)--(xpart(relay1)-3mm,ypart(arduino4)+3mm+4mm)--(xpart(arduino.E6),ypart(arduino4)+3mm+4mm)--arduino.E6;
 
