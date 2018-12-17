@@ -195,8 +195,8 @@ z23=z22+up*1cm;
 x24=x21;
 y24=y23;
 % pins
-pair dtmf.empty;
-y25=y26=y27=y28=y29=y30=y31=y32=y33=y23;
+pair dtmf.empty,dtmf.VCC;
+y25=y26=y27=y28=y29=y30=y31=y32=y23;
 x25=x24+1.5mm;
 x26=x25+2mm;
 x27=x26+2mm;
@@ -206,7 +206,8 @@ xpart(dtmf.empty)=xpart(z29)+2.2mm;
 ypart(dtmf.empty)=ypart(z23);
 x31=xpart(dtmf.empty)+1.8mm;
 x32=x31+2.3mm;
-x33=x32+2.9mm;
+xpart(dtmf.VCC)=xpart(z32)+2.9mm;
+ypart(dtmf.VCC)=ypart(z23);
 % draw
 draw z21--z22--z23--z24--cycle;
 label(btex MT8870 etex, 1/2[z21,z23]+down*2mm);
@@ -218,7 +219,7 @@ label.bot(btex \smallss STQ etex, z29);
 fill unitsquare shifted (-.5,-1) scaled 2.3pt shifted (dtmf.empty+down*2.8pt);
 label.bot(btex \smallss IN etex, z31);
 label.bot(btex \smallss GND etex, z32);
-label.bot(btex \smallss VCC etex, z33);
+label.bot(btex \smallss VCC etex, dtmf.VCC);
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%% Capacitor %%%%%%%%%%%
@@ -309,23 +310,17 @@ draw (z62+down*2.5mm)--(z62+down*2.5mm+right*2mm);
 %----
 pair wire[][];
 
-draw z5+right*.5mm+up*4mm--(x5+.5mm,y5+2.1cm)--(xpart(relay2),y5+2.1cm);
-draw (xpart(relay2),y5+2.4cm)--(x5+.5mm,y5+2.4cm)--(x5+.5mm,y60);
-draw z8+left*.5mm+up*4mm--(x8-.5mm,y60);
-draw z33--(x33,y33+1mm)--(xpart(arduino.VCC),y33+1mm)--(xpart(arduino.VCC),ypart(arduino.VCC)-2mm) withcolor red;
-
 wire1[1]=arduino.VCC+down*2mm;
 wire1[2]=wire1[1]+right*2cm;
 xpart(wire1[3])=xpart(wire1[2]); ypart(wire1[3])=ypart(relay.VCC);
 draw arduino.VCC -- for i=1 upto 3: wire1[i]-- endfor relay.VCC;
-drawdot wire1[1] withpen pencircle scaled 2pt;
 
 wire2[1]=relay.GND+left*5mm;
 wire2[2]=wire2[1]+up*7mm;
 xpart(wire2[3])=xpart(arduino.GND1); ypart(wire2[3])=ypart(wire2[2]);
 draw relay.GND -- for i=1 upto 3: wire2[i]-- endfor arduino.GND1;
 
-drawdot (xpart(arduino.GND1),ypart(arduino4)+3mm+1mm) withpen pencircle scaled 2pt;
+drawdot (xpart(arduino.GND1),ypart(arduino4)+3mm+1mm) withpen pencircle scaled 2pt; % relay.GND
 
 wire3[1]=z0r+right*12.5mm;
 draw z0r..wire3[1]..controls (xpart(wire3[1])+5mm,ypart(wire3[1])) and (xpart(rj.minus)-5mm,ypart(rj.minus))..rj.minus;
@@ -347,6 +342,19 @@ label(btex \tt+ etex, wire5[1]+left*2mm);
 label(btex \twlbs 12V etex, 1/2[z1,wire5[1]]+left*8mm);
 
 draw z34r--wire5[2];
+
+%???
+draw z5+right*.5mm+up*4mm--(x5+.5mm,y5+2.1cm)--(xpart(relay2),y5+2.1cm);
+draw (xpart(relay2),y5+2.4cm)--(x5+.5mm,y5+2.4cm)--(x5+.5mm,y60);
+draw z8+left*.5mm+up*4mm--(x8-.5mm,y60);
+%???
+
+wire6[1]=dtmf.VCC+up*1mm;
+xpart(wire6[2])=xpart(wire6[3]);
+ypart(wire6[2])=ypart(wire6[1]);
+wire6[3]=wire1[1];
+draw dtmf.VCC -- for i=1 upto 3: wire6[i]-- endfor arduino.VCC;
+drawdot wire6[3] withpen pencircle scaled 2pt;
 
 draw (xpart(relay1),ypart(relay1)+7mm)--(xpart(relay1)-3mm,ypart(relay1)+7mm)--(xpart(relay1)-3mm,ypart(arduino4)+3mm+4mm)--(xpart(arduino.E6),ypart(arduino4)+3mm+4mm)--arduino.E6;
 
