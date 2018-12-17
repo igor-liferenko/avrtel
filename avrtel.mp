@@ -308,7 +308,7 @@ draw (xpart(relay2),y5+2.4cm)--(x5+.5mm,y5+2.4cm)--(x5+.5mm,y60);
 draw z8+left*.5mm+up*4mm--(x8-.5mm,y60);
 draw z33--(x33,y33+1mm)--(xpart(arduino.VCC),y33+1mm)--(xpart(arduino.VCC),ypart(arduino.VCC)-2mm);
 
-wire1[1]=arduino.VCC+down*3mm;
+wire1[1]=arduino.VCC+down*2mm;
 wire1[2]=wire1[1]+right*2cm;
 xpart(wire1[3])=xpart(wire1[2]); ypart(wire1[3])=ypart(relay.VCC);
 draw arduino.VCC -- for i=1 upto 3: wire1[i]-- endfor relay.VCC;
