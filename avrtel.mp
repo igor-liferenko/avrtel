@@ -89,6 +89,15 @@ endfig;
 %  3) bind each object to one point with absolute coordinates
 %  4) define and draw wires in the end of figure (using "for" loop where applicable) with endpoints being connection points
 
+vardef piggy(expr p) =
+save A,u,a,b; pair A,u; path a,b;
+A := point length(p) of p;
+u := unitvector(direction 1 of p); % ???
+a := A--(A - 2pt*u rotated 20);
+b := A--(A - 2pt*u rotated -20);
+p & a & reverse(a) & b
+enddef;
+
 beginfig(3);
 imp:=1/2*1.5*7mm;
 cap:=1/2*8mm;
@@ -168,14 +177,6 @@ label.bot(btex \smallss D2 etex, arduino.D2);
 label.top(btex \smallss B6 etex, arduino.B6);
 label.top(btex \smallss VCC etex, arduino.VCC);
 label.top(btex \smallss RST etex, arduino.RST);
-vardef piggy(expr p) =
-save A,u,a,b; pair A,u; path a,b;
-A := point length(p) of p;
-u := unitvector(direction 1 of p); % ???
-a := A--(A - 2pt*u rotated 20);
-b := A--(A - 2pt*u rotated -20);
-p & a & reverse(a) & b
-enddef;
 draw piggy(arduino.RST--arduino.RST+down*1.5mm) withpen pencircle scaled .4pt;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
