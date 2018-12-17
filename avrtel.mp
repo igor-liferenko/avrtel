@@ -139,7 +139,7 @@ label(btex \smallss RJ11 etex, 1/2[rj1,rj3]);
 pair arduino[];
 arduino1=(-1.3cm,2cm);
 arduino2=arduino1+right*3.3cm;
-arduino3=arduino2+up*1cm;
+arduino3=arduino2+up*1.5cm;
 xpart(arduino4)=xpart(arduino1);
 ypart(arduino4)=ypart(arduino3);
 % pins
@@ -320,11 +320,12 @@ xpart(wire1[3])=xpart(wire1[2]); ypart(wire1[3])=ypart(relay.VCC);
 draw arduino.VCC -- for i=1 upto 3: wire1[i]-- endfor relay.VCC;
 
 wire2[1]=relay.GND+left*5mm;
-wire2[2]=wire2[1]+up*7mm;
-xpart(wire2[3])=xpart(arduino.GND1); ypart(wire2[3])=ypart(wire2[2]);
+xpart(wire2[2])=xpart(wire2[1]);
+ypart(wire2[2])=ypart(wire2[3]);
+wire2[3]=arduino.GND1+up*5mm;
 draw relay.GND -- for i=1 upto 3: wire2[i]-- endfor arduino.GND1;
 
-drawdot (xpart(arduino.GND1),ypart(arduino4)+3mm+1mm) withpen pencircle scaled 2pt; % relay.GND
+drawdot (xpart(arduino.GND1),ypart(arduino4)+3mm+1mm) withpen pencircle scaled 2pt; % optocoupler.GND
 
 wire3[1]=z0r+right*12.5mm;
 draw z0r..wire3[1]..controls (xpart(wire3[1])+5mm,ypart(wire3[1])) and (xpart(rj.minus)-5mm,ypart(rj.minus))..rj.minus;
