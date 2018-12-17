@@ -353,9 +353,9 @@ label(btex \twlbs 12V etex, 1/2[z1,wire5[1]]+left*8mm);
 draw z34r--wire5[2];
 
 %???
-draw z5+right*.5mm+up*4mm--(x5+.5mm,y5+2.1cm)--(xpart(relay2),y5+2.1cm);
-draw (xpart(relay2),y5+2.4cm)--(x5+.5mm,y5+2.4cm)--(x5+.5mm,y60);
-draw z8+left*.5mm+up*4mm--(x8-.5mm,y60);
+draw z5+right*.5mm+up*4mm--(x5+.5mm,y5+2.1cm)--(xpart(relay2),y5+2.1cm) withcolor red;
+draw (xpart(relay2),y5+2.4cm)--(x5+.5mm,y5+2.4cm)--(x5+.5mm,y60) withcolor green;
+draw z8+left*.5mm+up*4mm--(x8-.5mm,y60) withcolor blue;
 %???
 
 wire6[1]=dtmf.VCC+up*1mm;
