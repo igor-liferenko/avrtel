@@ -160,7 +160,7 @@ label.top(btex \smallss B6 etex, arduino.B6);
 label.top(btex \smallss VCC etex, arduino.VCC);
 label.top(btex \smallss RST etex, arduino.RST);
 vardef piggy(expr p) =
-pair A,u; path a,b;
+save A,u,a,b; pair A,u; path a,b;
 A := point length(p) of p;
 u := unitvector(direction 1 of p); % ???
 a := A--(A - 2pt*u rotated 20);
