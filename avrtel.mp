@@ -1,6 +1,7 @@
 outputtemplate:="%j.eps"; prologues:=3;
 
 input circuit;
+input rboxes;
 
 verbatimtex
 \font\big=cmss17
@@ -151,8 +152,16 @@ label.bot(btex \smallss B5 etex, arduino.B5);
 label.bot(btex \smallss B4 etex, arduino.B4);
 label.bot(btex \smallss E6 etex, arduino.E6);
 label.bot(btex \smallss 6 etex, arduino.D7);
-label.bot(btex \smallss D7 etex, arduino.D7+down*2mm);
-%TODO draw superellipse like in mfbook with center in the same point as second argument of previous command withpen pencircle scaled .4pt withcolor red;
+%label.bot(btex \smallss D7 etex, arduino.D7+down*3mm);
+rboxit.D7(btex \smallss D7 etex);
+D7.c=arduino.D7+down*3mm;
+D7.ne=D7.c+up*2pt+right*3pt; D7.sw=D7.c+down*2pt+left*3pt;
+begingroup;
+save A; pen A; A:=currentpen;
+pickup pencircle scaled .4pt;
+drawboxed(D7);
+pickup A;
+endgroup;
 label.bot(btex \smallss D1 etex, arduino.D1);
 label.bot(btex \smallss GND etex, arduino.GND);
 label.bot(btex \smallss D2 etex, arduino.D2);
