@@ -297,16 +297,16 @@ capacitor34(normal);
 draw z31--(x31,y34l)--z34l ;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-draw z35--z36--z37--z38--cycle;
-draw z9--z39; draw z10--z40;
+%draw z35--z36--z37--z38--cycle;
+%draw z9--z39; draw z10--z40;
 label(btex \smallss 1 etex, z39+up*1mm); label(btex \smallss 2 etex, z40+up*1mm);
 label(btex \smallss PC817C etex, 1/2[z35,z37]);
 label(btex \smallss 3 etex, z41+down*1mm); label(btex \smallss 4 etex, z42+down*1mm);
 
-draw z42--(x42,ypart(arduino.D2)+1mm)--(xpart(arduino.D2),ypart(arduino.D2)+1mm)--arduino.D2;
-draw z41--(x41,ypart(arduino4)+3mm+1mm)--(xpart(arduino.GND1),ypart(arduino4)+3mm+1mm)--arduino.GND1;
-draw z32--(x32,y32+2mm)--(xpart(arduino2)+2mm,y32+2mm)--(xpart(arduino2)+2mm,ypart(arduino.GND1)+2mm)--(xpart(arduino.GND1),ypart(arduino.GND1)+2mm)--arduino.GND1;
-drawdot (xpart(arduino.GND1),ypart(arduino.GND1)+2mm) withpen pencircle scaled 2pt;
+%draw z42--(x42,ypart(arduino.D2)+1mm)--(xpart(arduino.D2),ypart(arduino.D2)+1mm)--arduino.D2;
+%draw z41--(x41,ypart(arduino4)+3mm+1mm)--(xpart(arduino.GND1),ypart(arduino4)+3mm+1mm)--arduino.GND1;
+%draw z32--(x32,y32+2mm)--(xpart(arduino2)+2mm,y32+2mm)--(xpart(arduino2)+2mm,ypart(arduino.GND1)+2mm)--(xpart(arduino.GND1),ypart(arduino.GND1)+2mm)--arduino.GND1;
+%drawdot (xpart(arduino.GND1),ypart(arduino.GND1)+2mm) withpen pencircle scaled 2pt;
 
 %%%%%%%%%%%%%%% power plug %%%%%%%%%%%%%%
 pair powerplug[], powerplug.minus, powerplug.plus;
@@ -373,13 +373,13 @@ xpart(wire6[2])=xpart(arduino.VCC);
 ypart(wire6[2])=ypart(wire6[1]);
 draw dtmf.VCC -- for i=1 upto 2: wire6[i]-- endfor arduino.VCC;
 
-draw (xpart(relay1),ypart(relay1)+7mm)--(xpart(relay1)-3mm,ypart(relay1)+7mm)--(xpart(relay1)-3mm,ypart(arduino4)+3mm+4mm)--(xpart(arduino.E6),ypart(arduino4)+3mm+4mm)--arduino.E6;
+%draw (xpart(relay1),ypart(relay1)+7mm)--(xpart(relay1)-3mm,ypart(relay1)+7mm)--(xpart(relay1)-3mm,ypart(arduino4)+3mm+4mm)--(xpart(arduino.E6),ypart(arduino4)+3mm+4mm)--arduino.E6;
 
-draw z25--(x25,ypart(arduino.B4)+2mm)--(xpart(arduino.B4),ypart(arduino.B4)+2mm)--arduino.B4;
-draw z26--(x26,ypart(arduino.B5)+1mm)--(xpart(arduino.B5),ypart(arduino.B5)+1mm)--arduino.B5;
-draw z27..controls (x27,y27+7mm) and (xpart(arduino.B6),ypart(arduino.B6)-7mm) .. arduino.B6;
-draw z28--(x28,y28+2mm)--(x25-2mm,y28+2mm)--(x25-2mm,ypart(arduino.B4)+3mm)--(xpart(arduino.D7),ypart(arduino.B4)+3mm)--arduino.D7;
-draw z29--(x29,y29+4mm)--(x25-4mm,y29+4mm)--(x25-4mm,ypart(arduino.B4)+5mm)--(xpart(arduino.D1),ypart(arduino.B4)+5mm)--arduino.D1;
+%draw z25--(x25,ypart(arduino.B4)+2mm)--(xpart(arduino.B4),ypart(arduino.B4)+2mm)--arduino.B4;
+%draw z26--(x26,ypart(arduino.B5)+1mm)--(xpart(arduino.B5),ypart(arduino.B5)+1mm)--arduino.B5;
+%draw z27..controls (x27,y27+7mm) and (xpart(arduino.B6),ypart(arduino.B6)-7mm) .. arduino.B6;
+%draw z28--(x28,y28+2mm)--(x25-2mm,y28+2mm)--(x25-2mm,ypart(arduino.B4)+3mm)--(xpart(arduino.D7),ypart(arduino.B4)+3mm)--arduino.D7;
+%draw z29--(x29,y29+4mm)--(x25-4mm,y29+4mm)--(x25-4mm,ypart(arduino.B4)+5mm)--(xpart(arduino.D1),ypart(arduino.B4)+5mm)--arduino.D1;
 
 label(btex Arduino etex, 1/2[arduino1,arduino3]);
 
