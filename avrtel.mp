@@ -220,7 +220,7 @@ label.bot(btex \smallss VCC etex, z33);
 x34l=x12-2.3cm-2cap;
 y34l=y31+5mm; % anchor point 2
 z34r=z34l+(2cap,0);
-
+label.top(btex \eightss ??? etex, 1/2[z34l,z34r]+up*1mm);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%% relay %%%%%%%%%%%%%%%
