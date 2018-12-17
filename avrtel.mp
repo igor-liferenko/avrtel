@@ -244,10 +244,12 @@ relay2=relay1+right*1cm;
 relay3=relay2+up*9mm;
 xpart(relay4)=xpart(relay1); ypart(relay4)=ypart(relay3);
 % pins
-pair relay.IN, relay.GND, relay.VCC;
+pair relay.IN, relay.GND, relay.VCC, relay.load[];
 xpart(relay.IN)=xpart(relay1); ypart(relay.IN)=ypart(relay1)+7mm;
 xpart(relay.VCC)=xpart(relay1); ypart(relay.VCC)=ypart(relay1)+5mm;
 xpart(relay.GND)=xpart(relay1); ypart(relay.GND)=ypart(relay1)+3mm;
+xpart(relay.load1)=xpart(relay2); ypart(relay.load1)=ypart(relay2)+3mm;
+xpart(relay.load2)=xpart(relay2); ypart(relay.load2)=ypart(relay2)+6mm;
 % draw
 draw relay1--relay2--relay3--relay4--cycle;
 label.rt(btex \smallss IN etex, relay.IN);
@@ -259,13 +261,6 @@ label(btex \vbox{\hsize0pt
   \centerline{\smallss(normally open)}
 } etex rotated 90, 1/2[relay1,relay3]+right*2mm);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%% power plug %%%%%%%%%%
-z60=(6.8cm,4cm);
-z61=z60+right*3mm;
-z62=z61+up*7mm;
-x63=x60; y63=y62;
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%% PC817C %%%%%%%%%%%
 z35=(3.7cm,2cm); % anchor point
@@ -283,10 +278,15 @@ label(btex \vbox{
 \hbox{In gorod power is 9V, not 12V, and ``?'' is 620R.}
 \hbox{In home ``?'' is 560R.}
 } etex, 1/2[z0l,z0r]+down*1cm);
+%%%%%%%%%%%%%%%%%
+
+%%%%%%%% phone %%%%%%%%%%%%%%%
+pair phonepower.plus, phonepower.minus;
 draw unitsquare shifted (-.5,-.5) xscaled x3w yscaled x3h shifted z3 ;
 label(btex Analog DECT phone etex, z3);
 label.top(btex \tt- etex, z5); label.top(btex \tt+ etex, z8);
 draw unitsquare shifted (-.5,0) xscaled (abs(z5-z8)+3mm) yscaled 4mm shifted 1/2[z5,z8];
+phonepower.plus=z8+up*4mm; phonepower.minus=z5+up*4mm;
 draw z9{up}..(1/2[z9,z10]+up*3mm){z10-z9}..z10{down};
 label.top(btex \smallss LED etex, 1/2[z9,z10]+down*.5mm);
 label.bot(btex \eighttt+ etex, z9);
@@ -309,11 +309,22 @@ draw z32--(x32,y32+2mm)--(xpart(arduino2)+2mm,y32+2mm)--(xpart(arduino2)+2mm,ypa
 drawdot (xpart(arduino.GND1),ypart(arduino.GND1)+2mm) withpen pencircle scaled 2pt;
 
 %%%%%%%%%%%%%%% power plug %%%%%%%%%%%%%%
-draw z60--z61--z62--z63--cycle;
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-draw (z62+down*1mm)--(z62+down*1mm+right*2mm);
-draw (z62+down*2.5mm)--(z62+down*2.5mm+right*2mm);
+pair powerplug[], powerplug.minus, powerplug.plus;
+powerplug1=(6.8cm,4cm);
+1/2[xpart(powerplug1),xpart(powerplug2)]=1/2[xpart(phonepower.plus),xpart(phonepower.minus)];
+ypart(powerplug2)=ypart(powerplug1);
+powerplug3=powerplug2+up*7mm;
+xpart(powerplug4)=xpart(powerplug1); ypart(powerplug4)=ypart(powerplug3);
+% pins
+xpart(powerplug.plus)=xpart(phonepower.plus);
+xpart(powerplug.minus)=xpart(phonepower.minus);
+ypart(powerplug.plus)=ypart(powerplug1);
+ypart(powerplug.minus)=ypart(powerplug1);
+% draw
+draw powerplug1--powerplug2--powerplug3--powerplug4--cycle;
+draw (powerplug3+down*1mm)--(powerplug3+down*1mm+right*2mm);
+draw (powerplug3+down*2.5mm)--(powerplug3+down*2.5mm+right*2mm);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %----
 pair wire[][];
@@ -353,11 +364,9 @@ label(btex \twlbs 12V etex, 1/2[z1,wire5[1]]+left*8mm);
 
 draw z34r--wire5[2];
 
-%???
-draw z5+right*.5mm+up*4mm--(x5+.5mm,y5+2.1cm)--(xpart(relay2),y5+2.1cm) withcolor red;
-draw (xpart(relay2),y5+2.4cm)--(x5+.5mm,y5+2.4cm)--(x5+.5mm,y60) withcolor green;
-draw z8+left*.5mm+up*4mm--(x8-.5mm,y60) withcolor blue;
-%???
+draw phonepower.minus--(xpart(phonepower.minus),ypart(relay.load1))--relay.load1;
+draw relay.load2--(xpart(phonepower.minus),ypart(relay.load2))--powerplug.minus;
+draw phonepower.plus--powerplug.plus;
 
 wire6[1]=dtmf.VCC+up*1mm;
 xpart(wire6[2])=xpart(arduino.VCC);
