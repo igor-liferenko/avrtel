@@ -155,6 +155,7 @@ xpart(arduino.D2)=xpart(arduino.GND2)+3.5mm; ypart(arduino.D2)=ypart(arduino4);
 xpart(arduino.B6)=xpart(arduino.B5); ypart(arduino.B6)=ypart(arduino1);
 xpart(arduino.VCC)=xpart(arduino.D1); ypart(arduino.VCC)=ypart(arduino1);
 xpart(arduino.RST)=xpart(arduino.VCC)+3mm; ypart(arduino.RST)=ypart(arduino1);
+xpart(arduino.GND3)=xpart(arduino.RST)+3mm; ypart(arduino.GND3)=ypart(arduino1);
 % draw
 draw arduino1--arduino2--arduino3--arduino4--cycle;
 label.rt(btex \smallss pro micro etex rotated -90, 1/2[arduino1,arduino4]+right*2mm);
@@ -180,6 +181,8 @@ label.top(btex \smallss B6 etex, arduino.B6);
 label.top(btex \smallss VCC etex, arduino.VCC);
 label.top(btex \smallss RST etex, arduino.RST);
 draw piggy(arduino.RST--arduino.RST+down*1.5mm) withpen pencircle scaled .4pt;
+label.top(btex \smallss GND etex, arduino.GND3);
+draw piggy(arduino.GND3--arduino.GND3+down*1.5mm) withpen pencircle scaled .4pt;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 y20=y0r;
