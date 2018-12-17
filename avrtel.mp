@@ -164,7 +164,7 @@ label.bot(btex \smallss 6 etex, arduino.D7);
 %label.bot(btex \smallss D7 etex, arduino.D7+down*3mm);
 rboxit.D7(btex \smallss D7 etex);
 D7.c=arduino.D7+down*3mm;
-D7.ne=D7.c+up*2pt+right*3pt; D7.sw=D7.c+down*2pt+left*3pt;
+D7.sw=D7.c+down*2pt+left*3pt;
 begingroup;
 save A; pen A; A:=currentpen;
 pickup pencircle scaled .4pt;
