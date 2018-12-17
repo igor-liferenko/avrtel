@@ -143,14 +143,14 @@ arduino3=arduino2+up*1cm;
 xpart(arduino4)=xpart(arduino1);
 ypart(arduino4)=ypart(arduino3);
 % pins
-pair arduino.B[],arduino.D[],arduino.E[],arduino.GND,arduino.VCC,arduino.RST;
+pair arduino.B[],arduino.D[],arduino.E[],arduino.GND[],arduino.VCC,arduino.RST;
 xpart(arduino.B5)=xpart(arduino4)+2mm; ypart(arduino.B5)=ypart(arduino4);
 xpart(arduino.B4)=xpart(arduino.B5)+3mm; ypart(arduino.B4)=ypart(arduino4);
 xpart(arduino.E6)=xpart(arduino.B4)+3mm; ypart(arduino.E6)=ypart(arduino4);
 xpart(arduino.D7)=xpart(arduino.E6)+3mm; ypart(arduino.D7)=ypart(arduino4);
 xpart(arduino.D1)=xpart(arduino.D7)+12mm; ypart(arduino.D1)=ypart(arduino4);
-xpart(arduino.GND)=xpart(arduino.D1)+5mm; ypart(arduino.GND)=ypart(arduino4);
-xpart(arduino.D2)=xpart(arduino.GND)+3.5mm; ypart(arduino.D2)=ypart(arduino4);
+xpart(arduino.GND1)=xpart(arduino.D1)+5mm; ypart(arduino.GND1)=ypart(arduino4);
+xpart(arduino.D2)=xpart(arduino.GND1)+3.5mm; ypart(arduino.D2)=ypart(arduino4);
 xpart(arduino.B6)=xpart(arduino.B5); ypart(arduino.B6)=ypart(arduino1);
 xpart(arduino.VCC)=xpart(arduino.D1); ypart(arduino.VCC)=ypart(arduino1);
 xpart(arduino.RST)=xpart(arduino.VCC)+3mm; ypart(arduino.RST)=ypart(arduino1);
@@ -172,7 +172,7 @@ drawboxed(D7);
 pickup A;
 endgroup;
 label.bot(btex \smallss D1 etex, arduino.D1);
-label.bot(btex \smallss GND etex, arduino.GND);
+label.bot(btex \smallss GND etex, arduino.GND1);
 label.bot(btex \smallss D2 etex, arduino.D2);
 label.top(btex \smallss B6 etex, arduino.B6);
 label.top(btex \smallss VCC etex, arduino.VCC);
@@ -290,9 +290,9 @@ label(btex \smallss PC817C etex, 1/2[z35,z37]);
 label(btex \smallss 3 etex, z41+down*1mm); label(btex \smallss 4 etex, z42+down*1mm);
 
 draw z42--(x42,ypart(arduino.D2)+1mm)--(xpart(arduino.D2),ypart(arduino.D2)+1mm)--arduino.D2;
-draw z41--(x41,ypart(arduino4)+3mm+1mm)--(xpart(arduino.GND),ypart(arduino4)+3mm+1mm)--arduino.GND;
-draw z32--(x32,y32+2mm)--(xpart(arduino2)+2mm,y32+2mm)--(xpart(arduino2)+2mm,ypart(arduino.GND)+2mm)--(xpart(arduino.GND),ypart(arduino.GND)+2mm)--arduino.GND;
-drawdot (xpart(arduino.GND),ypart(arduino.GND)+2mm) withpen pencircle scaled 2pt;
+draw z41--(x41,ypart(arduino4)+3mm+1mm)--(xpart(arduino.GND1),ypart(arduino4)+3mm+1mm)--arduino.GND1;
+draw z32--(x32,y32+2mm)--(xpart(arduino2)+2mm,y32+2mm)--(xpart(arduino2)+2mm,ypart(arduino.GND1)+2mm)--(xpart(arduino.GND1),ypart(arduino.GND1)+2mm)--arduino.GND1;
+drawdot (xpart(arduino.GND1),ypart(arduino.GND1)+2mm) withpen pencircle scaled 2pt;
 
 %%%%%%%%%%%%%%% power plug %%%%%%%%%%%%%%
 draw z60--z61--z62--z63--cycle;
@@ -317,18 +317,18 @@ drawdot wire1[1] withpen pencircle scaled 2pt;
 
 wire2[1]=relay.GND+left*5mm;
 wire2[2]=wire2[1]+up*7mm;
-xpart(wire2[3])=xpart(arduino.GND); ypart(wire2[3])=ypart(wire2[2]);
-draw relay.GND -- for i=1 upto 3: wire2[i]-- endfor arduino.GND;
+xpart(wire2[3])=xpart(arduino.GND1); ypart(wire2[3])=ypart(wire2[2]);
+draw relay.GND -- for i=1 upto 3: wire2[i]-- endfor arduino.GND1;
 
-drawdot (xpart(arduino.GND),ypart(arduino4)+3mm+1mm) withpen pencircle scaled 2pt;
+drawdot (xpart(arduino.GND1),ypart(arduino4)+3mm+1mm) withpen pencircle scaled 2pt;
 
 wire3[1]=z0r+right*12.5mm;
 draw z0r..wire3[1]..controls (xpart(wire3[1])+5mm,ypart(wire3[1])) and (xpart(rj.minus)-5mm,ypart(rj.minus))..rj.minus;
 
 xpart(wire4[1])=xpart(wire3[1]);
 ypart(wire4[1])=ypart(wire4[2]);
-wire4[2]=arduino.GND+up*3mm;
-draw wire3[1]--wire4[1]--wire4[2]--arduino.GND;
+wire4[2]=arduino.GND1+up*3mm;
+draw wire3[1]--wire4[1]--wire4[2]--arduino.GND1;
 drawdot wire3[1] withpen pencircle scaled 2pt;
 drawdot wire4[2] withpen pencircle scaled 2pt;
 
