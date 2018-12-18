@@ -233,7 +233,7 @@ xpart(dtmf4)=xpart(dtmf1);
 ypart(dtmf4)=ypart(dtmf3);
 % pins
 pair dtmf.empty,dtmf.VCC,dtmf.Q[],dtmf.STQ,dtmf.IN,dtmf.GND;
-y25=y26=y27=y28=y29=y30=y31=ypart(dtmf3);
+y25=y26=y27=y28=y29=y30=ypart(dtmf3);
 x25=xpart(dtmf4)+1.5mm;
 x26=x25+2mm;
 x27=x26+2mm;
@@ -241,8 +241,9 @@ x28=x27+2mm;
 x29=x28+2.5mm;
 xpart(dtmf.empty)=xpart(z29)+2.2mm;
 ypart(dtmf.empty)=ypart(dtmf3);
-x31=xpart(dtmf.empty)+1.8mm;
-xpart(dtmf.GND)=x31+2.3mm;
+xpart(dtmf.IN)=xpart(dtmf.empty)+1.8mm;
+ypart(dtmf.IN)=ypart(dtmf3);
+xpart(dtmf.GND)=xpart(dtmf.IN)+2.3mm;
 ypart(dtmf.GND)=ypart(dtmf3);
 xpart(dtmf.VCC)=xpart(dtmf.GND)+2.9mm;
 ypart(dtmf.VCC)=ypart(dtmf3);
@@ -255,15 +256,14 @@ label.bot(btex \smallss Q3 etex, z27);
 label.bot(btex \smallss Q4 etex, z28);
 label.bot(btex \smallss STQ etex, z29);
 fill unitsquare shifted (-.5,-1) scaled 2.3pt shifted (dtmf.empty+down*2.8pt);
-label.bot(btex \smallss IN etex, z31);
+label.bot(btex \smallss IN etex, dtmf.IN);
 label.bot(btex \smallss GND etex, dtmf.GND);
 label.bot(btex \smallss VCC etex, dtmf.VCC);
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%% Capacitor %%%%%%%%%%%
-x34l=x31+.5mm;
-y34l=y31+5mm; % anchor point 2
-z34r=z34l+(2cap,0);
+z34l=dtmf.IN+up*5mm;
+z34r=z34l+right*2cap;
 label.top(btex \eightss ??? etex, 1/2[z34l,z34r]+up*1mm);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -324,7 +324,7 @@ label.bot(btex \eighttt- etex, z10);
 
 %%%%%%%%%%%% capacitor %%%%%%%%%%%%%%%%%
 capacitor34(normal);
-draw z31--(x31,y34l)--z34l ;
+draw dtmf.IN--z34l;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %draw z35--z36--z37--z38--cycle;
@@ -389,9 +389,10 @@ label(btex \tt- etex, linepower.minus+left*2mm);
 label(btex \tt+ etex, linepower.plus+left*2mm);
 label(btex \twlbs 12V etex, 1/2[linepower.minus,linepower.plus]+left*8mm);
 
-xpart(wire5[1])=x34r;
-ypart(wire5[1])=ypart(linepower.plus);
-draw z34r--wire5[1];
+wire5[1]=z34r+right*.5mm;
+xpart(wire5[2])=xpart(wire5[1]);
+ypart(wire5[2])=ypart(linepower.plus);
+draw z34r--wire5[1]--wire5[2];
 
 draw relay.load1--(xpart(phonepower.minus),ypart(relay.load1))--powerplug.minus;
 draw phonepower.minus--(xpart(phonepower.minus),ypart(relay.load2))--relay.load2;
