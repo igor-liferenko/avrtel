@@ -989,5 +989,7 @@ for (U8 i = 0; i < SN_LENGTH; i++) {
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h>
 #include <avr/boot.h> /* |boot_signature_byte_get| */
+#define F_CPU 16000000UL
+#include <util/delay.h> /* |_delay_us| */
 
 @* Index.
