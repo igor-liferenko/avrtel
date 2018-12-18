@@ -431,9 +431,9 @@ ypart(wire9[3])=ypart(wire9[4]);
 wire9[4]=arduino.D7+up*3mm;
 draw dtmf.Q4 -- for i=1 upto 4: wire9[i]-- endfor arduino.D7;
 
-%wire11
-%draw z27..controls (x27,y27+7mm) and (xpart(arduino.B6),ypart(arduino.B6)-7mm) .. arduino.B6;
+draw dtmf.Q3 .. controls (xpart(dtmf.Q3),ypart(dtmf.Q3)+7mm) and (xpart(arduino.B6),ypart(arduino.B6)-7mm) .. arduino.B6;
 
+%wire11
 
 endfig;
 
