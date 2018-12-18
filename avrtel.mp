@@ -341,7 +341,7 @@ pair wire[][];
 wire1[1]=arduino.VCC+down*2mm;
 wire1[2]=wire1[1]+right*2cm;
 xpart(wire1[3])=xpart(wire1[2]); ypart(wire1[3])=ypart(relay.VCC);
-draw  arduino.VCC -- for i=1 upto 3: wire1[i]-- endfor relay.VCC;
+draw arduino.VCC -- for i=1 upto 3: wire1[i]-- endfor relay.VCC;
 drawdot wire1[1] withpen pencircle scaled 2pt;
 
 wire2[1]=relay.GND+left*5mm;
