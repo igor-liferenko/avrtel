@@ -344,6 +344,11 @@ ypart(powerplug.minus)=ypart(powerplug1);
 draw powerplug1--powerplug2--powerplug3--powerplug4--cycle;
 draw (powerplug3+down*1mm)--(powerplug3+down*1mm+right*2mm);
 draw (powerplug3+down*2.5mm)--(powerplug3+down*2.5mm+right*2mm);
+label(btex \vbox{\hsize0pt
+\centerline{\smallss power}
+\kern-8.8pt
+\centerline{\smallss supply}
+} etex rotated 90, 1/2[powerplug1,powerplug3]);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 pair linepower.plus, linepower.minus;
@@ -395,11 +400,6 @@ draw z34r -- wire10[1] -- wire10[2];
 draw relay.load1--(xpart(phonepower.minus),ypart(relay.load1))--powerplug.minus;
 draw phonepower.minus--(xpart(phonepower.minus),ypart(relay.load2))--relay.load2;
 draw phonepower.plus--powerplug.plus;
-label(btex \vbox{\hsize0pt
-\centerline{\smallss power}
-\kern-8.8pt
-\centerline{\smallss supply}
-} etex rotated 90, 1/2[powerplug1,powerplug3]);
 
 wire6[1]=dtmf.VCC+up*1mm;
 xpart(wire6[2])=xpart(arduino.VCC);
