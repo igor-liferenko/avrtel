@@ -233,13 +233,14 @@ xpart(dtmf4)=xpart(dtmf1);
 ypart(dtmf4)=ypart(dtmf3);
 % pins
 pair dtmf.empty,dtmf.VCC,dtmf.Q[],dtmf.STQ,dtmf.IN,dtmf.GND;
-y25=y26=y27=y28=y29=y30=ypart(dtmf3);
+y25=y26=y27=y28=y30=ypart(dtmf3);
 x25=xpart(dtmf4)+1.5mm;
 x26=x25+2mm;
 x27=x26+2mm;
 x28=x27+2mm;
-x29=x28+2.5mm;
-xpart(dtmf.empty)=xpart(z29)+2.2mm;
+xpart(dtmf.STQ)=x28+2.5mm;
+ypart(dtmf.STQ)=ypart(dtmf3);
+xpart(dtmf.empty)=xpart(dtmf.STQ)+2.2mm;
 ypart(dtmf.empty)=ypart(dtmf3);
 xpart(dtmf.IN)=xpart(dtmf.empty)+1.8mm;
 ypart(dtmf.IN)=ypart(dtmf3);
@@ -254,7 +255,7 @@ label.bot(btex \smallss Q1 etex, z25);
 label.bot(btex \smallss Q2 etex, z26);
 label.bot(btex \smallss Q3 etex, z27);
 label.bot(btex \smallss Q4 etex, z28);
-label.bot(btex \smallss STQ etex, z29);
+label.bot(btex \smallss STQ etex, dtmf.STQ);
 fill unitsquare shifted (-.5,-1) scaled 2.3pt shifted (dtmf.empty+down*2.8pt);
 label.bot(btex \smallss IN etex, dtmf.IN);
 label.bot(btex \smallss GND etex, dtmf.GND);
@@ -409,7 +410,6 @@ draw dtmf.VCC -- for i=1 upto 2: wire6[i]-- endfor arduino.VCC;
 %draw z26--(x26,ypart(arduino.B5)+1mm)--(xpart(arduino.B5),ypart(arduino.B5)+1mm)--arduino.B5;
 %draw z27..controls (x27,y27+7mm) and (xpart(arduino.B6),ypart(arduino.B6)-7mm) .. arduino.B6;
 %draw z28--(x28,y28+2mm)--(x25-2mm,y28+2mm)--(x25-2mm,ypart(arduino.B4)+3mm)--(xpart(arduino.D7),ypart(arduino.B4)+3mm)--arduino.D7;
-%draw z29--(x29,y29+4mm)--(x25-4mm,y29+4mm)--(x25-4mm,ypart(arduino.B4)+5mm)--(xpart(arduino.D1),ypart(arduino.B4)+5mm)--arduino.D1;
 
 wire7[1]=dtmf.GND+up*2mm;
 wire7[2]=wire7[1]+right*23mm;
@@ -417,6 +417,13 @@ xpart(wire7[3])=xpart(wire7[2]);
 ypart(wire7[3])=ypart(wire7[4]);
 wire7[4]=arduino.GND1+up*2mm;
 draw dtmf.GND -- for i=1 upto 4: wire7[i]-- endfor arduino.GND1;
+
+wire8[1]=dtmf.STQ+up*4mm;
+wire8[2]=wire8[1]+left*12.5mm;
+xpart(wire8[3])=xpart(wire8[2]);
+ypart(wire8[3])=ypart(wire8[4]);
+wire8[4]=arduino.D1+up*5mm;
+draw dtmf.STQ -- for i=1 upto 4: wire8[i]-- endfor arduino.D1;
 
 endfig;
 
