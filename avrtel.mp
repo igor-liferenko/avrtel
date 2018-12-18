@@ -11,7 +11,6 @@ verbatimtex
 \font\sevenss=cmss8 scaled 600
 \font\twlbs=cmssbx10 scaled 1200
 \font\eighttt=cmtt8
-\font\smalltt=cmtt8 scaled 600
 etex
 
 beginfig(1);
@@ -162,10 +161,10 @@ xpart(arduino.RST)=xpart(arduino.GND2); ypart(arduino.RST)=ypart(arduino1);
 xpart(arduino.GND3)=xpart(arduino.D2); ypart(arduino.GND3)=ypart(arduino1);
 % draw
 draw arduino1--arduino2--arduino3--arduino4--cycle;
+label(btex \eightss Arduino ProMicro etex, 1/2[arduino1,arduino3]);
 begingroup;
 save A; pen A; A:=currentpen;
 pickup pencircle scaled .4pt;
-label(btex \smalltt ProMicro etex rotated -90, (xpart(1/2[arduino.E6,arduino.D7]),ypart(1/2[arduino1,arduino4])-.8mm));
 label.bot(btex \smallss 9 etex, arduino.B5);
 rboxit.arduino.B5.box(btex \smallss B5 etex);
 arduino.B5.box.c=arduino.B5+down*3mm;
