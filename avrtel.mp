@@ -233,7 +233,7 @@ xpart(dtmf4)=xpart(dtmf1);
 ypart(dtmf4)=ypart(dtmf3);
 % pins
 pair dtmf.empty,dtmf.VCC,dtmf.Q[],dtmf.STQ,dtmf.IN,dtmf.GND;
-y25=y26=y27=y28=y29=y30=y31=y32=ypart(dtmf3);
+y25=y26=y27=y28=y29=y30=y31=ypart(dtmf3);
 x25=xpart(dtmf4)+1.5mm;
 x26=x25+2mm;
 x27=x26+2mm;
@@ -242,8 +242,9 @@ x29=x28+2.5mm;
 xpart(dtmf.empty)=xpart(z29)+2.2mm;
 ypart(dtmf.empty)=ypart(dtmf3);
 x31=xpart(dtmf.empty)+1.8mm;
-x32=x31+2.3mm;
-xpart(dtmf.VCC)=xpart(z32)+2.9mm;
+xpart(dtmf.GND)=x31+2.3mm;
+ypart(dtmf.GND)=ypart(dtmf3);
+xpart(dtmf.VCC)=xpart(dtmf.GND)+2.9mm;
 ypart(dtmf.VCC)=ypart(dtmf3);
 % draw
 draw dtmf1--dtmf2--dtmf3--dtmf4--cycle;
@@ -255,12 +256,12 @@ label.bot(btex \smallss Q4 etex, z28);
 label.bot(btex \smallss STQ etex, z29);
 fill unitsquare shifted (-.5,-1) scaled 2.3pt shifted (dtmf.empty+down*2.8pt);
 label.bot(btex \smallss IN etex, z31);
-label.bot(btex \smallss GND etex, z32);
+label.bot(btex \smallss GND etex, dtmf.GND);
 label.bot(btex \smallss VCC etex, dtmf.VCC);
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%% Capacitor %%%%%%%%%%%
-x34l=x12-2.3cm-2cap;
+x34l=x31+.5mm;
 y34l=y31+5mm; % anchor point 2
 z34r=z34l+(2cap,0);
 label.top(btex \eightss ??? etex, 1/2[z34l,z34r]+up*1mm);
@@ -334,7 +335,6 @@ label(btex \smallss 3 etex, z41+down*1mm); label(btex \smallss 4 etex, z42+down*
 
 %draw z42--(x42,ypart(arduino.D2)+1mm)--(xpart(arduino.D2),ypart(arduino.D2)+1mm)--arduino.D2;
 %draw z41--(x41,ypart(arduino4)+3mm+1mm)--(xpart(arduino.GND1),ypart(arduino4)+3mm+1mm)--arduino.GND1;
-%draw z32--(x32,y32+2mm)--(xpart(arduino2)+2mm,y32+2mm)--(xpart(arduino2)+2mm,ypart(arduino.GND1)+2mm)--(xpart(arduino.GND1),ypart(arduino.GND1)+2mm)--arduino.GND1;
 
 %%%%%%%%%%%%%%% power plug %%%%%%%%%%%%%%
 pair powerplug[], powerplug.minus, powerplug.plus;
@@ -409,6 +409,13 @@ draw dtmf.VCC -- for i=1 upto 2: wire6[i]-- endfor arduino.VCC;
 %draw z27..controls (x27,y27+7mm) and (xpart(arduino.B6),ypart(arduino.B6)-7mm) .. arduino.B6;
 %draw z28--(x28,y28+2mm)--(x25-2mm,y28+2mm)--(x25-2mm,ypart(arduino.B4)+3mm)--(xpart(arduino.D7),ypart(arduino.B4)+3mm)--arduino.D7;
 %draw z29--(x29,y29+4mm)--(x25-4mm,y29+4mm)--(x25-4mm,ypart(arduino.B4)+5mm)--(xpart(arduino.D1),ypart(arduino.B4)+5mm)--arduino.D1;
+
+wire7[1]=dtmf.GND+up*2mm;
+wire7[2]=wire7[1]+right*23mm;
+xpart(wire7[3])=xpart(wire7[2]);
+ypart(wire7[3])=ypart(wire7[4]);
+wire7[4]=arduino.GND1+up*2mm;
+draw dtmf.GND -- for i=1 upto 4: wire7[i]-- endfor arduino.GND1;
 
 endfig;
 
