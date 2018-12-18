@@ -119,19 +119,19 @@ x11=x19; y11=y7;
 z12=z11+up*2mm;
 
 %%%%%%%% RJ11 %%%%%%%%%%%%%%
-pair rj[];
-rj1=(30.5mm,-9mm);
-rj2=rj1+right*3mm;
-rj3=rj2+up*3mm;
-xpart(rj4)=xpart(rj1); ypart(rj4)=ypart(rj3);
+pair RJ[];
+RJ11.1=(30.5mm,-9mm);
+RJ11.2=RJ11.1+right*3mm;
+RJ11.3=RJ11.2+up*3mm;
+xpart(RJ11.4)=xpart(RJ11.1); ypart(RJ11.4)=ypart(RJ11.3);
 % pins
-pair rj.plus,rj.minus;
-xpart(rj.plus)=xpart(rj.minus)=xpart(rj1);
-ypart(rj.plus)=ypart(rj1)+2mm;
-ypart(rj.minus)=ypart(rj1)+1mm;
+pair RJ[].connection[];
+xpart(RJ11.connection1)=xpart(RJ11.connection2)=xpart(RJ11.1);
+ypart(RJ11.connection1)=ypart(RJ11.1)+2mm;
+ypart(RJ11.connection2)=ypart(RJ11.1)+1mm;
 % draw
-draw rj1--rj2--rj3--rj4--cycle;
-label(btex \smallss RJ11 etex, 1/2[rj1,rj3]);
+draw RJ11.1--RJ11.2--RJ11.3--RJ11.4--cycle;
+label(btex \smallss RJ11 etex, 1/2[RJ11.1,RJ11.3]);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%% Arduino %%%%%%%%%%%%%
@@ -333,6 +333,12 @@ draw (powerplug3+down*1mm)--(powerplug3+down*1mm+right*2mm);
 draw (powerplug3+down*2.5mm)--(powerplug3+down*2.5mm+right*2mm);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+pair linepower.plus, linepower.minus;
+xpart(linepower.plus)=x1;
+ypart(linepower.plus)=ypart(RJ11.connection1);
+xpart(linepower.minus)=xpart(linepower.plus);
+ypart(linepower.minus)=y0l;
+
 %----
 pair wire[][];
 
@@ -348,7 +354,7 @@ wire2[3]=arduino.GND1+up*5mm;
 draw relay.GND -- for i=1 upto 3: wire2[i]-- endfor arduino.GND1;
 
 wire3[1]=z0r+right*12.5mm;
-draw z0r..wire3[1]..controls (xpart(wire3[1])+5mm,ypart(wire3[1])) and (xpart(rj.minus)-5mm,ypart(rj.minus))..rj.minus;
+draw z0r..wire3[1]..controls (xpart(wire3[1])+5mm,ypart(wire3[1])) and (xpart(RJ11.connection2)-5mm,ypart(RJ11.connection2))..RJ11.connection2;
 
 xpart(wire4[1])=xpart(wire3[1]);
 ypart(wire4[1])=ypart(wire4[2]);
@@ -356,16 +362,13 @@ wire4[2]=arduino.GND1+up*3mm;
 draw wire3[1]--wire4[1]--wire4[2]--arduino.GND1;
 drawdot wire3[1] withpen pencircle scaled 2pt;
 
-xpart(wire5[1])=x1;
-ypart(wire5[1])=ypart(rj.plus);
-xpart(wire5[2])=x34r; ypart(wire5[2])=ypart(wire5[1]);
-draw wire5[1]--wire5[2]--rj.plus;
-drawdot wire5[2] withpen pencircle scaled 2pt;
-label(btex \tt- etex, z1+left*2mm);
-label(btex \tt+ etex, wire5[1]+left*2mm);
-label(btex \twlbs 12V etex, 1/2[z1,wire5[1]]+left*8mm);
+draw linepower.plus--RJ11.connection1;
+label(btex \tt- etex, linepower.minus+left*2mm);
+label(btex \tt+ etex, linepower.plus+left*2mm);
+label(btex \twlbs 12V etex, 1/2[linepower.minus,linepower.plus]+left*8mm);
 
-draw z34r--wire5[2];
+%draw z34r--wire5[2];
+%drawdot
 
 draw relay.load1--(xpart(phonepower.minus),ypart(relay.load1))--powerplug.minus;
 draw phonepower.minus--(xpart(phonepower.minus),ypart(relay.load2))--relay.load2;
