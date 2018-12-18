@@ -233,11 +233,12 @@ xpart(dtmf4)=xpart(dtmf1);
 ypart(dtmf4)=ypart(dtmf3);
 % pins
 pair dtmf.empty,dtmf.VCC,dtmf.Q[],dtmf.STQ,dtmf.IN,dtmf.GND;
-y25=y26=y27=y30=ypart(dtmf3);
+y25=y26=ypart(dtmf3);
 x25=xpart(dtmf4)+1.5mm;
 x26=x25+2mm;
-x27=x26+2mm;
-xpart(dtmf.Q4)=x27+2mm;
+xpart(dtmf.Q3)=x26+2mm;
+ypart(dtmf.Q3)=ypart(dtmf3);
+xpart(dtmf.Q4)=xpart(dtmf.Q3)+2mm;
 ypart(dtmf.Q4)=ypart(dtmf3);
 xpart(dtmf.STQ)=xpart(dtmf.Q4)+2.5mm;
 ypart(dtmf.STQ)=ypart(dtmf3);
@@ -254,7 +255,7 @@ draw dtmf1--dtmf2--dtmf3--dtmf4--cycle;
 label(btex MT8870 etex, 1/2[dtmf1,dtmf3]+down*2mm);
 label.bot(btex \smallss Q1 etex, z25);
 label.bot(btex \smallss Q2 etex, z26);
-label.bot(btex \smallss Q3 etex, z27);
+label.bot(btex \smallss Q3 etex, dtmf.Q3);
 label.bot(btex \smallss Q4 etex, dtmf.Q4);
 label.bot(btex \smallss STQ etex, dtmf.STQ);
 fill unitsquare shifted (-.5,-1) scaled 2.3pt shifted (dtmf.empty+down*2.8pt);
@@ -262,12 +263,6 @@ label.bot(btex \smallss IN etex, dtmf.IN);
 label.bot(btex \smallss GND etex, dtmf.GND);
 label.bot(btex \smallss VCC etex, dtmf.VCC);
 %%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%% Capacitor %%%%%%%%%%%
-z34l=dtmf.IN+up*5mm;
-z34r=z34l+right*2cap;
-label.top(btex \eightss ??? etex, 1/2[z34l,z34r]+up*1mm);
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%% relay %%%%%%%%%%%%%%%
 pair relay[];
@@ -323,11 +318,6 @@ draw z9{up}..(1/2[z9,z10]+up*3mm){z10-z9}..z10{down};
 label.top(btex \smallss LED etex, 1/2[z9,z10]+down*.5mm);
 label.bot(btex \eighttt+ etex, z9);
 label.bot(btex \eighttt- etex, z10);
-
-%%%%%%%%%%%% capacitor %%%%%%%%%%%%%%%%%
-capacitor34(normal);
-draw dtmf.IN--z34l;
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %draw z35--z36--z37--z38--cycle;
 %draw z9--z39; draw z10--z40;
@@ -391,10 +381,16 @@ label(btex \tt- etex, linepower.minus+left*2mm);
 label(btex \tt+ etex, linepower.plus+left*2mm);
 label(btex \twlbs 12V etex, 1/2[linepower.minus,linepower.plus]+left*8mm);
 
-wire5[1]=z34r+right*.5mm;
-xpart(wire5[2])=xpart(wire5[1]);
-ypart(wire5[2])=ypart(linepower.plus);
-draw z34r--wire5[1]--wire5[2];
+wire5[1]=dtmf.IN+up*5mm;
+wire10[1]=wire5[1]+right*8.5mm;
+z34l=1/2[wire5[1],wire10[1]]-(cap,0);
+z34r=z34l+(2cap,0);
+capacitor34(normal);
+label.top(btex \eightss ??? etex, 1/2[z34l,z34r]+up*1mm);
+xpart(wire10[2])=xpart(wire10[1]);
+ypart(wire10[2])=ypart(linepower.plus);
+draw dtmf.IN -- wire5[1] -- z34l;
+draw z34r -- wire10[1] -- wire10[2];
 
 draw relay.load1--(xpart(phonepower.minus),ypart(relay.load1))--powerplug.minus;
 draw phonepower.minus--(xpart(phonepower.minus),ypart(relay.load2))--relay.load2;
@@ -409,7 +405,6 @@ draw dtmf.VCC -- for i=1 upto 2: wire6[i]-- endfor arduino.VCC;
 
 %draw z25--(x25,ypart(arduino.B4)+2mm)--(xpart(arduino.B4),ypart(arduino.B4)+2mm)--arduino.B4;
 %draw z26--(x26,ypart(arduino.B5)+1mm)--(xpart(arduino.B5),ypart(arduino.B5)+1mm)--arduino.B5;
-%draw z27..controls (x27,y27+7mm) and (xpart(arduino.B6),ypart(arduino.B6)-7mm) .. arduino.B6;
 
 wire7[1]=dtmf.GND+up*2mm;
 wire7[2]=wire7[1]+right*23mm;
@@ -431,6 +426,10 @@ xpart(wire9[3])=xpart(wire9[2]);
 ypart(wire9[3])=ypart(wire9[4]);
 wire9[4]=arduino.D7+up*3mm;
 draw dtmf.Q4 -- for i=1 upto 4: wire9[i]-- endfor arduino.D7;
+
+%wire11
+%draw z27..controls (x27,y27+7mm) and (xpart(arduino.B6),ypart(arduino.B6)-7mm) .. arduino.B6;
+
 
 endfig;
 
