@@ -409,8 +409,6 @@ xpart(wire6[2])=xpart(arduino.VCC);
 ypart(wire6[2])=ypart(wire6[1]);
 draw dtmf.VCC -- for i=1 upto 2: wire6[i]-- endfor arduino.VCC;
 
-%draw (xpart(relay1),ypart(relay1)+7mm)--(xpart(relay1)-3mm,ypart(relay1)+7mm)--(xpart(relay1)-3mm,ypart(arduino4)+3mm+4mm)--(xpart(arduino.E6),ypart(arduino4)+3mm+4mm)--arduino.E6;
-
 wire7[1]=dtmf.GND+up*2mm;
 wire7[2]=wire7[1]+right*23mm;
 xpart(wire7[3])=xpart(wire7[2]);
@@ -443,6 +441,12 @@ xpart(wire12[1])=xpart(dtmf.Q1);
 ypart(wire12[1])=ypart(wire12[2]);
 wire12[2]=arduino.B4+up*2mm;
 draw dtmf.Q1 -- wire12[1] -- wire12[2] -- arduino.B4;
+
+wire13[1]=relay.IN+left*3mm;
+xpart(wire13[2])=xpart(wire13[1]);
+ypart(wire13[2])=ypart(wire13[3]);
+wire13[3]=arduino.E6+up*7mm;
+draw relay.IN -- for i=1 upto 3: wire13[i]-- endfor arduino.E6;
 
 draw z9--opto.pin1;
 draw z10--opto.pin2;
