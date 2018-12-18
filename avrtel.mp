@@ -205,28 +205,29 @@ y20=y0r;
 x20=x19;
 
 %%%%%% MT8870 %%%%%%%%%%%
-z21=z1+right*2mm+up*8mm; % anchor point
-z22=z21+right*2.1cm;
-z23=z22+up*1cm;
-x24=x21;
-y24=y23;
+pair dtmf[];
+dtmf1=(-18mm,-2mm);
+dtmf2=dtmf1+right*2.1cm;
+dtmf3=dtmf2+up*1cm;
+xpart(dtmf4)=xpart(dtmf1);
+ypart(dtmf4)=ypart(dtmf3);
 % pins
-pair dtmf.empty,dtmf.VCC;
-y25=y26=y27=y28=y29=y30=y31=y32=y23;
-x25=x24+1.5mm;
+pair dtmf.empty,dtmf.VCC,dtmf.Q[],dtmf.STQ,dtmf.IN,dtmf.GND;
+y25=y26=y27=y28=y29=y30=y31=y32=ypart(dtmf3);
+x25=xpart(dtmf4)+1.5mm;
 x26=x25+2mm;
 x27=x26+2mm;
 x28=x27+2mm;
 x29=x28+2.5mm;
 xpart(dtmf.empty)=xpart(z29)+2.2mm;
-ypart(dtmf.empty)=ypart(z23);
+ypart(dtmf.empty)=ypart(dtmf3);
 x31=xpart(dtmf.empty)+1.8mm;
 x32=x31+2.3mm;
 xpart(dtmf.VCC)=xpart(z32)+2.9mm;
-ypart(dtmf.VCC)=ypart(z23);
+ypart(dtmf.VCC)=ypart(dtmf3);
 % draw
-draw z21--z22--z23--z24--cycle;
-label(btex MT8870 etex, 1/2[z21,z23]+down*2mm);
+draw dtmf1--dtmf2--dtmf3--dtmf4--cycle;
+label(btex MT8870 etex, 1/2[dtmf1,dtmf3]+down*2mm);
 label.bot(btex \smallss Q1 etex, z25);
 label.bot(btex \smallss Q2 etex, z26);
 label.bot(btex \smallss Q3 etex, z27);
