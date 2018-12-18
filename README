@@ -24,4 +24,5 @@ Apply change-files one after another:
 
 * avrtel-poweron on pro micro:
   wmerge avrtel avrtel-poweron >merged.w
+  wmerge merged avrtel-poweron-invert | sponge merged.w
   ctangle merged invert avrtel

@@ -57,4 +57,6 @@ else { /* on-line */
     base_station_was_powered_on = 2;
     goto next;
   }
+  else if (base_station_was_powered_on)
+    goto next;
 @z
