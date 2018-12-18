@@ -297,9 +297,9 @@ opto3=opto2+up*7mm;
 xpart(opto4)=xpart(opto1); ypart(opto4)=ypart(opto3);
 % pins
 pair opto.pin[];
-xpart(opto.pin1)=xpart(opto1)+1mm;
+xpart(opto.pin1)=xpart(opto1)+1.5mm;
 ypart(opto.pin1)=ypart(opto1);
-xpart(opto.pin2)=xpart(opto2)-1mm;
+xpart(opto.pin2)=xpart(opto2)-1.5mm;
 ypart(opto.pin2)=ypart(opto1);
 xpart(opto.pin3)=xpart(opto.pin2);
 ypart(opto.pin3)=ypart(opto3);
@@ -448,8 +448,10 @@ draw dtmf.Q1 -- wire12[1] -- wire12[2] -- arduino.B4;
 %wire13
 %draw z9--z39; draw z10--z40;
 
-%wire14
-%draw z42--(x42,ypart(arduino.D2)+1mm)--(xpart(arduino.D2),ypart(arduino.D2)+1mm)--arduino.D2;
+wire14[1]=arduino.D2+up*2mm;
+xpart(wire14[2])=xpart(opto.pin4);
+ypart(wire14[2])=ypart(wire14[1]);
+draw arduino.D2 -- wire14[1] -- wire14[2] -- opto.pin4;
 %draw z41--(x41,ypart(arduino4)+3mm+1mm)--(xpart(arduino.GND1),ypart(arduino4)+3mm+1mm)--arduino.GND1;
 
 endfig;
