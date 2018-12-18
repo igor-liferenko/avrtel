@@ -11,6 +11,7 @@ verbatimtex
 \font\sevenss=cmss8 scaled 600
 \font\twlbs=cmssbx10 scaled 1200
 \font\eighttt=cmtt8
+\font\smalltt=cmtt8 scaled 600
 etex
 
 beginfig(1);
@@ -164,7 +165,7 @@ draw arduino1--arduino2--arduino3--arduino4--cycle;
 begingroup;
 save A; pen A; A:=currentpen;
 pickup pencircle scaled .4pt;
-label.rt(btex \smallss pro micro etex rotated -90, 1/2[arduino1,arduino4]+right*2mm);
+label(btex \smalltt ProMicro etex rotated -90, (xpart(1/2[arduino.E6,arduino.D7]),ypart(1/2[arduino1,arduino4])-.8mm));
 label.bot(btex \smallss 9 etex, arduino.B5);
 rboxit.arduino.B5.box(btex \smallss B5 etex);
 arduino.B5.box.c=arduino.B5+down*3mm;
@@ -408,8 +409,6 @@ draw dtmf.VCC -- for i=1 upto 2: wire6[i]-- endfor arduino.VCC;
 %draw z27..controls (x27,y27+7mm) and (xpart(arduino.B6),ypart(arduino.B6)-7mm) .. arduino.B6;
 %draw z28--(x28,y28+2mm)--(x25-2mm,y28+2mm)--(x25-2mm,ypart(arduino.B4)+3mm)--(xpart(arduino.D7),ypart(arduino.B4)+3mm)--arduino.D7;
 %draw z29--(x29,y29+4mm)--(x25-4mm,y29+4mm)--(x25-4mm,ypart(arduino.B4)+5mm)--(xpart(arduino.D1),ypart(arduino.B4)+5mm)--arduino.D1;
-
-label(btex Arduino etex, 1/2[arduino1,arduino3]);
 
 endfig;
 
