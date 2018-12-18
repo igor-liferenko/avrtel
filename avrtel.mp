@@ -232,9 +232,9 @@ xpart(dtmf4)=xpart(dtmf1);
 ypart(dtmf4)=ypart(dtmf3);
 % pins
 pair dtmf.empty,dtmf.VCC,dtmf.Q[],dtmf.STQ,dtmf.IN,dtmf.GND;
-y25=ypart(dtmf3);
-x25=xpart(dtmf4)+1.5mm;
-xpart(dtmf.Q2)=x25+2mm;
+xpart(dtmf.Q1)=xpart(dtmf4)+1.5mm;
+ypart(dtmf.Q1)=ypart(dtmf3);
+xpart(dtmf.Q2)=xpart(dtmf.Q1)+2mm;
 ypart(dtmf.Q2)=ypart(dtmf3);
 xpart(dtmf.Q3)=xpart(dtmf.Q2)+2mm;
 ypart(dtmf.Q3)=ypart(dtmf3);
@@ -253,7 +253,7 @@ ypart(dtmf.VCC)=ypart(dtmf3);
 % draw
 draw dtmf1--dtmf2--dtmf3--dtmf4--cycle;
 label(btex MT8870 etex, 1/2[dtmf1,dtmf3]+down*2mm);
-label.bot(btex \smallss Q1 etex, z25);
+label.bot(btex \smallss Q1 etex, dtmf.Q1);
 label.bot(btex \smallss Q2 etex, dtmf.Q2);
 label.bot(btex \smallss Q3 etex, dtmf.Q3);
 label.bot(btex \smallss Q4 etex, dtmf.Q4);
@@ -408,8 +408,6 @@ draw dtmf.VCC -- for i=1 upto 2: wire6[i]-- endfor arduino.VCC;
 
 %draw (xpart(relay1),ypart(relay1)+7mm)--(xpart(relay1)-3mm,ypart(relay1)+7mm)--(xpart(relay1)-3mm,ypart(arduino4)+3mm+4mm)--(xpart(arduino.E6),ypart(arduino4)+3mm+4mm)--arduino.E6;
 
-%draw z25--(x25,ypart(arduino.B4)+2mm)--(xpart(arduino.B4),ypart(arduino.B4)+2mm)--arduino.B4;
-
 wire7[1]=dtmf.GND+up*2mm;
 wire7[2]=wire7[1]+right*23mm;
 xpart(wire7[3])=xpart(wire7[2]);
@@ -425,7 +423,7 @@ wire8[4]=arduino.D1+up*5mm;
 draw dtmf.STQ -- for i=1 upto 4: wire8[i]-- endfor arduino.D1;
 
 wire9[1]=dtmf.Q4+up*2mm;
-wire9[2]=wire9[1]+left*8.5mm;
+wire9[2]=wire9[1]+left*8mm;
 xpart(wire9[3])=xpart(wire9[2]);
 ypart(wire9[3])=ypart(wire9[4]);
 wire9[4]=arduino.D7+up*3mm;
@@ -437,6 +435,11 @@ xpart(wire11[1])=xpart(dtmf.Q2);
 ypart(wire11[1])=ypart(wire11[2]);
 wire11[2]=arduino.B5+up*1mm;
 draw dtmf.Q2 -- wire11[1] -- wire11[2] -- arduino.B5;
+
+xpart(wire12[1])=xpart(dtmf.Q1);
+ypart(wire12[1])=ypart(wire12[2]);
+wire12[2]=arduino.B4+up*2mm;
+draw dtmf.Q1 -- wire12[1] -- wire12[2] -- arduino.B4;
 
 endfig;
 
