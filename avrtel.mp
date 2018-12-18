@@ -290,22 +290,34 @@ label(btex \vbox{\hsize0pt
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%% PC817C %%%%%%%%%%%
-z35=(3.7cm,2cm); % anchor point
-z36=z35+right*6mm;
-z37=z36+up*7mm;
-x38=x35; y38=y37;
+pair opto[];
+opto1=(3.7cm,2cm);
+opto2=opto1+right*6mm;
+opto3=opto2+up*7mm;
+xpart(opto4)=xpart(opto1); ypart(opto4)=ypart(opto3);
 % pins
-x39=x9; x40=x10; y39=y40=y35;
-x41=x40; x42=x39; y41=y42=y37;
-
+pair opto.pin[];
+xpart(opto.pin1)=xpart(opto1)+1mm;
+ypart(opto.pin1)=ypart(opto1);
+xpart(opto.pin2)=xpart(opto2)-1mm;
+ypart(opto.pin2)=ypart(opto1);
+xpart(opto.pin3)=xpart(opto.pin2);
+ypart(opto.pin3)=ypart(opto3);
+xpart(opto.pin4)=xpart(opto.pin1);
+ypart(opto.pin4)=ypart(opto3);
+% draw
+draw opto1--opto2--opto3--opto4--cycle;
+label(btex \smallss 1 etex, opto.pin1+up*1mm); label(btex \smallss 2 etex, opto.pin2+up*1mm);
+label(btex \smallss PC817C etex, 1/2[opto1,opto3]);
+label(btex \smallss 3 etex, opto.pin3+down*1mm); label(btex \smallss 4 etex, opto.pin4+down*1mm);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-draw z1--z0l ;
+
+draw z1--z0l;
 impedance0; label(btex ${}_?$ etex, 1/2[z0l,z0r]);
 label(btex \vbox{
 \hbox{In gorod power is 9V, not 12V, and ``?'' is 620R.}
 \hbox{In home ``?'' is 560R.}
 } etex, 1/2[z0l,z0r]+down*1cm);
-%%%%%%%%%%%%%%%%%
 
 %%%%%%%% phone %%%%%%%%%%%%%%%
 pair phonepower.plus, phonepower.minus;
@@ -318,15 +330,6 @@ draw z9{up}..(1/2[z9,z10]+up*3mm){z10-z9}..z10{down};
 label.top(btex \smallss LED etex, 1/2[z9,z10]+down*.5mm);
 label.bot(btex \eighttt+ etex, z9);
 label.bot(btex \eighttt- etex, z10);
-
-%draw z35--z36--z37--z38--cycle;
-%draw z9--z39; draw z10--z40;
-label(btex \smallss 1 etex, z39+up*1mm); label(btex \smallss 2 etex, z40+up*1mm);
-label(btex \smallss PC817C etex, 1/2[z35,z37]);
-label(btex \smallss 3 etex, z41+down*1mm); label(btex \smallss 4 etex, z42+down*1mm);
-
-%draw z42--(x42,ypart(arduino.D2)+1mm)--(xpart(arduino.D2),ypart(arduino.D2)+1mm)--arduino.D2;
-%draw z41--(x41,ypart(arduino4)+3mm+1mm)--(xpart(arduino.GND1),ypart(arduino4)+3mm+1mm)--arduino.GND1;
 
 %%%%%%%%%%%%%%% power plug %%%%%%%%%%%%%%
 pair powerplug[], powerplug.minus, powerplug.plus;
@@ -376,7 +379,7 @@ wire3[1]=z0r+right*12.5mm;
 wire3:=z0r..wire3[1]..controls (xpart(wire3[1])+5mm,ypart(wire3[1])) and (xpart(RJ11.connection2)-5mm,ypart(RJ11.connection2))..RJ11.connection2;
 draw wire3;
 
-wire4[1]=arduino.GND1+up*3mm;
+wire4[1]=arduino.GND1+up*4mm;
 wire4[2]=wire4[1]+right*14mm;
 wire4[3]=(wire4[2]--wire4[2]+down*infinity) intersectionpoint wire3;
 draw arduino.GND1--wire4[1]--wire4[2]--wire4[3];
@@ -412,14 +415,14 @@ wire7[1]=dtmf.GND+up*2mm;
 wire7[2]=wire7[1]+right*23mm;
 xpart(wire7[3])=xpart(wire7[2]);
 ypart(wire7[3])=ypart(wire7[4]);
-wire7[4]=arduino.GND1+up*2mm;
+wire7[4]=arduino.GND1+up*3mm;
 draw dtmf.GND -- for i=1 upto 4: wire7[i]-- endfor arduino.GND1;
 
 wire8[1]=dtmf.STQ+up*4mm;
 wire8[2]=wire8[1]+left*12.5mm;
 xpart(wire8[3])=xpart(wire8[2]);
 ypart(wire8[3])=ypart(wire8[4]);
-wire8[4]=arduino.D1+up*5mm;
+wire8[4]=arduino.D1+up*4mm;
 draw dtmf.STQ -- for i=1 upto 4: wire8[i]-- endfor arduino.D1;
 
 wire9[1]=dtmf.Q4+up*2mm;
@@ -440,6 +443,14 @@ xpart(wire12[1])=xpart(dtmf.Q1);
 ypart(wire12[1])=ypart(wire12[2]);
 wire12[2]=arduino.B4+up*2mm;
 draw dtmf.Q1 -- wire12[1] -- wire12[2] -- arduino.B4;
+
+% 39=opto.pin1 40=opto.pin2 41=opto.pin3 42=opto.pin4
+%wire13
+%draw z9--z39; draw z10--z40;
+
+%wire14
+%draw z42--(x42,ypart(arduino.D2)+1mm)--(xpart(arduino.D2),ypart(arduino.D2)+1mm)--arduino.D2;
+%draw z41--(x41,ypart(arduino4)+3mm+1mm)--(xpart(arduino.GND1),ypart(arduino4)+3mm+1mm)--arduino.GND1;
 
 endfig;
 
