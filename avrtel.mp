@@ -341,6 +341,7 @@ xpart(linepower.minus)=xpart(linepower.plus);
 ypart(linepower.minus)=y0l;
 
 %----
+path wire[];
 pair wire[][];
 
 wire1[1]=arduino.VCC+down*2mm;
@@ -355,15 +356,13 @@ wire2[3]=arduino.GND1+up*5mm;
 draw relay.GND -- for i=1 upto 3: wire2[i]-- endfor arduino.GND1;
 
 wire3[1]=z0r+right*12.5mm;
-draw z0r..wire3[1]..controls (xpart(wire3[1])+5mm,ypart(wire3[1])) and (xpart(RJ11.connection2)-5mm,ypart(RJ11.connection2))..RJ11.connection2;
+wire3:=z0r..wire3[1]..controls (xpart(wire3[1])+5mm,ypart(wire3[1])) and (xpart(RJ11.connection2)-5mm,ypart(RJ11.connection2))..RJ11.connection2;
+draw wire3;
 
 wire4[1]=arduino.GND1+up*3mm;
-xpart(wire4[2])=xpart(wire4[3]);
-ypart(wire4[2])=ypart(wire4[1]);
-xpart(wire4[3])=xpart(wire3[1]);
-ypart(wire4[3])=y0r;
+wire4[2]=wire4[1]+right*12mm;
+wire4[3]=(wire4[2]--wire4[2]+down*infinity) intersectionpoint wire3;
 draw arduino.GND1--wire4[1]--wire4[2]--wire4[3];
-drawdot wire4[3] withpen pencircle scaled 2pt;
 
 draw linepower.plus--RJ11.connection1;
 label(btex \tt- etex, linepower.minus+left*2mm);
@@ -371,9 +370,8 @@ label(btex \tt+ etex, linepower.plus+left*2mm);
 label(btex \twlbs 12V etex, 1/2[linepower.minus,linepower.plus]+left*8mm);
 
 xpart(wire5[1])=x34r;
-ypart(wire5[1])=ypart(RJ11.connection1);
+ypart(wire5[1])=ypart(linepower.plus);
 draw z34r--wire5[1];
-drawdot wire5[1] withpen pencircle scaled 2pt;
 
 draw relay.load1--(xpart(phonepower.minus),ypart(relay.load1))--powerplug.minus;
 draw phonepower.minus--(xpart(phonepower.minus),ypart(relay.load2))--relay.load2;
