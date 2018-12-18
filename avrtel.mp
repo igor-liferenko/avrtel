@@ -372,7 +372,7 @@ draw arduino.VCC -- for i=1 upto 3: wire1[i]-- endfor relay.VCC;
 wire2[1]=relay.GND+left*5mm;
 xpart(wire2[2])=xpart(wire2[1]);
 ypart(wire2[2])=ypart(wire2[3]);
-wire2[3]=arduino.GND1+up*5mm;
+wire2[3]=arduino.GND1+up*6mm;
 draw relay.GND -- for i=1 upto 3: wire2[i]-- endfor arduino.GND1;
 
 wire3[1]=z0r+right*12.5mm;
@@ -452,7 +452,11 @@ wire14[1]=arduino.D2+up*2mm;
 xpart(wire14[2])=xpart(opto.pin4);
 ypart(wire14[2])=ypart(wire14[1]);
 draw arduino.D2 -- wire14[1] -- wire14[2] -- opto.pin4;
-%draw z41--(x41,ypart(arduino4)+3mm+1mm)--(xpart(arduino.GND1),ypart(arduino4)+3mm+1mm)--arduino.GND1;
+
+wire15[1]=arduino.GND1+up*5mm;
+xpart(wire15[2])=xpart(opto.pin3);
+ypart(wire15[2])=ypart(wire15[1]);
+draw arduino.GND1 -- wire15[1] -- wire15[2] -- opto.pin3;
 
 endfig;
 
