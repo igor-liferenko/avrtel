@@ -367,8 +367,10 @@ label(btex \tt- etex, linepower.minus+left*2mm);
 label(btex \tt+ etex, linepower.plus+left*2mm);
 label(btex \twlbs 12V etex, 1/2[linepower.minus,linepower.plus]+left*8mm);
 
-%draw z34r--wire5[2];
-%drawdot
+xpart(wire5[1])=x34r;
+ypart(wire5[1])=ypart(RJ11.connection1);
+draw z34r--wire5[1];
+drawdot wire5[1] withpen pencircle scaled 2pt;
 
 draw relay.load1--(xpart(phonepower.minus),ypart(relay.load1))--powerplug.minus;
 draw phonepower.minus--(xpart(phonepower.minus),ypart(relay.load2))--relay.load2;
