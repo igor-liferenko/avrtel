@@ -89,13 +89,12 @@ endfig;
 %  3) bind each object to one point with absolute coordinates
 %  4) define and draw wires in the end of figure (using "for" loop where applicable) with endpoints being connection points
 
-vardef piggy(expr p) =
-save A,u,a,b; pair A,u; path a,b;
-A := point length(p) of p;
-u := unitvector(direction length(p) of p);
-a := A--(A - 2pt*u rotated 20);
-b := A--(A - 2pt*u rotated -20);
-p & a & reverse(a) & b % FIXME: how to do it without duplicating path?
+vardef piggyback(expr p) =
+save A,u; pair A,u;
+u := unitvector(p-(xpart(p),ypart(1/2[arduino1,arduino3])));
+A := p+u*1.5mm;
+draw p -- A withpen pencircle scaled .4pt;
+draw (A - 2pt*u rotated 20) -- A -- (A - 2pt*u rotated -20) withpen pencircle scaled .4pt;
 enddef;
 
 beginfig(3);
@@ -180,7 +179,7 @@ drawboxed(arduino.D7.box);
 label.bot(btex \smallss D1 etex, arduino.D1);
 label.bot(btex \smallss GND etex, arduino.GND1);
 label.bot(btex \smallss GND etex, arduino.GND2);
-draw piggy(arduino.GND2--arduino.GND2+up*1.5mm) withpen pencircle scaled .4pt;
+piggyback(arduino.GND2);
 label.bot(btex \smallss D2 etex, arduino.D2);
 label.top(btex \smallss 10 etex, arduino.B6);
 rboxit.arduino.B6.box(btex \smallss B6 etex);
@@ -188,16 +187,16 @@ arduino.B6.box.c=arduino.B6+up*3mm;
 arduino.B6.box.sw=arduino.B6.box.c+down*2pt+left*3pt;
 drawboxed(arduino.B6.box);
 label.top(btex \smallss 16 etex, arduino.16);
-draw piggy(arduino.16--arduino.16+down*1.5mm) withpen pencircle scaled .4pt;
+piggyback(arduino.16);
 label.top(btex \smallss 14 etex, arduino.14);
-draw piggy(arduino.14--arduino.14+down*1.5mm) withpen pencircle scaled .4pt;
+piggyback(arduino.14);
 label.top(btex \smallss 15 etex, arduino.15);
-draw piggy(arduino.15--arduino.15+down*1.5mm) withpen pencircle scaled .4pt;
+piggyback(arduino.15);
 label.top(btex \smallss VCC etex, arduino.VCC);
 label.top(btex \smallss RST etex, arduino.RST);
-draw piggy(arduino.RST--arduino.RST+down*1.5mm) withpen pencircle scaled .4pt;
+piggyback(arduino.RST);
 label.top(btex \smallss GND etex, arduino.GND3);
-draw piggy(arduino.GND3--arduino.GND3+down*1.5mm) withpen pencircle scaled .4pt;
+piggyback(arduino.GND3);
 pickup A;
 endgroup;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
