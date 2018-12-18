@@ -356,11 +356,13 @@ draw relay.GND -- for i=1 upto 3: wire2[i]-- endfor arduino.GND1;
 wire3[1]=z0r+right*12.5mm;
 draw z0r..wire3[1]..controls (xpart(wire3[1])+5mm,ypart(wire3[1])) and (xpart(RJ11.connection2)-5mm,ypart(RJ11.connection2))..RJ11.connection2;
 
-xpart(wire4[1])=xpart(wire3[1]);
-ypart(wire4[1])=ypart(wire4[2]);
-wire4[2]=arduino.GND1+up*3mm;
-draw wire3[1]--wire4[1]--wire4[2]--arduino.GND1;
-drawdot wire3[1] withpen pencircle scaled 2pt;
+wire4[1]=arduino.GND1+up*3mm;
+xpart(wire4[2])=xpart(wire4[3]);
+ypart(wire4[2])=ypart(wire4[1]);
+xpart(wire4[3])=xpart(wire3[1]);
+ypart(wire4[3])=y0r;
+draw arduino.GND1--wire4[1]--wire4[2]--wire4[3];
+drawdot wire4[3] withpen pencircle scaled 2pt;
 
 draw linepower.plus--RJ11.connection1;
 label(btex \tt- etex, linepower.minus+left*2mm);
