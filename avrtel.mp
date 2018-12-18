@@ -444,9 +444,8 @@ ypart(wire12[1])=ypart(wire12[2]);
 wire12[2]=arduino.B4+up*2mm;
 draw dtmf.Q1 -- wire12[1] -- wire12[2] -- arduino.B4;
 
-% 39=opto.pin1 40=opto.pin2 41=opto.pin3 42=opto.pin4
-%wire13
-%draw z9--z39; draw z10--z40;
+draw z9--opto.pin1;
+draw z10--opto.pin2;
 
 wire14[1]=arduino.D2+up*2mm;
 xpart(wire14[2])=xpart(opto.pin4);
