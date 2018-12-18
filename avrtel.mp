@@ -142,22 +142,23 @@ arduino3=arduino2+up*1.5cm;
 xpart(arduino4)=xpart(arduino1);
 ypart(arduino4)=ypart(arduino3);
 % pins
-pair arduino.B[],arduino.D[],arduino.E[],arduino.GND[],arduino.VCC,arduino.RST;
+pair arduino.B[],arduino.D[],arduino.E[],arduino.GND[],arduino.VCC,arduino.RST,arduino.TX[];
 xpart(arduino.B5)=xpart(arduino4)+2mm; ypart(arduino.B5)=ypart(arduino4);
 xpart(arduino.B4)=xpart(arduino.B5)+3mm; ypart(arduino.B4)=ypart(arduino4);
 xpart(arduino.E6)=xpart(arduino.B4)+3mm; ypart(arduino.E6)=ypart(arduino4);
 xpart(arduino.D7)=xpart(arduino.E6)+3mm; ypart(arduino.D7)=ypart(arduino4);
-xpart(arduino.D1)=xpart(arduino.D7)+10mm; ypart(arduino.D1)=ypart(arduino4);
+xpart(arduino.D1)=xpart(arduino.D7)+8mm; ypart(arduino.D1)=ypart(arduino4);
 xpart(arduino.GND1)=xpart(arduino.D1)+3mm; ypart(arduino.GND1)=ypart(arduino4);
 xpart(arduino.GND2)=xpart(arduino.GND1)+3mm; ypart(arduino.GND2)=ypart(arduino4);
-xpart(arduino.D2)=xpart(arduino.GND2)+3.5mm; ypart(arduino.D2)=ypart(arduino4);
+xpart(arduino.D2)=xpart(arduino.GND2)+3mm; ypart(arduino.D2)=ypart(arduino4);
+xpart(arduino.TX0)=xpart(arduino.D2)+2.85mm; ypart(arduino.TX0)=ypart(arduino4);
 xpart(arduino.B6)=xpart(arduino.B5); ypart(arduino.B6)=ypart(arduino1);
 xpart(arduino.16)=xpart(arduino.B4); ypart(arduino.16)=ypart(arduino1);
 xpart(arduino.14)=xpart(arduino.E6); ypart(arduino.14)=ypart(arduino1);
 xpart(arduino.15)=xpart(arduino.D7); ypart(arduino.15)=ypart(arduino1);
 xpart(arduino.VCC)=xpart(arduino.D1); ypart(arduino.VCC)=ypart(arduino1);
-xpart(arduino.RST)=xpart(arduino.VCC)+3mm; ypart(arduino.RST)=ypart(arduino1);
-xpart(arduino.GND3)=xpart(arduino.RST)+3mm; ypart(arduino.GND3)=ypart(arduino1);
+xpart(arduino.RST)=xpart(arduino.GND2); ypart(arduino.RST)=ypart(arduino1);
+xpart(arduino.GND3)=xpart(arduino.D2); ypart(arduino.GND3)=ypart(arduino1);
 % draw
 draw arduino1--arduino2--arduino3--arduino4--cycle;
 begingroup;
@@ -197,6 +198,8 @@ rboxit.arduino.D2.box(btex \smallss D2 etex);
 arduino.D2.box.c=arduino.D2+down*3mm;
 arduino.D2.box.sw=arduino.D2.box.c+down*2pt+left*3pt;
 drawboxed(arduino.D2.box);
+label.bot(btex \smallss TX0 etex, arduino.TX0);
+piggyback(arduino.TX0);
 label.top(btex \smallss 10 etex, arduino.B6);
 rboxit.arduino.B6.box(btex \smallss B6 etex);
 arduino.B6.box.c=arduino.B6+up*3mm;
@@ -376,7 +379,7 @@ wire3:=z0r..wire3[1]..controls (xpart(wire3[1])+5mm,ypart(wire3[1])) and (xpart(
 draw wire3;
 
 wire4[1]=arduino.GND1+up*3mm;
-wire4[2]=wire4[1]+right*12mm;
+wire4[2]=wire4[1]+right*14mm;
 wire4[3]=(wire4[2]--wire4[2]+down*infinity) intersectionpoint wire3;
 draw arduino.GND1--wire4[1]--wire4[2]--wire4[3];
 
