@@ -314,7 +314,6 @@ label(btex \smallss 3 etex, z41+down*1mm); label(btex \smallss 4 etex, z42+down*
 %draw z42--(x42,ypart(arduino.D2)+1mm)--(xpart(arduino.D2),ypart(arduino.D2)+1mm)--arduino.D2;
 %draw z41--(x41,ypart(arduino4)+3mm+1mm)--(xpart(arduino.GND1),ypart(arduino4)+3mm+1mm)--arduino.GND1;
 %draw z32--(x32,y32+2mm)--(xpart(arduino2)+2mm,y32+2mm)--(xpart(arduino2)+2mm,ypart(arduino.GND1)+2mm)--(xpart(arduino.GND1),ypart(arduino.GND1)+2mm)--arduino.GND1;
-%drawdot (xpart(arduino.GND1),ypart(arduino.GND1)+2mm) withpen pencircle scaled 2pt;
 
 %%%%%%%%%%%%%%% power plug %%%%%%%%%%%%%%
 pair powerplug[], powerplug.minus, powerplug.plus;
@@ -341,15 +340,12 @@ wire1[1]=arduino.VCC+down*2mm;
 wire1[2]=wire1[1]+right*2cm;
 xpart(wire1[3])=xpart(wire1[2]); ypart(wire1[3])=ypart(relay.VCC);
 draw arduino.VCC -- for i=1 upto 3: wire1[i]-- endfor relay.VCC;
-drawdot wire1[1] withpen pencircle scaled 2pt;
 
 wire2[1]=relay.GND+left*5mm;
 xpart(wire2[2])=xpart(wire2[1]);
 ypart(wire2[2])=ypart(wire2[3]);
 wire2[3]=arduino.GND1+up*5mm;
 draw relay.GND -- for i=1 upto 3: wire2[i]-- endfor arduino.GND1;
-
-drawdot (xpart(arduino.GND1),ypart(arduino4)+3mm+1mm) withpen pencircle scaled 2pt; % optocoupler.GND
 
 wire3[1]=z0r+right*12.5mm;
 draw z0r..wire3[1]..controls (xpart(wire3[1])+5mm,ypart(wire3[1])) and (xpart(rj.minus)-5mm,ypart(rj.minus))..rj.minus;
@@ -359,7 +355,6 @@ ypart(wire4[1])=ypart(wire4[2]);
 wire4[2]=arduino.GND1+up*3mm;
 draw wire3[1]--wire4[1]--wire4[2]--arduino.GND1;
 drawdot wire3[1] withpen pencircle scaled 2pt;
-drawdot wire4[2] withpen pencircle scaled 2pt;
 
 xpart(wire5[1])=x1;
 ypart(wire5[1])=ypart(rj.plus);
