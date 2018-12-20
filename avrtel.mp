@@ -13,6 +13,8 @@ verbatimtex
 \font\eighttt=cmtt8
 etex
 
+% TODO: do it via "input boxes" (circleit+cutl) (cutl as analog of cuta but without arrow)
+
 beginfig(1);
 r=24pt;
 z0=(2.6cm,9.5cm);
@@ -88,6 +90,8 @@ endfig;
 %  2) draw objects in the same place in file where their points are defined
 %  3) bind each object to one point with absolute coordinates
 %  4) define and draw wires in the end of figure (using "for" loop where applicable) with endpoints being connection points
+
+% TODO: do it via "input boxes"
 
 vardef piggyback(expr p) =
 save A,u; pair A,u;
