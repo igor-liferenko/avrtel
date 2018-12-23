@@ -145,27 +145,6 @@ void main(void)
   }
 }
 
-@ The pull-up resistor is connected to the high voltage (this is usually 3.3V or 5V and is
-often refereed to as VCC).
-
-Pull-ups are often used with buttons and switches.
-
-With a pull-up resistor, the input pin will read a high state when the photo-transistor
-is not opened. In other words, a small amount of current is flowing between VCC and the input
-pin (not to ground), thus the input pin reads close to VCC. When the photo-transistor is
-opened, it connects the input pin directly to ground. The current flows through the resistor
-to ground, thus the input pin reads a low state.
-
-Since pull-up resistors are so commonly needed, many MCUs, like the ATmega328 microcontroller
-on the Arduino platform, have internal pull-ups that can be enabled and disabled.
-
-$$\hbox to7.54cm{\vbox to3.98638888888889cm{\vfil\special{psfile=avrtel.2
-  clip llx=0 lly=0 urx=214 ury=113 rwi=2140}}\hfil}$$
-
-@<Set |PD2| to pullup mode@>=
-PORTD |= 1 << PD2;
-_delay_us(1); /* after enabling pullup, wait for the pin to settle before reading it */
-
 @ For on-line indication we send `\.{@@}' character to \.{tel}---to put
 it to initial state.
 For off-line indication we send `\.{\%}' character to \.{tel}---to disable
@@ -195,6 +174,27 @@ else { /* on-line */
   }
   PORTD |= 1 << PD5;
 }
+
+@ The pull-up resistor is connected to the high voltage (this is usually 3.3V or 5V and is
+often refereed to as VCC).
+
+Pull-ups are often used with buttons and switches.
+
+With a pull-up resistor, the input pin will read a high state when the photo-transistor
+is not opened. In other words, a small amount of current is flowing between VCC and the input
+pin (not to ground), thus the input pin reads close to VCC. When the photo-transistor is
+opened, it connects the input pin directly to ground. The current flows through the resistor
+to ground, thus the input pin reads a low state.
+
+Since pull-up resistors are so commonly needed, many MCUs, like the ATmega328 microcontroller
+on the Arduino platform, have internal pull-ups that can be enabled and disabled.
+
+$$\hbox to7.54cm{\vbox to3.98638888888889cm{\vfil\special{psfile=avrtel.2
+  clip llx=0 lly=0 urx=214 ury=113 rwi=2140}}\hfil}$$
+
+@<Set |PD2| to pullup mode@>=
+PORTD |= 1 << PD2;
+_delay_us(1); /* after enabling pullup, wait for the pin to settle before reading it */
 
 @ No other requests except {\caps set control line state} come
 after connection is established (speed is not set in \.{tel}).
