@@ -1,4 +1,4 @@
-outputtemplate:="%j.eps"; prologues:=3;
+%outputtemplate:="%j.eps"; prologues:=3;
 
 input circuit;
 input rboxes;
@@ -71,7 +71,7 @@ draw z5+right*r rotated angle(z7-z5) -- z7+right*r rotated angle(z5-z7);
 draw z5+right*r rotated angle(z8-z5) -- z8+right*r rotated angle(z5-z8);
 draw z6+down*r -- z9+up*r;
 endfig;
-end
+
 % TODO: put pullup inside the MCU box
 beginfig(2);
 z1=(5.5cm,1.9cm);
