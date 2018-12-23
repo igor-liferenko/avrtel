@@ -145,12 +145,17 @@ void main(void)
   }
 }
 
-@ For on-line indication we send `\.{@@}' character to \.{tel}---to put
+@ We check if handset is in use by using a switch. The switch is
+optocoupler.
+%TODO create avrtel.4 which merges PC817C.png and PC817C-pinout.png,
+%except pullup part, and put section "enable pullup" before this section
+
+For on-line indication we send `\.{@@}' character to \.{tel}---to put
 it to initial state.
 For off-line indication we send `\.{\%}' character to \.{tel}---to disable
 power reset on base station after timeout.
 
-$$\hbox to9cm{\vbox to5.93cm{\vfil\special{psfile=PC817C.eps
+$$\hbox to9cm{\vbox to5.93cm{\vfil\special{psfile=avrtel.4
   clip llx=0 lly=0 urx=663 ury=437 rwi=2551}}\hfil}$$
 
 @<Check phone line state@>=
