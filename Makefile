@@ -25,10 +25,6 @@ test:
 
 .PHONY: $(wildcard *.eps)
 
-PC817C.eps: PC817C.png
-	@convert $< $@
-	@imgsize $@ 9 -
-
 tlp1.eps: tlp1.jpg
 	@convert $< $@
 	@imgsize $@
