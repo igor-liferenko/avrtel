@@ -14,7 +14,9 @@ verbatimtex
 \font\eighttt=cmtt8
 etex
 
-% TODO: do it via "input boxes" (circleit+cutl) (cutl as analog of cuta but without arrow)
+vardef cutl(suffix a, b) =
+draw a.c -- b.c cutbefore bpath.a cutafter bpath.b;
+enddef;
 
 beginfig(1);
 r=24pt;
@@ -28,6 +30,17 @@ z6=(7.8cm,3cm);
 z7=(2.4cm,.9cm);
 z8=(5.6cm,.9cm);
 z9=(7.8cm,.9cm);
+%%%%%% TODO: do like this
+circleit.circ1(btex \big ep0 etex);
+circ1.n-circ1.c=up*r; circ1.e-circ1.c=right*r;
+circ1.c=(0,0);
+drawboxed(circ1);
+circleit.circ2(btex \big ep8 etex);
+circ2.n-circ2.c=up*r; circ2.e-circ2.c=right*r;
+circ2.c=(.5cm,3cm);
+drawboxed(circ2);
+cutl(circ1,circ2);
+%%%%%%%%%%%%
 label(btex \big DEVICE etex, z0);
 draw unitsquare shifted (-.5,-.5) xscaled 5.1cm yscaled 1.1cm shifted z0;
 label(btex \big ep0 etex, z1);
@@ -58,7 +71,7 @@ draw z5+right*r rotated angle(z7-z5) -- z7+right*r rotated angle(z5-z7);
 draw z5+right*r rotated angle(z8-z5) -- z8+right*r rotated angle(z5-z8);
 draw z6+down*r -- z9+up*r;
 endfig;
-
+end
 % TODO: put pullup inside the MCU box
 beginfig(2);
 z1=(5.5cm,1.9cm);
@@ -93,7 +106,7 @@ endfig;
 %  3) bind each object to one point with absolute coordinates
 %  4) define and draw wires in the end of figure (using "for" loop where applicable) with endpoints being connection points
 
-% TODO: do it via "input boxes"
+% TODO: do boxes with 4 corners via "boxit"
 
 vardef piggyback(expr p) =
 save A,u; pair A,u;
