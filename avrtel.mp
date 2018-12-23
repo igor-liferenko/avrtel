@@ -1,4 +1,4 @@
-%outputtemplate:="%j.eps"; prologues:=3;
+outputtemplate:="%j.eps"; prologues:=3;
 
 input circuit;
 input rboxes;
@@ -7,6 +7,7 @@ verbatimtex
 \font\big=cmss17
 \font\tenss=cmss10 \tenss
 \font\smallss=cmss8 scaled 400
+\font\smalltt=cmtt8 scaled 400
 \font\eightss=cmss8
 \font\sevenss=cmss8 scaled 600
 \font\twlbs=cmssbx10 scaled 1200
@@ -108,36 +109,6 @@ cap:=1/2*8mm;
 
 z0l=(0,-10mm);
 z0r=z0l+right*2imp;
-z1=z0l+left*2cm;
-z2=z0r+right*2cm+up*2mm;
-z19=z2+left*2mm;
-z4=z19+right*3mm;
-x6s=3mm;
-z6=z2+right*1/2x6s+up*1/6x6s;
-z7=z2+up*2/6x6s;
-x3w=4cm; x3h=2cm; z3=z2+right*x6s+right*1/2x3w+up*5mm;
-z5=z3+up*1/2x3h+right*(18/40x3w-3mm);
-z8=z5+right*2/40x3w;
-z9=z3+up*1/2x3h+left*(18/40x3w-3mm);
-z10=z9+right*3mm;
-x11=x19; y11=y7;
-z12=z11+up*2mm;
-
-%%%%%%%% RJ11 %%%%%%%%%%%%%%
-pair RJ[];
-RJ11.1=(30.5mm,-9mm);
-RJ11.2=RJ11.1+right*3mm;
-RJ11.3=RJ11.2+up*3mm;
-xpart(RJ11.4)=xpart(RJ11.1); ypart(RJ11.4)=ypart(RJ11.3);
-% pins
-pair RJ[].connection[];
-xpart(RJ11.connection1)=xpart(RJ11.connection2)=xpart(RJ11.1);
-ypart(RJ11.connection1)=ypart(RJ11.1)+2mm;
-ypart(RJ11.connection2)=ypart(RJ11.1)+1mm;
-% draw
-draw RJ11.1--RJ11.2--RJ11.3--RJ11.4--cycle;
-label(btex \smallss RJ11 etex, 1/2[RJ11.1,RJ11.3]);
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%% Arduino %%%%%%%%%%%%%
 pair arduino[];
@@ -325,37 +296,21 @@ label(btex \smallss PC817C etex, 1/2[opto1,opto3]);
 label(btex \smallss 3 etex, opto.pin3+down*1mm); label(btex \smallss 4 etex, opto.pin4+down*1mm);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-draw z1--z0l;
 impedance0; label(btex ${}_?$ etex, 1/2[z0l,z0r]);
 label(btex \vbox{
 \hbox{In gorod power is 9V, not 12V, and ``?'' is 620R.}
 \hbox{In home ``?'' is 560R.}
 } etex, 1/2[z0l,z0r]+down*1cm);
 
-%%%%%%%% phone %%%%%%%%%%%%%%%
-pair phonepower.plus, phonepower.minus;
-draw unitsquare shifted (-.5,-.5) xscaled x3w yscaled x3h shifted z3 ;
-label(btex Analog DECT phone etex, z3);
-label.top(btex \tt- etex, z5); label.top(btex \tt+ etex, z8);
-draw unitsquare shifted (-.5,0) xscaled (abs(z5-z8)+3mm) yscaled 4mm shifted 1/2[z5,z8];
-phonepower.plus=z8+up*4mm; phonepower.minus=z5+up*4mm;
-draw z9{up}..(1/2[z9,z10]+up*3mm){z10-z9}..z10{down};
-label.top(btex \smallss LED etex, 1/2[z9,z10]+down*.5mm);
-label.bot(btex \eighttt+ etex, z9);
-label.bot(btex \eighttt- etex, z10);
-
 %%%%%%%%%%%%%%% power plug %%%%%%%%%%%%%%
 pair powerplug[], powerplug.minus, powerplug.plus;
 powerplug1=(6.8cm,4cm);
-1/2[xpart(powerplug1),xpart(powerplug2)]=1/2[xpart(phonepower.plus),xpart(phonepower.minus)];
-ypart(powerplug2)=ypart(powerplug1);
+powerplug2=powerplug1+right*3mm;
 powerplug3=powerplug2+up*7mm;
 xpart(powerplug4)=xpart(powerplug1); ypart(powerplug4)=ypart(powerplug3);
 % pins
-xpart(powerplug.plus)=xpart(phonepower.plus);
-xpart(powerplug.minus)=xpart(phonepower.minus);
-ypart(powerplug.plus)=ypart(powerplug1);
-ypart(powerplug.minus)=ypart(powerplug1);
+powerplug.minus=powerplug1+right*.5mm;
+powerplug.plus=powerplug2+left*.5mm;
 % draw
 draw powerplug1--powerplug2--powerplug3--powerplug4--cycle;
 draw (powerplug3+down*1mm)--(powerplug3+down*1mm+right*2mm);
@@ -367,13 +322,28 @@ label(btex \vbox{\hsize0pt
 } etex rotated 90, 1/2[powerplug1,powerplug3]);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%% phone %%%%%%%%%%%%%%%
+boxit.phone(btex Analog DECT phone etex);
+phone.c=(5.3cm,-1mm);
+phone.e-phone.w=right*3.9cm;
+phone.n-phone.s=up*2.4cm;
+drawboxed(phone);
+label.bot(btex \eighttt-+ etex, (xpart(1/2[powerplug.minus,powerplug.plus]),ypart(phone.n)));
+label.bot(btex \eighttt+\eightss LED\eighttt- etex, (xpart(1/2[opto.pin1,opto.pin2]),ypart(phone.n))+down*.25mm);
+
 pair linepower.plus, linepower.minus;
-xpart(linepower.plus)=x1;
-ypart(linepower.plus)=ypart(RJ11.connection1);
-xpart(linepower.minus)=xpart(linepower.plus);
-ypart(linepower.minus)=y0l;
+linepower.minus=z0l+left*2cm;
+linepower.plus=linepower.minus+up*3mm;
 
 %----
+draw linepower.plus--(xpart(phone.w),ypart(linepower.plus));
+label(btex \tt- etex, linepower.minus+left*2mm);
+label(btex \tt+ etex, linepower.plus+left*2mm);
+label(btex \twlbs 12V etex, 1/2[linepower.minus,linepower.plus]+left*8mm);
+draw linepower.minus--z0l;
+draw z0r--(xpart(phone.w),ypart(z0r));
+label.rt(btex \eightss RJ11 etex rotated -90, (xpart(phone.w),ypart(1/2[linepower.plus,linepower.minus])));
+
 path wire[];
 pair wire[][];
 
@@ -388,19 +358,10 @@ ypart(wire2[2])=ypart(wire2[3]);
 wire2[3]=arduino.GND1+up*6mm;
 draw relay.GND -- for i=1 upto 3: wire2[i]-- endfor arduino.GND1;
 
-wire3[1]=z0r+right*12.5mm;
-wire3:=z0r..wire3[1]..controls (xpart(wire3[1])+5mm,ypart(wire3[1])) and (xpart(RJ11.connection2)-5mm,ypart(RJ11.connection2))..RJ11.connection2;
-draw wire3;
-
 wire4[1]=arduino.GND1+up*4mm;
 wire4[2]=wire4[1]+right*14mm;
-wire4[3]=(wire4[2]--wire4[2]+down*infinity) intersectionpoint wire3;
+wire4[3]=(xpart(wire4[2]),ypart(z0r));
 draw arduino.GND1--wire4[1]--wire4[2]--wire4[3];
-
-draw linepower.plus--RJ11.connection1;
-label(btex \tt- etex, linepower.minus+left*2mm);
-label(btex \tt+ etex, linepower.plus+left*2mm);
-label(btex \twlbs 12V etex, 1/2[linepower.minus,linepower.plus]+left*8mm);
 
 wire5[1]=dtmf.IN+up*5mm;
 wire10[1]=wire5[1]+right*8.5mm;
@@ -413,9 +374,9 @@ ypart(wire10[2])=ypart(linepower.plus);
 draw dtmf.IN -- wire5[1] -- z34l;
 draw z34r -- wire10[1] -- wire10[2];
 
-draw relay.load1--(xpart(phonepower.minus),ypart(relay.load1))--powerplug.minus;
-draw phonepower.minus--(xpart(phonepower.minus),ypart(relay.load2))--relay.load2;
-draw phonepower.plus--powerplug.plus;
+draw relay.load1--(xpart(powerplug.minus),ypart(relay.load1))--powerplug.minus;
+draw (xpart(powerplug.minus),ypart(phone.n))--(xpart(powerplug.minus),ypart(relay.load2))--relay.load2;
+draw powerplug.plus--(xpart(powerplug.plus),ypart(phone.n));
 
 wire6[1]=dtmf.VCC+up*1mm;
 xpart(wire6[2])=xpart(arduino.VCC);
@@ -461,8 +422,8 @@ ypart(wire13[2])=ypart(wire13[3]);
 wire13[3]=arduino.E6+up*7mm;
 draw relay.IN -- for i=1 upto 3: wire13[i]-- endfor arduino.E6;
 
-draw z9--opto.pin1;
-draw z10--opto.pin2;
+draw (xpart(opto.pin1),ypart(phone.n))--opto.pin1;
+draw (xpart(opto.pin2),ypart(phone.n))--opto.pin2;
 
 wire14[1]=arduino.D2+up*2mm;
 xpart(wire14[2])=xpart(opto.pin4);
