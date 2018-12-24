@@ -106,7 +106,7 @@ endfig;
 %  3) bind each object to one point with absolute coordinates
 %  4) define and draw wires in the end of figure (using "for" loop where applicable) with endpoints being connection points
 
-% TODO: do boxes with 4 corners via "boxit", like "phone" (use ".off" to position label not in center)
+% TODO: do boxes with 4 corners via "boxit", like "phone" (use "drawboxes(box4); draw pic(box4) shifted (0,-1cm);" to position label not in center)
 
 vardef piggyback(expr p) =
 save A,u; pair A,u;
