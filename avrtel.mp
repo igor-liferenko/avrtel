@@ -106,7 +106,7 @@ endfig;
 %  3) bind each object to one point with absolute coordinates
 %  4) define and draw wires in the end of figure (using "for" loop where applicable) with endpoints being connection points
 
-% TODO: do boxes with 4 corners via "boxit", like "phone"
+% TODO: do boxes with 4 corners via "boxit", like "phone" (use ".off" to position label not in center)
 
 vardef piggyback(expr p) =
 save A,u; pair A,u;
@@ -156,7 +156,7 @@ save A; pen A; A:=currentpen;
 pickup pencircle scaled .4pt;
 boxit.arduino.B0.box(btex \smallss B0 etex);
 arduino.B0.box.c=1/2[arduino.B4,arduino.B5]+down*5.5mm;
-arduino.B0.box.sw=arduino.B0.box.c+down*2pt+left*3pt;
+arduino.B0.box.sw=arduino.B0.box.c+down*2pt+left*3pt; % TODO: use nw and se corners to specify full width and height
 drawboxed(arduino.B0.box);
 boxit.arduino.D5.box(btex \smallss D5 etex);
 arduino.D5.box.c=(xpart(arduino.B0.box.c),ypart(arduino1)+5.5mm);
