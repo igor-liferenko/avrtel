@@ -156,7 +156,7 @@ save A; pen A; A:=currentpen;
 pickup pencircle scaled .4pt;
 boxit.arduino.B0.box(btex \smallss B0 etex);
 arduino.B0.box.c=1/2[arduino.B4,arduino.B5]+down*5.5mm;
-arduino.B0.box.sw=arduino.B0.box.c+down*2pt+left*3pt; % TODO: use nw and se corners to specify full width and height
+arduino.B0.box.sw=arduino.B0.box.c+down*2pt+left*3pt; % TODO: use sw and ne corners to specify full width and height, like in setup-tarif.mp, use rbox_radius, use thinner line for drawing the box
 drawboxed(arduino.B0.box);
 boxit.arduino.D5.box(btex \smallss D5 etex);
 arduino.D5.box.c=(xpart(arduino.B0.box.c),ypart(arduino1)+5.5mm);
