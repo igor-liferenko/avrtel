@@ -7,7 +7,6 @@ verbatimtex
 \font\big=cmss17
 \font\tenss=cmss10 \tenss
 \font\smallss=cmss8 scaled 400
-\font\smalltt=cmtt8 scaled 400
 \font\eightss=cmss8
 \font\sevenss=cmss8 scaled 600
 \font\twlbs=cmssbx10 scaled 1200
