@@ -147,9 +147,10 @@ void main(void)
 
 @ We check if handset is in use by using a switch. The switch is
 optocoupler.
-%TODO create avrtel.4 which merges PC817C.png and PC817C-pinout.png,
-%except pullup part, and put section "enable pullup" before this section
-%and "git rm PC817C.png PC817C-pinout.png"
+
+TODO create avrtel.4 which merges PC817C.png and PC817C-pinout.png,
+except pullup part, and put section "enable pullup" before this section
+and "git rm PC817C.png PC817C-pinout.png"
 
 For on-line indication we send `\.{@@}' character to \.{tel}---to put
 it to initial state.
