@@ -72,6 +72,7 @@ draw z6+down*r -- z9+up*r;
 endfig;
 
 % TODO: put pullup inside the MCU box
+% TODO: use resistor from circuit.mp by setting coordinates of zNl and zNr=zNl+up*Xcm and using impedanceN
 beginfig(2);
 z1=(5.5cm,1.9cm);
 z2=(4cm,1.1cm);
