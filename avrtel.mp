@@ -29,7 +29,7 @@ z6=(7.8cm,3cm);
 z7=(2.4cm,.9cm);
 z8=(5.6cm,.9cm);
 z9=(7.8cm,.9cm);
-%%%%%% TODO: do like this
+%%%%%% TODO: do like this and maybe instead of cutl use explicit code
 circleit.circ1(btex \big ep0 etex);
 circ1.n-circ1.c=up*r; circ1.e-circ1.c=right*r;
 circ1.c=(0,0);
