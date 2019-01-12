@@ -1,4 +1,4 @@
-%outputtemplate:="%j.eps"; prologues:=3;
+outputtemplate:="%j.eps"; prologues:=3;
 
 input circuit;
 input rboxes;
@@ -341,7 +341,7 @@ phone.c=(5.3cm,-1mm);
 phone.e-phone.w=right*3.9cm;
 phone.n-phone.s=up*2.4cm;
 drawboxed(phone);
-label.bot(btex \eighttt-+ etex, (xpart(1/2[powerplug.minus,powerplug.plus]),ypart(phone.n)));
+label.bot(btex ${}^+_-{}^-_+$ etex, (xpart(1/2[powerplug.minus,powerplug.plus]),ypart(phone.n)));
 label.bot(btex \eighttt+\eightss LED\eighttt- etex, (xpart(1/2[opto.pin1,opto.pin2]),ypart(phone.n))+down*.25mm);
 
 pair linepower.plus, linepower.minus;
