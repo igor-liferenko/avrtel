@@ -105,7 +105,7 @@ ISR(INT1_vect)
       }
       else if (btn == 'D') {
         // send this event via HID and on host execute
-        // system("nc 192.168.1.3 5554 </etc/say-time");
+        // system("nc 10.0.0.5 5554 </etc/say-time");
       }
       else if (btn != 'A' && !(PIND & 1 << PD2)) {
         while (!(UEINTX & 1 << TXINI)) ;
