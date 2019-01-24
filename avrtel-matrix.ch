@@ -105,7 +105,7 @@ ISR(INT1_vect)
       }
       else if (btn == 'D') {
         // send this event via HID and on host execute
-        // system("nc 10.0.0.5 5554 </etc/say-time");
+        // system("nc 10.0.0.5 5554 </etc/hid-time");
         // (use netcat package to wait command completion (?))
       }
       else if (btn != 'A' && !(PIND & 1 << PD2)) {
