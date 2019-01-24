@@ -107,6 +107,9 @@ ISR(INT1_vect)
         // send this event via HID and on host execute
         // system("nc 10.0.0.5 5554 </etc/hid-time");
         // (use netcat package to wait command completion (?))
+        // TODO: instead of calling hid-time like this, try to put its content after
+        // "nc -l" directly in rc.local of build script of 10.0.0.5
+        // (see "git lg openwrt/" how reboot was done via "nc -l")
       }
       else if (btn != 'A' && !(PIND & 1 << PD2)) {
         while (!(UEINTX & 1 << TXINI)) ;
