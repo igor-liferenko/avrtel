@@ -105,11 +105,10 @@ ISR(INT1_vect)
       }
       else if (btn == 'D') {
         // send this event via HID and on host execute
-        // system("nc 10.0.0.5 5554 </etc/hid-time");
-        // (use netcat package to wait command completion (?))
-        // TODO: instead of calling hid-time like this, try to put its content after
-        // "nc -l" directly in rc.local of build script of 10.0.0.5
-        // (see "git lg openwrt/" how reboot was done via "nc -l")
+        // system("busybox nc 10.0.0.5 5554 </etc/hid-time");
+        // (we use "nc -e" on server to determine when the script will end)
+        // NOTE: when tested on server and client on openwrt, they both exited when script
+        // ended - ensure that raspbian's netcat has the same behavior
       }
       else if (btn != 'A' && !(PIND & 1 << PD2)) {
         while (!(UEINTX & 1 << TXINI)) ;
