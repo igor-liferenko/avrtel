@@ -147,7 +147,9 @@ DDRD |= 1 << PD0;     // Set pin to output
       }
       btn = 0;
       // TODO: do not allow one button to be pressed more frequently than
-      // debounce
+      // debounce (i.e., if I mean to hold it, but it bounces,
+      // and the interval between bounces exceeds "eliminate capacitance" delay,
+      // which is very small)
     }
 @z
 
