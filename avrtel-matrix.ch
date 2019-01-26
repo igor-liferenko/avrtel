@@ -145,7 +145,8 @@ DDRD |= 1 << PD0;     // Set pin to output
         _delay_ms(1);
       }
       btn = 0;
-      // TODO: do not allow one button to be pressed more frequently than <blink time + small delay>
+      // TODO: do not allow one button to be pressed more frequently than
+      // debounce
     }
 @z
 
