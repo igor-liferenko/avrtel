@@ -22,19 +22,22 @@ ISR(INT1_vect)
   EICRA |= 1 << ISC11 | 1 << ISC10; /* set INT1 to trigger on rising edge */
   EIMSK |= 1 << INT1; /* turn on INT1 */
 @y
+TCCR0B = 0; // Halt counter by setting clock select bits to 0 (No clock source).
+            // This keeps anyhting from happeneing while we get set up
+TCNT0 = 0x00;     // Start counting at bottom.
+OCR0A = 0; // Set TOP to 0. This effectively keeps us from counting becuase the counter just keeps
+           // reseting back to 0.
+           // We break out of this by manually setting the TCNT higher than 0, in which case it
+           // will count all the way up to MAX and then overflow back to 0 and get locked up again.
+OCR0B = 2; // max width
+TCCR0A = _BV(COM0B1) | _BV(COM0B0) | _BV(WGM00) | _BV(WGM01);
+TCCR0B =  _BV(WGM02)|_BV(CS02) | _BV(CS00);
+DDRD |= 1 << PD0;     // Set pin to output
 @z
 
 @x
   DDRE |= 1 << PE6;
 @y
-  OCR1A = 0; // Set TOP to 0. This effectively keeps us from counting becuase the counter just keeps
-             // reseting back to 0.
-             // We break out of this by manually setting the TCNT higher than 0, in which case it
-             // will count all the way up to MAX and then overflow back to 0 and get locked up again.
-  OCR1B = 64000;
-  TCCR1A = _BV(COM1B1) | _BV(COM1B0) | _BV(WGM10) | _BV(WGM11);
-  TCCR1B = _BV(WGM13) | _BV(WGM12);
-  DDRB |= 1 << PB6;     // Set pin to output
 @z
 
 @x
@@ -122,9 +125,7 @@ ISR(INT1_vect)
         // ended - ensure that raspbian's netcat has the same behavior
       }
       else if (btn != 'A' && !(PIND & 1 << PD2)) {
-        TCCR1B &= ~(_BV(CS12) | _BV(CS10));
-        TCNT1 = 63999;
-        TCCR1B |= _BV(CS12) | _BV(CS10);
+        TCNT0 = 1; // fire a one-shot pulse
         while (!(UEINTX & 1 << TXINI)) ;
         UEINTX &= ~(1 << TXINI);
         UEDATX = btn;
