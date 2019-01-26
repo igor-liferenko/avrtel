@@ -19,7 +19,13 @@ ISR(INT1_vect)
 @z
 
 @x
-  sei();
+  EICRA |= 1 << ISC11 | 1 << ISC10; /* set INT1 to trigger on rising edge */
+  EIMSK |= 1 << INT1; /* turn on INT1 */
+@y
+@z
+
+@x
+  DDRE |= 1 << PE6;
 @y
   OCR1A = 0; // Set TOP to 0. This effectively keeps us from counting becuase the counter just keeps
              // reseting back to 0.
@@ -29,18 +35,6 @@ ISR(INT1_vect)
   TCCR1A = _BV(COM1B1) | _BV(COM1B0) | _BV(WGM10) | _BV(WGM11);
   TCCR1B = _BV(WGM13) | _BV(WGM12);
   DDRB |= 1 << PB6;     // Set pin to output
-  sei();
-@z
-
-@x
-  EICRA |= 1 << ISC11 | 1 << ISC10; /* set INT1 to trigger on rising edge */
-  EIMSK |= 1 << INT1; /* turn on INT1 */
-@y
-@z
-
-@x
-  DDRE |= 1 << PE6;
-@y
 @z
 
 @x
