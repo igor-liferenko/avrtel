@@ -131,9 +131,9 @@ ISR(INT1_vect)
       else timeout = 2000;
       while (--timeout) {
         @<Get button@>@;
-        if (btn != prev_button && timeout < 1950) break;
+        if (btn != prev_button && timeout < 1500) break;
         _delay_ms(1);
-        if (timeout < 1975) PORTB &= ~(1 << PB6);
+        if (timeout < 1900) PORTB &= ~(1 << PB6);
       }
       btn = 0;
     }
