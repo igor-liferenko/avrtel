@@ -144,6 +144,7 @@ ISR(INT1_vect)
         _delay_ms(1);
       }
       btn = 0;
+      // TODO: do not allow one button to be pressed more frequently than <blink time + small delay>
     }
 @z
 
