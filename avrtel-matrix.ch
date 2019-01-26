@@ -22,6 +22,11 @@ ISR(INT1_vect)
   EICRA |= 1 << ISC11 | 1 << ISC10; /* set INT1 to trigger on rising edge */
   EIMSK |= 1 << INT1; /* turn on INT1 */
 @y
+@z
+
+@x
+  DDRE |= 1 << PE6;
+@y
 TCCR0B = 0; // Halt counter by setting clock select bits to 0 (No clock source).
             // This keeps anyhting from happeneing while we get set up
 TCNT0 = 0x00;     // Start counting at bottom.
@@ -34,11 +39,6 @@ OCR0B = 2; // max width (must be greater than TCNT0 - see
 TCCR0A = _BV(COM0B1) | _BV(COM0B0) | _BV(WGM00) | _BV(WGM01);
 TCCR0B =  _BV(WGM02)|_BV(CS02) | _BV(CS00);
 DDRD |= 1 << PD0;     // Set pin to output
-@z
-
-@x
-  DDRE |= 1 << PE6;
-@y
 @z
 
 @x
