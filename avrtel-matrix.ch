@@ -101,14 +101,7 @@ ISR(INT1_vect)
     }
 @y
     if (btn != 0) {
-      if (btn == 'D') {
-        // send this event via HID and on host execute
-        // system("busybox nc 10.0.0.5 5554 </etc/hid-time");
-        // (we use "nc -e" on server to determine when the script will end)
-        // NOTE: when tested on server and client on openwrt, they both exited when script
-        // ended - ensure that raspbian's netcat has the same behavior
-      }
-      else if (btn != 'A' && !(PIND & 1 << PD2)) {
+      if (btn != 'A' && !(PIND & 1 << PD2)) {
         PORTB |= 1 << PB6;
         while (!(UEINTX & 1 << TXINI)) ;
         UEINTX &= ~(1 << TXINI);
@@ -127,8 +120,9 @@ ISR(INT1_vect)
         @<Get button@>@;
         if (btn != prev_button && timeout < 1500) break;
         _delay_ms(1);
-        if (timeout < 1900) PORTB &= ~(1 << PB6);
+        if (!(btn == 'B' || btn == 'C') && timeout < 1900) PORTB &= ~(1 << PB6);
       }
+      PORTB &= ~(1 << PB6);
       btn = 0;
     }
 @z
