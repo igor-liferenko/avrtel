@@ -27,18 +27,7 @@ ISR(INT1_vect)
 @x
   DDRE |= 1 << PE6;
 @y
-TCCR0B = 0; // Halt counter by setting clock select bits to 0 (No clock source).
-            // This keeps anyhting from happeneing while we get set up
-TCNT0 = 0x00;     // Start counting at bottom.
-OCR0A = 0; // Set TOP to 0. This effectively keeps us from counting becuase the counter just keeps
-           // reseting back to 0.
-           // We break out of this by manually setting the TCNT higher than 0, in which case it
-           // will count all the way up to MAX and then overflow back to 0 and get locked up again.
-OCR0B = 2; // max width (must be greater than TCNT0 - see
-           // https://github.com/bigjosh/TimerShot/blob/master/TimerShot.ino)
-TCCR0A = _BV(COM0B1) | _BV(COM0B0) | _BV(WGM00) | _BV(WGM01);
-TCCR0B =  _BV(WGM02)|_BV(CS02) | _BV(CS00);
-DDRD |= 1 << PD0;     // Set pin to output
+  DDRB |= 1 << PB6;
 @z
 
 @x
@@ -126,7 +115,7 @@ DDRD |= 1 << PD0;     // Set pin to output
         // ended - ensure that raspbian's netcat has the same behavior
       }
       else if (btn != 'A' && !(PIND & 1 << PD2)) {
-        TCNT0 = 1; // fire a one-shot pulse
+        PORTB |= 1 << PB6;
         while (!(UEINTX & 1 << TXINI)) ;
         UEINTX &= ~(1 << TXINI);
         UEDATX = btn;
@@ -142,15 +131,11 @@ DDRD |= 1 << PD0;     // Set pin to output
       else timeout = 2000;
       while (--timeout) {
         @<Get button@>@;
-        if (btn != prev_button) break;
+        if (btn != prev_button && timeout < 1950) break;
         _delay_ms(1);
+        if (timeout < 1975) PORTB &= ~(1 << PB6);
       }
       btn = 0;
-      // TODO: do not allow one button to be pressed more frequently than
-      // debounce (i.e., if I mean to hold it, but it bounces,
-      // and the interval between bounces exceeds "eliminate capacitance" delay,
-      // which is very small); also, the debounce interval must be a little greater
-      // than the blink time of the button press indicator led
     }
 @z
 
