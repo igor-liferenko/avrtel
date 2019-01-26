@@ -111,10 +111,12 @@ ISR(INT1_vect)
           continues to increase (decrease) */
       else timeout = 2000;
       while (--timeout) {
-        @<Get button@>@;
-        if (btn != prev_button && timeout < 1500) break;
+        if (!(prev_button == 'B' || prev_button == 'C')) {
+          @<Get button@>@;
+          if (btn != prev_button && timeout < 1500) break;
+        }
         _delay_ms(1);
-        if (btn == 'B' || btn == 'C') {
+        if (prev_button == 'B' || prev_button == 'C') {
           if (timeout < 200) PORTB &= ~(1 << PB6);
         }
         else {
