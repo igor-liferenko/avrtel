@@ -69,12 +69,6 @@ ISR(INT1_vect)
       _delay_ms(1); /* eliminate capacitance\footnote\dag{This corresponds to ``2)'' in
         |@<Eliminate capacitance@>|.} */
     }
-    if (btn == 'D') {
-      if (DDRD & 1 << PD1) {
-        DDRD &= ~(1 << PD1);
-        _delay_ms(1); /* eliminate capacitance\dag\ */
-      }
-    }
 @z
 
 @x
