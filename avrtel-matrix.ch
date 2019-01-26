@@ -29,7 +29,8 @@ OCR0A = 0; // Set TOP to 0. This effectively keeps us from counting becuase the 
            // reseting back to 0.
            // We break out of this by manually setting the TCNT higher than 0, in which case it
            // will count all the way up to MAX and then overflow back to 0 and get locked up again.
-OCR0B = 2; // max width
+OCR0B = 2; // max width (must be greater than TCNT0 - see
+           // https://github.com/bigjosh/TimerShot/blob/master/TimerShot.ino)
 TCCR0A = _BV(COM0B1) | _BV(COM0B0) | _BV(WGM00) | _BV(WGM01);
 TCCR0B =  _BV(WGM02)|_BV(CS02) | _BV(CS00);
 DDRD |= 1 << PD0;     // Set pin to output
