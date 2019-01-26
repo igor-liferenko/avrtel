@@ -101,13 +101,7 @@ ISR(INT1_vect)
     }
 @y
     if (btn != 0) {
-      if (btn == 'B') {
-        // send this event via HID and on host execute system("mpc -h 192.168.1.3 volume +1");
-      }
-      else if (btn == 'C') {
-        // send this event via HID and on host execute system("mpc -h 192.168.1.3 volume -1");
-      }
-      else if (btn == 'D') {
+      if (btn == 'D') {
         // send this event via HID and on host execute
         // system("busybox nc 10.0.0.5 5554 </etc/hid-time");
         // (we use "nc -e" on server to determine when the script will end)
