@@ -120,9 +120,13 @@ ISR(INT1_vect)
         @<Get button@>@;
         if (btn != prev_button && timeout < 1500) break;
         _delay_ms(1);
-        if (!(btn == 'B' || btn == 'C') && timeout < 1900) PORTB &= ~(1 << PB6);
+        if (btn == 'B' || btn == 'C') {
+          if (timeout < 200) PORTB &= ~(1 << PB6);
+        }
+        else {
+          if (timeout < 1900) PORTB &= ~(1 << PB6);
+        }
       }
-      PORTB &= ~(1 << PB6);
       btn = 0;
     }
 @z
