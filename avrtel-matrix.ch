@@ -25,7 +25,7 @@ ISR(INT1_vect)
              // reseting back to 0.
              // We break out of this by manually setting the TCNT higher than 0, in which case it
              // will count all the way up to MAX and then overflow back to 0 and get locked up again.
-  OCR1B = 63000;
+  OCR1B = 64000;
   TCCR1A = _BV(COM1B1) | _BV(COM1B0) | _BV(WGM10) | _BV(WGM11);
   TCCR1B = _BV(WGM13) | _BV(WGM12);
   DDRB |= 1 << PB6;     // Set pin to output
@@ -129,7 +129,7 @@ ISR(INT1_vect)
       }
       else if (btn != 'A' && !(PIND & 1 << PD2)) {
         TCCR1B &= ~(_BV(CS12) | _BV(CS10));
-        TCNT1 = 62999;
+        TCNT1 = 63999;
         TCCR1B |= _BV(CS12) | _BV(CS10);
         while (!(UEINTX & 1 << TXINI)) ;
         UEINTX &= ~(1 << TXINI);
