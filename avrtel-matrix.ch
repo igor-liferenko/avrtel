@@ -112,6 +112,7 @@ ISR(INT1_vect)
           continues to increase (decrease) */
       else timeout = 2000;
       while (--timeout) {
+        // FIXME: call |@<Get |line_status|@>| and check |line_status.DTR| here?
         if (!(prev_button == 'B' || prev_button == 'C')) {
           @<Get button@>@;
           if (btn == 0 && timeout < 1500) break; // timeout - debounce
