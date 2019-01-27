@@ -36,9 +36,6 @@ ISR(INT1_vect)
   @<Pullup input pins@>@;
 @z
 
-while 1
-get line status
-
 @x
     if (line_status.DTR) {
       PORTE |= 1 << PE6; /* base station on */
@@ -75,8 +72,6 @@ get line status
     }
 @z
 
-check switch and indicate with led and send info to host
-
 @x
     if (keydetect) {
       keydetect = 0;
@@ -101,9 +96,9 @@ check switch and indicate with led and send info to host
     }
 @y
     if (line_status.DTR && btn) {
-      if (btn != 'A' && !(PIND & 1 << PD2)) { /* on-line */
+      if (btn != 'A' && !(PIND & 1 << PD2)) {
         PORTB |= 1 << PB6;
-        while (!(UEINTX & 1 << TXINI)) ; // wait until previous buffer was read
+        while (!(UEINTX & 1 << TXINI)) ;
         UEINTX &= ~(1 << TXINI);
         UEDATX = btn;
         UEINTX &= ~(1 << FIFOCON);
