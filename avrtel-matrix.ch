@@ -36,6 +36,9 @@ ISR(INT1_vect)
   @<Pullup input pins@>@;
 @z
 
+while 1
+get line status
+
 @x
     if (line_status.DTR) {
       PORTE |= 1 << PE6; /* base station on */
@@ -52,7 +55,6 @@ ISR(INT1_vect)
 @y
     if (line_status.DTR) {
       PORTB &= ~(1 << PB0); /* led off */
-      @<Get button@>@;
     }
     else {
       if (!(PORTB & 1 << PB0)) { /* transition happened */
@@ -61,7 +63,9 @@ ISR(INT1_vect)
       }
       PORTB |= 1 << PB0; /* led on */
     }
-    if (btn == 'A') {
+    @<Get button@>@;
+    if (line_status.DTR && btn == 'A') { // 'A' is special button, which does not use
+      // indicator led on PB6 - it has its own
       if (DDRD & 1 << PD1)
         DDRD &= ~(1 << PD1);
       else
@@ -70,6 +74,8 @@ ISR(INT1_vect)
         |@<Eliminate capacitance@>|.} */
     }
 @z
+
+check switch and indicate with led and send info to host
 
 @x
     if (keydetect) {
@@ -94,10 +100,10 @@ ISR(INT1_vect)
       UEINTX &= ~(1 << FIFOCON);
     }
 @y
-    if (btn != 0) {
-      if (btn != 'A' && !(PIND & 1 << PD2)) {
+    if (line_status.DTR && btn) {
+      if (btn != 'A' && !(PIND & 1 << PD2)) { /* on-line */
         PORTB |= 1 << PB6;
-        while (!(UEINTX & 1 << TXINI)) ;
+        while (!(UEINTX & 1 << TXINI)) ; // wait until previous buffer was read
         UEINTX &= ~(1 << TXINI);
         UEDATX = btn;
         UEINTX &= ~(1 << FIFOCON);
@@ -113,17 +119,18 @@ ISR(INT1_vect)
       while (--timeout) {
         if (!(prev_button == 'B' || prev_button == 'C')) {
           @<Get button@>@;
-          if (btn != prev_button && timeout < 1500) break;
+          if (btn == 0 && timeout < 1500) break; // timeout - debounce
         }
         _delay_ms(1);
         if (prev_button == 'B' || prev_button == 'C') {
-          if (timeout < 200) PORTB &= ~(1 << PB6);
+          if (timeout < 200) PORTB &= ~(1 << PB6); /* timeout - indicator duration (should be less
+            than debounce) */
         }
         else {
-          if (timeout < 1900) PORTB &= ~(1 << PB6);
+          if (timeout < 1900) PORTB &= ~(1 << PB6); /* timeout - indicator duration (should be less
+            than debounce) */
         }
       }
-      btn = 0;
     }
 @z
 
