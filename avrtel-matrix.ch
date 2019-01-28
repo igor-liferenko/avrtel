@@ -2,13 +2,6 @@ Use separate device with matrix keypad and separate router with \.{tel}.
 Connect PD1 to PD2 to minimalize the amount of changes.
 Via PD1 we control led. Via PD2 we read led.
 
-TODO: add here HID interface and send B C and D (if line_status.DTR) via HID
-interface to USB-host's program "hid-read" based on hid-example.c
-(It's impossible to open the same TTY device more than once, otherwise we never
-know which process set the DTR. And DTR is essential for this application, so
-it must not be intervened to. So, use another means - for example HID.)
-HINT: compare wireshark trace of autologin device and kbd device + avrtel device
-
 @x
 volatile int keydetect = 0;
 ISR(INT1_vect)
