@@ -20,12 +20,12 @@ ISR(INT1_vect)
 @x
   DDRE |= 1 << PE6;
 @y
-  DDRB |= 1 << PB6;
 @z
 
 @x
   char digit;
 @y
+  DDRB |= 1 << PB6; /* to indicate keypresses */
   @<Pullup input pins@>@;
 @z
 
