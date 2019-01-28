@@ -4,6 +4,9 @@ Via PD1 we control led. Via PD2 we read led.
 
 TODO: draw block-scheme in metapost and add here and add more doc-parts here - to
 understand how to do it properly in conjunction with DTR et al.
+(the way it is done presently is not completely clear to me (although it seems to work);
+besides, documentation is insufficient and I myself may get confused by this code after
+a while) 
 
 @x
 volatile int keydetect = 0;
