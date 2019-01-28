@@ -2,6 +2,9 @@ Use separate device with matrix keypad and separate router with \.{tel}.
 Connect PD1 to PD2 to minimalize the amount of changes.
 Via PD1 we control led. Via PD2 we read led.
 
+TODO: draw block-scheme in metapost and add here and add more doc-parts here - to
+understand how to do it properly in conjunction with DTR et al.
+
 @x
 volatile int keydetect = 0;
 ISR(INT1_vect)
