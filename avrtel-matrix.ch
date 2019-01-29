@@ -69,13 +69,6 @@ ISR(INT1_vect)
       _delay_ms(1); /* eliminate capacitance\footnote\dag{This corresponds to ``2)'' in
         |@<Eliminate capacitance@>|.} */
     }
-    if (line_status.DTR && btn == 'D') { // 'D' is also special - it just switches off
-      // A's indicator
-      if (DDRD & 1 << PD1) {
-        DDRD &= ~(1 << PD1);
-        _delay_ms(1); /* eliminate capacitance\dag\ */
-      }
-    }
 @z
 
 @x
@@ -134,12 +127,6 @@ ISR(INT1_vect)
         }
       }
     }
-@z
-
-@x
-      UEDATX = '%';
-@y
-      UEDATX = btn == 'D' ? 'D' : '%';
 @z
 
 @x
