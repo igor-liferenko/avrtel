@@ -94,6 +94,8 @@ ISR(INT1_vect)
       UEINTX &= ~(1 << FIFOCON);
     }
 @y
+//NOTE: increase debounce on A? This is useful when we switch off (when done with a router) and
+//then immediately switch on to go to another router
     if (line_status.DTR && btn) {
       if (btn != 'A' && !(PIND & 1 << PD2)) {
         PORTB |= 1 << PB6;
