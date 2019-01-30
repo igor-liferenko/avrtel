@@ -31,9 +31,10 @@ ISR(INT1_vect)
 @x
   char digit;
 @y
-  DDRB |= 1 << PB6; /* to indicate keypresses */
   @<Pullup input pins@>@;
 @z
+
+we use PB0 to indicate keypresses, because DTR led is not used at the moment when key is transmitted
 
 @x
     if (line_status.DTR) {
@@ -61,7 +62,7 @@ ISR(INT1_vect)
     }
     @<Get button@>@;
     if (line_status.DTR && btn == 'A') { // 'A' is special button, which does not use
-      // indicator led on PB6 - it has its own
+      // indicator led on PB0 - it has its own
       if (DDRD & 1 << PD1)
         DDRD &= ~(1 << PD1);
       else
@@ -94,9 +95,11 @@ ISR(INT1_vect)
       UEINTX &= ~(1 << FIFOCON);
     }
 @y
+//NOTE: increase debounce on A? This is useful when we switch off (when done with a router) and
+//then immediately switch on to go to another router
     if (line_status.DTR && btn) {
       if (btn != 'A' && !(PIND & 1 << PD2)) {
-        PORTB |= 1 << PB6;
+        PORTB |= 1 << PB0;
         while (!(UEINTX & 1 << TXINI)) ;
         UEINTX &= ~(1 << TXINI);
         UEDATX = btn;
@@ -118,11 +121,11 @@ ISR(INT1_vect)
         }
         _delay_ms(1);
         if (prev_button == 'B' || prev_button == 'C') {
-          if (timeout < 200) PORTB &= ~(1 << PB6); /* timeout - indicator duration (should be less
+          if (timeout < 200) PORTB &= ~(1 << PB0); /* timeout - indicator duration (should be less
             than debounce) */
         }
         else {
-          if (timeout < 1900) PORTB &= ~(1 << PB6); /* timeout - indicator duration (should be less
+          if (timeout < 1900) PORTB &= ~(1 << PB0); /* timeout - indicator duration (should be less
             than debounce) */
         }
       }
