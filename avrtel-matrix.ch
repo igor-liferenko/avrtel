@@ -4,8 +4,8 @@ Via PD1 we control led. Via PD2 we read led.
 Add led between ground and PB6 (via 330 ohm resistor).
 
 TODO: draw block-scheme in metapost and add to TeX-part of section
-|@<Handle matrix@>| and add thorough explanation of its C-part there (maybe google
-"matrix keypad theory")
+|@<Handle matrix@>| and add thorough explanation of its C-part there,
+and improve theory to usb/matrix.w (maybe google "matrix keypad theory")
 
 @x
 @* Program.
