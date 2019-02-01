@@ -90,9 +90,12 @@ read in this program
 \item{2.} data is read by USB host as soon as it is sent, even if \\{read}
 call has not been done in application yet (i.e., it is buffered)
 
-TODO: maybe do not use saying time in ru and in fr - and use button B to go
-off-line, instead of second press of A, and use C and D for volume (as B
-and C now)
+TODO: increase debounce on A? This is useful when we switch off (when done with a router) and
+then immediately switch on to go to another router - for this maybe use separate
+button to go off-line instead of pressing A second time (for this
+do not use saying time in ru and in fr - and use button B to go
+off-line, and use C and D for volume (as B
+and C now) and switch off all routers manually)
 
 @<Handle matrix@>=
   DDRB |= 1 << PB6; /* to indicate keypresses */
@@ -120,8 +123,6 @@ and C now)
         |@<Eliminate capacitance@>|.} */
     }
     @<Check phone line state@>@;
-//NOTE: increase debounce on A? This is useful when we switch off (when done with a router) and
-//then immediately switch on to go to another router
     if (line_status.DTR && btn) {
       if (btn != 'A' && !(PIND & 1 << PD2)) {
         PORTB |= 1 << PB6;
