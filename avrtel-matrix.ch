@@ -3,11 +3,16 @@ Connect PD1 to PD2 to minimalize the amount of changes.
 Via PD1 we control led. Via PD2 we read led.
 Add led between ground and PB6 (via 330 ohm resistor).
 
-TODO: draw block-scheme in metapost and add here and add more doc-parts here - to
-understand how to do it properly in conjunction with DTR et al.
-(the way it is done presently is not completely clear to me (although it seems to work);
-besides, documentation is insufficient and I myself may get confused by this code after
-a while) 
+TODO: draw block-scheme in metapost and add here and add thorough explanation to
+TeX-part of section xxx
+
+@x
+@* Program.
+@y
+%\let\maybe=\iffalse
+
+@* Program.
+@z
 
 @x
 volatile int keydetect = 0;
@@ -113,6 +118,11 @@ ISR(INT1_vect)
           is manifested by the fact that when button is released, the volume
           continues to increase (decrease) */
       else timeout = 2000;
+      // do not allow one button to be pressed more frequently than
+      // debounce (i.e., if I mean to hold it, but it bounces,
+      // and the interval between bounces exceeds "eliminate capacitance" delay,
+      // which is very small); also, the debounce interval must be a little greater
+      // than the blink time of the button press indicator led
       while (--timeout) {
         // FIXME: call |@<Get |line_status|@>| and check |line_status.DTR| here?
         if (!(prev_button == 'B' || prev_button == 'C')) {
