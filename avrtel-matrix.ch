@@ -72,6 +72,7 @@ ISR(INT1_vect)
       UEDATX = digit;
       UEINTX &= ~(1 << FIFOCON);
     }
+  }
 @y
   DDRB |= 1 << PB6; /* to indicate keypresses */
   @<Pullup input pins@>@;
@@ -138,6 +139,7 @@ ISR(INT1_vect)
         }
       }
     }
+  }
 @z
 
 @x
