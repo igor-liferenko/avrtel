@@ -90,6 +90,10 @@ read in this program
 \item{2.} data is read by USB host as soon as it is sent, even if \\{read}
 call has not been done in application yet (i.e., it is buffered)
 
+TODO: maybe do not use saying time in ru and in fr - and use button B to go
+off-line, instead of second press of A, and use C and D for volume (as B
+and C now)
+
 @<Handle matrix@>=
   DDRB |= 1 << PB6; /* to indicate keypresses */
   @<Pullup input pins@>@;
