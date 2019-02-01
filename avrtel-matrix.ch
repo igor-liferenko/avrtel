@@ -5,7 +5,7 @@ Add led between ground and PB6 (via 330 ohm resistor).
 
 TODO: draw block-scheme in metapost and add to TeX-part of section
 |@<Handle matrix@>| and add thorough explanation of its C-part there,
-and improve theory to usb/matrix.w (maybe google "matrix keypad theory")
+and improve theory in usb/matrix.w (maybe google "matrix keypad theory")
 
 @x
 @* Program.
@@ -82,6 +82,13 @@ ISR(INT1_vect)
 @ Button press indication LED is used without interrupts and timers, because
 we block the program anyway inside the debounce interval, so use that to turn
 the LED off.
+
+Take to consideration that:
+
+\item{1.} \\{ioctl} call blocks in application until it is
+read in this program
+\item{2.} data is read by USB host as soon as it is sent, even if \\{read}
+call has not been done in application yet (i.e., it is buffered)
 
 @<Handle matrix@>=
   DDRB |= 1 << PB6; /* to indicate keypresses */
