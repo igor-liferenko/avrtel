@@ -4,7 +4,7 @@ Via PD1 we control led. Via PD2 we read led.
 Add led between ground and PB6 (via 330 ohm resistor).
 
 TODO: draw block-scheme in metapost and add here and add thorough explanation to
-TeX-part of section xxx
+TeX-part of section |@<Handle matrix@>|
 
 @x
 @* Program.
@@ -73,7 +73,12 @@ ISR(INT1_vect)
       UEINTX &= ~(1 << FIFOCON);
     }
   }
+}
 @y
+  @<Handle matrix@>@;
+}
+
+@ @<Handle matrix@>=
   DDRB |= 1 << PB6; /* to indicate keypresses */
   @<Pullup input pins@>@;
   while (1) {
