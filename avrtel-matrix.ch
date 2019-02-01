@@ -79,7 +79,11 @@ ISR(INT1_vect)
   @<Handle matrix@>@;
 }
 
-@ @<Handle matrix@>=
+@ Button press indication LED is used without interrupts and timers, because
+we block the program anyway inside the debounce interval, so use that to turn
+the LED off.
+
+@<Handle matrix@>=
   DDRB |= 1 << PB6; /* to indicate keypresses */
   @<Pullup input pins@>@;
   while (1) {
@@ -132,7 +136,8 @@ ISR(INT1_vect)
         // FIXME: call |@<Get |line_status|@>| and check |line_status.DTR| here?
         if (!(prev_button == 'B' || prev_button == 'C')) {
           @<Get button@>@;
-          if (btn == 0 && timeout < 1500) break; // timeout - debounce
+          if (btn == 0 && timeout < 1500) break; /* timeout - debounce, you can't
+            make it react more frequently than debounce interval */
         }
         _delay_ms(1);
         if (prev_button == 'B' || prev_button == 'C') {
