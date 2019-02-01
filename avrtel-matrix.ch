@@ -137,7 +137,10 @@ the LED off.
         if (!(prev_button == 'B' || prev_button == 'C')) {
           @<Get button@>@;
           if (btn == 0 && timeout < 1500) break; /* timeout - debounce, you can't
-            make it react more frequently than debounce interval */
+            make it react more frequently than debounce interval;
+            |timeout| time is allowed to release the button until it repeats;
+            for `\.B' and `\.C' |timeout| is equal to |debounce|, i.e., repeat
+            right away */
         }
         _delay_ms(1);
         if (prev_button == 'B' || prev_button == 'C') {
