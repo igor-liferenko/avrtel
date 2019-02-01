@@ -36,12 +36,8 @@ ISR(INT1_vect)
 
 @x
   char digit;
-@y
-  DDRB |= 1 << PB6; /* to indicate keypresses */
-  @<Pullup input pins@>@;
-@z
-
-@x
+  while (1) {
+    @<Get |line_status|@>@;
     if (line_status.DTR) {
       PORTE |= 1 << PE6; /* base station on */
       PORTB &= ~(1 << PB0); /* led off */
@@ -54,30 +50,7 @@ ISR(INT1_vect)
       }
       PORTB |= 1 << PB0; /* led on */
     }
-@y
-    if (line_status.DTR) {
-      PORTB &= ~(1 << PB0); /* led off */
-    }
-    else {
-      if (!(PORTB & 1 << PB0)) { /* transition happened */
-        DDRD &= ~(1 << PD1); /* off-line (do the same as on base station,
-          where off-line automatically happens when base station is un-powered) */
-      }
-      PORTB |= 1 << PB0; /* led on */
-    }
-    @<Get button@>@;
-    if (line_status.DTR && btn == 'A') { // 'A' is special button, which does not use
-      // indicator led on PB6 - it has its own
-      if (DDRD & 1 << PD1)
-        DDRD &= ~(1 << PD1);
-      else
-        DDRD |= 1 << PD1;
-      _delay_ms(1); /* eliminate capacitance\footnote\dag{This corresponds to ``2)'' in
-        |@<Eliminate capacitance@>|.} */
-    }
-@z
-
-@x
+    @<Check phone line state@>@;
     if (keydetect) {
       keydetect = 0;
       switch (PINB & (1 << PB4 | 1 << PB5 | 1 << PB6) | PIND & 1 << PD7) {
@@ -100,6 +73,31 @@ ISR(INT1_vect)
       UEINTX &= ~(1 << FIFOCON);
     }
 @y
+  DDRB |= 1 << PB6; /* to indicate keypresses */
+  @<Pullup input pins@>@;
+  while (1) {
+    @<Get |line_status|@>@;
+    if (line_status.DTR) {
+      PORTB &= ~(1 << PB0); /* led off */
+    }
+    else {
+      if (!(PORTB & 1 << PB0)) { /* transition happened */
+        DDRD &= ~(1 << PD1); /* off-line (do the same as on base station,
+          where off-line automatically happens when base station is un-powered) */
+      }
+      PORTB |= 1 << PB0; /* led on */
+    }
+    @<Get button@>@;
+    if (line_status.DTR && btn == 'A') { // 'A' is special button, which does not use
+      // indicator led on PB6 - it has its own
+      if (DDRD & 1 << PD1)
+        DDRD &= ~(1 << PD1);
+      else
+        DDRD |= 1 << PD1;
+      _delay_ms(1); /* eliminate capacitance\footnote\dag{This corresponds to ``2)'' in
+        |@<Eliminate capacitance@>|.} */
+    }
+    @<Check phone line state@>@;
 //NOTE: increase debounce on A? This is useful when we switch off (when done with a router) and
 //then immediately switch on to go to another router
     if (line_status.DTR && btn) {
