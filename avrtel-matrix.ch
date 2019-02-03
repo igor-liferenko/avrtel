@@ -90,6 +90,10 @@ read in this program
 \item{2.} data is read by USB host as soon as it is sent, even if \\{read}
 call has not been done in application yet (i.e., it is buffered)
 
+`\.B' and `\.C' are compensation for DTMF features absent in matrix:
+We set debounce delay and thus cannot increase volume quickly, whereas
+in DTMF pulse duration is permitted to be short.
+
 TODO: increase debounce on A? This is useful when we switch off (when done with a router) and
 then immediately switch on to go to another router - for this maybe use separate
 button to go off-line instead of pressing A second time (for this
