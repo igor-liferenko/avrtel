@@ -104,6 +104,9 @@ anyway); the situation is the same in avrtel.w - there dtmf keypress interrupt h
 only when the device is operational - USB RESET interrupt is not removed (i.e.,
 the condition, that an interrupt happens while other interrupt is being processed,
 is fulfilled)
+NOTE: if you decide to do keypress indication via timer, keep in mind that keypress indication timeout
+must not increase debounce delay (so that when next key is pressed, the timer is guaranteed
+to expire - before it is set again)
 
 @<Handle matrix@>=
   DDRB |= 1 << PB6; /* to indicate keypresses */
