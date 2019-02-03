@@ -97,6 +97,14 @@ do not use saying time in ru and in fr - and use button B to go
 off-line, and use C and D for volume (as B
 and C now) and switch off all routers manually)
 
+NOTE: if necessary, you may set 16-bit timers here as if interrupts are not
+enabled at all (but do not call cli() and do not remove USB RESET interrupt - it
+happens only when usb host is rebooted, and if it happens, the device is not operational
+anyway); the situation is the same in avrtel.w - there dtmf keypress interrupt happens
+only when the device is operational - USB RESET interrupt is not removed (i.e.,
+the condition, that an interrupt happens while other interrupt is being processed,
+is fulfilled)
+
 @<Handle matrix@>=
   DDRB |= 1 << PB6; /* to indicate keypresses */
   @<Pullup input pins@>@;
