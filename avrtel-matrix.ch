@@ -152,6 +152,8 @@ to expire - before it is set again)
       // and the interval between bounces exceeds "eliminate capacitance" delay,
       // which is very small); also, the debounce interval must be a little greater
       // than the blink time of the button press indicator led
+
+      /* HINT: see debounce handling in usb/kbd.ch and usb/cdc.ch */
       while (--timeout) {
         // FIXME: call |@<Get |line_status|@>| and check |line_status.DTR| here?
         if (!(prev_button == 'B' || prev_button == 'C')) {
