@@ -125,7 +125,7 @@ void main(void)
       }
       PORTB |= 1 << PB0; /* led on */
     }
-    @<Check |PD2|...@>@;
+    @<Check |PD2|, indicate it via |PD5| and notify USB host when it changes@>@;
     if (keydetect) {
       keydetect = 0;
       switch (PINB & (1 << PB4 | 1 << PB5 | 1 << PB6) | PIND & 1 << PD7) {
