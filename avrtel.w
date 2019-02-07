@@ -94,10 +94,12 @@ void main(void)
                        and to determine when transition happens */
   @<Set |PD2| to pullup mode@>@;
   EICRA |= 1 << ISC11 | 1 << ISC10; /* set INT1 to trigger on rising edge */
-  EIMSK |= 1 << INT1; /* turn on INT1; it happens
-    only when the device is operational - we do not remove USB RESET interrupt, which
-    happens only when device is rebooted - it can't happen that a
-    to-be-processed-via-interrupt event occurs while an interrupt is being processed */
+  EIMSK |= 1 << INT1; /* turn on INT1; if it happens while USB RESET interrupt
+    is processed, it does not change anything, as the device is going to be reset;
+    if USB RESET happens whiled this interrupt is processed, it also does not change
+    anything, as USB RESET is repeated several times by USB host, so it is safe
+    that USB RESET interrupt is enabled (we cannot disable it because USB host
+    may be rebooted) */
   DDRB |= 1 << PB0; /* |PB0| is used to show DTR state and and to determine
     when transition happens */
   PORTB |= 1 << PB0; /* led on */
