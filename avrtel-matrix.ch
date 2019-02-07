@@ -26,10 +26,12 @@ ISR(INT1_vect)
 
 @x
   EICRA |= 1 << ISC11 | 1 << ISC10; /* set INT1 to trigger on rising edge */
-  EIMSK |= 1 << INT1; /* turn on INT1; it happens
-    only when the device is operational - we do not remove USB RESET interrupt, which
-    happens only when device is rebooted - it can't happen that a
-    to-be-processed-via-interrupt event occurs while an interrupt is being processed */
+  EIMSK |= 1 << INT1; /* turn on INT1; if it happens while USB RESET interrupt
+    is processed, it does not change anything, as the device is going to be reset;
+    if USB RESET happens whiled this interrupt is processed, it also does not change
+    anything, as USB RESET is repeated several times by USB host, so it is safe
+    that USB RESET interrupt is enabled (we cannot disable it because USB host
+    may be rebooted) */
 @y
 @z
 
@@ -105,9 +107,9 @@ off-line, and use C and D for volume (as B
 and C now) and switch off all routers manually)
 
 NOTE: if necessary, you may set 16-bit timers here as if interrupts are not
-enabled at all (but do not call cli() and do not remove USB RESET interrupt - it
-happens only when usb host is rebooted, and if it happens, the device is not operational
-anyway)
+enabled at all (if USB RESET interrupt happens, device is going to be reset anyway,
+so it is safe that it is enabled (we cannot disable it because USB host may be
+rebooted)
 NOTE: if you decide to do keypress indication via timer, keep in mind that keypress indication timeout
 must not increase debounce delay (so that when next key is pressed, the timer is guaranteed
 to expire - before it is set again)
