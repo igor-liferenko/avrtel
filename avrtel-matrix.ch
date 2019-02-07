@@ -56,7 +56,7 @@ ISR(INT1_vect)
       }
       PORTB |= 1 << PB0; /* led on */
     }
-    @<Check |PD2|, indicate it via |PD5| and notify USB host when it changes@>@;
+    @<Check |PD2|, indicate it via |PD5| and notify USB host if it changed@>@;
     if (keydetect) {
       keydetect = 0;
       switch (PINB & (1 << PB4 | 1 << PB5 | 1 << PB6) | PIND & 1 << PD7) {
