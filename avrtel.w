@@ -125,7 +125,7 @@ void main(void)
       }
       PORTB |= 1 << PB0; /* led on */
     }
-    @<Check |PD2|, indicate it via |PD5| and notify USB host if it changed@>@;
+    @<Check |PD2|, indicate it via |PD5| and notify...@>@;
     if (keydetect) {
       keydetect = 0;
       switch (PINB & (1 << PB4 | 1 << PB5 | 1 << PB6) | PIND & 1 << PD7) {
@@ -165,7 +165,8 @@ power reset on base station after timeout.
 $$\hbox to9cm{\vbox to5.93cm{\vfil\special{psfile=avrtel.4
   clip llx=0 lly=0 urx=663 ury=437 rwi=2551}}\hfil}$$
 
-@<Check |PD2|, indicate it via |PD5| and notify USB host if it changed@>=
+@<Check |PD2| and indicate it via |PD5| and if it changed write to USB `\.\@' or `\.\%'
+  (the latter only if DTR)@>=
 if (PIND & 1 << PD2) { /* off-line */
   if (PORTD & 1 << PD5) { /* transition happened */
     if (line_status.DTR) { /* off-line was not caused by un-powering base station */
