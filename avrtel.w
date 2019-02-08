@@ -125,7 +125,8 @@ void main(void)
       }
       PORTB |= 1 << PB0; /* led on */
     }
-    @<Check |PD2|, indicate it via |PD5| and notify...@>@;
+    @<Check |PD2| and indicate it via |PD5| and if it changed write to USB `\.\@' or `\.\%'
+      (the latter only if DTR)@>@;
     if (keydetect) {
       keydetect = 0;
       switch (PINB & (1 << PB4 | 1 << PB5 | 1 << PB6) | PIND & 1 << PD7) {
