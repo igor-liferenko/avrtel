@@ -1,7 +1,7 @@
 Apply change-files one after another:
 
 * matrix on pro micro:
-  wmerge avrtel avrtel-matrix >merged.w
+  wmerge avrtel avrtel-matrix merged
   ctangle merged invert avrtel
 
 * matrix on original:
@@ -14,6 +14,6 @@ Apply change-files one after another:
   ctangle avrtel
 
 * avrtel-poweron on pro micro:
-  wmerge avrtel avrtel-poweron >merged.w
-  wmerge merged avrtel-poweron-invert | sponge merged.w
+  wmerge avrtel avrtel-poweron merged
+  wmerge merged.web avrtel-poweron-invert | sponge merged.web
   ctangle merged invert avrtel

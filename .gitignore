@@ -8,11 +8,10 @@ avrtel.c
 *.ps
 *.scn
 avrtel.tex
+avrtel-matrix.tex
 *.toc
 *.eps
 *.[0-9]
 *.mpx
 mpxerr.tex
-merged.w
-avrtel-matrix.tex
 *.web
