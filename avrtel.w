@@ -125,7 +125,7 @@ void main(void)
       }
       PORTB |= 1 << PB0; /* led on */
     }
-    @<Check |PD2| and indicate it via |PD5| and if it changed write to USB `\.\@' or `\.\%'
+    @<Check |PD2| and indicate it via |PD5| and if it changed write to USB `\.@@' or `\.\%'
       (the latter only if DTR)@>@;
     if (keydetect) {
       keydetect = 0;
@@ -158,15 +158,15 @@ TODO create avrtel.4 which merges PC817C.png and PC817C-pinout.png,
 except pullup part, and put section "enable pullup" before this section
 and "git rm PC817C.png PC817C-pinout.png"
 
-For on-line indication we send `\.{@@}' character to \.{tel}---to put
+For on-line indication we send `\.@@' character to \.{tel}---to put
 it to initial state.
-For off-line indication we send `\.{\%}' character to \.{tel}---to disable
+For off-line indication we send `\.\%' character to \.{tel}---to disable
 power reset on base station after timeout.
 
 $$\hbox to9cm{\vbox to5.93cm{\vfil\special{psfile=avrtel.4
   clip llx=0 lly=0 urx=663 ury=437 rwi=2551}}\hfil}$$
 
-@<Check |PD2| and indicate it via |PD5| and if it changed write to USB `\.\@' or `\.\%'
+@<Check |PD2| and indicate it via |PD5| and if it changed write to USB `\.@@' or `\.\%'
   (the latter only if DTR)@>=
 if (PIND & 1 << PD2) { /* off-line */
   if (PORTD & 1 << PD5) { /* transition happened */

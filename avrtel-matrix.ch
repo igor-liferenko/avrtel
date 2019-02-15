@@ -96,7 +96,7 @@ ISR(INT1_vect)
       }
       PORTB |= 1 << PB0; /* led on */
     }
-    @<Check |PD2| and indicate it via |PD5| and if it changed write to USB `\.\@' or `\.\%'
+    @<Check |PD2| and indicate it via |PD5| and if it changed write to USB `\.@@' or `\.\%'
       (the latter only if DTR)@>@;
     if (keydetect) {
       keydetect = 0;
@@ -181,7 +181,7 @@ to expire - before it is set again)
       _delay_ms(1); /* eliminate capacitance\footnote\dag{This corresponds to ``2)'' in
         |@<Eliminate capacitance@>|.} */
     }
-    @<Check |PD2| and indicate it via |PD5| and if it changed write to USB `\.\@' or `\.\%'
+    @<Check |PD2| and indicate it via |PD5| and if it changed write to USB `\.@@' or `\.\%'
       (the latter only if DTR)@>@;
     if (line_status.DTR && btn) {
       if (btn != 'A' && !(PIND & 1 << PD2)) {

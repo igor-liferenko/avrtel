@@ -33,9 +33,11 @@ and ignore first two led state changes in such case.
 @z
 
 @x
-    @<Check phone line state@>@;
+    @<Check |PD2| and indicate it via |PD5| and if it changed write to USB `\.@@' or `\.\%'
+      (the latter only if DTR)@>@;
 @y
-    @<Check phone line state@>@;
+    @<Check |PD2| and indicate it via |PD5| and if it changed write to USB `\.@@' or `\.\%'
+      (the latter only if DTR)@>@;
   next:
 @z
 
