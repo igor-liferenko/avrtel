@@ -1,8 +1,3 @@
-Use separate device with matrix keypad and separate router with \.{tel}.
-Connect PD1 to PD2 to minimalize the amount of changes.
-Via PD1 we control led. Via PD2 we read led.
-Add led between ground and PB6 (via 330 ohm resistor).
-
 TODO: draw flowchart on graph paper and draw it in metapost
 and add it to TeX-part of section
 |@<Handle matrix@>| and add thorough explanation of its C-part there,
@@ -10,10 +5,54 @@ and improve theory in usb/matrix.w (maybe google "matrix keypad theory")
 
 @x
 @* Program.
+DTR is used by \.{tel} to switch the phone off (on timeout and for
+special commands) by switching off/on
+base station for one second (the phone looses connection to base
+station and automatically powers itself off).
+
+\.{tel} uses DTR to switch on base station when it starts;
+and when TTY is closed, DTR switches off base station.
+
+The main requirement to the phone is that base station
+must have led indicator\footnote*{For
+some phone models when base station is powered on, the indicator is turned
+on for a short time. In such case use \.{avrtel-poweron.ch}.}
+for on-hook / off-hook on base station (to be able
+to reset to initial state in state machine in \.{tel}; note, that
+measuring voltage drop in phone line to determine hook state does not work
+reliably, because it
+falsely triggers when dtmf signal is produced ---~the dtmf signal is alternating
+below the trigger level and multiple on-hook/off-hook events occur in high
+succession).
+
+Note, that relay switches off output from base station's power supply, not input
+because transition processes from 220v could damage power supply because it
+is switched on/off multiple times.
+
+Also note that when device is not plugged in,
+base station must be powered off, and it must be powered on by \.{tel} (this
+is why non-inverted relay must be used (and from such kind of relay the
+only suitable I know of is mechanical relay; and such relay gives an advantage
+that power supply with AC and DC output may be used; however, see {\tt
+TLP281.tex} how to fix TLP281 to make it behave like
+normally-open-mechanical-relay)).
+If base station
+is powered when device is not plugged in, this breaks program logic badly.
+
+%Note, that we can not use simple cordless phone---a DECT phone is needed, because
+%resetting base station to put the phone on-hook will not work
+%(FIXME: check if it is really so).
+
+$$\hbox to12.27cm{\vbox to9.87777777777778cm{\vfil\special{psfile=avrtel.3
+  clip llx=-91 lly=-67 urx=209 ury=134 rwi=3478}}\hfil}$$
 @y
 %\let\maybe=\iffalse
 
 @* Program.
+Use separate device with matrix keypad and separate router with \.{tel}.
+Connect PD1 to PD2 to minimalize the amount of changes in program.
+Via PD1 we control led. Via PD2 we read led.
+Add led between ground and PB6 (via 330 ohm resistor).
 @z
 
 @x
@@ -112,7 +151,8 @@ NOTE: if necessary, you may set 16-bit timers here as if interrupts are not
 enabled at all (if USB RESET interrupt happens, device is going to be reset anyway,
 so it is safe that it is enabled (we cannot disable it because USB host may be
 rebooted)
-NOTE: if you decide to do keypress indication via timer, keep in mind that keypress indication timeout
+NOTE: if you decide to do keypress indication via timer, keep in mind that keypress
+indication timeout
 must not increase debounce delay (so that when next key is pressed, the timer is guaranteed
 to expire - before it is set again)
 
