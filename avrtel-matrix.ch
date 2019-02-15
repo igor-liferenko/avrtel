@@ -3,8 +3,7 @@ Connect PD1 to PD2 to minimalize the amount of changes.
 Via PD1 we control led. Via PD2 we read led.
 Add led between ground and PB6 (via 330 ohm resistor).
 
-TODO: draw flowchart (see
-http://melp.nl/2013/08/flow-charts-in-code-enter-graphviz-and-the-dot-language/)
+TODO: draw flowchart on graph paper and draw it in metapost
 and add it to TeX-part of section
 |@<Handle matrix@>| and add thorough explanation of its C-part there,
 and improve theory in usb/matrix.w (maybe google "matrix keypad theory")
