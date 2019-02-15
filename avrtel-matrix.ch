@@ -173,11 +173,11 @@ to expire - before it is set again)
     }
     @<Get button@>@;
     if (line_status.DTR && btn == 'A') { // 'A' is special button, which does not use
-      // indicator led on PB6 - it has its own
+      // indicator led on PB6 - it has its own - PD5
       if (DDRD & 1 << PD1)
         DDRD &= ~(1 << PD1);
       else
-        DDRD |= 1 << PD1;
+        DDRD |= 1 << PD1; /* ground (on-line) */
       _delay_ms(1); /* eliminate capacitance\footnote\dag{This corresponds to ``2)'' in
         |@<Eliminate capacitance@>|.} */
     }
