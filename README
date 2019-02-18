@@ -12,8 +12,3 @@ Apply change-files one after another:
 
 * avrtel on original:
   ctangle avrtel
-
-* avrtel-poweron on pro micro:
-  wmerge avrtel avrtel-poweron merged
-  wmerge merged.web avrtel-poweron-invert | sponge merged.web
-  ctangle merged invert avrtel
