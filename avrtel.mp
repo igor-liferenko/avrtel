@@ -313,6 +313,7 @@ impedance0; label(btex ${}_?$ etex, 1/2[z0l,z0r]);
 label(btex \vbox{
 \hbox{In gorod power is 9V, not 12V, and ``?'' is 620R.}
 \hbox{In home ``?'' is 560R.}
+\hbox{In general, when voltage is increased, resistance must be decreased.}
 } etex, 1/2[z0l,z0r]+down*1cm);
 
 %%%%%%%%%%%%%%% power plug %%%%%%%%%%%%%%
