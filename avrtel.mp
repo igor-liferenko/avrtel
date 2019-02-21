@@ -382,7 +382,7 @@ wire10[1]=wire5[1]+right*8.5mm;
 z34l=1/2[wire5[1],wire10[1]]-(cap,0);
 z34r=z34l+(2cap,0);
 capacitor34(normal);
-label.top(btex \eightss 0.15\thinspace uF etex, 1/2[z34l,z34r]+up*1mm); % exact label on the one useb by me is "5Fu15"
+label.top(btex \eightss 0.1--1\thinspace uF etex, 1/2[z34l,z34r]+up*1mm);
 xpart(wire10[2])=xpart(wire10[1]);
 ypart(wire10[2])=ypart(linepower.plus);
 draw dtmf.IN -- wire5[1] -- z34l;
