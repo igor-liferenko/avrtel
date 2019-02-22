@@ -1,3 +1,5 @@
+%TODO: change line_status.DTR to line_status.all
+
 \let\lheader\rheader
 %\datethis
 \secpagedepth=2 % begin new page only on *
