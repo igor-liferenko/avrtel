@@ -272,7 +272,7 @@ pair relay.IN, relay.GND, relay.VCC, relay.load[];
 xpart(relay.IN)=xpart(relay1); ypart(relay.IN)=ypart(relay1)+7mm;
 xpart(relay.VCC)=xpart(relay1); ypart(relay.VCC)=ypart(relay1)+5mm;
 xpart(relay.GND)=xpart(relay1); ypart(relay.GND)=ypart(relay1)+3mm;
-xpart(relay.load1)=xpart(relay2); ypart(relay.load1)=ypart(relay2)+6mm;
+xpart(relay.load1)=xpart(relay2); ypart(relay.load1)=ypart(relay2)+5mm;
 xpart(relay.load2)=xpart(relay2); ypart(relay.load2)=ypart(relay2)+3mm;
 % draw
 draw relay1--relay2--relay3--relay4--cycle;
