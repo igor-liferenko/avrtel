@@ -15,6 +15,7 @@ clean:
 
 imgs:
 	@mp avrtel
+	@mp TLP281
 	@perl -ne 'if (/^(.*\.eps): (.*)/) { system "convert $$2 $$1" }' Makefile
 
 test:

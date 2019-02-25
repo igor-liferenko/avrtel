@@ -1,3 +1,5 @@
+%TODO: re-do without circuit.mp - see ~/avrtel/TODO
+
 %outputtemplate:="%j.eps"; prologues:=3;
 input circuit;
 
