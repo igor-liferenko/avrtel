@@ -49,10 +49,7 @@ $$\hbox to12.27cm{\vbox to9.87777777777778cm{\vfil\special{psfile=avrtel.3
 %\let\maybe=\iffalse
 
 @* Program.
-Use separate device with matrix keypad and separate router with \.{tel}.
-Connect PD1 to PD2 to minimalize the amount of changes in program.
-Via PD1 we control led. Via PD2 we read led.
-Add led between ground and PB6 (via 330 ohm resistor).
+Use separate arduino with matrix keypad and separate router with \.{tel}.
 @z
 
 @x
@@ -125,7 +122,9 @@ ISR(INT1_vect)
   @<Handle matrix@>@;
 }
 
-@ Button press indication LED is used without interrupts and timers, because
+@ Add led between ground and PB6 (via 330 ohm resistor).
+
+Button press indication LED is used without interrupts and timers, because
 we block the program anyway inside the debounce interval, so use that to turn
 the LED off.
 
@@ -252,6 +251,21 @@ to expire - before it is set again)
     }
   }
 #endif
+@z
+
+@x
+@ We check if handset is in use by using a switch. The switch is
+optocoupler.
+ 
+TODO create avrtel.4 which merges PC817C.png and PC817C-pinout.png,
+except pullup part, and put section "enable pullup" before this section
+...
+@y
+We check if handset is in use by using a switch. The switch (PD2) is
+controlled by the program itself by connecting it to another pin (PD1).
+This is to minimalize the amount of changes in this change-file.
+FIXME: if you re-do matrix without change-file, do not use PD1 and
+PD2 --- use just a variable
 @z
 
 @x
