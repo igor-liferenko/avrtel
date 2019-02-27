@@ -22,13 +22,3 @@ test:
 	avr-gcc -mmcu=$(MCU) -g -o test.elf test-PC817C.o
 	avr-objcopy -O ihex test.elf test.hex
 	avrdude -c usbasp -p $(MCU) -U flash:w:test.hex -qq
-
-.PHONY: $(wildcard *.eps)
-
-tlp1.eps: tlp1.jpg
-	@convert $< $@
-	@imgsize $@
-
-tlp2.eps: tlp2.jpg
-	@convert $< $@
-	@imgsize $@ 12 -
