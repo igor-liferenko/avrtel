@@ -228,6 +228,30 @@ to expire - before it is set again)
       }
     }
   }
+#if 0 /* this is how it was done in cdc.ch */
+  while (1) {
+    @<Get |line_status|@>@;
+    if (line_status.DTR) {
+      @<Get button@>@;
+      if (btn != 0) {
+        @<Send button@>@;
+        U8 prev_button = btn;
+        int timeout = 2000;
+        while (--timeout) {
+          @<Get button@>@;
+          if (btn != prev_button) break;
+          _delay_ms(1);
+        }
+        while (1) {
+          @<Get button@>@;
+          if (btn != prev_button) break;
+          @<Send button@>@;
+          _delay_ms(50);
+        }
+      }
+    }
+  }
+#endif
 @z
 
 @x
