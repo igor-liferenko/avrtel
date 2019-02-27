@@ -233,7 +233,7 @@ to expire - before it is set again)
     if (line_status.DTR) {
       @<Get button@>@;
       if (btn != 0) {
-        @<Send button@>@;
+        /* Send button */
         U8 prev_button = btn;
         int timeout = 2000;
         while (--timeout) {
@@ -244,7 +244,7 @@ to expire - before it is set again)
         while (1) {
           @<Get button@>@;
           if (btn != prev_button) break;
-          @<Send button@>@;
+          /* Send button */
           _delay_ms(50);
         }
       }
@@ -256,16 +256,29 @@ to expire - before it is set again)
 @x
 @ We check if handset is in use by using a switch. The switch is
 optocoupler.
- 
+
 TODO create avrtel.4 which merges PC817C.png and PC817C-pinout.png,
 except pullup part, and put section "enable pullup" before this section
-...
+and "git rm PC817C.png PC817C-pinout.png"
+
+For on-line indication we send `\.@@' character to \.{tel}---to put
+it to initial state.
+For off-line indication we send `\.\%' character to \.{tel}---to disable
+power reset on base station after timeout.
+
+$$\hbox to9cm{\vbox to5.93cm{\vfil\special{psfile=avrtel.4
+  clip llx=0 lly=0 urx=663 ury=437 rwi=2551}}\hfil}$$
 @y
-We check if handset is in use by using a switch. The switch (PD2) is
+@ We check if handset is in use by using a switch. The switch (PD2) is
 controlled by the program itself by connecting it to another pin (PD1).
 This is to minimalize the amount of changes in this change-file.
 FIXME: if you re-do matrix without change-file, do not use PD1 and
 PD2 --- use just a variable
+
+For on-line indication we send `\.@@' character to \.{tel}---to put
+it to initial state.
+For off-line indication we send `\.\%' character to \.{tel}---to disable
+power reset on base station after timeout.
 @z
 
 @x
