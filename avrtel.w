@@ -1,5 +1,6 @@
 %TODO: change line_status.DTR to line_status.all
 %TODO: change DTR to DTR/RTS
+%TODO: rm note about TLP281
 
 \let\lheader\rheader
 %\datethis
