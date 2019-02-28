@@ -100,6 +100,10 @@ indication timeout
 must not increase debounce delay (so that when next key is pressed, the timer is guaranteed
 to expire - before it is set again)
 
+TODO: draw flowchart on graph paper and draw it in metapost
+and add it to TeX-part of section
+|@<Handle matrix@>| and add thorough explanation of its C-part there
+
 @<Handle matrix@>=
   DDRB |= 1 << PB6; /* to indicate keypresses */
   @<Pullup input pins@>@;
