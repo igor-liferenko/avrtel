@@ -1,0 +1,15 @@
+\nopagenumbers
+If we use TLP281 board, base station is powered on when microcontroller is disconnected from PC.
+This behavior is wrong. Behavior must be analogous to normally open mechanical relay: when
+microcontroller is disconnected from PC, base station is not powered; and when
+there is signal from PC, base station must be powered on.
+$$\hbox to16cm{\vbox to5.82cm{\vfil\special{psfile=tlp2.eps
+  clip llx=0 lly=0 urx=863 ury=314 rwi=4535}}\hfil}$$
+$$\hbox to15.38cm{\vbox to7.26722222222222cm{\vfil\special{psfile=tlp1.eps
+  clip llx=0 lly=0 urx=436 ury=206 rwi=4360}}\hfil}$$
+Use this to un-invert the board:
+$$\hbox to7.26cm{\vbox to6.24416666666667cm{\vfil\special{psfile=TLP281.1
+  clip llx=-91 lly=-43 urx=115 ury=134 rwi=2060}}\hfil}$$
+\vfil
+(see also {\tt https://www.youtube.com/watch?v=UdAnUc7nXYs})
+\bye
