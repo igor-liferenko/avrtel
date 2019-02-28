@@ -204,8 +204,7 @@ and add it to TeX-part of section
 @ We check if handset is in use by using a switch. The switch (PD2) is
 controlled by the program itself by connecting it to another pin (PD1).
 This is to minimalize the amount of changes in this change-file.
-FIXME: if you re-do matrix without change-file, do not use PD1 and
-PD2 --- use just a variable
+TODO: do not use PD1 and PD2 --- use just a variable
 
 For on-line indication we send `\.@@' character to \.{tel}---to put
 it to initial state.
