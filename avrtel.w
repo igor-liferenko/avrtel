@@ -1,3 +1,4 @@
+%TODO: rename usb_stack.w to usb-stack.w
 %TODO: change line_status.DTR to line_status.all
 %TODO: change DTR to DTR/RTS
 %TODO: rm note about TLP281
@@ -581,9 +582,7 @@ while (!(UEINTX & 1 << RXOUTI)) ; /* wait for STATUS stage */
 UEINTX &= ~(1 << RXOUTI);
 
 @i ../usb/CONTROL-endpoint-management.w
-
 @i ../usb/IN-endpoint-management.w
-
 @i ../usb/usb_stack.w
 
 @* Headers.
