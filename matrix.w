@@ -145,7 +145,11 @@ and add it to TeX-part of section
         timeout = 300; /* values smaller that this do not give mpc call
           enough time to finish before another mpc request arrives; it
           is manifested by the fact that when button is released, the volume
-          continues to increase (decrease) */
+          continues to increase (decrease);
+          TODO: find minimum possible |timeout| value by setting it to `0' and
+          doing this: run tel in foreground, set volume to 0, press + button,
+          when volume will approach 90%, release button - if volume will keep
+          changing for some time - |timeout| must be increased */
       else timeout = 2000;
       // do not allow one button to be pressed more frequently than
       // debounce (i.e., if I mean to hold it, but it bounces,
