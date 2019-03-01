@@ -1,13 +1,11 @@
-Apply change-files one after another:
-
 * matrix on pro micro:
-  ctangle matrix invert-matrix
+ctangle matrix invert-matrix
 
 * matrix on original:
-  ctangle matrix
+ctangle matrix
 
 * avrtel on pro micro:
-  ctangle avrtel invert
+ctangle avrtel invert
 
 * avrtel on original:
-  ctangle avrtel
+ctangle avrtel
