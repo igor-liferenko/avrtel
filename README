@@ -1,11 +1,10 @@
 Apply change-files one after another:
 
 * matrix on pro micro:
-  wmerge avrtel avrtel-matrix merged
-  ctangle merged invert avrtel
+  ctangle matrix invert-matrix
 
 * matrix on original:
-  ctangle avrtel avrtel-matrix
+  ctangle matrix
 
 * avrtel on pro micro:
   ctangle avrtel invert
