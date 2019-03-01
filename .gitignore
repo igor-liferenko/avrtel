@@ -1,6 +1,7 @@
 *.elf
 *.hex
 avrtel.c
+matrix.c
 *.o
 *.dvi
 *.idx
@@ -8,7 +9,7 @@ avrtel.c
 *.ps
 *.scn
 avrtel.tex
-avrtel-matrix.tex
+matrix.tex
 *.toc
 *.eps
 *.[0-9]
