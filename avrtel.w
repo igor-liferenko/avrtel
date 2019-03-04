@@ -134,7 +134,8 @@ void main(void)
       (the latter only if DTR)@>@;
     if (keydetect) {
       keydetect = 0;
-      switch (PINB & (1 << PB4 | 1 << PB5 | 1 << PB6) | PIND & 1 << PD7) {
+      switch (PINB & (1 << PB4 | 1 << PB5 | 1 << PB6) | PIND & 1 << PD7) { /* FIXME: write
+        here explanation why we do not do input pullup for these */
       case (0x10): digit = '1'; @+ break;
       case (0x20): digit = '2'; @+ break;
       case (0x30): digit = '3'; @+ break;
