@@ -1,7 +1,6 @@
 *.elf
 *.hex
 avrtel.c
-matrix.c
 *.o
 *.dvi
 *.idx
@@ -9,10 +8,8 @@ matrix.c
 *.ps
 *.scn
 avrtel.tex
-matrix.tex
 *.toc
 *.eps
 *.[0-9]
 *.mpx
 mpxerr.tex
-*.web
