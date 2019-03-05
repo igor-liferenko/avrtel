@@ -1,13 +1,13 @@
 *.elf
 *.hex
-avrtel.c
+*.c
 *.o
 *.dvi
 *.idx
 *.log
 *.ps
 *.scn
-avrtel.tex
+*.tex
 *.toc
 *.eps
 *.[0-9]
