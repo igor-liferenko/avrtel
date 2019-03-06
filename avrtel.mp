@@ -33,7 +33,7 @@ draw p -- A withpen pencircle scaled .4pt;
 draw (A - 2pt*u rotated 20) -- A -- (A - 2pt*u rotated -20) withpen pencircle scaled .4pt;
 enddef;
 
-beginfig(3);
+beginfig(1);
 imp:=1/2*1.5*7mm;
 cap:=1/2*8mm;
 
