@@ -17,21 +17,16 @@ station and automatically powers itself off).
 \.{tel} uses DTR to switch on base station when it starts;
 and when TTY is closed, DTR switches off base station.
 
-The main requirement to the phone is that base station
-must have led indicator\footnote*{For
-some phone models when base station is powered on, the indicator is turned
-on for a short time. In such case use \.{avrtel-poweron.ch}.}
-for on-hook / off-hook on base station (to be able
-to reset to initial state in state machine in \.{tel}; note, that
-measuring voltage drop in phone line to determine hook state does not work
-reliably, because it
-falsely triggers when dtmf signal is produced ---~the dtmf signal is alternating
-below the trigger level and multiple on-hook/off-hook events occur in high
-succession).
+On-hook/off-hook events need to be detected, in order to be able
+to reset to initial state in state machine in \.{tel}.
+This is done by measuring voltage rise on divider in phone line using
+TL431 in comparator mode. The same divider is used for DTMF detector.
 
-Note, that relay switches off output from base station's power supply, not input
-because transition processes from 220v could damage power supply because it
-is switched on/off multiple times.
+Note, that relay switches off output from base station's power supply, not input (220V),
+because transition processes from 220V could damage power supply over a long
+period of exploitation.
+Note, that debounce effect of mechanical relay may contribute to wear-off,
+even when it is connected to output of power supply.
 
 Also note that when device is not plugged in,
 base station must be powered off, and it must be powered on by \.{tel} (this
@@ -107,7 +102,7 @@ void main(void)
     may be rebooted) */
   DDRB |= 1 << PB0; /* |PB0| is used to show DTR state and and to determine
     when transition happens */
-  PORTB |= 1 << PB0; /* led on */
+  PORTB |= 1 << PB0; /* off-hook */
   DDRE |= 1 << PE6;
 
   if (line_status.DTR != 0) { /* are unions automatically zeroed? (may be removed if yes) */
@@ -120,7 +115,7 @@ void main(void)
     @<Get |line_status|@>@;
     if (line_status.DTR) {
       PORTE |= 1 << PE6; /* base station on */
-      PORTB &= ~(1 << PB0); /* led off */
+      PORTB &= ~(1 << PB0); /* on-hook */
     }
     else {
       if (!(PORTB & 1 << PB0)) { /* transition happened */
@@ -128,7 +123,7 @@ void main(void)
         keydetect = 0; /* in case key was detected right before base station was
                           switched off, which means that nothing must come from it */
       }
-      PORTB |= 1 << PB0; /* led on */
+      PORTB |= 1 << PB0; /* off-hook */
     }
     @<Check |PD2| and indicate it via |PD5| and if it changed write to USB `\.@@' or `\.\%'
       (the latter only if DTR)@>@;
@@ -161,7 +156,7 @@ void main(void)
 @ We check if handset is in use by using a switch. The switch is
 optocoupler.
 
-TODO create avrtel.4 which merges PC817C.png and PC817C-pinout.png,
+TODO create avrtel.3 which merges PC817C.png and PC817C-pinout.png,
 except pullup part, and put section "enable pullup" before this section
 and "git rm PC817C.png PC817C-pinout.png"
 
@@ -170,7 +165,7 @@ it to initial state.
 For off-line indication we send `\.\%' character to \.{tel}---to disable
 power reset on base station after timeout.
 
-$$\hbox to9cm{\vbox to5.93cm{\vfil\special{psfile=avrtel.4
+$$\hbox to9cm{\vbox to5.93cm{\vfil\special{psfile=avrtel.3
   clip llx=0 lly=0 urx=663 ury=437 rwi=2551}}\hfil}$$
 
 @<Check |PD2| and indicate it via |PD5| and if it changed write to USB `\.@@' or `\.\%'
