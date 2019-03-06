@@ -34,7 +34,7 @@ is why non-inverted relay must be used (and from such kind of relay the
 only suitable I know of is mechanical relay; and such relay gives an advantage
 that power supply with AC and DC output may be used; however, see {\tt
 TLP281.tex} how to fix TLP281 to make it behave like
-normally-open-mechanical-relay)).
+normally-open-mechanical-relay --- useful to eliminate debounce effect)).
 If base station
 is powered when device is not plugged in, this breaks program logic badly.
 
