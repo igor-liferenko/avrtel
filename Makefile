@@ -33,3 +33,7 @@ tlp1.eps: tlp1.jpg
 tlp2.eps: tlp2.jpg
 	@convert $< $@
 	@imgsize $@ 12 -
+
+TL431.eps: TL431.png
+	@convert $< $@
+	@imgsize $@
