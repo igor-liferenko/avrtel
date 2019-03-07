@@ -1,4 +1,5 @@
-@ This is program for atmega328p to test TL431 - PD2 can be enabled only once
+\noinx
+@ This is program for arduino UNO (atmega328p) to test TL431 - PD2 can be enabled only once
 (to test for bouncing), PD1 can be enabled unlimited number of times.
 Put 10K resistor between +5V and control pin. Another resistor is pullup.
 
@@ -22,11 +23,11 @@ void main (void)
       PORTB |= 1 << PB5;
     else
       PORTB &= ~(1 << PB5);
-    if (!(PIND & 1 << PD2)) { /* wire */
+    if (!(PIND & 1 << PD2)) {
       READS_LOW = 1;
       if (first) PORTB |= 1 << PB5;
     }
-    else { /* no wire */
+    else {
       if (READS_LOW == 1) first = 0; /* transition */
       PORTB &= ~(1 << PB5);
     }
