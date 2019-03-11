@@ -8,21 +8,20 @@
 \font\caps=cmcsc10 at 9pt
 
 @* Program.
-DTR/RTS is used by \.{tel} to switch the phone off (on timeout and for
-special commands) by switching off/on
-base station for one second (the phone looses connection to base
-station and automatically powers itself off).
-
-\.{tel} uses DTR/RTS to switch on base station when it starts;
-and when TTY is closed, DTR switches off base station.
-
 On-hook/off-hook events need to be detected, in order to be able
 to reset to initial state in state machine in \.{tel}.
 This is done by measuring voltage rise on divider in phone line using
 TL431 in comparator mode. The same divider is used for DTMF detector.
 
-Note that when device is not plugged in,
-base station must be not powered, and it must be powered on by \.{tel}.
+DTR/RTS is used by \.{tel} to switch the phone off (on timeout and for
+special commands) by switching off/on
+base station for one second (the phone looses connection to base
+station and automatically powers itself off).
+
+\.{tel} also uses DTR/RTS to switch on base station when it starts;
+and when TTY is closed, DTR/RTS switches off base station.
+For this reason, when the device is not plugged in,
+base station must be not powered.
 If base station
 is powered when device is not plugged in, this breaks program logic badly.
 
