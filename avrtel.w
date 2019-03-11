@@ -154,7 +154,7 @@ PORTD |= 1 << PD2;
 _delay_us(1); /* after enabling pullup, wait for the pin to settle before reading it */
 
 @ No other requests except {\caps set control line state} come
-after connection is established (speed is not set in \.{tel}).
+after connection is established.
 
 @<Get |dtr_rts|@>=
 UENUM = EP0;
