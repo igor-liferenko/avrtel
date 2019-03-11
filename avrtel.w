@@ -266,47 +266,6 @@ ISR(USB_GEN_vect)
   }
 }
 
-@ @<Global variables@>=
-U16 size;
-const void *buf;
-U8 from_program = 1; /* serial number is transmitted last, so this can be set only once */
-U8 empty_packet;
-
-@ Transmit data and empty packet (if necessary) and wait for STATUS stage.
-
-On control endpoint by clearing TXINI (in addition to making it possible to
-know when bank will be free again) we say that when next IN token arrives,
-data must be sent and endpoint bank cleared. When data was sent, TXINI becomes `1'.
-After TXINI becomes `1', new data may be written to UEDATX.\footnote*{The
-difference of clearing TXINI for control and non-control endpoint is that
-on control endpoint clearing TXINI also sends the packet and clears the endpoint bank.
-On non-control endpoints there is a possibility to have double bank, so another
-mechanism is used.}
-
-@<Send descriptor@>=
-empty_packet = 0;
-if (size < wLength && size % EP0_SIZE == 0)
-  empty_packet = 1; /* indicate to the host that no more data will follow (USB\S5.5.3) */
-if (size > wLength)
-  size = wLength; /* never send more than requested */
-while (size != 0) {
-  while (!(UEINTX & 1 << TXINI)) ;
-  U8 nb_byte = 0;
-  while (size != 0) {
-    if (nb_byte++ == EP0_SIZE)
-      break;
-    UEDATX = from_program ? pgm_read_byte(buf++) : *(U8 *) buf++;
-    size--;
-  }
-  UEINTX &= ~(1 << TXINI);
-}
-if (empty_packet) {
-  while (!(UEINTX & 1 << TXINI)) ;
-  UEINTX &= ~(1 << TXINI);
-}
-while (!(UEINTX & 1 << RXOUTI)) ; /* wait for STATUS stage */
-UEINTX &= ~(1 << RXOUTI);
-
 @i ../usb/CONTROL-endpoint-management.w
 @i ../usb/IN-endpoint-management.w
 @i ../usb/usb_stack.w
