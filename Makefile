@@ -18,13 +18,6 @@ imgs:
 	@mp TLP281
 	@perl -ne 'if (/^(.*\.eps): (.*)/) { system "convert $$2 $$1" }' Makefile
 
-# FIXME: why to avr-gcc commands are used here?
-test:
-	avr-gcc -mmcu=$(MCU) -g -Os -c test-PC817C.c
-	avr-gcc -mmcu=$(MCU) -g -o test.elf test-PC817C.o
-	avr-objcopy -O ihex test.elf test.hex
-	avrdude -c usbasp -p $(MCU) -U flash:w:test.hex -qq
-
 TL431:
 	avr-gcc -mmcu=atmega328p -g -Os -o TL431.elf $@.c
 	avr-objcopy -O ihex TL431.elf TL431.hex
