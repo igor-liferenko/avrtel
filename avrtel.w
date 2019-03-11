@@ -418,7 +418,10 @@ buf = &sn_desc;
 from_program = 0;
 @<Send descriptor@>@;
 
-@ @<Handle {\caps set configuration}@>=
+@ Interrupt IN endpoint is used when device needs to interrupt host.
+Host sends IN tokens to device at a rate specified in |@<Initialize element 6 ...@>|.
+
+@<Handle {\caps set configuration}@>=
 UEINTX &= ~(1 << RXSTPI);
 
 UENUM = EP3;
