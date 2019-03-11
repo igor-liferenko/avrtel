@@ -13,17 +13,13 @@ to reset to initial state in state machine in \.{tel}.
 This is done by measuring voltage rise on divider in phone line using
 TL431 in comparator mode. The same divider is used for DTMF detector.
 
-DTR/RTS is used by \.{tel} to switch the phone off (on timeout and for
-special commands) by switching off/on
-base station for one second (the phone looses connection to base
-station and automatically powers itself off).
-
-\.{tel} also uses DTR/RTS to switch on base station when it starts;
-and when TTY is closed, DTR/RTS switches off base station.
-For this reason, when the device is not plugged in,
-base station must be not powered.
-If base station
-is powered when device is not plugged in, this breaks program logic badly.
+DTR/RTS is used by \.{tel} to put the handset off-hook (on timeout and for
+special commands) by powering off/on
+base station for one second (the handset loses connection to base
+station and automatically puts itself off-hook).
+Note, that DTR/RTS is used from \.{tel} to power on base station;
+and when TTY is closed (from \.{tel} or automatically on termination),
+DTR/RTS automatically powers off base station.
 
 $$\hbox to12.27cm{\vbox to9.87777777777778cm{\vfil\special{psfile=avrtel.1
   clip llx=-91 lly=-67 urx=209 ury=134 rwi=3478}}\hfil}$$
@@ -144,11 +140,8 @@ it to initial state.
 For off-line indication we send `\.\%' character to \.{tel}---to disable
 power reset on base station after timeout.
 
-$$\hbox to9cm{\vbox to5.93cm{\vfil\special{psfile=avrtel.3
-  clip llx=0 lly=0 urx=663 ury=437 rwi=2551}}\hfil}$$
-
 @<Check |PD2| and indicate it via |PD5| and if it changed write to USB `\.@@' or `\.\%'
-  (the latter only if DTR)@>=
+  (the latter only if DTR/RTS)@>=
 if (PIND & 1 << PD2) { /* off-line */
   if (PORTD & 1 << PD5) { /* transition happened */
     if (line_status.DTR) { /* off-line was not caused by un-powering base station */
@@ -170,18 +163,7 @@ else { /* on-line */
   PORTD |= 1 << PD5;
 }
 
-@ Note that |PD2| above uses pull-up resistor.
-
-Pull-ups are often used with buttons and switches.
-
-With a pull-up resistor, the input pin will read a high state when the photo-transistor
-is not opened. In other words, a small amount of current is flowing between VCC and the input
-pin (not to ground), thus the input pin reads close to VCC. When the photo-transistor is
-opened, it connects the input pin directly to ground. The current flows through the resistor
-to ground, thus the input pin reads a low state.
-
-Since pull-up resistors are so commonly needed, our MCU has internal pull-ups
-that can be enabled and disabled.
+@ To use TL431.
 
 @<Set |PD2| to pullup mode@>=
 PORTD |= 1 << PD2;
