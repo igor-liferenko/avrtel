@@ -11,14 +11,6 @@ to reset to initial state in state machine in \.{tel}.
 This is done by measuring voltage rise on divider in phone line using
 TL431 in comparator mode. The same divider is used for DTMF detector.
 
-DTR/RTS is used from \.{tel} to put the handset off-hook (on timeout and for
-special commands) by powering off/on
-base station for one second (the handset loses connection to base
-station and automatically puts itself off-hook).
-DTR/RTS is also used from \.{tel} to power on base station;
-and when TTY is closed (from \.{tel} or automatically on termination),
-DTR/RTS automatically powers off base station.
-
 $$\hbox to12.27cm{\vbox to9.87777777777778cm{\vfil\special{psfile=avrtel.1
   clip llx=-91 lly=-67 urx=209 ury=134 rwi=3478}}\hfil}$$
 
