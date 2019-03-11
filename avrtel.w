@@ -1,6 +1,4 @@
 %TODO: rename usb_stack.w to usb-stack.w
-%TODO: change line_status.DTR to line_status.all
-%TODO: change DTR to DTR/RTS
 
 \let\lheader\rheader
 %\datethis
@@ -13,11 +11,11 @@ to reset to initial state in state machine in \.{tel}.
 This is done by measuring voltage rise on divider in phone line using
 TL431 in comparator mode. The same divider is used for DTMF detector.
 
-DTR/RTS is used by \.{tel} to put the handset off-hook (on timeout and for
+DTR/RTS is used from \.{tel} to put the handset off-hook (on timeout and for
 special commands) by powering off/on
 base station for one second (the handset loses connection to base
 station and automatically puts itself off-hook).
-Note, that DTR/RTS is used from \.{tel} to power on base station;
+DTR/RTS is also used from \.{tel} to power on base station;
 and when TTY is closed (from \.{tel} or automatically on termination),
 DTR/RTS automatically powers off base station.
 
@@ -84,15 +82,10 @@ void main(void)
   PORTB |= 1 << PB0; /* off-hook */
   DDRE |= 1 << PE6;
 
-  if (line_status.DTR != 0) { /* are unions automatically zeroed? (may be removed if yes) */
-    PORTB |= 1 << PB0;
-    PORTD |= 1 << PD5;
-    return;
-  }
   char digit;
   while (1) {
     @<Get |line_status|@>@;
-    if (line_status.DTR) {
+    if (line_status) {
       PORTE |= 1 << PE6; /* base station on */
       PORTB &= ~(1 << PB0); /* on-hook */
     }
@@ -105,7 +98,7 @@ void main(void)
       PORTB |= 1 << PB0; /* off-hook */
     }
     @<Check |PD2| and indicate it via |PD5| and if it changed write to USB `\.@@' or `\.\%'
-      (the latter only if DTR)@>@;
+      (the latter only if DTR/RTS)@>@;
     if (keydetect) {
       keydetect = 0;
       switch (PINB & (1 << PB4 | 1 << PB5 | 1 << PB6) | PIND & 1 << PD7) { /* we do not do
@@ -144,7 +137,7 @@ power reset on base station after timeout.
   (the latter only if DTR/RTS)@>=
 if (PIND & 1 << PD2) { /* off-line */
   if (PORTD & 1 << PD5) { /* transition happened */
-    if (line_status.DTR) { /* off-line was not caused by un-powering base station */
+    if (line_status) { /* off-line was not caused by un-powering base station */
       while (!(UEINTX & 1 << TXINI)) ;
       UEINTX &= ~(1 << TXINI);
       UEDATX = '%';
@@ -180,18 +173,8 @@ if (UEINTX & 1 << RXSTPI) {
 }
 UENUM = EP1; /* restore */
 
-@ @<Type \null definitions@>=
-typedef union {
-  U16 all;
-  struct {
-    U16 DTR:1;
-    U16 RTS:1;
-    U16 unused:14;
-  };
-} S_line_status;
-
 @ @<Global variables@>=
-S_line_status line_status;
+U16 line_status = 0;
 
 @ This request generates RS-232/V.24 style control signals.
 
@@ -212,7 +195,7 @@ Here DTR is used by host to say the device not to send when DTR is not active.
 wValue = UEDATX | UEDATX << 8;
 UEINTX &= ~(1 << RXSTPI);
 UEINTX &= ~(1 << TXINI); /* STATUS stage */
-line_status.all = wValue;
+line_status = wValue;
 
 @ Used in USB\_RESET interrupt handler.
 Reset is used to go to beginning of connection loop (because we cannot
