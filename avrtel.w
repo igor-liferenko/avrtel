@@ -168,7 +168,7 @@ UENUM = EP1; /* restore */
 U16 dtr_rts = 0;
 
 @ This request is used to send DTR/RTS\footnote*{For some reason on linux DTR and RTS signals
--are tied to each other.} signal.
+are tied to each other.} signal.
 It is used by host to say the device not to send when DTR/RTS is not on.
 @^Hardware flow control@>
 
