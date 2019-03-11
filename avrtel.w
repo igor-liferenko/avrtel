@@ -84,8 +84,8 @@ void main(void)
 
   char digit;
   while (1) {
-    @<Get |line_status|@>@;
-    if (line_status) {
+    @<Get |dtr_rts|@>@;
+    if (dtr_rts) {
       PORTE |= 1 << PE6; /* base station on */
       PORTB &= ~(1 << PB0); /* on-hook */
     }
@@ -137,7 +137,7 @@ power reset on base station after timeout.
   (the latter only if DTR/RTS)@>=
 if (PIND & 1 << PD2) { /* off-line */
   if (PORTD & 1 << PD5) { /* transition happened */
-    if (line_status) { /* off-line was not caused by un-powering base station */
+    if (dtr_rts) { /* off-line was not caused by un-powering base station */
       while (!(UEINTX & 1 << TXINI)) ;
       UEINTX &= ~(1 << TXINI);
       UEDATX = '%';
@@ -165,7 +165,7 @@ _delay_us(1); /* after enabling pullup, wait for the pin to settle before readin
 @ No other requests except {\caps set control line state} come
 after connection is established (speed is not set in \.{tel}).
 
-@<Get |line_status|@>=
+@<Get |dtr_rts|@>=
 UENUM = EP0;
 if (UEINTX & 1 << RXSTPI) {
   (void) UEDATX; @+ (void) UEDATX;
@@ -174,7 +174,7 @@ if (UEINTX & 1 << RXSTPI) {
 UENUM = EP1; /* restore */
 
 @ @<Global variables@>=
-U16 line_status = 0;
+U16 dtr_rts = 0;
 
 @ This request generates RS-232/V.24 style control signals.
 
@@ -195,7 +195,7 @@ Here DTR is used by host to say the device not to send when DTR is not active.
 wValue = UEDATX | UEDATX << 8;
 UEINTX &= ~(1 << RXSTPI);
 UEINTX &= ~(1 << TXINI); /* STATUS stage */
-line_status = wValue;
+dtr_rts = wValue;
 
 @ Used in USB\_RESET interrupt handler.
 Reset is used to go to beginning of connection loop (because we cannot
