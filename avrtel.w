@@ -1,7 +1,6 @@
 %TODO: rename usb_stack.w to usb-stack.w
 %TODO: change line_status.DTR to line_status.all
 %TODO: change DTR to DTR/RTS
-%TODO: rm note about TLP281
 
 \let\lheader\rheader
 %\datethis
@@ -29,18 +28,9 @@ Note, that debounce effect of mechanical relay may contribute to wear-off,
 even when it is connected to output of power supply.
 
 Also note that when device is not plugged in,
-base station must be powered off, and it must be powered on by \.{tel} (this
-is why non-inverted relay must be used (and from such kind of relay the
-only suitable I know of is mechanical relay; and such relay gives an advantage
-that power supply with AC and DC output may be used; however, see {\tt
-TLP281.tex} how to fix TLP281 to make it behave like
-normally-open-mechanical-relay --- useful to eliminate debounce effect)).
+base station must be not powered, and it must be powered on by \.{tel}.
 If base station
 is powered when device is not plugged in, this breaks program logic badly.
-
-%Note, that we can not use simple cordless phone---a DECT phone is needed, because
-%resetting base station to put the phone on-hook will not work
-%(FIXME: check if it is really so).
 
 $$\hbox to12.27cm{\vbox to9.87777777777778cm{\vfil\special{psfile=avrtel.1
   clip llx=-91 lly=-67 urx=209 ury=134 rwi=3478}}\hfil}$$
