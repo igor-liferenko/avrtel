@@ -86,7 +86,7 @@ void main(void)
       PORTB |= 1 << PB0; /* DTR/RTS is off */
     }
     @<Check |PD2| and indicate it via |PD5| and if it changed write to USB `\.@@' or `\.\%'
-      (the latter only if DTR/RTS)@>@;
+      (the latter only if |dtr_rts|)@>@;
     if (keydetect) {
       keydetect = 0;
       switch (PINB & (1 << PB4 | 1 << PB5 | 1 << PB6) | PIND & 1 << PD7) { /* we do not do
@@ -125,10 +125,11 @@ For off-line indication we send `\.\%' character to \.{tel}---to disable
 power reset on base station after timeout.
 
 @<Check |PD2| and indicate it via |PD5| and if it changed write to USB `\.@@' or `\.\%'
-  (the latter only if DTR/RTS)@>=
+  (the latter only if |dtr_rts|)@>=
 if (PIND & 1 << PD2) { /* off-line */
   if (PORTD & 1 << PD5) { /* transition happened */
-    if (dtr_rts) { /* off-line was not caused by un-powering base station */
+    if (dtr_rts) { /* off-line was not initiated from \.{tel} (off-line is automatically
+      caused by un-powering base station) */
       while (!(UEINTX & 1 << TXINI)) ;
       UEINTX &= ~(1 << TXINI);
       UEDATX = '%';
