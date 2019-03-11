@@ -137,11 +137,7 @@ void main(void)
 }
 
 @ We check if handset is in use by using a switch. The switch is
-optocoupler.
-
-TODO create avrtel.3 which merges PC817C.png and PC817C-pinout.png,
-except pullup part, and put section "enable pullup" before this section
-and "git rm PC817C.png PC817C-pinout.png"
+TL431.
 
 For on-line indication we send `\.@@' character to \.{tel}---to put
 it to initial state.
@@ -174,8 +170,7 @@ else { /* on-line */
   PORTD |= 1 << PD5;
 }
 
-@ The pull-up resistor is connected to the high voltage (this is usually 3.3V or 5V and is
-often refereed to as VCC).
+@ Note that |PD2| above uses pull-up resistor.
 
 Pull-ups are often used with buttons and switches.
 
@@ -187,9 +182,6 @@ to ground, thus the input pin reads a low state.
 
 Since pull-up resistors are so commonly needed, our MCU has internal pull-ups
 that can be enabled and disabled.
-
-$$\hbox to7.54cm{\vbox to3.98638888888889cm{\vfil\special{psfile=avrtel.2
-  clip llx=0 lly=0 urx=214 ury=113 rwi=2140}}\hfil}$$
 
 @<Set |PD2| to pullup mode@>=
 PORTD |= 1 << PD2;

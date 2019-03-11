@@ -368,33 +368,4 @@ draw arduino.GND1 -- wire15[1] -- wire15[2] -- opto.pin3;
 
 endfig;
 
-% TODO: put pullup inside the MCU box
-% TODO: use resistor from circ or mpcirc (see ~/avrtel/TODO)
-beginfig(2);
-z1=(5.5cm,1.9cm);
-z2=(4cm,1.1cm);
-z3=(3cm,1.1cm);
-z4=(2.1cm,1.1cm);
-z5=(1.3cm,1.1cm);
-z6=(.4cm,1.1cm);
-z8=z3+up*23pt;
-z7=(.4cm,.75pt); % height is for width of the line
-z9=z7+left*9pt;
-z7=1/2[z9,z10];
-label.top(btex \big MCU etex, z1+up*14pt);
-label.bot(btex input pin etex, z1+left*17pt+down*14pt);
-draw unitsquare shifted (-.5,-.5) xscaled 3cm yscaled 3.7cm shifted z1;
-draw z4 -- z2;
-draw z5 -- z6;
-label.top(btex switch etex, z5+right*(x4-x5)/2+up*14pt);
-draw z5 -- z5+right*(x4-x5)rotated25;
-draw z6 -- z7;
-draw z3 -- z8;
-draw z9 -- z10 withpen pencircle scaled 1.5pt;
-draw unitsquare xscaled .3cm yscaled .7cm shifted (z8+left*4pt);
-z11=z8+up*43pt;
-drawarrow z8+up*20pt .. z11;
-label.top(btex 5v etex, z11+up*3pt);
-endfig;
-
 end
