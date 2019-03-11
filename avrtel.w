@@ -6,10 +6,6 @@
 \font\caps=cmcsc10 at 9pt
 
 @* Program.
-On-hook/off-hook events need to be detected, in order to be able
-to reset to initial state in state machine in \.{tel}.
-This is done by measuring voltage rise on divider in phone line using
-TL431 in comparator mode. The same divider is used for DTMF detector.
 
 $$\hbox to12.27cm{\vbox to9.87777777777778cm{\vfil\special{psfile=avrtel.1
   clip llx=-91 lly=-67 urx=209 ury=134 rwi=3478}}\hfil}$$
@@ -117,8 +113,11 @@ void main(void)
   }
 }
 
-@ We check if handset is in use by using a switch. The switch is
-TL431.
+@ On-hook/off-hook events are detected
+by measuring voltage rise in phone line using
+TL431 in comparator mode. See also \.{TL431.w}.
+
+@^TL431@>
 
 For on-line indication we send `\.@@' character to \.{tel}---to put
 it to initial state.
