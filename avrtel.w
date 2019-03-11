@@ -55,7 +55,7 @@ void main(void)
       @<Process SETUP request@>@;
   UENUM = EP1;
 
-  DDRD |= 1 << PD5; /* |PD5| is used to show on-line/off-line state
+  DDRD |= 1 << PD5; /* to show on-line/off-line state
                        and to determine when transition happens */
   @<Set |PD2| to pullup mode@>@;
   EICRA |= 1 << ISC11 | 1 << ISC10; /* set INT1 to trigger on rising edge */
@@ -65,17 +65,17 @@ void main(void)
     anything, as USB RESET is repeated several times by USB host, so it is safe
     that USB RESET interrupt is enabled (we cannot disable it because USB host
     may be rebooted) */
-  DDRB |= 1 << PB0; /* |PB0| is used to show DTR state and and to determine
+  DDRB |= 1 << PB0; /* to show DTR/RTS state and and to determine
     when transition happens */
-  PORTB |= 1 << PB0; /* off-hook */
-  DDRE |= 1 << PE6;
+  PORTB |= 1 << PB0; /* on when DTR/RTS is off */
+  DDRE |= 1 << PE6; /* to power base station on and off */
 
   char digit;
   while (1) {
     @<Get |dtr_rts|@>@;
     if (dtr_rts) {
       PORTE |= 1 << PE6; /* base station on */
-      PORTB &= ~(1 << PB0); /* on-hook */
+      PORTB &= ~(1 << PB0); /* DTR/RTS is on */      
     }
     else {
       if (!(PORTB & 1 << PB0)) { /* transition happened */
@@ -83,7 +83,7 @@ void main(void)
         keydetect = 0; /* in case key was detected right before base station was
                           switched off, which means that nothing must come from it */
       }
-      PORTB |= 1 << PB0; /* off-hook */
+      PORTB |= 1 << PB0; /* DTR/RTS is off */
     }
     @<Check |PD2| and indicate it via |PD5| and if it changed write to USB `\.@@' or `\.\%'
       (the latter only if DTR/RTS)@>@;
@@ -113,7 +113,7 @@ void main(void)
   }
 }
 
-@ On-hook/off-hook events are detected
+@ On-line/off-line events are detected
 by measuring voltage rise in phone line using
 TL431 in comparator mode. See also \.{TL431.w}.
 
