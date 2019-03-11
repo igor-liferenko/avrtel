@@ -266,6 +266,7 @@ ISR(USB_GEN_vect)
   }
 }
 
+@i ../establishing-usb-connection.w
 @i ../usb/CONTROL-endpoint-management.w
 @i ../usb/IN-endpoint-management.w
 @i ../usb/usb_stack.w
