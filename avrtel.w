@@ -155,20 +155,6 @@ if (UEINTX & 1 << RXSTPI) {
 }
 UENUM = EP1; /* restore */
 
-@ @<Global variables@>=
-U16 dtr_rts = 0;
-
-@ This request is used to send DTR/RTS\footnote*{For some reason on linux DTR and RTS signals
-are tied to each other.} signal.
-It is used by host to say the device not to send when DTR/RTS is not on.
-@^Hardware flow control@>
-
-@<Handle {\caps set control line state}@>=
-wValue = UEDATX | UEDATX << 8;
-UEINTX &= ~(1 << RXSTPI);
-UEINTX &= ~(1 << TXINI); /* STATUS stage */
-dtr_rts = wValue;
-
 @ Used in USB\_RESET interrupt handler.
 Reset is used to go to beginning of connection loop (because we cannot
 use \&{goto} from within interrupt handler). Watchdog reset is used because
