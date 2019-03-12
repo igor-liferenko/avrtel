@@ -1,4 +1,5 @@
 %TODO: rename usb_stack.w to usb-stack.w
+%TODO: change syntax in "case: (0xHH)" as in em.w
 
 \let\lheader\rheader
 %\datethis
@@ -9,14 +10,6 @@
 
 $$\hbox to12.27cm{\vbox to9.87777777777778cm{\vfil\special{psfile=avrtel.1
   clip llx=-91 lly=-67 urx=209 ury=134 rwi=3478}}\hfil}$$
-
-@d EP0 0
-@d EP1 1
-@d EP2 2
-@d EP3 3
-
-@d EP0_SIZE 32 /* 32 bytes\footnote\dag{Must correspond to |UECFG1X| of |EP0|.}
-                  (max for atmega32u4) */
 
 @c
 @<Header files@>@;
@@ -252,7 +245,11 @@ if (WDTCSR & 1 << WDE) { /* takes 2 instructions: \.{in} (1 cycle),
     which is within 4 cycles.} */
 }
 
-@ @c
+@ @d EP0 0 /* selected by default */
+@d EP0_SIZE 32 /* 32 bytes\footnote\dag{Must correspond to |UECFG1X| of |EP0|.}
+                  (max for atmega32u4) */
+
+@c
 ISR(USB_GEN_vect)
 {
   UDINT &= ~(1 << EORSTI); /* for the interrupt handler to be called for next USB\_RESET */
