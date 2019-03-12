@@ -22,7 +22,6 @@ ISR(INT1_vect)
   keydetect = 1;
 }
 
-volatile int connected = 0;
 void main(void)
 {
   @<Disable WDT@>@;
