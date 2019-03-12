@@ -13,8 +13,6 @@ $$\hbox to12.27cm{\vbox to9.87777777777778cm{\vfil\special{psfile=avrtel.1
 
 @c
 @<Header files@>@;
-typedef unsigned char U8;
-typedef unsigned short U16;
 @<Type \null definitions@>@;
 @<Global variables@>@;
 
