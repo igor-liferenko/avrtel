@@ -131,11 +131,17 @@ _delay_us(1); /* after enabling pullup, wait for the pin to settle before readin
 @ No other requests except {\caps set control line state} come
 after connection is established.
 
-@<Get |dtr_rts|@>=
+@<Global variables@>=
+U16 dtr_rts = 0;
+
+@ @<Get |dtr_rts|@>=
 UENUM = EP0;
 if (UEINTX & 1 << RXSTPI) {
   (void) UEDATX; @+ (void) UEDATX;
-  @<Handle {\caps set control line state}@>@;
+  wValue = UEDATX | UEDATX << 8;
+  UEINTX &= ~(1 << RXSTPI);
+  UEINTX &= ~(1 << TXINI); /* STATUS stage */
+  dtr_rts = wValue;
 }
 UENUM = EP1; /* restore */
 
