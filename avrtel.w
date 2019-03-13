@@ -127,6 +127,7 @@ _delay_us(1); /* after enabling pullup, wait for the pin to settle before readin
 
 @ No other requests except {\caps set control line state} come
 after connection is established.
+It is used by host to say the device not to send when DTR/RTS is not on.
 
 @<Global variables@>=
 U16 dtr_rts = 0;
