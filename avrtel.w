@@ -10,7 +10,7 @@ $$\hbox to12.27cm{\vbox to9.87777777777778cm{\vfil\special{psfile=avrtel.1
 
 @c
 @<Header files@>@;
-@<Type \null definitions@>@;
+@<Type definitions@>@;
 @<Global variables@>@;
 
 volatile int keydetect = 0;
