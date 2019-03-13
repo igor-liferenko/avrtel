@@ -1,6 +1,3 @@
-%TODO: rename usb_stack.w to usb-stack.w
-%TODO: change syntax in "case: (0xHH)" as in em.w
-
 \let\lheader\rheader
 %\datethis
 \secpagedepth=2 % begin new page only on *
@@ -66,18 +63,18 @@ void main(void)
       switch (PINB & (1 << PB4 | 1 << PB5 | 1 << PB6) | PIND & 1 << PD7) { /* we do not do
         pullup for these because they are not switches (ends are not hanging in the
         air) --- both of their states are regulated by external voltage */
-      case (0x10): digit = '1'; @+ break;
-      case (0x20): digit = '2'; @+ break;
-      case (0x30): digit = '3'; @+ break;
-      case (0x40): digit = '4'; @+ break;
-      case (0x50): digit = '5'; @+ break;
-      case (0x60): digit = '6'; @+ break;
-      case (0x70): digit = '7'; @+ break;
-      case (0x80): digit = '8'; @+ break;
-      case (0x90): digit = '9'; @+ break;
-      case (0xA0): digit = '0'; @+ break;
-      case (0xB0): digit = '*'; @+ break;
-      case (0xC0): digit = '#'; @+ break;
+      case 0x10: digit = '1'; @+ break;
+      case 0x20: digit = '2'; @+ break;
+      case 0x30: digit = '3'; @+ break;
+      case 0x40: digit = '4'; @+ break;
+      case 0x50: digit = '5'; @+ break;
+      case 0x60: digit = '6'; @+ break;
+      case 0x70: digit = '7'; @+ break;
+      case 0x80: digit = '8'; @+ break;
+      case 0x90: digit = '9'; @+ break;
+      case 0xA0: digit = '0'; @+ break;
+      case 0xB0: digit = '*'; @+ break;
+      case 0xC0: digit = '#'; @+ break;
       }
       while (!(UEINTX & 1 << TXINI)) ;
       UEINTX &= ~(1 << TXINI);
