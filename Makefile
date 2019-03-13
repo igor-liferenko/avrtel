@@ -24,14 +24,6 @@ TL431:
 
 .PHONY: $(wildcard *.eps)
 
-tlp1.eps: tlp1.jpg
-	@convert $< $@
-	@imgsize $@
-
-tlp2.eps: tlp2.jpg
-	@convert $< $@
-	@imgsize $@ 12 -
-
 TL431.eps: TL431.png
 	@convert $< $@
 	@imgsize $@
