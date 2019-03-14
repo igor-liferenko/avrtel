@@ -95,7 +95,7 @@ power reset on base station after timeout.
 if (PIND & 1 << PD2) { /* off-line */
   if (PORTD & 1 << PD5) { /* transition happened */
     if (dtr_rts) { /* off-line was not initiated from \.{tel} (off-line is automatically
-      caused by un-powering base station) */
+      caused by un-powering base station via DTR/RTS) */
       while (!(UEINTX & 1 << TXINI)) ;
       UEINTX &= ~(1 << TXINI);
       UEDATX = '%';
