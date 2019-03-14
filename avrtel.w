@@ -23,12 +23,6 @@ ISR(INT1_vect)
 void main(void)
 {
   @<Connect to USB host (must be called first; |sei| is called here)@>@;
-
-  UENUM = EP1;
-
-  DDRD |= 1 << PD5; /* to show on-line/off-line state
-                       and to determine when transition happens */
-  @<Set |PD2| to pullup mode@>@;
   EICRA |= 1 << ISC11 | 1 << ISC10; /* set INT1 to trigger on rising edge */
   EIMSK |= 1 << INT1; /* turn on INT1; if it happens while USB RESET interrupt
     is processed, it does not change anything, as the device is going to be reset;
@@ -36,11 +30,12 @@ void main(void)
     anything, as USB RESET is repeated several times by USB host, so it is safe
     that USB RESET interrupt is enabled (we cannot disable it because USB host
     may be rebooted) */
-  DDRB |= 1 << PB0; /* to show DTR/RTS state and and to determine
-    when transition happens */
+  DDRD |= 1 << PD5; /* to show on-line/off-line state and to determine when transition happens */
+  DDRB |= 1 << PB0; /* to show DTR/RTS state and and to determine when transition happens */
   PORTB |= 1 << PB0; /* on when DTR/RTS is off */
   DDRE |= 1 << PE6; /* to power base station on and off */
-
+  @<Set |PD2| to pullup mode@>@;  
+  UENUM = EP1;
   char digit;
   while (1) {
     @<Get |dtr_rts|@>@;
@@ -56,7 +51,7 @@ void main(void)
       }
       PORTB |= 1 << PB0; /* DTR/RTS is off */
     }
-    @<Check |PD2| and indicate it via |PD5| and if it changed write to USB `\.@@' or `\.\%'
+    @<Check |PD2| and indicate it via |PD5| and if it changed, write \.@@ or \.\%
       (the latter only if |dtr_rts|)@>@;
     if (keydetect) {
       keydetect = 0;
@@ -95,7 +90,7 @@ it to initial state.
 For off-line indication we send `\.\%' character to \.{tel}---to disable
 power reset on base station after timeout.
 
-@<Check |PD2| and indicate it via |PD5| and if it changed write to USB `\.@@' or `\.\%'
+@<Check |PD2| and indicate it via |PD5| and if it changed, write \.@@ or \.\%
   (the latter only if |dtr_rts|)@>=
 if (PIND & 1 << PD2) { /* off-line */
   if (PORTD & 1 << PD5) { /* transition happened */
