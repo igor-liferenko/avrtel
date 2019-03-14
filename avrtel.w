@@ -12,14 +12,14 @@ $$\hbox to12.27cm{\vbox to9.87777777777778cm{\vfil\special{psfile=avrtel.1
 @<Header files@>@;
 @<Type definitions@>@;
 @<Global variables@>@;
-
+@<Create ISR for connecting to USB host@>@;
+@#
 volatile int keydetect = 0;
 ISR(INT1_vect)
 {
   keydetect = 1;
 }
 
-@<Create ISR for connecting to USB host@>@;
 void main(void)
 {
   @<Connect to USB host (must be called first; |sei| is called here)@>@;
