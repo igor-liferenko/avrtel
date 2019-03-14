@@ -88,7 +88,7 @@ TL431 in comparator mode. See also \.{TL431.w}.
 For on-line indication we send `\.@@' character to \.{tel}---to put
 it to initial state.
 For off-line indication we send `\.\%' character to \.{tel}---to disable
-power reset on base station after timeout.
+timeout signal handler (to put handset off-hook).
 
 @<Check |PD2| and indicate it via |PD5| and if it changed, write \.@@ or \.\%
   (the latter only if |dtr_rts|)@>=
