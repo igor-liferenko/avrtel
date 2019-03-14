@@ -5,10 +5,10 @@ leds on board. But we do not use arduino IDE and for us the problem
 persists, so do the inversion in change-file to avoid headache.
 
 @x
-  DDRD |= 1 << PD5; /* to show on-line/off-line state
+  DDRD |= 1 << PD5; /* to show on-line/off-line state and to determine when transition happens */
 @y
-  PORTD |= 1 << PD5; /* led off */
-  DDRD |= 1 << PD5; /* to show on-line/off-line state
+  PORTD |= 1 << PD5;
+  DDRD |= 1 << PD5; /* to show on-line/off-line state and to determine when transition happens */
 @z
 
 @x
