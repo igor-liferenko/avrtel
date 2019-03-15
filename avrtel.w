@@ -7,7 +7,7 @@
 
 Put 10K resistor between +5V and control pin. Another resistor is pullup.
 
-$$\hbox to4.72cm{\vbox to5.32694444444444cm{\vfil\special{psfile=TL431.eps
+$$\hbox to12.27cm{\vbox to9.87777777777778cm{\vfil\special{psfile=TL431.eps
   clip llx=0 lly=0 urx=134 ury=151 rwi=1340}}\hfil}$$
 
 %TODO: redraw from above picture to new avrtel.1
