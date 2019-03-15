@@ -34,6 +34,13 @@ draw (A - 2pt*u rotated 20) -- A -- (A - 2pt*u rotated -20) withpen pencircle sc
 enddef;
 
 beginfig(1);
+endfig;
+
+end
+
+% this is the (old) scheme for device made by Gil
+
+beginfig(1);
 imp:=1/2*1.5*7mm;
 cap:=1/2*8mm;
 
