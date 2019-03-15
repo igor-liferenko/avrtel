@@ -5,10 +5,10 @@
 
 @* Program.
 
-Put 10K resistor between +5V and control pin. Another resistor is pullup.
-
-$$\hbox to12.27cm{\vbox to9.87777777777778cm{\vfil\special{psfile=TL431.eps
-  clip llx=0 lly=0 urx=134 ury=151 rwi=1340}}\hfil}$$
+$$\hbox to12.27cm{\vbox to9.87777777777778cm{%
+  Put 10K resistor between +5V and control pin. Another resistor is pullup.
+  \vfil\special{psfile=TL431.eps
+  clip llx=0 lly=0 urx=134 ury=151 rwi=1340}}\hss}$$
 
 %TODO: redraw from above picture to new avrtel.1
 %$$\hbox to12.27cm{\vbox to9.87777777777778cm{\vfil\special{psfile=avrtel.1
