@@ -5,8 +5,14 @@
 
 @* Program.
 
-$$\hbox to12.27cm{\vbox to9.87777777777778cm{\vfil\special{psfile=avrtel.1
-  clip llx=-91 lly=-67 urx=209 ury=134 rwi=3478}}\hfil}$$
+Put 10K resistor between +5V and control pin. Another resistor is pullup.
+
+$$\hbox to4.72cm{\vbox to5.32694444444444cm{\vfil\special{psfile=TL431.eps
+  clip llx=0 lly=0 urx=134 ury=151 rwi=1340}}\hfil}$$
+
+%TODO: redraw from above picture to new avrtel.1
+%$$\hbox to12.27cm{\vbox to9.87777777777778cm{\vfil\special{psfile=avrtel.1
+%  clip llx=-91 lly=-67 urx=209 ury=134 rwi=3478}}\hfil}$$
 
 @c
 @<Header files@>@;
@@ -81,9 +87,7 @@ void main(void)
 
 @ On-line/off-line events are detected
 by measuring voltage rise in phone line using
-TL431 in comparator mode. See also \.{TL431.w}.
-
-@^TL431@>
+TL431.
 
 For on-line indication we send `\.@@' character to \.{tel}---to put
 it to initial state.
