@@ -40,14 +40,14 @@ void main(void)
   DDRB |= 1 << PB0; /* to show DTR/RTS state and and to determine when transition happens */
   PORTB |= 1 << PB0; /* on when DTR/RTS is off */
   DDRE |= 1 << PE6; /* to power base station on and off */
-  @<Set |PD2| to pullup mode@>@;  
+  @<Set |PD2| to pullup mode@>@;
   UENUM = EP1;
   char digit;
   while (1) {
     @<Get |dtr_rts|@>@;
     if (dtr_rts) {
       PORTE |= 1 << PE6; /* base station on */
-      PORTB &= ~(1 << PB0); /* DTR/RTS is on */      
+      PORTB &= ~(1 << PB0); /* DTR/RTS is on */
     }
     else {
       if (!(PORTB & 1 << PB0)) { /* transition happened */
