@@ -152,6 +152,7 @@ UENUM = EP1; /* restore */
 
 @<Header files@>=
 #include <avr/io.h>
+#include <avr/interrupt.h>
 #include <util/delay.h> /* |_delay_us| */
 
 @* Index.
