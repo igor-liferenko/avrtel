@@ -14,6 +14,8 @@ $$\hbox to12.27cm{\vbox to9.87777777777778cm{%
 %$$\hbox to12.27cm{\vbox to9.87777777777778cm{\vfil\special{psfile=avrtel.1
 %  clip llx=-91 lly=-67 urx=209 ury=134 rwi=3478}}\hfil}$$
 
+@d F_CPU 16000000UL
+
 @c
 @<Header files@>@;
 @<Type definitions@>@;
@@ -150,10 +152,6 @@ UENUM = EP1; /* restore */
 
 @<Header files@>=
 #include <avr/io.h>
-#include <avr/interrupt.h>
-#include <avr/pgmspace.h>
-#include <avr/boot.h> /* |boot_signature_byte_get| */
-#define F_CPU 16000000UL
 #include <util/delay.h> /* |_delay_us| */
 
 @* Index.
