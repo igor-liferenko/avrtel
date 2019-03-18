@@ -29,5 +29,5 @@ This change-file is used to keep avrtel.w the same as it was on old scheme, beca
 @y
     UEDATX = '@@';
     UEINTX &= ~(1 << FIFOCON);
-    _delay_ms(5); // empirical
+    _delay_ms(10); // empirical
 @z
