@@ -1,2 +1,2 @@
-ctangle avrtel debounce (new scheme)
-ctangle avrtel invert (old scheme)
+ctangle avrtel original (new scheme - original arduino)
+ctangle avrtel invert (old scheme - pro micro)
