@@ -78,11 +78,9 @@ void main(void)
   }
 }
 
-@ On-line/off-line events are detected
-by measuring voltage rise in phone line via digital input.
-
-For on-line indication we send `\.@@' character to \.{tel}---to put
+@ For on-line indication we send `\.@@' character to \.{tel}---to put
 it to initial state.
+
 For off-line indication we send `\.\%' character to \.{tel}---to disable
 timeout signal handler (to put handset off-hook).
 
