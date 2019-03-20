@@ -1,4 +1,4 @@
-outputtemplate:="%j.eps"; prologues:=3;
+%outputtemplate:="%j.eps"; prologues:=3;
 
 input rboxes;
 
@@ -286,7 +286,7 @@ resistor.e-resistor.w=right*8mm;
 resistor.n-resistor.s=up*3mm;
 drawboxed(resistor);
 
-label.rt(btex \eightss Adjust resistor to measure $\approx$ 4.3V when off-hook. etex, linepower.minus+down*4mm+left*12mm);
+label.rt(btex \eightss Adjust resistor to measure $\approx$ 4.3V on it when off-hook. etex, linepower.minus+down*4mm+left*12mm);
 
 draw linepower.minus--(xpart(phone.w),ypart(linepower.minus));
 draw linepower.plus -- (xpart(resistor.w),ypart(linepower.plus));
