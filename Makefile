@@ -15,10 +15,5 @@ clean:
 
 imgs:
 	@mp avrtel
+	@mp old
 	@perl -ne 'if (/^(.*\.eps): (.*)/) { system "convert $$2 $$1" }' Makefile
-
-.PHONY: $(wildcard *.eps)
-
-TL431.eps: TL431.png
-	@convert $< $@
-	@imgsize $@
