@@ -1,2 +1,2 @@
-ctangle avrtel original (new scheme - original arduino)
-ctangle avrtel invert (old scheme - pro micro)
+wmerge avrtel old merged
+ctangle merged invert avrtel
