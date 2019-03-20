@@ -9,7 +9,7 @@ verbatimtex
 \font\smallss=cmss8 scaled 400
 \font\eightss=cmss8
 \font\sevenss=cmss8 scaled 600
-\font\twlbs=cmssbx10 scaled 1200
+\font\twlss=cmss12
 \font\eighttt=cmtt8
 etex
 
@@ -226,12 +226,7 @@ label(btex \smallss PC817C etex, 1/2[opto1,opto3]);
 label(btex \smallss 3 etex, opto.pin3+down*1mm); label(btex \smallss 4 etex, opto.pin4+down*1mm);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-impedance0; label(btex ${}_?$ etex, 1/2[z0l,z0r]);
-label(btex \vbox{
-\hbox{In gorod power is 9V, not 12V, and ``?'' is 620R.}
-\hbox{In home ``?'' is 560R.}
-\hbox{In general, when voltage is increased, resistance must be decreased.}
-} etex, 1/2[z0l,z0r]+down*1cm);
+impedance0;
 
 %%%%%%%%%%%%%%% power plug %%%%%%%%%%%%%%
 pair powerplug[], powerplug.minus, powerplug.plus;
@@ -270,7 +265,7 @@ linepower.plus=linepower.minus+up*3mm;
 draw linepower.plus--(xpart(phone.w),ypart(linepower.plus));
 label(btex \tt- etex, linepower.minus+left*2mm);
 label(btex \tt+ etex, linepower.plus+left*2mm);
-label(btex \twlbs 12V etex, 1/2[linepower.minus,linepower.plus]+left*8mm);
+label(btex $\approx$\twlss 12V etex, 1/2[linepower.minus,linepower.plus]+left*8mm);
 draw linepower.minus--z0l;
 draw z0r--(xpart(phone.w),ypart(z0r));
 label.rt(btex \eightss RJ11 etex rotated -90, (xpart(phone.w),ypart(1/2[linepower.plus,linepower.minus])));
