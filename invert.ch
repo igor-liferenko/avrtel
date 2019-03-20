@@ -35,18 +35,6 @@ persists, so do the inversion in change-file to avoid headache.
 @z
 
 @x
-  if (PORTD & 1 << PD5) { /* transition happened */
-@y
-  if (!(PORTD & 1 << PD5)) { /* transition happened */
-@z
-
-@x
-  PORTD &= ~(1 << PD5);
-@y
-  PORTD |= 1 << PD5;
-@z
-
-@x
   if (!(PORTD & 1 << PD5)) { /* transition happened */
 @y
   if (PORTD & 1 << PD5) { /* transition happened */
@@ -56,4 +44,16 @@ persists, so do the inversion in change-file to avoid headache.
   PORTD |= 1 << PD5;
 @y
   PORTD &= ~(1 << PD5);
+@z
+
+@x
+  if (PORTD & 1 << PD5) { /* transition happened */
+@y
+  if (!(PORTD & 1 << PD5)) { /* transition happened */
+@z
+
+@x
+  PORTD &= ~(1 << PD5);
+@y
+  PORTD |= 1 << PD5;
 @z
