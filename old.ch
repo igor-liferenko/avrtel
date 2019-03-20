@@ -1,4 +1,11 @@
 @x
+  UENUM = EP1;
+@y
+  @<Set |PD2| to pullup mode@>@;
+  UENUM = EP1;
+@z
+
+@x
 @i ../usb/IN-endpoint-management.w
 @y
 @ @<Set |PD2| to pullup mode@>=
