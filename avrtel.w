@@ -88,7 +88,16 @@ timeout signal handler (to put handset off-hook).
 
 @<Check |PD2| and indicate it via |PD5| and if it changed, write \.@@ or \.\%
   (the latter only if |dtr_rts|)@>=
-if (!(PIND & 1 << PD2)) { /* off-line */
+if (PIND & 1 << PD2) { /* on-line */
+  if (!(PORTD & 1 << PD5)) { /* transition happened */
+    while (!(UEINTX & 1 << TXINI)) ;
+    UEINTX &= ~(1 << TXINI);
+    UEDATX = '@@';
+    UEINTX &= ~(1 << FIFOCON);
+  }
+  PORTD |= 1 << PD5;
+}
+else { /* off-line */
   if (PORTD & 1 << PD5) { /* transition happened */
     if (dtr_rts) { /* off-line was not initiated from \.{tel} (off-line is automatically
       caused by un-powering base station via DTR/RTS) */
@@ -99,15 +108,6 @@ if (!(PIND & 1 << PD2)) { /* off-line */
     }
   }
   PORTD &= ~(1 << PD5);
-}
-else { /* on-line */
-  if (!(PORTD & 1 << PD5)) { /* transition happened */
-    while (!(UEINTX & 1 << TXINI)) ;
-    UEINTX &= ~(1 << TXINI);
-    UEDATX = '@@';
-    UEINTX &= ~(1 << FIFOCON);
-  }
-  PORTD |= 1 << PD5;
 }
 
 @ No other requests except {\caps set control line state} come
