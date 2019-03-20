@@ -1,7 +1,7 @@
 @x
-avrtel.1
+$$\hbox to12.27cm{\vbox to9.87777777777778cm{\vfil\special{psfile=avrtel.1
 @y
-old.1
+$$\hbox to12.27cm{\vbox to9.87777777777778cm{\vfil\special{psfile=old.1
 @z
 
 @x
@@ -12,8 +12,9 @@ old.1
 @z
 
 @x
-on-line/off-line
+if (PIND & 1 << PD2) { /* on-line */
 @y
+if (!(PIND & 1 << PD2)) { /* on-line */
 @z
 
 @x
