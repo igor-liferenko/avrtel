@@ -34,6 +34,7 @@ draw (A - 2pt*u rotated 20) -- A -- (A - 2pt*u rotated -20) withpen pencircle sc
 enddef;
 
 beginfig(1);
+draw fullcircle scaled 30pt;
 endfig;
 
 end

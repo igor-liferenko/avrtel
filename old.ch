@@ -1,8 +1,19 @@
 @x
+avrtel.1
+@y
+old.1
+@z
+
+@x
   UENUM = EP1;
 @y
   @<Set |PD2| to pullup mode@>@;
   UENUM = EP1;
+@z
+
+@x
+on-line/off-line
+@y
 @z
 
 @x
