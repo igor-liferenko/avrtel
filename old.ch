@@ -9,10 +9,13 @@ $$\hbox to12.27cm{\kern-0.4pt\vrule\vbox to9.87777777777778cm{%
   llx=-100 lly=-67 urx=200 ury=134 rwi=3478}\hrule\kern-0.4pt}\hfil\vrule\kern-0.4pt}$$
 @z
 
-To use landscape image:
-1. use imgsize with required width and/or height as it must be in landscape mode
-2. exchange hbox and vbox dimensions
-3. in \special add "angle=90 hoffset=<ury-lly>"
+@x
+@c
+@y
+@d F_CPU 16000000UL
+
+@c
+@z
 
 @x
   UENUM = EP1;
@@ -41,6 +44,5 @@ _delay_us(1); /* after enabling pullup, wait for the pin to settle before readin
 @<Header files@>=
 @y
 @<Header files@>=
-#define F_CPU 16000000UL
 #include <util/delay.h> /* |_delay_us| */
 @z
