@@ -1,4 +1,4 @@
-%outputtemplate:="%j.eps"; prologues:=3;
+outputtemplate:="%j.eps"; prologues:=3;
 
 input rboxes;
 
@@ -192,7 +192,7 @@ label(btex \smallss 220V etex rotated 90, 1/2[relay1,relay3]+right*3mm);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 pair linepower.plus, linepower.minus;
-linepower.plus=(-20mm,-5mm);
+linepower.plus=(-17mm,-5mm);
 linepower.minus=linepower.plus+down*3mm;
 
 %%%%%%%%%%%%%%% power plug %%%%%%%%%%%%%%
@@ -250,7 +250,7 @@ resistor.e-resistor.w=right*8mm;
 resistor.n-resistor.s=up*3mm;
 drawboxed(resistor);
 
-label.rt(btex \sevenandhalfss Adjust resistor to measure $\approx$4.3V on it when off-hook. etex, linepower.minus+down*4mm+left*12mm);
+label.lft(btex \sevenandhalfss Adjust resistor to measure $\approx$4.3V on it when off-hook. etex, phone.sw+up*1mm);
 
 draw linepower.minus--(xpart(phone.w),ypart(linepower.minus));
 draw linepower.plus -- resistor.w;
