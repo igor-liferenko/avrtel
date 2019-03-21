@@ -1,4 +1,4 @@
-outputtemplate:="%j.eps"; prologues:=3;
+%outputtemplate:="%j.eps"; prologues:=3;
 
 input rboxes;
 
@@ -183,12 +183,12 @@ xpart(relay4)=xpart(relay1); ypart(relay4)=ypart(relay3);
 pair relay.IN, relay.GND, relay.load[];
 xpart(relay.IN)=xpart(relay4)+2mm; ypart(relay.IN)=ypart(relay4);
 xpart(relay.GND)=xpart(relay4)+1mm; ypart(relay.GND)=ypart(relay4);
-xpart(relay.load1)=xpart(relay2); ypart(relay.load1)=ypart(relay2)+6mm;
-xpart(relay.load2)=xpart(relay2); ypart(relay.load2)=ypart(relay2)+3mm;
+xpart(relay.load1)=xpart(relay2); ypart(relay.load1)=ypart(relay2)+5.5mm;
+xpart(relay.load2)=xpart(relay2); ypart(relay.load2)=ypart(relay2)+4mm;
 % draw
 draw relay1--relay2--relay3--relay4--cycle;
 label(btex \smallss SHARP S202S02 etex rotated 90, 1/2[relay1,relay3]);
-label(btex \smallss 220V etex rotated 90, 1/2[relay1,relay3]+right*3mm);
+label(btex \smallss 220V etex rotated 90, 1/2[relay.load1,relay.load2]+right*4mm);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 pair linepower.plus, linepower.minus;
