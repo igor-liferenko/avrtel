@@ -7,6 +7,7 @@ verbatimtex
 \font\tenss=cmss10 \tenss
 \font\smallss=cmss8 scaled 400
 \font\eightss=cmss8
+\font\sevenandhalfss=cmss8 scaled 900
 \font\sevenss=cmss8 scaled 600
 \font\twlss=cmss12
 \font\eighttt=cmtt8
@@ -174,51 +175,21 @@ label.bot(btex \smallss VCC etex, dtmf.VCC);
 
 %%%%%%% relay %%%%%%%%%%%%%%%
 pair relay[];
-relay1=(5cm,2.5cm);
-relay2=relay1+right*1cm;
+relay1=(6.2cm,2.5cm);
+relay2=relay1+right*3mm;
 relay3=relay2+up*9mm;
 xpart(relay4)=xpart(relay1); ypart(relay4)=ypart(relay3);
 % pins
-pair relay.IN, relay.GND, relay.VCC, relay.load[];
-xpart(relay.IN)=xpart(relay1); ypart(relay.IN)=ypart(relay1)+7mm;
-xpart(relay.VCC)=xpart(relay1); ypart(relay.VCC)=ypart(relay1)+5mm;
-xpart(relay.GND)=xpart(relay1); ypart(relay.GND)=ypart(relay1)+3mm;
+pair relay.IN, relay.GND, relay.load[];
+xpart(relay.IN)=xpart(relay4)+2mm; ypart(relay.IN)=ypart(relay4);
+xpart(relay.GND)=xpart(relay4)+1mm; ypart(relay.GND)=ypart(relay4);
 xpart(relay.load1)=xpart(relay2); ypart(relay.load1)=ypart(relay2)+6mm;
 xpart(relay.load2)=xpart(relay2); ypart(relay.load2)=ypart(relay2)+3mm;
 % draw
 draw relay1--relay2--relay3--relay4--cycle;
-label.rt(btex \smallss IN etex, relay.IN);
-label.rt(btex \smallss VCC etex, relay.VCC);
-label.rt(btex \smallss GND etex, relay.GND);
-label(btex \vbox{\hsize0pt
-  \centerline{\sevenss Relay}
-  \kern-7pt
-  \centerline{\smallss(normally open)}
-} etex rotated 90, 1/2[relay1,relay3]+right*2mm);
+label(btex \smallss SHARP S202S02 etex rotated 90, 1/2[relay1,relay3]);
+label(btex \smallss 220V etex rotated 90, 1/2[relay1,relay3]+right*3mm);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%% PC817C %%%%%%%%%%%
-pair opto[];
-opto1=(3.7cm,2cm);
-opto2=opto1+right*6mm;
-opto3=opto2+up*7mm;
-xpart(opto4)=xpart(opto1); ypart(opto4)=ypart(opto3);
-% pins
-pair opto.pin[];
-xpart(opto.pin1)=xpart(opto1)+1.5mm;
-ypart(opto.pin1)=ypart(opto1);
-xpart(opto.pin2)=xpart(opto2)-1.5mm;
-ypart(opto.pin2)=ypart(opto1);
-xpart(opto.pin3)=xpart(opto.pin2);
-ypart(opto.pin3)=ypart(opto3);
-xpart(opto.pin4)=xpart(opto.pin1);
-ypart(opto.pin4)=ypart(opto3);
-% draw
-draw opto1--opto2--opto3--opto4--cycle;
-label(btex \smallss 1 etex, opto.pin1+up*1mm); label(btex \smallss 2 etex, opto.pin2+up*1mm);
-label(btex \smallss PC817C etex, 1/2[opto1,opto3]);
-label(btex \smallss 3 etex, opto.pin3+down*1mm); label(btex \smallss 4 etex, opto.pin4+down*1mm);
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 pair linepower.plus, linepower.minus;
 linepower.plus=(-20mm,-5mm);
@@ -226,13 +197,13 @@ linepower.minus=linepower.plus+down*3mm;
 
 %%%%%%%%%%%%%%% power plug %%%%%%%%%%%%%%
 pair powerplug[], powerplug.minus, powerplug.plus;
-powerplug1=(6.8cm,4cm);
+powerplug1=(5.5cm,2.45cm);
 powerplug2=powerplug1+right*3mm;
 powerplug3=powerplug2+up*7mm;
 xpart(powerplug4)=xpart(powerplug1); ypart(powerplug4)=ypart(powerplug3);
 % pins
-powerplug.minus=powerplug1+right*.5mm;
-powerplug.plus=powerplug2+left*.5mm;
+powerplug.minus=powerplug1+right*1mm;
+powerplug.plus=powerplug2+left*1mm;
 % draw
 draw powerplug1--powerplug2--powerplug3--powerplug4--cycle;
 draw (powerplug3+down*1mm)--(powerplug3+down*1mm+right*2mm);
@@ -250,23 +221,16 @@ phone.c=(5.3cm,-1mm);
 phone.e-phone.w=right*3.9cm;
 phone.n-phone.s=up*2.4cm;
 drawboxed(phone);
-label.bot(btex ${}^+_-{}^-_+$ etex, (xpart(1/2[powerplug.minus,powerplug.plus]),ypart(phone.n)));
-label.bot(btex \eighttt+\eightss LED\eighttt- etex, (xpart(1/2[opto.pin1,opto.pin2]),ypart(phone.n))+down*.25mm);
 
 %----
 
 path wire[];
 pair wire[][];
 
-wire1[1]=arduino.VCC+down*2mm;
-wire1[2]=wire1[1]+right*2cm;
-xpart(wire1[3])=xpart(wire1[2]); ypart(wire1[3])=ypart(relay.VCC);
-draw arduino.VCC -- for i=1 upto 3: wire1[i]-- endfor relay.VCC;
-
-wire2[1]=relay.GND+left*5mm;
+wire2[1]=relay.GND+up*1mm;
 xpart(wire2[2])=xpart(wire2[1]);
 ypart(wire2[2])=ypart(wire2[3]);
-wire2[3]=arduino.GND1+up*6mm;
+wire2[3]=arduino.GND1+up*5mm;
 draw relay.GND -- for i=1 upto 3: wire2[i]-- endfor arduino.GND1;
 
 wire4[1]=arduino.GND1+up*4mm;
@@ -286,27 +250,28 @@ resistor.e-resistor.w=right*8mm;
 resistor.n-resistor.s=up*3mm;
 drawboxed(resistor);
 
-label.rt(btex \eightss Adjust resistor to measure $\approx$ 4.3V on it when off-hook. etex, linepower.minus+down*4mm+left*12mm);
+label.rt(btex \sevenandhalfss Adjust resistor to measure $\approx$4.3V on it when off-hook. etex, linepower.minus+down*4mm+left*12mm);
 
 draw linepower.minus--(xpart(phone.w),ypart(linepower.minus));
-draw linepower.plus -- (xpart(resistor.w),ypart(linepower.plus));
-draw (xpart(resistor.e),ypart(linepower.plus)) -- (xpart(phone.w),ypart(linepower.plus));
+draw linepower.plus -- resistor.w;
+draw resistor.e -- (xpart(phone.w),ypart(linepower.plus));
 label(btex \tt- etex, linepower.minus+left*2mm);
 label(btex \tt+ etex, linepower.plus+left*2mm);
 label(btex $\approx$\twlss 12V etex, 1/2[linepower.minus,linepower.plus]+left*8mm);
 label.rt(btex \eightss RJ11 etex rotated -90, (xpart(phone.w),ypart(1/2[linepower.plus,linepower.minus])));
 
-draw relay.load1--(xpart(powerplug.minus),ypart(relay.load1))--powerplug.minus;
-draw (xpart(powerplug.minus),ypart(phone.n))--(xpart(powerplug.minus),ypart(relay.load2))--relay.load2;
+draw relay.load1--relay.load1+right*2mm;
+draw relay.load2--relay.load2+right*2mm;
+draw powerplug.minus -- (xpart(powerplug.minus),ypart(phone.n));
 draw powerplug.plus--(xpart(powerplug.plus),ypart(phone.n));
 
-wire6[1]=dtmf.VCC+up*1mm;
+wire6[1]=dtmf.VCC+up*7mm;
 xpart(wire6[2])=xpart(arduino.VCC);
 ypart(wire6[2])=ypart(wire6[1]);
 draw dtmf.VCC -- for i=1 upto 2: wire6[i]-- endfor arduino.VCC;
 
 wire7[1]=dtmf.GND+up*2mm;
-wire7[2]=wire7[1]+right*23mm;
+wire7[2]=wire7[1]+right*24mm;
 xpart(wire7[3])=xpart(wire7[2]);
 ypart(wire7[3])=ypart(wire7[4]);
 wire7[4]=arduino.GND1+up*3mm;
@@ -338,24 +303,19 @@ ypart(wire12[1])=ypart(wire12[2]);
 wire12[2]=arduino.B4+up*2mm;
 draw dtmf.Q1 -- wire12[1] -- wire12[2] -- arduino.B4;
 
-wire13[1]=relay.IN+left*3mm;
+wire13[1]=relay.IN+up*1mm;
 xpart(wire13[2])=xpart(wire13[1]);
 ypart(wire13[2])=ypart(wire13[3]);
-wire13[3]=arduino.E6+up*7mm;
+wire13[3]=arduino.E6+up*6mm;
 draw relay.IN -- for i=1 upto 3: wire13[i]-- endfor arduino.E6;
 
-draw (xpart(opto.pin1),ypart(phone.n))--opto.pin1;
-draw (xpart(opto.pin2),ypart(phone.n))--opto.pin2;
-
 wire14[1]=arduino.D2+up*2mm;
-xpart(wire14[2])=xpart(opto.pin4);
-ypart(wire14[2])=ypart(wire14[1]);
-draw arduino.D2 -- wire14[1] -- wire14[2] -- opto.pin4;
-
-wire15[1]=arduino.GND1+up*5mm;
-xpart(wire15[2])=xpart(opto.pin3);
-ypart(wire15[2])=ypart(wire15[1]);
-draw arduino.GND1 -- wire15[1] -- wire15[2] -- opto.pin3;
+xpart(wire14[2])=xpart(wire14[1])+6mm; ypart(wire14[2])=ypart(wire14[1]);
+xpart(wire14[3])=xpart(wire14[2]); ypart(wire14[3])=ypart(wire14[2])-25mm;
+xpart(wire14[4])=xpart(wire14[3]); ypart(wire14[4])=ypart(wire14[5]);
+wire14[5]=wire5[3]+right*.7mm+up*17mm;
+xpart(wire14[6])=xpart(wire14[5]); ypart(wire14[6])=ypart(wire5[3]);
+draw arduino.D2 -- wire14[1] -- wire14[2] -- wire14[3] -- wire14[4] -- wire14[5] -- wire14[6];
 
 endfig;
 
