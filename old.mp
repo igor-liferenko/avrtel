@@ -1,6 +1,6 @@
 %outputtemplate:="%j.eps"; prologues:=3;
 
-input circuit;
+input old-circuit;
 input rboxes;
 
 verbatimtex
