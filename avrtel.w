@@ -54,9 +54,7 @@ void main(void)
       (the latter only if |dtr_rts|)@>@;
     if (keydetect) {
       keydetect = 0;
-      switch (PINB & (1 << PB4 | 1 << PB5 | 1 << PB6) | PIND & 1 << PD7) { /* we do not do
-        pullup for these because they are not switches (ends are not hanging in the
-        air) --- both of their states are regulated by external voltage */
+      switch (PINB & (1 << PB4 | 1 << PB5 | 1 << PB6) | PIND & 1 << PD7) {
       case 0x10: digit = '1'; @+ break;
       case 0x20: digit = '2'; @+ break;
       case 0x30: digit = '3'; @+ break;
