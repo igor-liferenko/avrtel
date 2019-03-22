@@ -303,11 +303,18 @@ ypart(wire12[1])=ypart(wire12[2]);
 wire12[2]=arduino.B4+up*2mm;
 draw dtmf.Q1 -- wire12[1] -- wire12[2] -- arduino.B4;
 
-wire13[1]=relay.IN+up*1mm;
+draw relay.IN -- relay.IN+up*2mm;
+wire13[1]=relay.IN+up*5mm;
 xpart(wire13[2])=xpart(wire13[1]);
 ypart(wire13[2])=ypart(wire13[3]);
 wire13[3]=arduino.E6+up*6mm;
-draw relay.IN -- for i=1 upto 3: wire13[i]-- endfor arduino.E6;
+draw for i=1 upto 3: wire13[i]-- endfor arduino.E6;
+boxit.ssr_resistor();
+ssr_resistor.c=1/2[relay.IN+up*2mm,wire13[1]];
+ssr_resistor.e-ssr_resistor.w=right*1mm;
+ssr_resistor.n-ssr_resistor.s=up*3mm;
+drawboxed(ssr_resistor);
+label(btex \smallss 330 ohm etex rotated 90, ssr_resistor.c+right*2mm);
 
 wire14[1]=arduino.D2+up*2mm;
 xpart(wire14[2])=xpart(wire14[1])+6mm; ypart(wire14[2])=ypart(wire14[1]);
