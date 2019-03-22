@@ -127,8 +127,7 @@ UENUM = EP1; /* restore */
 @i ../usb/IN-endpoint-management.w
 @i ../usb/USB.w
 
-@* Headers.
-\secpagedepth=1 % index on current page
+@ Program headers are in separate section from USB headers.
 
 @<Header files@>=
 #include <avr/io.h>
