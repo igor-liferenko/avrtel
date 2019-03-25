@@ -187,8 +187,8 @@ xpart(relay.load1)=xpart(relay2); ypart(relay.load1)=ypart(relay2)+5.5mm;
 xpart(relay.load2)=xpart(relay2); ypart(relay.load2)=ypart(relay2)+4mm;
 % draw
 draw relay1--relay2--relay3--relay4--cycle;
-label(btex \smallss SHARP S202S02 etex rotated 90, 1/2[relay1,relay3]);
-label(btex \smallss 220V etex rotated 90, 1/2[relay.load1,relay.load2]+right*4mm);
+label(btex \smallss SHARP S202S02 etex rotated -90, 1/2[relay1,relay3]);
+label(btex \smallss 220V etex rotated -90, 1/2[relay.load1,relay.load2]+right*4mm);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 pair linepower.plus, linepower.minus;
@@ -212,7 +212,7 @@ label(btex \vbox{\hsize0pt
 \centerline{\smallss power}
 \kern-8.8pt
 \centerline{\smallss supply}
-} etex rotated 90, 1/2[powerplug1,powerplug3]);
+} etex rotated -90, 1/2[powerplug1,powerplug3]);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%% phone %%%%%%%%%%%%%%%
@@ -314,7 +314,7 @@ ssr_resistor.c=1/2[relay.IN+up*2mm,wire13[1]];
 ssr_resistor.e-ssr_resistor.w=right*1mm;
 ssr_resistor.n-ssr_resistor.s=up*3mm;
 drawboxed(ssr_resistor);
-label(btex \smallss 330 ohm etex rotated 90, ssr_resistor.c+right*2mm);
+label(btex \smallss 330R etex rotated -90, ssr_resistor.c+right*2mm);
 
 wire14[1]=arduino.D2+up*2mm;
 xpart(wire14[2])=xpart(wire14[1])+6mm; ypart(wire14[2])=ypart(wire14[1]);
