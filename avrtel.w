@@ -1,3 +1,6 @@
+% if @%@ or %@% will appear, try to add debounce to avrtel.w - see debounce.ch (and rm
+% it from old.ch)
+
 \let\lheader\rheader
 %\datethis
 \secpagedepth=2 % begin new page only on *
