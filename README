@@ -1,3 +1,7 @@
+tangle:
+  wmerge avrtel quirk merged
+  ctangle merged invert avrtel
+
 old:
   wmerge avrtel old merged
   ctangle merged invert avrtel
