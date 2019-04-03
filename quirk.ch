@@ -7,8 +7,8 @@ if we detect %, delay and check it once again.
 @x
 @c
 @y
+@d F_CPU 16000000UL
 @c
-#define F_CPU 16000000UL
 #include <util/delay.h>
 @z
 
