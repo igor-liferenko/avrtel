@@ -216,7 +216,11 @@ label(btex \vbox{\hsize0pt
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%% phone %%%%%%%%%%%%%%%
-boxit.phone(btex Analog DECT phone etex);
+boxit.phone(btex \vbox{\hsize0pt
+  \centerline{Analog DECT phone}
+  \centerline{\eightss (ensure that tone}
+  \centerline{\eightss \kern7pt mode is enabled)}
+  } etex);
 phone.c=(5.3cm,-1mm);
 phone.e-phone.w=right*3.9cm;
 phone.n-phone.s=up*2.4cm;
