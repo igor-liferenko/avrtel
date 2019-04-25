@@ -252,10 +252,10 @@ draw wire3[1] -- wire3[2];
 wire2[1]=relay.GND+up*1mm;
 xpart(wire2[2])=xpart(wire2[1]);
 ypart(wire2[2])=ypart(wire2[3]);
-wire2[3]=arduino.GND1+up*4mm;
+wire2[3]=arduino.GND1+up*6mm;
 draw relay.GND -- for i=1 upto 3: wire2[i]-- endfor arduino.GND1;
 
-wire4[1]=arduino.GND1+up*4mm;
+wire4[1]=arduino.GND1+up*5mm;
 xpart(wire4[2])=xpart(optron.e+left*1mm); ypart(wire4[2])=ypart(wire4[1]);
 xpart(wire4[3])=xpart(wire4[2]); ypart(wire4[3])=ypart(optron.n);
 draw arduino.GND1--wire4[1]--wire4[2]--wire4[3];
@@ -297,13 +297,14 @@ wire7[1]=dtmf.GND+up*2mm;
 wire7[2]=wire7[1]+right*24mm;
 xpart(wire7[3])=xpart(wire7[2]);
 ypart(wire7[3])=ypart(wire7[4]);
-wire7[4]=arduino.GND1+up*4mm;
+wire7[4]=arduino.GND1+up*3mm;
 draw dtmf.GND -- for i=1 upto 4: wire7[i]-- endfor arduino.GND1;
 
 xpart(wire15[1])=xpart(wire15[2]); ypart(wire15[1])=ypart(linepower.plus);
 wire15[2]=dtmf.GND+up*2mm+right*25mm;
 xpart(wire15[3])=xpart(wire15[2]); ypart(wire15[3])=ypart(arduino.GND1+up*4mm);
-draw wire15[1] -- wire15[2] -- wire15[3];
+wire15[4]=arduino.GND1+up*4mm;
+draw wire15[1] -- wire15[2] -- wire15[3] -- wire15[4];
 
 wire8[1]=dtmf.STQ+up*4mm;
 wire8[2]=wire8[1]+left*12.5mm;
@@ -335,7 +336,7 @@ draw relay.IN -- relay.IN+up*2mm;
 wire13[1]=relay.IN+up*5mm;
 xpart(wire13[2])=xpart(wire13[1]);
 ypart(wire13[2])=ypart(wire13[3]);
-wire13[3]=arduino.E6+up*6mm;
+wire13[3]=arduino.E6+up*7mm;
 draw for i=1 upto 3: wire13[i]-- endfor arduino.E6;
 boxit.ssr_resistor();
 ssr_resistor.c=1/2[relay.IN+up*2mm,wire13[1]];
