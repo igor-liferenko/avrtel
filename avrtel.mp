@@ -1,4 +1,4 @@
-outputtemplate:="%j.eps"; prologues:=3;
+%outputtemplate:="%j.eps"; prologues:=3;
 
 input rboxes;
 
@@ -218,8 +218,8 @@ label(btex \vbox{\hsize0pt
 %%%%%%%% phone %%%%%%%%%%%%%%%
 boxit.phone(btex \vbox{\hsize0pt
   \centerline{Analog DECT phone}
-  \centerline{\eightss (ensure that tone}
-  \centerline{\eightss \kern7pt mode is enabled)}
+  \centerline{\sevenandhalfss (ensure that tone}
+  \centerline{\sevenandhalfss \kern7pt mode is enabled)}
   } etex);
 ypart(phone.n)=1.1cm;
 xpart(phone.w)=4cm;
