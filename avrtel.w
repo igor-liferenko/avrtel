@@ -35,6 +35,7 @@ void main(void)
   PORTB |= 1 << PB0; /* on when DTR/RTS is off */
   DDRE |= 1 << PE6; /* to power base station on and off */
   UENUM = EP1;
+  PORTD |= 1 << PD2;
   char digit;
   while (1) {
     @<Get |dtr_rts|@>@;
@@ -84,7 +85,7 @@ timeout signal handler (to put handset off-hook).
 
 @<Check |PD2| and indicate it via |PD5| and if it changed, write \.@@ or \.\%
   (the latter only if |dtr_rts|)@>=
-if (PIND & 1 << PD2) { /* on-line */
+if (~PIND & 1 << PD2) { /* on-line */
   if (!(PORTD & 1 << PD5)) { /* transition happened */
     while (!(UEINTX & 1 << TXINI)) ;
     UEINTX &= ~(1 << TXINI);

@@ -1,4 +1,4 @@
-%outputtemplate:="%j.eps"; prologues:=3;
+outputtemplate:="%j.eps"; prologues:=3;
 
 input rboxes;
 
@@ -175,7 +175,7 @@ label.bot(btex \smallss VCC etex, dtmf.VCC);
 
 %%%%%%% relay %%%%%%%%%%%%%%%
 pair relay[];
-relay1=(6.2cm,2.5cm);
+relay1=(6.2cm,2.3cm);
 relay2=relay1+right*3mm;
 relay3=relay2+up*9mm;
 xpart(relay4)=xpart(relay1); ypart(relay4)=ypart(relay3);
@@ -197,7 +197,7 @@ linepower.minus=linepower.plus+down*3mm;
 
 %%%%%%%%%%%%%%% power plug %%%%%%%%%%%%%%
 pair powerplug[], powerplug.minus, powerplug.plus;
-powerplug1=(5.5cm,2.45cm);
+powerplug1=(5.5cm,2.25cm);
 powerplug2=powerplug1+right*3mm;
 powerplug3=powerplug2+up*7mm;
 xpart(powerplug4)=xpart(powerplug1); ypart(powerplug4)=ypart(powerplug3);
@@ -221,25 +221,43 @@ boxit.phone(btex \vbox{\hsize0pt
   \centerline{\eightss (ensure that tone}
   \centerline{\eightss \kern7pt mode is enabled)}
   } etex);
-phone.c=(5.3cm,-1mm);
-phone.e-phone.w=right*3.9cm;
+ypart(phone.n)=1.1cm;
+xpart(phone.w)=4cm;
+phone.e-phone.w=right*3.25cm;
 phone.n-phone.s=up*2.4cm;
 drawboxed(phone);
 
+boxit.optron(btex \sevenss PC817 etex);
+xpart(optron.w)=2.86cm;
+ypart(optron.n)=.5cm;
+optron.e-optron.w=right*.55cm;
+optron.n-optron.s=up*.7cm;
+drawboxed(optron);
+draw fullcircle scaled 2pt shifted (optron.sw+up*1mm+right*1mm) withpen pencircle scaled .1pt;
 %----
 
 path wire[];
 pair wire[][];
 
+wire1[1]=optron.sw+right*1mm;
+xpart(wire1[2])=xpart(wire1[1]);
+ypart(wire1[2])=ypart(linepower.plus);
+draw wire1[1] -- wire1[2];
+
+wire3[1]=optron.se+left*1mm;
+xpart(wire3[2])=xpart(wire3[1]);
+ypart(wire3[2])=ypart(linepower.plus);
+draw wire3[1] -- wire3[2];
+
 wire2[1]=relay.GND+up*1mm;
 xpart(wire2[2])=xpart(wire2[1]);
 ypart(wire2[2])=ypart(wire2[3]);
-wire2[3]=arduino.GND1+up*5mm;
+wire2[3]=arduino.GND1+up*4mm;
 draw relay.GND -- for i=1 upto 3: wire2[i]-- endfor arduino.GND1;
 
 wire4[1]=arduino.GND1+up*4mm;
-wire4[2]=wire4[1]+right*14mm;
-wire4[3]=(xpart(wire4[2]),ypart(linepower.plus));
+xpart(wire4[2])=xpart(optron.e+left*1mm); ypart(wire4[2])=ypart(wire4[1]);
+xpart(wire4[3])=xpart(wire4[2]); ypart(wire4[3])=ypart(optron.n);
 draw arduino.GND1--wire4[1]--wire4[2]--wire4[3];
 
 wire5[1]=dtmf.IN+up*4mm;
@@ -249,7 +267,7 @@ ypart(wire5[3])=ypart(linepower.plus);
 draw dtmf.IN -- wire5[1] --  wire5[2] -- wire5[3];
 
 boxit.resistor();
-resistor.c=1/2[wire5[3],wire4[3]];
+resistor.c=1/2[wire5[3],(xpart(dtmf.GND+up*2mm+right*25mm),ypart(linepower.plus))];
 resistor.e-resistor.w=right*8mm;
 resistor.n-resistor.s=up*3mm;
 drawboxed(resistor);
@@ -258,7 +276,8 @@ label.lft(btex \sevenandhalfss Adjust resistor to measure $\approx$4.3V on it wh
 
 draw linepower.minus--(xpart(phone.w),ypart(linepower.minus));
 draw linepower.plus -- resistor.w;
-draw resistor.e -- (xpart(phone.w),ypart(linepower.plus));
+draw resistor.e -- wire1[2];
+draw wire3[2] -- (xpart(phone.w),ypart(linepower.plus));
 label(btex \tt- etex, linepower.minus+left*2mm);
 label(btex \tt+ etex, linepower.plus+left*2mm);
 label(btex $\approx$\twlss 12V etex, 1/2[linepower.minus,linepower.plus]+left*8mm);
@@ -278,8 +297,13 @@ wire7[1]=dtmf.GND+up*2mm;
 wire7[2]=wire7[1]+right*24mm;
 xpart(wire7[3])=xpart(wire7[2]);
 ypart(wire7[3])=ypart(wire7[4]);
-wire7[4]=arduino.GND1+up*3mm;
+wire7[4]=arduino.GND1+up*4mm;
 draw dtmf.GND -- for i=1 upto 4: wire7[i]-- endfor arduino.GND1;
+
+xpart(wire15[1])=xpart(wire15[2]); ypart(wire15[1])=ypart(linepower.plus);
+wire15[2]=dtmf.GND+up*2mm+right*25mm;
+xpart(wire15[3])=xpart(wire15[2]); ypart(wire15[3])=ypart(arduino.GND1+up*4mm);
+draw wire15[1] -- wire15[2] -- wire15[3];
 
 wire8[1]=dtmf.STQ+up*4mm;
 wire8[2]=wire8[1]+left*12.5mm;
@@ -321,12 +345,9 @@ drawboxed(ssr_resistor);
 label(btex \smallss 330R etex rotated -90, ssr_resistor.c+right*2mm);
 
 wire14[1]=arduino.D2+up*2mm;
-xpart(wire14[2])=xpart(wire14[1])+6mm; ypart(wire14[2])=ypart(wire14[1]);
-xpart(wire14[3])=xpart(wire14[2]); ypart(wire14[3])=ypart(wire14[2])-25mm;
-xpart(wire14[4])=xpart(wire14[3]); ypart(wire14[4])=ypart(wire14[5]);
-wire14[5]=wire5[3]+right*.7mm+up*17mm;
-xpart(wire14[6])=xpart(wire14[5]); ypart(wire14[6])=ypart(wire5[3]);
-draw arduino.D2 -- wire14[1] -- wire14[2] -- wire14[3] -- wire14[4] -- wire14[5] -- wire14[6];
+xpart(wire14[2])=xpart(optron.w+right*1mm); ypart(wire14[2])=ypart(wire14[1]);
+xpart(wire14[3])=xpart(wire14[2]); ypart(wire14[3])=ypart(optron.n);
+draw arduino.D2 -- wire14[1] -- wire14[2] -- wire14[3];
 
 endfig;
 
