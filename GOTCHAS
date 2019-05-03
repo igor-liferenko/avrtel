@@ -1,3 +1,7 @@
+to use pins occupier by usbasp for testing on pro-micro (for example for max4.w), use just one wide zif socket without everything - just insert 6-pin headers 3 pieces 
+
+----------------
+
 - first of all solder wire to pins and attach pins to PCB as shown in attach.png and RJ11.png, otherwise other components will hinder to attach
 - glue RJ11 socket to PCB (клей наносить спичкой)
 label 7 on board is not PD7 - use label 6
