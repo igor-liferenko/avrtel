@@ -1,3 +1,5 @@
+FIXME !!!!!!! move these to avr/TIPS !!!!!!!!!!!!
+
 to use pins occupier by usbasp for testing on pro-micro (for example for max4.w), use just one wide zif socket without everything - just insert 6-pin headers 3 pieces
 
 break pins with pliers and insert them (all that are needed in project at once) in emptied mini-breadboard turned 90 degrees and pull arduino on them, correcting with non-magnet sharp tool
