@@ -77,7 +77,10 @@ void main(void)
   }
 }
 
-@ For on-line indication we send `\.@@' character to \.{tel}---to put
+@ We check if handset is in use by using a switch. The switch is
+optocoupler.
+
+For on-line indication we send `\.@@' character to \.{tel}---to put
 it to initial state.
 
 For off-line indication we send `\.\%' character to \.{tel}---to disable
