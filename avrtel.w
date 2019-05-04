@@ -35,7 +35,7 @@ void main(void)
   PORTB |= 1 << PB0; /* on when DTR/RTS is off */
   DDRE |= 1 << PE6; /* to power base station on and off */
   UENUM = EP1;
-  PORTD |= 1 << PD2; @+ _delay_us(1);
+  PORTD |= 1 << PD2; @+ _delay_us(1); /* pull-up + delay before reading */
   char digit;
   while (1) {
     @<Get |dtr_rts|@>@;
