@@ -1,6 +1,5 @@
 \let\lheader\rheader
 %\datethis
-\secpagedepth=2 % begin new page only on *
 
 \input USB
 
