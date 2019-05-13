@@ -1,5 +1,5 @@
-*.elf
-*.hex
+fw.elf
+fw.hex
 *.c
 *.o
 *.dvi
