@@ -2,7 +2,7 @@
 %\datethis
 \secpagedepth=2 % begin new page only on *
 
-@i ../usb/USB.h
+\input USB
 
 @* Program.
 
