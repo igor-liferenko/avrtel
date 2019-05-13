@@ -1,7 +1,6 @@
-fw.elf
-fw.hex
+*.elf
+*.hex
 *.c
-*.o
 *.dvi
 *.idx
 *.log
