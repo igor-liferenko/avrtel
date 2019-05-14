@@ -57,7 +57,7 @@ xpart(arduino.B6)=xpart(arduino.B5); ypart(arduino.B6)=ypart(arduino1);
 xpart(arduino.16)=xpart(arduino.B4); ypart(arduino.16)=ypart(arduino1);
 xpart(arduino.14)=xpart(arduino.E6); ypart(arduino.14)=ypart(arduino1);
 xpart(arduino.15)=xpart(arduino.D7); ypart(arduino.15)=ypart(arduino1);
-xpart(arduino.VCC)=xpart(arduino.D1); ypart(arduino.VCC)=ypart(arduino1);
+xpart(arduino.VCC)=xpart(arduino.GND1); ypart(arduino.VCC)=ypart(arduino1);
 xpart(arduino.RST)=xpart(arduino.GND2); ypart(arduino.RST)=ypart(arduino1);
 xpart(arduino.GND3)=xpart(arduino.D2); ypart(arduino.GND3)=ypart(arduino1);
 % draw
