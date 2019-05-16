@@ -51,7 +51,7 @@ void main(void)
       }
       PORTB |= 1 << PB0; /* DTR/RTS is off */
     }
-    @<Check |PD2| and indicate it via |PD5| and if it changed, write \.@@ or \.\%
+    @<Check |PD2| and indicate it via |PD5| and if it changed, write `\.A' or `\.B'
       (the latter only if |dtr_rts|)@>@;
     if (keydetect) {
       keydetect = 0;
@@ -80,19 +80,19 @@ void main(void)
 @ We check if handset is in use by using a switch. The switch is
 optocoupler.
 
-For on-line indication we send `\.@@' character to \.{tel}---to put
+For on-line indication we send `\.A' character to \.{tel}---to put
 it to initial state.
 
-For off-line indication we send `\.\%' character to \.{tel}---to disable
+For off-line indication we send `\.B' character to \.{tel}---to disable
 timeout signal handler (to put handset off-hook).
 
-@<Check |PD2| and indicate it via |PD5| and if it changed, write \.@@ or \.\%
+@<Check |PD2| and indicate it via |PD5| and if it changed, write `\.A' or `\.B'
   (the latter only if |dtr_rts|)@>=
 if (~PIND & 1 << PD2) { /* on-line */
   if (!(PORTD & 1 << PD5)) { /* transition happened */
     while (!(UEINTX & 1 << TXINI)) ;
     UEINTX &= ~(1 << TXINI);
-    UEDATX = '@@';
+    UEDATX = 'A';
     UEINTX &= ~(1 << FIFOCON);
   }
   PORTD |= 1 << PD5;
@@ -103,7 +103,7 @@ else { /* off-line */
       caused by un-powering base station via DTR/RTS) */
       while (!(UEINTX & 1 << TXINI)) ;
       UEINTX &= ~(1 << TXINI);
-      UEDATX = '%';
+      UEDATX = 'B';
       UEINTX &= ~(1 << FIFOCON);
     }
   }
