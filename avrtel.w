@@ -29,7 +29,7 @@ void main(void)
     if USB RESET happens whiled this interrupt is processed, it also does not change
     anything, as USB RESET is repeated several times by USB host, so it is safe
     that USB RESET interrupt is enabled (we cannot disable it because USB host
-    may be rebooted) */
+    may be rebooted) FIXME: see also note in avr/TIPS */
   DDRD |= 1 << PD5; /* to show on-line/off-line state and to determine when transition happens */
   DDRB |= 1 << PB0; /* to show DTR/RTS state and and to determine when transition happens */
   PORTB |= 1 << PB0; /* on when DTR/RTS is off */
