@@ -49,7 +49,8 @@ void main(void)
         keydetect = 0; /* in case key was detected right before base station was
                           switched off, which means that nothing must come from it */
       }
-      PORTB |= 1 << PB0; /* DTR/RTS is off FIXME: can this be moved inside `|if|'? */
+      PORTB |= 1 << PB0; /* DTR/RTS is off */
+        /* FIXME: can this be moved inside `|if|'? */
     }
     @<Check |PD2| and indicate it via \.{D5} and if it changed, write \.A or \.B
       (the latter only if |dtr_rts|)@>@;
@@ -95,7 +96,8 @@ if (~PIND & 1 << PD2) { /* on-line */
     UEDATX = 'A';
     UEINTX &= ~(1 << FIFOCON);
   }
-  PORTD |= 1 << PD5; /* FIXME: can this be moved inside `|if|'? */
+  PORTD |= 1 << PD5;
+    /* FIXME: can this be moved inside `|if|'? */
 }
 else { /* off-line */
   if (PORTD & 1 << PD5) { /* transition happened */
@@ -107,7 +109,8 @@ else { /* off-line */
       UEINTX &= ~(1 << FIFOCON);
     }
   }
-  PORTD &= ~(1 << PD5); /* FIXME: can this be moved inside `|if|'? */
+  PORTD &= ~(1 << PD5);
+    /* FIXME: can this be moved inside `|if|'? */
 }
 
 @ No other requests except {\caps set control line state} come
