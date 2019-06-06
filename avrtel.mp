@@ -272,8 +272,6 @@ resistor.e-resistor.w=right*8mm;
 resistor.n-resistor.s=up*3mm;
 drawboxed(resistor);
 
-label.lft(btex \sevenandhalfss Adjust resistor to measure $\approx$4.3V on it when off-hook. etex, phone.sw+up*1mm);
-
 draw linepower.minus--(xpart(phone.w),ypart(linepower.minus));
 draw linepower.plus -- resistor.w;
 draw resistor.e -- wire1[2];
