@@ -1,7 +1,7 @@
 How to adjust resistor value depending on telephone type and power supply type:
 
 Disconnect IN pin of DTMF decoder, put some big resistor, say 1K, measure current
-in the chain (when off-hook). Current must not exceed 50mA (cf. PC817 datasheet)
+in the chain (when off-hook). Current must not exceed 50mA (see PC817 datasheet)
 (tested to work OK with 25mA current, but first adjust voltage on resistor as
 said below).
 Then start adjusting resistor until you get 4.5V on it (when off-hook).
