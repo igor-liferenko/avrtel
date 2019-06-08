@@ -1,3 +1,6 @@
+% NOTE: it would be better to use ordinary relay near the phone, in order that fewer cords
+% go from the gismo (3 instead of 4)
+
 \let\lheader\rheader
 %\datethis
 
