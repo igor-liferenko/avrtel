@@ -1,6 +1,10 @@
 % NOTE: it would be better to use ordinary relay near the phone, in order that fewer cords
 % go from the gismo (3 instead of 4)
 
+% NOTE: PB6 and PE6 should have been swapped (in order that other ends of Q1-Q4 were near like
+% Q1-Q4 are, but it is too late now (I want to re-do "old" according to current scheme, but
+% changing PB6<->PE6 on "old" is impossible)
+
 \let\lheader\rheader
 %\datethis
 
