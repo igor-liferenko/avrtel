@@ -46,11 +46,12 @@ void main(void)
   char digit;
   while (1) {
     @<Get |dtr_rts|@>@;
-    if (dtr_rts == 3) {
+    @<Check timeout@>@;
+    if (dtr_rts) {
       PORTE |= 1 << PE6; /* base station on */
       PORTB &= ~(1 << PB0); /* DTR/RTS is on */
     }
-    else {
+    if (!dtr_rts || timeout) {
       if (!(PORTB & 1 << PB0)) { /* transition happened */
         PORTE &= ~(1 << PE6); /* base station off */
         keydetect = 0; /* in case key was detected right before base station was
@@ -58,8 +59,9 @@ void main(void)
       }
       PORTB |= 1 << PB0; /* DTR/RTS is off */
         /* FIXME: can this be moved inside `|if|'? */
-      if (dtr_rts == 2) {
-        while (!(UEINTX & 1 << TXINI)) ;
+      if (timeout) {
+        while (!(UEINTX & 1 << TXINI)) ; /* FIXME: what will be if \.{tel} does not do |read|
+          (it is dead, killed right in the middle of execution of timeout signal handler)? */
         UEINTX &= ~(1 << TXINI);
         UEDATX = 'T';
         UEINTX &= ~(1 << FIFOCON);
@@ -115,7 +117,7 @@ if (~PIND & 1 << PD2) { /* on-line */
 }
 else { /* off-line */
   if (PORTD & 1 << PD5) { /* transition happened */
-    if (dtr_rts == 3) { /* off-line was initiated from handset; that is, do not send
+    if (dtr_rts && !timeout) { /* off-line was initiated from handset; that is, do not send
       anything if switch-off was done from \.{tel} or \.{tel} was closed
       (off-line is automatically caused by un-powering base station via DTR/RTS) */
       while (!(UEINTX & 1 << TXINI)) ;
@@ -123,7 +125,7 @@ else { /* off-line */
       UEDATX = 'B';
       UEINTX &= ~(1 << FIFOCON);
     }
-    else if (dtr_rts == 2) dtr_rts = 3; /* off-line was initiated from \.{tel} via timeout */
+    else if (timeout) timeout = 0; /* off-line was initiated from \.{tel} via timeout */
   }
   PORTD &= ~(1 << PD5);
     /* FIXME: can this be moved inside `|if|'? */
@@ -144,6 +146,18 @@ if (UEINTX & 1 << RXSTPI) {
   UEINTX &= ~(1 << RXSTPI);
   UEINTX &= ~(1 << TXINI); /* STATUS stage */
   dtr_rts = wValue;
+}
+UENUM = EP1; /* restore */
+
+@ @<Global variables@>=
+uint8_t timeout = 0;
+
+@ @<Check timeout@>=
+UENUM = EP2;
+if (UEINTX & 1 << RXOUTI) {
+  UEINTX &= ~(1 << RXOUTI);
+  UEINTX &= ~(1 << FIFOCON);
+  timeout = 1;
 }
 UENUM = EP1; /* restore */
 
