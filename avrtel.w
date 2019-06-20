@@ -55,9 +55,11 @@ void main(void)
       PORTE &= ~(1 << PE6); /* base station off */
       PORTB |= 1 << PB0; /* DTR/RTS is off */
     }
-    if (incoming) /* just poweroff/poweron base station via a relay---this
+    if (incoming) { /* just poweroff/poweron base station via a relay---this
       will effectively switch off the phone */
       PORTE &= ~(1 << PE6); /* base station off */
+      keydetect = 0; /* to be safe */
+    }
     if (incoming == '!') {
       while (!(UEINTX & 1 << TXINI)) ;
       UEINTX &= ~(1 << TXINI);
@@ -67,7 +69,7 @@ void main(void)
     if (incoming)
       _delay_ms(1000); /* timeout is necessary for the base station to react on poweroff */
     @<Check |PD2| and indicate it via \.{D5} and if it changed, write \.A or \.B
-      (the latter only if \.{tel} was not closed)@>@;
+      (the latter only if off-hook was initiated from handset)@>@;
     if (keydetect) {
       keydetect = 0;
       switch (PINB & (1 << PB4 | 1 << PB5 | 1 << PB6) | PIND & 1 << PD7) {
@@ -84,12 +86,10 @@ void main(void)
       case 0xB0: digit = '*'; @+ break;
       case 0xC0: digit = '#'; @+ break;
       }
-      if (dtr_rts) {
-        while (!(UEINTX & 1 << TXINI)) ;
-        UEINTX &= ~(1 << TXINI);
-        UEDATX = digit;
-        UEINTX &= ~(1 << FIFOCON);
-      }
+      while (!(UEINTX & 1 << TXINI)) ;
+      UEINTX &= ~(1 << TXINI);
+      UEDATX = digit;
+      UEINTX &= ~(1 << FIFOCON);
     }
   }
 }
@@ -104,7 +104,7 @@ For off-line indication we send \.B to \.{tel}---to disable
 timeout signal handler (to put handset off-hook).
 
 @<Check |PD2| and indicate it via \.{D5} and if it changed, write \.A or \.B
-  (the latter only if \.{tel} was not closed)@>=
+  (the latter only if off-hook was initiated from handset)@>=
 if (~PIND & 1 << PD2) { /* on-line */
   if (!(PORTD & 1 << PD5)) { /* transition happened */
     while (!(UEINTX & 1 << TXINI)) ;
