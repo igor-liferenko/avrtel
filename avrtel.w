@@ -67,7 +67,7 @@ void main(void)
       _delay_ms(1000); /* timeout is necessary for the base station to react on poweroff */
     }
     @<Check |PD2| and indicate it via \.{D5} and if it changed, write \.A or \.B
-      (the latter only if |dtr_rts|)@>@;
+      (the latter only if \.{tel} was not closed)@>@;
     if (keydetect) {
       keydetect = 0;
       switch (PINB & (1 << PB4 | 1 << PB5 | 1 << PB6) | PIND & 1 << PD7) {
@@ -102,7 +102,7 @@ For off-line indication we send \.B to \.{tel}---to disable
 timeout signal handler (to put handset off-hook).
 
 @<Check |PD2| and indicate it via \.{D5} and if it changed, write \.A or \.B
-  (the latter only if |dtr_rts|)@>=
+  (the latter only if \.{tel} was not closed)@>=
 if (~PIND & 1 << PD2) { /* on-line */
   if (!(PORTD & 1 << PD5)) { /* transition happened */
     while (!(UEINTX & 1 << TXINI)) ;
@@ -121,7 +121,7 @@ else { /* off-line */
       UEDATX = 'B';
       UEINTX &= ~(1 << FIFOCON);
     }
-    else if (incoming) incoming = 0; /* off-line was initiated from \.{tel} */
+    incoming = 0;
   }
   PORTD &= ~(1 << PD5);
     /* FIXME: can this be moved inside `|if|'? */
