@@ -46,27 +46,25 @@ void main(void)
   char digit;
   while (1) {
     @<Get |dtr_rts|@>@;
-    @<Check timeout@>@;
+    @<Check incoming@>@;
     if (dtr_rts) {
       PORTE |= 1 << PE6; /* base station on */
       PORTB &= ~(1 << PB0); /* DTR/RTS is on */
     }
-    if (!dtr_rts || timeout) {
-      if (!(PORTB & 1 << PB0)) { /* transition happened */
-        PORTE &= ~(1 << PE6); /* base station off */
-        keydetect = 0; /* in case key was detected right before base station was
-                          switched off, which means that nothing must come from it */
-      }
+    else {
+      PORTE &= ~(1 << PE6); /* base station off */
       PORTB |= 1 << PB0; /* DTR/RTS is off */
-        /* FIXME: can this be moved inside `|if|'? */
-      if (timeout) {
-        while (!(UEINTX & 1 << TXINI)) ; /* FIXME: what will be if \.{tel} does not do |read|
-          (it is dead, killed right in the middle of execution of timeout signal handler)? */
-        UEINTX &= ~(1 << TXINI);
-        UEDATX = 'T';
-        UEINTX &= ~(1 << FIFOCON);
-        _delay_ms(1000);
-      }
+    }
+    if (incoming == '!') {
+      while (!(UEINTX & 1 << TXINI)) ;
+      UEINTX &= ~(1 << TXINI);
+      UEDATX = 'T';
+      UEINTX &= ~(1 << FIFOCON);
+    }
+    if (incoming) { /* just poweroff/poweron base station via a relay---this
+      will effectively switch off the phone */
+      PORTE &= ~(1 << PE6); /* base station off */
+      _delay_ms(1000); /* timeout is necessary for the base station to react on poweroff */
     }
     @<Check |PD2| and indicate it via \.{D5} and if it changed, write \.A or \.B
       (the latter only if |dtr_rts|)@>@;
@@ -117,15 +115,13 @@ if (~PIND & 1 << PD2) { /* on-line */
 }
 else { /* off-line */
   if (PORTD & 1 << PD5) { /* transition happened */
-    if (dtr_rts && !timeout) { /* off-line was initiated from handset; that is, do not send
-      anything if switch-off was done from \.{tel} or \.{tel} was closed
-      (off-line is automatically caused by un-powering base station via DTR/RTS) */
+    if (dtr_rts && !incoming) { /* off-line was initiated from handset */
       while (!(UEINTX & 1 << TXINI)) ;
       UEINTX &= ~(1 << TXINI);
       UEDATX = 'B';
       UEINTX &= ~(1 << FIFOCON);
     }
-    else if (timeout) timeout = 0; /* off-line was initiated from \.{tel} via timeout */
+    else if (incoming) incoming = 0; /* off-line was initiated from \.{tel} */
   }
   PORTD &= ~(1 << PD5);
     /* FIXME: can this be moved inside `|if|'? */
@@ -150,14 +146,14 @@ if (UEINTX & 1 << RXSTPI) {
 UENUM = EP1; /* restore */
 
 @ @<Global variables@>=
-uint8_t timeout = 0;
+char incoming = 0;
 
-@ @<Check timeout@>=
+@ @<Check incoming@>=
 UENUM = EP2;
 if (UEINTX & 1 << RXOUTI) {
   UEINTX &= ~(1 << RXOUTI);
+  incoming = UEDATX;
   UEINTX &= ~(1 << FIFOCON);
-  timeout = 1;
 }
 UENUM = EP1; /* restore */
 
