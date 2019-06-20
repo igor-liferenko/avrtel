@@ -55,17 +55,17 @@ void main(void)
       PORTE &= ~(1 << PE6); /* base station off */
       PORTB |= 1 << PB0; /* DTR/RTS is off */
     }
+    if (incoming) /* just poweroff/poweron base station via a relay---this
+      will effectively switch off the phone */
+      PORTE &= ~(1 << PE6); /* base station off */
     if (incoming == '!') {
       while (!(UEINTX & 1 << TXINI)) ;
       UEINTX &= ~(1 << TXINI);
       UEDATX = 'T';
       UEINTX &= ~(1 << FIFOCON);
     }
-    if (incoming) { /* just poweroff/poweron base station via a relay---this
-      will effectively switch off the phone */
-      PORTE &= ~(1 << PE6); /* base station off */
+    if (incoming)
       _delay_ms(1000); /* timeout is necessary for the base station to react on poweroff */
-    }
     @<Check |PD2| and indicate it via \.{D5} and if it changed, write \.A or \.B
       (the latter only if \.{tel} was not closed)@>@;
     if (keydetect) {
@@ -84,10 +84,12 @@ void main(void)
       case 0xB0: digit = '*'; @+ break;
       case 0xC0: digit = '#'; @+ break;
       }
-      while (!(UEINTX & 1 << TXINI)) ;
-      UEINTX &= ~(1 << TXINI);
-      UEDATX = digit;
-      UEINTX &= ~(1 << FIFOCON);
+      if (dtr_rts) {
+        while (!(UEINTX & 1 << TXINI)) ;
+        UEINTX &= ~(1 << TXINI);
+        UEDATX = digit;
+        UEINTX &= ~(1 << FIFOCON);
+      }
     }
   }
 }
