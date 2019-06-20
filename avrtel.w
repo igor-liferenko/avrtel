@@ -55,19 +55,19 @@ void main(void)
       PORTE &= ~(1 << PE6); /* base station off */
       PORTB |= 1 << PB0; /* DTR/RTS is off */
     }
-    if (incoming) { /* just poweroff/poweron base station via a relay---this
-      will effectively switch off the phone */
-      PORTE &= ~(1 << PE6); /* base station off */
-      keydetect = 0; /* to be safe */
-    }
     if (incoming == '!') {
       while (!(UEINTX & 1 << TXINI)) ;
       UEINTX &= ~(1 << TXINI);
       UEDATX = 'T';
       UEINTX &= ~(1 << FIFOCON);
     }
-    if (incoming)
+    if (incoming) { /* just poweroff/poweron base station via a relay---this
+      will effectively switch off the phone */
+      PORTE &= ~(1 << PE6); /* base station off */
+      PORTB |= 1 << PB0; /* use this led to indicate the timeout */
       _delay_ms(1000); /* timeout is necessary for the base station to react on poweroff */
+      keydetect = 0; /* to be safe */
+    }
     @<Check |PD2| and indicate it via \.{D5} and if it changed, write \.A or \.B
       (the latter only if off-hook was initiated from handset)@>@;
     if (keydetect) {

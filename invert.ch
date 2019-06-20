@@ -23,15 +23,15 @@ persists, so do the inversion in change-file to avoid headache.
 @z
 
 @x
-      if (!(PORTB & 1 << PB0)) { /* transition happened */
-@y
-      if (PORTB & 1 << PB0) { /* transition happened */
-@z
-
-@x
       PORTB |= 1 << PB0; /* DTR/RTS is off */
 @y
       PORTB &= ~(1 << PB0); /* DTR/RTs is off */
+@z
+
+@x
+      PORTB |= 1 << PB0; /* use this led to indicate the timeout */
+@y
+      PORTB &= ~(1 << PB0); /* use this led to indicate the timeout */
 @z
 
 @x
