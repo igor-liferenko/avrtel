@@ -46,7 +46,7 @@ void main(void)
   char digit;
   while (1) {
     @<Get |dtr_rts|@>@;
-    if (dtr_rts) {
+    if (dtr_rts == 3) {
       PORTE |= 1 << PE6; /* base station on */
       PORTB &= ~(1 << PB0); /* DTR/RTS is on */
     }
@@ -58,6 +58,13 @@ void main(void)
       }
       PORTB |= 1 << PB0; /* DTR/RTS is off */
         /* FIXME: can this be moved inside `|if|'? */
+      if (dtr_rts == 2) {
+        while (!(UEINTX & 1 << TXINI)) ;
+        UEINTX &= ~(1 << TXINI);
+        UEDATX = 'T';
+        UEINTX &= ~(1 << FIFOCON);
+        _delay_ms(1000);
+      }
     }
     @<Check |PD2| and indicate it via \.{D5} and if it changed, write \.A or \.B
       (the latter only if |dtr_rts|)@>@;
@@ -108,13 +115,15 @@ if (~PIND & 1 << PD2) { /* on-line */
 }
 else { /* off-line */
   if (PORTD & 1 << PD5) { /* transition happened */
-    if (dtr_rts) { /* off-line was not initiated from \.{tel} (off-line is automatically
-      caused by un-powering base station via DTR/RTS) */
+    if (dtr_rts == 3) { /* off-line was initiated from handset; that is, do not send
+      anything if switch-off was done from \.{tel} or \.{tel} was closed
+      (off-line is automatically caused by un-powering base station via DTR/RTS) */
       while (!(UEINTX & 1 << TXINI)) ;
       UEINTX &= ~(1 << TXINI);
       UEDATX = 'B';
       UEINTX &= ~(1 << FIFOCON);
     }
+    else if (dtr_rts == 2) dtr_rts = 3; /* off-line was initiated from \.{tel} via timeout */
   }
   PORTD &= ~(1 << PD5);
     /* FIXME: can this be moved inside `|if|'? */
