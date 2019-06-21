@@ -51,7 +51,6 @@ void main(void)
       PORTB &= ~(1 << PB0); /* DTR/RTS is on */
     }
     else {
-// ??????? why transition detection was here?
       PORTE &= ~(1 << PE6); /* base station off */
       PORTB |= 1 << PB0; /* DTR/RTS is off */
     }
@@ -66,7 +65,7 @@ void main(void)
       _delay_ms(1000); /* timeout is necessary for the base station to react on poweroff;
         handset will indicate the disconnect condition by itself---no LED indication is
         necessary to say that nothing can be pressed during this second */
-      keydetect = 0; /* in case key is pressed right before timeout occurs */
+      keydetect = 0; /* in case key is pressed right before timeout signal handler is called */
     }
     UENUM = EP1; /* restore */
 
@@ -102,7 +101,7 @@ For on-line indication we send \.A to \.{tel}---to put
 it to initial state.
 
 For off-line indication we send \.B to \.{tel}---to disable
-timeout signal handler.
+timeout signal handler (which automatically puts handset off-hook).
 
 @<Check |PD2| and indicate it via \.{D5} and if it changed, write \.A or \.B@>=
 if (~PIND & 1 << PD2) { /* on-line */
@@ -117,7 +116,8 @@ if (~PIND & 1 << PD2) { /* on-line */
 }
 else { /* off-line */
   if (PORTD & 1 << PD5) { /* transition happened */
-    if (dtr_rts) { /* off-line was initiated from handset (not caused by closing \.{tel}) */
+    if (dtr_rts) { /* off-line was initiated from handset (not caused via DTR/RTS
+      by closing \.{tel}) */
       while (!(UEINTX & 1 << TXINI)) ;
       UEINTX &= ~(1 << TXINI);
       UEDATX = 'B';
