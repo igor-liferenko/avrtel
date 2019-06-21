@@ -29,9 +29,9 @@ persists, so do the inversion in change-file to avoid headache.
 @z
 
 @x
-      PORTD &= ~(1 << PD5); /* switch-off on-line indicator */
+      PORTD &= ~(1 << PD5); /* switch-off on-line indicator (this will prevent sending \.B) */
 @y
-      PORTD |= 1 << PD5; /* switch-off on-line indicator */
+      PORTD |= 1 << PD5; /* switch-off on-line indicator (this will prevent sending \.B) */
 @z
 
 @x
