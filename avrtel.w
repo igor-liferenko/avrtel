@@ -55,12 +55,6 @@ void main(void)
       PORTE &= ~(1 << PE6); /* base station off */
       PORTB |= 1 << PB0; /* DTR/RTS is off */
     }
-    if (incoming == '!') {
-      while (!(UEINTX & 1 << TXINI)) ;
-      UEINTX &= ~(1 << TXINI);
-      UEDATX = 'T';
-      UEINTX &= ~(1 << FIFOCON);
-    }
     if (incoming) { /* just poweroff/poweron base station via a relay---this
       will effectively switch off the phone */
       PORTE &= ~(1 << PE6); /* base station off */
