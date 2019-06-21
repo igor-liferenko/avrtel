@@ -62,9 +62,7 @@ void main(void)
       UEINTX &= ~(1 << FIFOCON);
       PORTE &= ~(1 << PE6); /* base station off */
       PORTD &= ~(1 << PD5); /* switch-off on-line indicator (this will prevent sending \.B) */
-      _delay_ms(1000); /* timeout is necessary for the base station to react on poweroff;
-        handset will indicate the disconnect condition by itself---no LED indication is
-        necessary to say that nothing can be pressed during this second */
+      _delay_ms(1000); /* timeout is necessary for the base station to react on poweroff */
       keydetect = 0; /* in case key is pressed right before timeout signal handler is called */
     }
     UENUM = EP1; /* restore */
