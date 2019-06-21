@@ -61,7 +61,7 @@ void main(void)
       UEINTX &= ~(1 << RXOUTI);
       UEINTX &= ~(1 << FIFOCON);
       PORTE &= ~(1 << PE6); /* base station off */
-      PORTD &= ~(1 << PD5); /* switch-off on-line indicator (this will prevent sending \.B) */
+      PORTD &= ~(1 << PD5); /* switch-off on-line indicator */
       _delay_ms(1000); /* timeout is necessary for the base station to react on poweroff */
       keydetect = 0; /* in case key is pressed right before timeout signal handler is called */
     }
@@ -113,7 +113,7 @@ if (~PIND & 1 << PD2) { /* on-line */
     /* FIXME: can this be moved inside `|if|'? */
 }
 else { /* off-line */
-  if (PORTD & 1 << PD5) { /* transition happened */
+  if (PORTD & 1 << PD5) /* transition happened */
     if (dtr_rts) { /* off-line was initiated from handset (not caused via DTR/RTS
       by closing \.{tel}) */
       while (!(UEINTX & 1 << TXINI)) ;
@@ -121,7 +121,6 @@ else { /* off-line */
       UEDATX = 'B';
       UEINTX &= ~(1 << FIFOCON);
     }
-  }
   PORTD &= ~(1 << PD5);
     /* FIXME: can this be moved inside `|if|'? */
 }
