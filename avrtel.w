@@ -46,24 +46,31 @@ void main(void)
   char digit;
   while (1) {
     @<Get |dtr_rts|@>@;
-    @<Check incoming@>@;
     if (dtr_rts) {
       PORTE |= 1 << PE6; /* base station on */
       PORTB &= ~(1 << PB0); /* DTR/RTS is on */
     }
     else {
+// ??????? why transition detection was here?
       PORTE &= ~(1 << PE6); /* base station off */
       PORTB |= 1 << PB0; /* DTR/RTS is off */
     }
-    if (incoming) { /* just poweroff/poweron base station via a relay---this
+
+    UENUM = EP2; /* check if \\{write} was done from host */
+    if (UEINTX & 1 << RXOUTI) { /* just poweroff/poweron base station via a relay---this
       will effectively switch off the phone */
+      UEINTX &= ~(1 << RXOUTI);
+      UEINTX &= ~(1 << FIFOCON);
       PORTE &= ~(1 << PE6); /* base station off */
-      PORTB |= 1 << PB0; /* use this led to indicate the timeout */
-      _delay_ms(1000); /* timeout is necessary for the base station to react on poweroff */
+      PORTD &= ~(1 << PD5); /* switch-off on-line indicator (this will prevent sending \.B) */
+      _delay_ms(1000); /* timeout is necessary for the base station to react on poweroff;
+        handset will indicate the disconnect condition by itself---no LED indication is
+        necessary to say that nothing can be pressed during this second */
       keydetect = 0; /* in case key is pressed right before timeout occurs */
     }
-    @<Check |PD2| and indicate it via \.{D5} and if it changed, write \.A or \.B
-      (the latter only if off-hook was initiated from handset)@>@;
+    UENUM = EP1; /* restore */
+
+    @<Check |PD2| and indicate it via \.{D5} and if it changed, write \.A or \.B@>@;
     if (keydetect) {
       keydetect = 0;
       switch (PINB & (1 << PB4 | 1 << PB5 | 1 << PB6) | PIND & 1 << PD7) {
@@ -95,10 +102,9 @@ For on-line indication we send \.A to \.{tel}---to put
 it to initial state.
 
 For off-line indication we send \.B to \.{tel}---to disable
-timeout signal handler (to put handset off-hook).
+timeout signal handler.
 
-@<Check |PD2| and indicate it via \.{D5} and if it changed, write \.A or \.B
-  (the latter only if off-hook was initiated from handset)@>=
+@<Check |PD2| and indicate it via \.{D5} and if it changed, write \.A or \.B@>=
 if (~PIND & 1 << PD2) { /* on-line */
   if (!(PORTD & 1 << PD5)) { /* transition happened */
     while (!(UEINTX & 1 << TXINI)) ;
@@ -111,13 +117,12 @@ if (~PIND & 1 << PD2) { /* on-line */
 }
 else { /* off-line */
   if (PORTD & 1 << PD5) { /* transition happened */
-    if (dtr_rts && !incoming) { /* off-line was initiated from handset */
+    if (dtr_rts) { /* off-line was initiated from handset (not caused by closing \.{tel}) */
       while (!(UEINTX & 1 << TXINI)) ;
       UEINTX &= ~(1 << TXINI);
       UEDATX = 'B';
       UEINTX &= ~(1 << FIFOCON);
     }
-    incoming = 0;
   }
   PORTD &= ~(1 << PD5);
     /* FIXME: can this be moved inside `|if|'? */
@@ -138,18 +143,6 @@ if (UEINTX & 1 << RXSTPI) {
   UEINTX &= ~(1 << RXSTPI);
   UEINTX &= ~(1 << TXINI); /* STATUS stage */
   dtr_rts = wValue;
-}
-UENUM = EP1; /* restore */
-
-@ @<Global variables@>=
-char incoming = 0;
-
-@ @<Check incoming@>=
-UENUM = EP2;
-if (UEINTX & 1 << RXOUTI) {
-  UEINTX &= ~(1 << RXOUTI);
-  incoming = UEDATX;
-  UEINTX &= ~(1 << FIFOCON);
 }
 UENUM = EP1; /* restore */
 

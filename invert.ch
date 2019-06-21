@@ -29,9 +29,9 @@ persists, so do the inversion in change-file to avoid headache.
 @z
 
 @x
-      PORTB |= 1 << PB0; /* use this led to indicate the timeout */
+      PORTD &= ~(1 << PD5); /* switch-off on-line indicator */
 @y
-      PORTB &= ~(1 << PB0); /* use this led to indicate the timeout */
+      PORTD |= 1 << PD5; /* switch-off on-line indicator */
 @z
 
 @x
