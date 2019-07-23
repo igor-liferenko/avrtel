@@ -14,4 +14,3 @@ clean:
 imgs:
 	@mp avrtel
 	@mp old
-	@perl -ne 'if (/^(.*\.eps): (.*)/) { system "convert $$2 $$1" }' Makefile
