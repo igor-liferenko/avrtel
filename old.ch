@@ -25,12 +25,6 @@ $$\hbox to12.27cm{\kern-0.4pt\vrule\vbox to9.87777777777778cm{%
 @z
 
 @x
-if (PIND & 1 << PD2) { /* on-line */
-@y
-if (!(PIND & 1 << PD2)) { /* on-line */
-@z
-
-@x
 @i ../usb/IN-endpoint-management.w
 @y
 @ @<Set |PD2| to pullup mode@>=
