@@ -13,4 +13,3 @@ clean:
 
 imgs:
 	@mp avrtel
-	@mp old

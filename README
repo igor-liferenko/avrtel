@@ -1,3 +1,0 @@
-old:
-  wmerge avrtel old merged
-  ctangle merged invert avrtel
