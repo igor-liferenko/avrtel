@@ -57,7 +57,7 @@ void main(void)
 
     UENUM = EP2; /* check if \\{write} was done from host */
     if (UEINTX & 1 << RXOUTI) { /* just poweroff/poweron base station via a relay---this
-      will effectively switch off the phone */
+      will effectively disconnect the handset */
       UEINTX &= ~(1 << RXOUTI);
       UEINTX &= ~(1 << FIFOCON);
       PORTE &= ~(1 << PE6); /* base station off */
