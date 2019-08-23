@@ -2,7 +2,7 @@
 % go from the gismo (3 instead of 4)
 
 % NOTE: PB6 and PE6 should have been swapped (in order that other ends of Q1-Q4 were near like
-% Q1-Q4 are, but it is too late now (one of the devices is soldered - no jumpers)
+% Q1-Q4 are, but it is too late now (one of the devices is done by solder)
 
 \let\lheader\rheader
 %\datethis
