@@ -2,7 +2,8 @@
 % go from the gismo (3 instead of 4)
 
 % NOTE: PB6 and PE6 should have been swapped (in order that other ends of Q1-Q4 were near like
-% Q1-Q4 are, but it is too late now (one of the devices is done by solder)
+% Q1-Q4 are; to avoid intersections on the graph: Q1-D7 Q2-E6 Q3-B4 Q4-B5.
+% But it is too late now (one of the devices is done by solder).
 
 \let\lheader\rheader
 %\datethis
