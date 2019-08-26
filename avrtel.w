@@ -98,6 +98,9 @@ optocoupler.
 For on-line indication we send \.A to \.{tel}---to put
 it to initial state.
 
+We must guarantee that \.A is sent before any other character
+can be sent.
+
 For off-line indication we send \.B to \.{tel}---to disable
 timeout signal handler (which automatically puts handset off-hook).
 
