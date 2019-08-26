@@ -12,6 +12,12 @@
 
 @* Program.
 
+Relay on phone line must be optical [?]
+220v [optical] relay does not work - power supply has capacitance (when relay is switched off,
+off-hook state is shown for some time)
+
+see commits earlier c7312d491fc45cc0a8cecb8ff246726b723a2e8e
+
 $$\hbox to12.27cm{\vbox to9.87777777777778cm{\vfil\special{psfile=avrtel.1
   clip llx=-91 lly=-67 urx=209 ury=134 rwi=3478}}\hfil}$$
 
@@ -66,6 +72,9 @@ void main(void)
       keydetect = 0; /* in case key is pressed right before timeout signal handler is called */
     }
     UENUM = EP1; /* restore */
+
+/* TODO: ignore keydetect if not on-line (on-line can only happen when tel is started) - then
+only one (inverted) relay may be used (TLP281) */
 
     @<Check |PD2| and indicate it via \.{D5} and if it changed, write \.A or \.B@>@;
     if (keydetect) {
