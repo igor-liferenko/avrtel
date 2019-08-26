@@ -14,7 +14,9 @@
 
 Relay on phone line must be optical [?]
 220v [optical] relay does not work - power supply has capacitance (when relay is switched off,
-off-hook state is shown for some time)
+off-hook state is shown for some time) How to reproduce: connect to TTY (to activate 
+line), press "A" (off-hook), disconnect from TTY (to deactivate line) - on-line indication
+is on for some time after that
 
 see commits earlier c7312d491fc45cc0a8cecb8ff246726b723a2e8e
 
