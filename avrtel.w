@@ -12,6 +12,8 @@
 
 @* Program.
 
+TODO: use TLP281; on C610 tear phone line, on others tear power line
+
 $$\hbox to12.27cm{\vbox to9.87777777777778cm{\vfil\special{psfile=avrtel.1
   clip llx=-91 lly=-67 urx=209 ury=134 rwi=3478}}\hfil}$$
 
@@ -89,7 +91,8 @@ if (UEINTX & 1 << RXOUTI) {
   UEINTX &= ~(1 << RXOUTI);
   UEINTX &= ~(1 << FIFOCON);
   PORTE |= 1 << PE6; @+ keydetect = 0; /* DTMF is not possible now */
-  @<Switch-off on-line indicator@>@; @+ @<Say \.{tel} that we are off-line@>@;
+  @<Switch-off on-line indicator@>@;
+  @<Say \.{tel} that we are off-line@>@;
   _delay_ms(20000); /* empirical */
   PORTE &= ~(1 << PE6); /* restore */
 }
@@ -101,17 +104,15 @@ optocoupler.
 @<Check |PD2| and indicate it via \.{D5} and if it changed, write \.A or \.B@>=
 if (@<On-line@>) {
   if (@<On-lin{e} indicator is not switched-on@>) {
+    @<Switch-on on-line indicator@>@;
     @<Say \.{tel} that we are on-line@>@;
   }
-  @<Switch-on on-line indicator@>@;
-    /* FIXME: can this be moved inside `|if|'? */
 }
 if (@<Off-line@>) {
   if (@<On-lin{e} indicator is switched-on@>) {
+    @<Switch-off on-line indicator@>@;
     @<Say \.{tel} that we are off-line@>@;
   }
-  @<Switch-off on-line indicator@>@;
-    /* FIXME: can this be moved inside `|if|'? */
 }
 
 @ @<On-line@>=
