@@ -48,7 +48,7 @@ void main(void)
   char digit;
   while (1) {
     @<Get |dtr_rts|@>@;
-    if (dtr_rts)
+    if (dtr_rts) @/
       @<Indicate that DTR/RTS is enabled@>@;
     else {
       @<Indicate that DTR/RTS is disabled@>@;
@@ -60,7 +60,7 @@ void main(void)
     if (dtr_rts) @<Check |PD2| and indicate it via \.{D5} and if it changed, write \.A or \.B@>@;
     if (keydetect) {
       keydetect = 0;
-      if (!dtr_rts) continue;
+      if @<On-lin{e} indicator is not switched-on@> continue;
       switch (PINB & (1 << PB4 | 1 << PB5 | 1 << PB6) | PIND & 1 << PD7) {
       case 0x10: digit = '1'; @+ break;
       case 0x20: digit = '2'; @+ break;
@@ -90,11 +90,10 @@ UENUM = EP2;
 if (UEINTX & 1 << RXOUTI) {
   UEINTX &= ~(1 << RXOUTI);
   UEINTX &= ~(1 << FIFOCON);
-  PORTE |= 1 << PE6; @+ keydetect = 0; /* DTMF is not possible now */
   @<Switch-off on-line indicator@>@;
-  @<Say \.{tel} that we are off-line@>@;
+  PORTE |= 1 << PE6;
   _delay_ms(20000); /* empirical */
-  PORTE &= ~(1 << PE6); /* restore */
+  PORTE &= ~(1 << PE6);
 }
 UENUM = EP1; /* restore */
 
