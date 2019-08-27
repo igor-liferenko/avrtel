@@ -101,13 +101,13 @@ UENUM = EP1; /* restore */
 if @<On-line@> {
   if @<On-lin{e} indicator is not switched-on@> {
     @<Switch-on on-line indicator@>@;
-    @<Say \.{tel} that we are on-line@>@;
+    @<Tell \.{tel} that we are on-line@>@;
   }
 }
 else {
   if @<On-lin{e} indicator is switched-on@> {
     @<Switch-off on-line indicator@>@;
-    @<Say \.{tel} that we are off-line@>@;
+    @<Tell \.{tel} that we are off-line@>@;
   }
 }
 
@@ -129,13 +129,13 @@ PORTD |= 1 << PD5;
 @ @<Switch-off on-line indicator@>=
 PORTD &= ~(1 << PD5);
 
-@ @<Say \.{tel} that we are on-line@>=
+@ @<Tell \.{tel} that we are on-line@>=
 while (!(UEINTX & 1 << TXINI)) ;
 UEINTX &= ~(1 << TXINI);
 UEDATX = 'A';
 UEINTX &= ~(1 << FIFOCON);
 
-@ @<Say \.{tel} that we are off-line@>=
+@ @<Tell \.{tel} that we are off-line@>=
 while (!(UEINTX & 1 << TXINI)) ;
 UEINTX &= ~(1 << TXINI);
 UEDATX = 'B';
