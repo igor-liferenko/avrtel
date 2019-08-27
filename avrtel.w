@@ -102,30 +102,30 @@ UENUM = EP1; /* restore */
 optocoupler.
 
 @<Check |PD2| and indicate it via \.{D5} and if it changed, write \.A or \.B@>=
-if (@<On-line@>) {
-  if (@<On-lin{e} indicator is not switched-on@>) {
+if @<On-line@> {
+  if @<On-lin{e} indicator is not switched-on@> {
     @<Switch-on on-line indicator@>@;
     @<Say \.{tel} that we are on-line@>@;
   }
 }
-if (@<Off-line@>) {
-  if (@<On-lin{e} indicator is switched-on@>) {
+if @<Off-line@> {
+  if @<On-lin{e} indicator is switched-on@> {
     @<Switch-off on-line indicator@>@;
     @<Say \.{tel} that we are off-line@>@;
   }
 }
 
 @ @<On-line@>=
-~PIND & 1 << PD2
+(~PIND & 1 << PD2)
 
 @ @<Off-line@>=
-PIND & 1 << PD2
+(PIND & 1 << PD2)
 
 @ @<On-lin{e} indicator is switched-on@>=
-PORTD & 1 << PD5
+(PORTD & 1 << PD5)
 
 @ @<On-lin{e} indicator is not switched-on@>=
-~PORTD & 1 << PD5
+(~PORTD & 1 << PD5)
 
 @ @<Switch-on on-line indicator@>=
 PORTD |= 1 << PD5;
