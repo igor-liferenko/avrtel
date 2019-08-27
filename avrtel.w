@@ -12,8 +12,7 @@
 
 @* Program.
 
-TODO: use TLP281 (on C610 tear phone line, on others tear power line);
-      use micro (see matrix.mp)
+TODO: use TLP281 (on C610 tear phone line, on others tear power line)
 
 $$\hbox to12.27cm{\vbox to9.87777777777778cm{\vfil\special{psfile=avrtel.1
   clip llx=-91 lly=-67 urx=209 ury=134 rwi=3478}}\hfil}$$
