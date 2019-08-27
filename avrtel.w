@@ -58,7 +58,7 @@ void main(void)
 
     @<If USB host sent us data, disconnect the handset@>@;
 
-    if (dtr_rts) @<Check |PD2| and indicate it via \.{D5} and if it changed, write \.A or \.B@>@;
+    if (dtr_rts) @<Check on-line/off-line state@>@;
     if (keydetect) {
       keydetect = 0;
       if @<On-lin{e} indicator is not switched-on@> continue;
@@ -98,10 +98,7 @@ if (UEINTX & 1 << RXOUTI) {
 }
 UENUM = EP1; /* restore */
 
-@ We check if handset is in use by using a switch. The switch is
-optocoupler.
-
-@<Check |PD2| and indicate it via \.{D5} and if it changed, write \.A or \.B@>=
+@ @<Check on-line/off-line state@>=
 if @<On-line@> {
   if @<On-lin{e} indicator is not switched-on@> {
     @<Switch-on on-line indicator@>@;
@@ -115,7 +112,10 @@ else {
   }
 }
 
-@ @<On-line@>=
+@ We check if handset is in use by using a switch. The switch is
+optocoupler.
+
+@<On-line@>=
 (~PIND & 1 << PD2)
 
 @ @<On-lin{e} indicator is switched-on@>=
