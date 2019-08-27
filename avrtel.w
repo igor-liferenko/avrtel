@@ -38,8 +38,8 @@ void main(void)
     that USB RESET interrupt is enabled (we cannot disable it because USB host
     may be rebooted) TODO: see also note in avr/TIPS */
   DDRD |= 1 << PD5; /* to show on-line/off-line state and to determine when transition happens */
-  DDRB |= 1 << PB0; /* to show DTR/RTS state and and to determine when transition happens */
-  PORTB |= 1 << PB0; /* on when DTR/RTS is off */
+  DDRB |= 1 << PB0; /* to indicate DTR/RTS state */
+  @<Indicate that DTR/RTS is disabled@>@;
   DDRE |= 1 << PE6;
   UENUM = EP1;
   PORTD |= 1 << PD2; @+ _delay_us(1); /* pull-up + delay before reading */
@@ -47,9 +47,9 @@ void main(void)
   while (1) {
     @<Get |dtr_rts|@>@;
     if (dtr_rts)
-      PORTB &= ~(1 << PB0); /* DTR/RTS is on */
+      @<Indicate that DTR/RTS is enabled@>@;
     else {
-      PORTB |= 1 << PB0; /* DTR/RTS is off */
+      @<Indicate that DTR/RTS is disabled@>@;
       @<Switch-off on-line indicator@>@;
     }
 
@@ -89,7 +89,7 @@ if (UEINTX & 1 << RXOUTI) {
   UEINTX &= ~(1 << RXOUTI);
   UEINTX &= ~(1 << FIFOCON);
   PORTE |= 1 << PE6; @+ keydetect = 0; /* DTMF is not possible now */
-  @<Switch-off on-line indicator@>@; @+ @<Send \.B@>@;
+  @<Switch-off on-line indicator@>@; @+ @<Say \.{tel} that we are off-line@>@;
   _delay_ms(20000); /* empirical */
   PORTE &= ~(1 << PE6); /* restore */
 }
@@ -98,23 +98,17 @@ UENUM = EP1; /* restore */
 @ We check if handset is in use by using a switch. The switch is
 optocoupler.
 
-For on-line indication we send \.A to \.{tel}---to put
-it to initial state.
-
-For off-line indication we send \.B to \.{tel}---to disable
-timeout signal handler (which automatically puts handset off-hook).
-
 @<Check |PD2| and indicate it via \.{D5} and if it changed, write \.A or \.B@>=
 if (@<On-line@>) {
   if (@<On-lin{e} indicator is not switched-on@>) {
-    @<Send \.A@>@;
+    @<Say \.{tel} that we are on-line@>@;
   }
   @<Switch-on on-line indicator@>@;
     /* FIXME: can this be moved inside `|if|'? */
 }
 if (@<Off-line@>) {
   if (@<On-lin{e} indicator is switched-on@>) {
-    @<Send \.B@>@;
+    @<Say \.{tel} that we are off-line@>@;
   }
   @<Switch-off on-line indicator@>@;
     /* FIXME: can this be moved inside `|if|'? */
@@ -138,17 +132,26 @@ PORTD |= 1 << PD5;
 @ @<Switch-off on-line indicator@>=
 PORTD &= ~(1 << PD5); 
 
-@ @<Send \.A@>=
+@ @<Say \.{tel} that we are on-line@>=
 while (!(UEINTX & 1 << TXINI)) ;
 UEINTX &= ~(1 << TXINI);
 UEDATX = 'A';
 UEINTX &= ~(1 << FIFOCON);
 
-@ @<Send \.B@>=
+@ @<Say \.{tel} that we are off-line@>=
 while (!(UEINTX & 1 << TXINI)) ;
 UEINTX &= ~(1 << TXINI);
 UEDATX = 'B';
 UEINTX &= ~(1 << FIFOCON);
+
+@ In operation it is enabled, so we need not the led glowing all the time.
+Thus, indicate inversely.
+
+@<Indicate that DTR/RTS is enabled@>=
+PORTB &= ~(1 << PB0);
+
+@ @<Indicate that DTR/RTS is disabled@>=
+PORTB |= 1 << PB0;
 
 @ No other requests except {\caps set control line state} come
 after connection is established.
