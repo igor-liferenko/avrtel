@@ -131,7 +131,7 @@ if @<Off-line@> {
 PORTD |= 1 << PD5;
 
 @ @<Switch-off on-line indicator@>=
-PORTD &= ~(1 << PD5); 
+PORTD &= ~(1 << PD5);
 
 @ @<Say \.{tel} that we are on-line@>=
 while (!(UEINTX & 1 << TXINI)) ;

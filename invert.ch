@@ -12,48 +12,42 @@ persists, so do the inversion in change-file to avoid headache.
 @z
 
 @x
-  PORTB |= 1 << PB0; /* on when DTR/RTS is off */
+  @<Indicate that DTR/RTS is disabled@>@;
 @y
 @z
 
 @x
-      PORTB &= ~(1 << PB0); /* DTR/RTS is on */      
+(PORTD & 1 << PD5)
 @y
-      PORTB |= 1 << PB0; /* DTR/RTS is on */
+(~PORTD & 1 << PD5)
 @z
 
 @x
-      PORTB |= 1 << PB0; /* DTR/RTS is off */
+(~PORTD & 1 << PD5)
 @y
-      PORTB &= ~(1 << PB0); /* DTR/RTs is off */
+(PORTD & 1 << PD5)
 @z
 
 @x
-      PORTD &= ~(1 << PD5); /* switch-off on-line indicator */
+PORTD |= 1 << PD5;
 @y
-      PORTD |= 1 << PD5; /* switch-off on-line indicator */
+PORTD &= ~(1 << PD5);
 @z
 
 @x
-  if (!(PORTD & 1 << PD5)) { /* transition happened */
+PORTD &= ~(1 << PD5); 
 @y
-  if (PORTD & 1 << PD5) { /* transition happened */
+PORTD |= 1 << PD5; 
 @z
 
 @x
-  PORTD |= 1 << PD5;
+PORTB &= ~(1 << PB0);
 @y
-  PORTD &= ~(1 << PD5);
+PORTB |= 1 << PB0;
 @z
 
 @x
-  if (PORTD & 1 << PD5) /* transition happened */
+PORTB |= 1 << PB0;
 @y
-  if (!(PORTD & 1 << PD5)) /* transition happened */
-@z
-
-@x
-  PORTD &= ~(1 << PD5);
-@y
-  PORTD |= 1 << PD5;
+PORTB &= ~(1 << PB0);
 @z
