@@ -93,7 +93,7 @@ if (UEINTX & 1 << RXOUTI) {
   UEINTX &= ~(1 << FIFOCON);
   @<Switch-off on-line indicator@>@;
   PORTE |= 1 << PE6; @+ PORTC |= 1 << PC7;
-  _delay_ms(20000); /* empirical */
+  _delay_ms(20000);
   PORTE &= ~(1 << PE6); @+ PORTC &= ~(1 << PC7);
 }
 UENUM = EP1; /* restore */
