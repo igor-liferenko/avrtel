@@ -25,14 +25,6 @@ enddef;
 
 % TODO: do boxes with 4 corners via "boxit", like "phone" (use "drawboxes(box4); draw pic(box4) shifted (0,-1cm);" to position label not in center)
 
-vardef piggyback(expr p) =
-save A,u; pair A,u;
-u := unitvector(p-(xpart(p),ypart(1/2[arduino1,arduino3])));
-A := p+u*1.5mm;
-draw p -- A withpen pencircle scaled .4pt;
-draw (A - 2pt*u rotated 20) -- A -- (A - 2pt*u rotated -20) withpen pencircle scaled .4pt;
-enddef;
-
 beginfig(1);
 
 %%%%%%%%% Arduino %%%%%%%%%%%%%
