@@ -43,8 +43,7 @@ void main(void)
   DDRD |= 1 << PD5; /* to show on-line/off-line state and to determine when transition happens */
   DDRB |= 1 << PB0; /* to indicate DTR/RTS state */
   @<Indicate that DTR/RTS is disabled@>@;
-  DDRE |= 1 << PE6;
-  DDRC |= 1 << PC7;
+  DDRE |= 1 << PE6; @+ DDRC |= 1 << PC7;
   UENUM = EP1;
   PORTD |= 1 << PD2; @+ _delay_us(1); /* pull-up + delay before reading */
   char digit;
