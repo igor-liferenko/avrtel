@@ -12,7 +12,8 @@
 
 @* Program.
 
-TODO: use TLP281; on C610 tear phone line, on others tear power line
+TODO: use TLP281 (on C610 tear phone line, on others tear power line);
+      use micro (see matrix.mp)
 
 $$\hbox to12.27cm{\vbox to9.87777777777778cm{\vfil\special{psfile=avrtel.1
   clip llx=-91 lly=-67 urx=209 ury=134 rwi=3478}}\hfil}$$
@@ -43,6 +44,7 @@ void main(void)
   DDRB |= 1 << PB0; /* to indicate DTR/RTS state */
   @<Indicate that DTR/RTS is disabled@>@;
   DDRE |= 1 << PE6;
+  DDRC |= 1 << PC7;
   UENUM = EP1;
   PORTD |= 1 << PD2; @+ _delay_us(1); /* pull-up + delay before reading */
   char digit;
@@ -91,9 +93,9 @@ if (UEINTX & 1 << RXOUTI) {
   UEINTX &= ~(1 << RXOUTI);
   UEINTX &= ~(1 << FIFOCON);
   @<Switch-off on-line indicator@>@;
-  PORTE |= 1 << PE6;
+  PORTE |= 1 << PE6; @+ PORTC |= 1 << PC7;
   _delay_ms(20000); /* empirical */
-  PORTE &= ~(1 << PE6);
+  PORTE &= ~(1 << PE6); @+ PORTC |= 1 << PC7;
 }
 UENUM = EP1; /* restore */
 
@@ -107,7 +109,7 @@ if @<On-line@> {
     @<Say \.{tel} that we are on-line@>@;
   }
 }
-if @<Off-line@> {
+else {
   if @<On-lin{e} indicator is switched-on@> {
     @<Switch-off on-line indicator@>@;
     @<Say \.{tel} that we are off-line@>@;
@@ -116,9 +118,6 @@ if @<Off-line@> {
 
 @ @<On-line@>=
 (~PIND & 1 << PD2)
-
-@ @<Off-line@>=
-(PIND & 1 << PD2)
 
 @ @<On-lin{e} indicator is switched-on@>=
 (PORTD & 1 << PD5)
