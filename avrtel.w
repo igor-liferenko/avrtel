@@ -12,14 +12,6 @@
 
 @* Program.
 
-Relay on phone line must be optical [?]
-220v [optical] relay does not work - power supply has capacitance (when relay is switched off,
-off-hook state is shown for some time) How to reproduce: connect to TTY (to activate 
-line), press "A" (off-hook), disconnect from TTY (to deactivate line) - on-line indication
-is on for some time after that
-
-see commits earlier c7312d491fc45cc0a8cecb8ff246726b723a2e8e
-
 $$\hbox to12.27cm{\vbox to9.87777777777778cm{\vfil\special{psfile=avrtel.1
   clip llx=-91 lly=-67 urx=209 ury=134 rwi=3478}}\hfil}$$
 
@@ -48,39 +40,25 @@ void main(void)
   DDRD |= 1 << PD5; /* to show on-line/off-line state and to determine when transition happens */
   DDRB |= 1 << PB0; /* to show DTR/RTS state and and to determine when transition happens */
   PORTB |= 1 << PB0; /* on when DTR/RTS is off */
-  DDRE |= 1 << PE6; /* to power base station on and off */
+  DDRE |= 1 << PE6;
   UENUM = EP1;
   PORTD |= 1 << PD2; @+ _delay_us(1); /* pull-up + delay before reading */
   char digit;
   while (1) {
     @<Get |dtr_rts|@>@;
-    if (dtr_rts) {
-      PORTE |= 1 << PE6; /* base station on */
+    if (dtr_rts)
       PORTB &= ~(1 << PB0); /* DTR/RTS is on */
-    }
     else {
-      PORTE &= ~(1 << PE6); /* base station off */
       PORTB |= 1 << PB0; /* DTR/RTS is off */
+      @<Switch-off on-line indicator@>@;
     }
 
-    UENUM = EP2; /* check if \\{write} was done from host */
-    if (UEINTX & 1 << RXOUTI) { /* just poweroff/poweron base station via a relay---this
-      will effectively disconnect the handset */
-      UEINTX &= ~(1 << RXOUTI);
-      UEINTX &= ~(1 << FIFOCON);
-      PORTE &= ~(1 << PE6); /* base station off */
-      PORTD &= ~(1 << PD5); /* switch-off on-line indicator */
-      _delay_ms(1000); /* timeout is necessary for the base station to react on poweroff */
-      keydetect = 0; /* in case key is pressed right before timeout signal handler is called */
-    }
-    UENUM = EP1; /* restore */
+    @<If USB host sent us data, disconnect the handset@>@;
 
-/* TODO: ignore keydetect if not on-line (on-line can only happen when tel is started) - then
-only one (inverted) relay may be used (TLP281) */
-
-    @<Check |PD2| and indicate it via \.{D5} and if it changed, write \.A or \.B@>@;
+    if (dtr_rts) @<Check |PD2| and indicate it via \.{D5} and if it changed, write \.A or \.B@>@;
     if (keydetect) {
       keydetect = 0;
+      if (!dtr_rts) continue;
       switch (PINB & (1 << PB4 | 1 << PB5 | 1 << PB6) | PIND & 1 << PD7) {
       case 0x10: digit = '1'; @+ break;
       case 0x20: digit = '2'; @+ break;
@@ -103,41 +81,74 @@ only one (inverted) relay may be used (TLP281) */
   }
 }
 
+@ Just tear/restore phone line.
+
+@<If USB host sent us data, disconnect the handset@>=
+UENUM = EP2;
+if (UEINTX & 1 << RXOUTI) {
+  UEINTX &= ~(1 << RXOUTI);
+  UEINTX &= ~(1 << FIFOCON);
+  PORTE |= 1 << PE6; @+ keydetect = 0; /* DTMF is not possible now */
+  @<Switch-off on-line indicator@>@; @+ @<Send \.B@>@;
+  _delay_ms(20000); /* empirical */
+  PORTE &= ~(1 << PE6); /* restore */
+}
+UENUM = EP1; /* restore */
+
 @ We check if handset is in use by using a switch. The switch is
 optocoupler.
 
 For on-line indication we send \.A to \.{tel}---to put
 it to initial state.
 
-We must guarantee that \.A is sent before any other character
-can be sent.
-
 For off-line indication we send \.B to \.{tel}---to disable
 timeout signal handler (which automatically puts handset off-hook).
 
 @<Check |PD2| and indicate it via \.{D5} and if it changed, write \.A or \.B@>=
-if (~PIND & 1 << PD2) { /* on-line */
-  if (!(PORTD & 1 << PD5)) { /* transition happened */
-    while (!(UEINTX & 1 << TXINI)) ;
-    UEINTX &= ~(1 << TXINI);
-    UEDATX = 'A';
-    UEINTX &= ~(1 << FIFOCON);
+if (@<On-line@>) {
+  if (@<On-lin{e} indicator is not switched-on@>) {
+    @<Send \.A@>@;
   }
-  PORTD |= 1 << PD5;
+  @<Switch-on on-line indicator@>@;
     /* FIXME: can this be moved inside `|if|'? */
 }
-else { /* off-line */
-  if (PORTD & 1 << PD5) /* transition happened */
-    if (dtr_rts) { /* off-line was initiated from handset (not caused via DTR/RTS
-      by closing \.{tel}) */
-      while (!(UEINTX & 1 << TXINI)) ;
-      UEINTX &= ~(1 << TXINI);
-      UEDATX = 'B';
-      UEINTX &= ~(1 << FIFOCON);
-    }
-  PORTD &= ~(1 << PD5);
+if (@<Off-line@>) {
+  if (@<On-lin{e} indicator is switched-on@>) {
+    @<Send \.B@>@;
+  }
+  @<Switch-off on-line indicator@>@;
     /* FIXME: can this be moved inside `|if|'? */
 }
+
+@ @<On-line@>=
+~PIND & 1 << PD2
+
+@ @<Off-line@>=
+PIND & 1 << PD2
+
+@ @<On-lin{e} indicator is switched-on@>=
+PORTD & 1 << PD5
+
+@ @<On-lin{e} indicator is not switched-on@>=
+~PORTD & 1 << PD5
+
+@ @<Switch-on on-line indicator@>=
+PORTD |= 1 << PD5;
+
+@ @<Switch-off on-line indicator@>=
+PORTD &= ~(1 << PD5); 
+
+@ @<Send \.A@>=
+while (!(UEINTX & 1 << TXINI)) ;
+UEINTX &= ~(1 << TXINI);
+UEDATX = 'A';
+UEINTX &= ~(1 << FIFOCON);
+
+@ @<Send \.B@>=
+while (!(UEINTX & 1 << TXINI)) ;
+UEINTX &= ~(1 << TXINI);
+UEDATX = 'B';
+UEINTX &= ~(1 << FIFOCON);
 
 @ No other requests except {\caps set control line state} come
 after connection is established.
