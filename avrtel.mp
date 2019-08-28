@@ -292,5 +292,5 @@ xpart(wire14[3])=xpart(wire14[2]); ypart(wire14[3])=ypart(optron.n);
 draw arduino.D2 -- wire14[1] -- wire14[2] -- wire14[3];
 
 endfig;
-end
+
 end
