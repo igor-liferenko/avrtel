@@ -5,6 +5,8 @@
 
 @* Program.
 
+NOTE: This program uses DTR/RTS to ensure that \.A is sent before anything else can be sent.
+
 NOTE: on C610 tear phone line (tearing power line disconnects the handset with no audible
 signalling from the handset (necessary for feedback of timeout and mpc update finish time);
 also, it breaks SIP registrations), on others tear power line (tearing phone line does not
