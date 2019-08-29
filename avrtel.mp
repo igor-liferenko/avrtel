@@ -1,4 +1,4 @@
-%outputtemplate:="%j.eps"; prologues:=3;
+%outputtemplate:="%j.eps"; prologues:=3; fontmapfile "pdftex.map";
 
 input rboxes;
 
@@ -12,13 +12,6 @@ verbatimtex
 \font\twlss=cmss12
 \font\eighttt=cmtt8
 etex
-
-% use this workaround until mpost will be fixed:
-fontmapline "+cmss17 <cmss17.pfb";
-fontmapline "+cmss10 <cmss10.pfb";
-fontmapline "+cmss8 <cmss8.pfb";
-fontmapline "+cmss12 <cmss12.pfb";
-fontmapline "+cmtt8 <cmtt8.pfb";
 
 % RULES:
 %  1) set wire relative to itself and to connection points (never relative to other wires or elements)
