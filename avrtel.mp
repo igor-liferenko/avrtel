@@ -1,4 +1,5 @@
-%outputtemplate:="%j.eps"; prologues:=3; fontmapfile "pdftex.map";
+%outputtemplate:="%j.eps"; prologues:=3;
+fontmapfile "pdftex.map";
 
 input rboxes;
 
