@@ -5,6 +5,9 @@
 
 @* Program.
 
+UPDATE: Don't use TLP281 - with it we cannot indicate to the user when connection with {\sl tel\/}
+is established. Use mechanical relay, and change this program and avrtel.mp accordingly.
+
 NOTE: This program uses DTR/RTS to ensure that \.A is sent before anything else can be sent.
 
 NOTE: on C610 tear phone line (tearing power line disconnects the handset with no audible
